@@ -1,0 +1,34 @@
+body {
+    font-family: sans-serif;
+}
+
+.page-navigation {
+    background-color: cadetblue;
+}
+.page-navigation a {
+    padding: 20px;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+}
+.page-content {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main-heading {
+    text-align: center;
+}
+article h3 {
+    color: cadetblue;
+    font-size: 28px;
+}
+article p {
+    text-align: justify;
+    line-height: 28px;
+}
+article img {
+    float: left;
+    width: 150px;
+    margin: 20px;
+}
