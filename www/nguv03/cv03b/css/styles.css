@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: white;
+}
+
+.flex-parent {
+    display: flex;
+    flex-direction: row;
+    background-color: brown;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+}
+.flex-child {
+    width: calc(100% / 5);
+    height: 50px;
+    background-color: rgb(105, 215, 95);
+}
+.blue {
+    background-color: blue;
+}
+.orange {
+    background-color: orange;
+}
+
+header, aside, section, footer, article {
+    padding: 20px;
+    border: 10px solid white;
+    border-radius: 20px;
+}
+main {
+    flex-wrap: wrap;
+}
+header {
+    background-color: rgb(87, 87, 212);
+}
+aside {
+    background-color: rgb(211, 115, 71);
+}
+section {
+    background-color: rgb(172, 172, 172);
+}
+article {
+    background-color: rgb(120, 29, 169);
+}
+footer {
+    background-color: rgb(68, 202, 117);
+}
+@media screen and (min-width: 800px) {
+    main {
+        display: flex;
+    }
+    aside {
+        width: 30%;
+    }
+    section {
+        width: 70%;
+    }
+    article {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 1280px) {
+    aside {
+        width: 30%;
+    }
+    section {
+        width: 40%;
+    }
+    article {
+        width: 30%;
+    }
+}
+@media print {
+    img {
+        display: none;
+    }
+    header, aside, section, footer, article {
+        background-color: white;
+        padding: 10px;
+        color: black;
+    }
+}
