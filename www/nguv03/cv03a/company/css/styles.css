@@ -1,0 +1,218 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.spinner {
+    border: 20px solid firebrick;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border-left-color: rgb(50, 50, 165);
+    animation: spinning 0.5s linear infinite;
+    position: fixed;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+}
+@keyframes spinning {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+header {
+    border-top: 5px solid cadetblue;
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/e7e240b4-382d-4b09-a62b-2ad43e03b518);
+    background-size: contain;
+    display: inline-block;
+    text-indent: 50px;
+    background-repeat: no-repeat;
+    padding: 15px 0;
+    font-weight: bold;
+}
+nav a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 10px;
+    text-transform: uppercase;
+    color: #434343;
+}
+.showcase-heading {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/d0430f61-b06f-42ef-9f3e-a207d18be834);
+    background-size: cover;
+    padding: 50px;
+    background-position: center;
+}
+.showcase-heading h1, .showcase-heading h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    max-width: 1024px;
+    margin: 10px auto;
+}
+main {
+    max-width: 1024px;
+    margin: 0 auto;
+    line-height: 24px;
+}
+.products-heading {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/a8ad1146-4eb0-4bd4-8170-e1764783e892);
+    padding: 40px 0;
+    background-position: center;
+    background-size: cover;
+}
+.products-heading h2 {
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    padding: 10px 0;
+}
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+.products li {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.products p {
+    flex-grow: 1;
+}
+.products h2 {
+    border-bottom: 5px solid cadetblue;
+}
+.products li:nth-child(1) h2 { border-color: skyblue }
+.products li:nth-child(2) h2 { border-color: yellow }
+.products li:nth-child(3) h2 { border-color: blue }
+.products li:nth-child(4) h2 { border-color: brown }
+.products li:nth-child(5) h2 { border-color: red }
+.products li:nth-child(6) h2 { border-color: pink }
+.products li:nth-child(7) h2 { border-color: green }
+.products li:nth-child(8) h2 { border-color: lightgreen }
+
+.products button {
+    background-color: firebrick;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    padding: 10px 40px;
+    transition: background-color 0.5s ease;
+    cursor: pointer;
+}
+.products button:hover {
+    background-color: rgb(87, 18, 18);
+}
+
+.copyright {
+    background-color: black;
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+}
+.social-paragraph {
+    text-align: center;
+}
+.social {
+    text-align: center;
+}
+.social button {
+    background-color: transparent;
+    border: none;
+    color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+}
+.social-x {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/b3618703-e074-4e15-b6e7-6d6a8445aa1f);
+}
+.social-facebook {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/c1a822e8-b0fd-4129-8018-4a2a00e7c2ad);
+}
+.social-instagram {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/db53f664-a901-4d81-bcae-45a26dc6e6e9);
+}
+
+@media screen and (min-width: 720px) {
+    .products li {
+        width: calc(100% / 3);
+    }
+}
+@media screen and (min-width: 1280px) {
+    .products li {
+        width: calc(100% / 4);
+    }
+}
+@media print { /* print */
+    .products button {
+        display: none;
+    }
+    .products h2 {
+        border: none;
+        margin: 0;
+    }
+    .showcase-heading {
+        background-image: none;
+        padding: 0;
+    }
+    .showcase-heading h1, .showcase-heading h3 {
+        color: black;
+        background-color: white;
+        margin: 0 auto;
+    }
+    .products-heading {
+        background-image: none;
+        padding: 0;
+    }
+    .copyright {
+        background-color: white;
+        color: black;
+    }
+}
