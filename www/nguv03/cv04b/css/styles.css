@@ -1,0 +1,209 @@
+* {
+    box-sizing: border-box; /* prevent problems with extra paddings */
+}
+
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    border: 20px solid firebrick;
+    border-radius: 50%;
+    border-top-color: cadetblue;
+    animation: spinning 1s linear infinite;
+    position: fixed;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+}
+
+@keyframes spinning {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+body {
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+header {
+    border-top: 5px solid cadetblue;
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    display: inline-block;
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/e7e240b4-382d-4b09-a62b-2ad43e03b518);
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-indent: 70px;
+    padding: 20px 0;
+    font-weight: bold;
+}
+nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 20px 10px;
+    color: black;
+}
+nav a:hover {
+    background-color: cadetblue;
+    color: white;
+}
+.showcase-heading {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/d0430f61-b06f-42ef-9f3e-a207d18be834);
+    background-size: cover;
+    background-position: center;
+    padding: 80px 0;
+}
+.showcase-heading h1, .showcase-heading h3 {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+main {
+    max-width: 1024px;
+    margin: 0 auto;
+    line-height: 24px;
+}
+.products-heading {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/a8ad1146-4eb0-4bd4-8170-e1764783e892);
+    padding: 40px 0;
+    background-position: center;
+    background-size: cover;
+}
+.products-heading h2 {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 0;
+}
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+.products li {
+    padding: 10px;
+    width: calc(100% / 1);
+    display: flex;
+    flex-direction: column;
+}
+.products p {
+    flex-grow: 1;
+}
+.products h2 {
+    border-bottom: 5px solid cadetblue;
+}
+.products li:nth-child(1) h2 { border-color: rgb(96, 166, 193); }
+.products li:nth-child(2) h2 { border-color: rgb(198, 198, 108); }
+.products li:nth-child(3) h2 { border-color: rgb(80, 80, 186); }
+.products li:nth-child(4) h2 { border-color: rgb(154, 71, 71); }
+.products li:nth-child(5) h2 { border-color: rgb(145, 35, 35); }
+.products li:nth-child(6) h2 { border-color: rgb(187, 116, 128); }
+.products li:nth-child(7) h2 { border-color: rgb(52, 104, 52); }
+.products li:nth-child(8) h2 { border-color: rgb(106, 175, 106); }
+
+.products button {
+    background-color: tomato;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 30px;
+    color: white;
+    transition: background-color 0.5s linear;
+    cursor: pointer;
+}
+.products button:hover {
+    background-color: rgb(156, 61, 44);
+}
+.copyright {
+    text-align: center;
+    color: white;
+    background-color: black;
+    padding: 50px 0;
+}
+.social-paragraph {
+    text-align: center;
+}
+.social-icons {
+    background-color: #e9e9e9;
+    padding: 20px 0;
+    text-align: center;
+}
+.social-icons a {
+    color: transparent;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+}
+.social-icon-facebook {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/b3618703-e074-4e15-b6e7-6d6a8445aa1f);
+}
+.social-icon-x {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/c1a822e8-b0fd-4129-8018-4a2a00e7c2ad);
+}
+.social-icon-instagram {
+    background-image: url(https://github.com/nvbach91/nvbach91/assets/20724910/db53f664-a901-4d81-bcae-45a26dc6e6e9);
+}
+
+@media screen and (min-width: 720px) {
+    .products li {
+        width: calc(100% / 2);
+    }
+}
+@media screen and (min-width: 1024px) {
+    .products li {
+        width: calc(100% / 3);
+    }
+}
+@media screen and (min-width: 1280px) {
+    .products li {
+        width: calc(100% / 4);
+    }
+}
+
+@media print { /* print */
+    .showcase-heading {
+        background-image: none;
+        padding: 0;
+    }
+    .showcase-heading h1, .showcase-heading h3 {
+        padding: 0;
+        background-color: white;
+        color: black;
+    }
+    .products-heading {
+        background-image: none;
+        padding: 0;
+    }
+    .products button {
+        display: none;
+    }
+    .products h2 {
+        border: none;
+        margin: 0;
+    }
+    .products li {
+        padding: 0;
+    }
+    .copyright {
+        background-color: white;
+        color: black;
+        padding: 0;
+    }
+    .social-icons {
+        background-color: white;
+    }
+    .social-icons a {
+        background-image: none;
+        color: black;
+    }
+}
