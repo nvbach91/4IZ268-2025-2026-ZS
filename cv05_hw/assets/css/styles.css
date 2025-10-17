@@ -1,0 +1,46 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#tasks, #results {
+    max-width: 800px;
+    margin: auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#tasks button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #3f49db;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+}
+
+#tasks button:hover {
+    background-color: #0513de;
+}
+
+#results p {
+    margin: 8px 0;
+    line-height: 1.4;
+    padding: 8px;
+    background-color: #dddddd;
+    border-radius: 4px;
+}
