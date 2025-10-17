@@ -1,9 +1,0 @@
-body {
-    font-family: Arial; /* inherited property */
-}
-
-/* CSS rule = CSS pravidlo */
-.heading { /* CSS selector */
-    color: red; /* CSS properties: CSS values */
-    background-color: violet;
-}
