@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+}
+body {
+    height: 100vh;
+}
+body > div {
+    display: flex; align-items: center; width: 100%;
+}
+#tasks, #results {
+    display: flex; flex-direction: column; gap: 0.1em; flex: 0.5; align-self: normal;
+}
+#results {
+    justify-items: flex-start; align-items: center; height: 100%;
+}
