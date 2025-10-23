@@ -1,0 +1,25 @@
+body {
+    margin: 30px;
+}
+
+#tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 16px 0 24px;
+}
+
+#tasks button {
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    background: crimson;
+    color: white;
+}
+
+#results {
+    width: 100%;
+    border: solid 1px black;
+    min-height: 300px;
+    color: black;
+}
