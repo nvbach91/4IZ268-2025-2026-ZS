@@ -1,0 +1,16 @@
+#heading-1{
+    font-size: 50px;
+    color: blue;
+    background-color: bisque;
+}
+.page-heading{
+    background-color: lightseagreen;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.text{
+    padding: 50px;
+    
+}
