@@ -1,0 +1,64 @@
+body {
+    font-family: Roboto, Arial, sans-serif;
+    line-height: 1.5;
+    margin: 24px; }
+
+h1 { margin-bottom: 0.25rem; }
+
+#tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin: 16px 0 24px;
+}
+
+#tasks button {
+    padding: 10px 14px;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #FAFAFA;
+}
+
+#tasks button:hover { background: #F0F0F0; }
+
+#results {
+    padding: 12px;
+    border: 1px solid #EEEEEE;
+    border-radius: 12px;
+    min-height: 56px;
+    background: #FFFFFF;
+    white-space: pre-wrap;
+}
+
+.muted { color: #666666; }
+
+#tasks .task {
+    border: 1px solid #EEEEEE;
+    border-radius: 12px;
+    padding: 12px;
+    background: #FFFFFF;
+}
+
+#tasks .task h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+#tasks .row {
+    gap: 8px;
+    margin: 8px 0;
+}
+
+#tasks .row input[type="number"],
+#tasks .row input[type="text"] {
+    padding: 8px;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+}
+
+#tasks .actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}

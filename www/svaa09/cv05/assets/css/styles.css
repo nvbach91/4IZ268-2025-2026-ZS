@@ -1,0 +1,29 @@
+#buttons {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#answers {
+    margin-top: 20px;
+    background-color: #F2F2F2;
+    padding: 24px;
+    border-radius: 12px;
+    line-height: 150%;
+}
+
+
+button {
+    background-color: lightblue;
+    padding: 24px 0;
+    width: 100%;
+    border-radius: 12px;
+    font-size: large;
+    border: 0;
+}
+
+button:hover {
+    background-color: darkblue;
+    color: white;
+}
