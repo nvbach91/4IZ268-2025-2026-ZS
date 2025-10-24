@@ -1,0 +1,54 @@
+body {
+    font-family: Helvetica Neue, Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 40px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: white;
+    background-color: #d32f2f;
+    text-align: center;
+    margin: 0 0 40px 0;
+    padding: 40px;
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+#tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+#tasks button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    flex: 1;
+    min-width: 250px;
+}
+
+#tasks button:hover {
+    background-color: #b71c1c;
+}
+
+#results {
+    background-color: #f8f9fa;
+    border: 3px solid #d32f2f;
+    border-radius: 8px;
+    padding: 30px;
+    min-height: 200px;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
