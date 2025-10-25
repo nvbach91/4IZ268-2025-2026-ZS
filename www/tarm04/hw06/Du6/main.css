@@ -1,0 +1,50 @@
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('https://assets3.thrillist.com/v1/image/1672854/1584x1056/crop;webp=auto;jpeg_quality=60;progressive.jpg');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px;
+        min-height: 100vh;
+    }
+
+    h2 {
+        text-shadow: 2px 2px 5px #000;
+    }
+
+    textarea, input {
+        width: 100%;
+        max-width: 600px;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        background-color: #3498db;
+        color: white;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    #output {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: rgba(0,0,0,0.6);
+        border-radius: 5px;
+        max-width: 600px;
+        word-wrap: break-word;
+    }
