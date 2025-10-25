@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Long live SPARTA!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/main.css" />
+        <script src="js/main.js" defer></script>
+    </head>
+    <body>
+        <div>
+            <form id="decipherForm">
+                <label for="quotes">Quotes to try:</label>
+                <select id="quotes" name="quotes" id="quotes" onchange="document.querySelector('#decipher').value=this.value; document.querySelector('#shift').value=this.options[this.selectedIndex].getAttribute('shift');">
+                    <option value="">choose a quote</option>
+                    <option shift="19" value="MPH MABGZL TKX BGYBGBMX: MAX NGBOXKLX TGW ANFTG LMNIBWBMR; TGW B'F GHM LNKX TUHNM MAX NGBOXKLX. - TEUXKM XBGLMXBG">Albert Einstein, shift by 19</option>
+                    <option shift="5" value="YMJWJ NX ST QFB JCHJUY YMJ QFB YMFY YMJWJ NX ST QFB. - OTMS FWHMNGFQI BMJJQJW">John Archibald Wheeler, shift by 5</option>
+                    <option shift="12" value="M YMZ ITA PMDQE FA IMEFQ AZQ TAGD AR FUYQ TME ZAF PUEOAHQDQP FTQ HMXGQ AR XURQ. ― OTMDXQE PMDIUZ">Charles Darwin, shift by 12</option>
+                </select>
+                <label for="decipher">Caesar cipher</label>
+                <textarea id="decipher" placeholder="Text in large letters to cipher" required></textarea>
+                <input type="number" id="shift" placeholder="Shift by" required>
+                <button type="submit">Decipher</button>
+            </form>
+            <div id="output">
+                <p></p>
+            </div>
+        </div>
+    </body>
+</html>
