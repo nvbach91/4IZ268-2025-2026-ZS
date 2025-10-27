@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE COMMS v1.1 - ENCRYPTION MODULE</title>
+    <link rel='stylesheet' href='./style.css'>
+</head>
+<body>
+<main>
+<div class="container">
+    <h1>SECURE DECRYPT MODULE</h1>
+
+    <label for="encryptedText">CIPHERTEXT (ENCRYPTED):</label>
+    <textarea id="encryptedText" placeholder="PŘEPIS ZPRÁVY ZDE... POUZE VELKÁ PÍSMENA a ŽÁDNÉ SPECIÁLNÍ ZNAKY!"></textarea>
+
+    <label for="decipherKey">ENCRYPTION KEY (0-25):</label>
+    <input type="number" id="decipherKey" min="0" max="25" value="1" required>
+
+    <button id="decipherButton">DECIPHER!</button>
+
+    <div id="decryptedOutput">
+        <strong>SYSTEM MESSAGE: AWAITING INPUT.</strong><br>
+    </div>
+</div>
+</main>
+
+<footer>
+    <H1>created by frITak1312</H1>
+</footer>
+
+<script src="index.js"></script>
+</body>
+</html>
