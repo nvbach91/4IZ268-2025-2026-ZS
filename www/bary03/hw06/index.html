@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Caesar Cipher Decoder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Caesar Cipher Decoder</h1>
+    <label for="cipher-input">Encrypted text:</label>
+    <textarea id="cipher-input" placeholder="Enter encrypted text here..."></textarea>
+
+    <label for="key-input">Key (number):</label>
+    <input type="number" id="key-input" min="0" max="25" placeholder="e.g. 5">
+
+    <button id="decipher-btn">Decipher!</button>
+
+    <h2>Result:</h2>
+    <div id="output"></div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
