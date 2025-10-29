@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 50px auto;
+  width: 400px;
+  background-color: #D3D3D3;
+  padding: 50px;
+  border-radius: 20px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.card p {
+    max-width: 400px;
+    font-weight: 800;
+}
+
+.card textarea {
+    border-radius: 10px;
+    width: 400px;
+    height: 200px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card input {
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card button {
+    border-radius: 10px;
+    height: 50px;
+    background-color: aquamarine;
+    font-weight: 800;
+    font-family: 'Courier New', Courier, monospace;
+}
+
