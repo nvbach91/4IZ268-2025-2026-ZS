@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Long live Sparta!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f8f9f9;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 400px;
+        }
+        textarea, input {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #5a9;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #478;
+        }
+        #result-output {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #eef;
+            border-radius: 5px;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Long live Sparta!</h2>
+        <textarea id="cipher-input" placeholder="Enter encrypted text here"></textarea>
+        <input id="key-input" type="number" placeholder="Enter key (e.g. 12)">
+        <button id="decipher-button">Decipher!</button>
+        <div id="result-output"></div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
