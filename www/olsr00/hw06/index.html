@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Long live SPARTA!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <main class="card">
+    <h1>Caesar Decipher</h1>
+    <p>Encrypted text:</p>
+    <textarea id="cipherText" rows="6" placeholder="Encrypted text goes here"></textarea>
+    <div class="row">
+      <label for="key">Key</label>
+      <input id="key" type="number" min="0" max="25" value="0">
+      <button id="decipherBtn">Decipher!</button>
+    </div>
+    <p>Decrypted text:</p>
+    <pre id="output" class="output"></pre>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
