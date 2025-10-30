@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    background-color: #008080;
+    padding: 20px;
+    font-size: 15px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf;
+    padding: 2px;
+}
+
+header {
+    background: linear-gradient(to right, #000080, #1084d0);
+    color: white;
+    padding: 3px 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.1em;
+    margin-top: 2px;
+}
+
+.cipher-box {
+    padding: 10px;
+}
+
+.input-section {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1em;
+}
+
+textarea,
+input[type="number"] {
+    width: 100%;
+    padding: 4px;
+    border: 2px solid;
+    border-color: #808080 #dfdfdf #dfdfdf #808080;
+    background: white;
+    font-family: "Fixedsys", "Courier New", monospace;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+input[type="number"] {
+    max-width: 150px;
+    font-weight: bold;
+}
+
+.button-group {
+    margin: 15px 0;
+}
+
+.btn {
+    width: 100%;
+    padding: 6px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #dfdfdf #000000 #000000 #dfdfdf;
+    font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, sans-serif;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #dfdfdf;
+}
+
+.btn:active {
+    border-color: #000000 #dfdfdf #dfdfdf #000000;
+    padding: 7px 5px 5px 7px;
+}
+
+.output-section {
+    margin-top: 12px;
+}
+
+.result-box {
+    background: white;
+    border: 2px solid;
+    border-color: #808080 #dfdfdf #dfdfdf #808080;
+    padding: 8px;
+    min-height: 60px;
+    word-wrap: break-word;
+    font-family: "Fixedsys", "Courier New", monospace;
+    font-size: 15px;
+}
+
+footer {
+    margin-top: 15px;
+    padding: 10px;
+    text-align: center;
+    border-top: 2px solid #808080;
+}
+
+.ascii-art {
+    font-family: "Fixedsys", "Courier New", monospace;
+    font-size: 18px;
+    white-space: pre;
+    color: #000000;
+}
