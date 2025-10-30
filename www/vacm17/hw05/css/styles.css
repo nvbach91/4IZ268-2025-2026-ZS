@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafa;
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.task-box {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+    box-shadow: 0 0 0.4em #d0caca;
+
+    background-color: white;
+
+    gap: 10px;
+    padding: 10px;
+    width: calc(50% - 5px);
+}
+
+.task-description {
+    color: #3737c4;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+/* CONTENT CONFIG */
+
+.task-box-content-single, .task-box-content-multi, .task-box-content-dual, .task-box-content-combo, .task-answer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 auto;
+    width: 80%;
+    flex: 0 0 5px;
+}
+
+.task-box-content-single, .task-box-content-dual, .task-box-content-combo {
+    flex-direction: row;
+    gap: 3px;
+}
+
+.task-box-content-multi {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    height: 100%;
+}
+
+.task-input {
+    border: none;
+    border-bottom: solid 1.5px;
+    border-bottom-color: black;
+}
+
+.task-input:focus {
+    outline: none;
+    background-color: #c2ddfc;
+    border-bottom: #141498 solid 1.5px;
+}
+
+.task-box-content-single .task-input {
+    width: 90%;
+}
+
+.task-box-content-dual .task-input {
+    width: 37.5%;
+}
+
+.task-box-content-combo .task-input{
+    width: 70%;
+}
+
+.task-box-content-multi .task-input {
+    width: 85%;
+}
+
+.task-box-content-multi label {
+    text-align: center;
+    width: calc(15% - 5px);
+}
+
+.task-symbol {
+    text-align: center;
+    width: 5%;
+}
+
+.task-button {
+    color: white;
+    background-color: #3737c4;
+    border-radius: 5px;
+    border: #3737c4;
+    padding-bottom: 2px;
+}
+
+.task-box-content-single .task-button, .task-box-content-dual .task-button, .task-box-content-combo .task-button {
+    width: 20%;
+}
+
+.task-box-content-multi .task-button {
+    width: 50%;
+    padding: 5px 0;
+    margin: 10px 0 10px calc(15% - 5px);
+}
+
+.task-button:active {
+    background-color: #141498;
+}
+
+.task-answer {
+    justify-content: center;
+
+    font-size: 14px;
+    color: #626060;
+
+    border: solid #bbbaba calc(3px / 2);
+
+    border-radius: 5px;
+    min-height: 30px;
+    overflow: auto;
+
+    margin-top: auto;
+    padding-top: 5px;
+}
+
+/* MEDIA */
+
+@media  screen and (min-width: 1080px) {
+    .task-box {
+        width: calc(25% - (30px / 4));
+    }
+}
