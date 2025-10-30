@@ -1,0 +1,78 @@
+:root {
+    --color-sparta: #B71C1C;
+    --color-dark: #424242;
+    --color-background: #f4f4f9;
+    --color-surface: #ffffff;
+    --color-success: #E9DEB6;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#decipher-form {
+    background-color: var(--color-surface);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+h2 {
+    color: var(--color-sparta);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+#encrypted-text,
+#key {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+#decipher-btn {
+    background-color: var(--color-sparta);
+    color: var(--color-surface);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#decipher-btn:hover {
+    background-color: #9c1515;
+}
+
+#result-area {
+    margin-top: 25px;
+    width: 30%;
+    padding: 30px;
+    background-color: var(--color-success);
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+    display: none;
+    box-sizing: border-box;
+}
