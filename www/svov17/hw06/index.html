@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Long live SPARTA!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1>Long live SPARTA</h1>
+
+    <label for="cipherText">Encrypted text</label>
+    <textarea id="cipherText" rows="6" placeholder="vloz zasifrovany text"></textarea>
+
+    <label for="key">Key number</label>
+    <input id="key" type="number" min="0" max="25" value="0">
+
+    <button id="decipherBtn">Decipher!</button>
+
+    <h2>Decrypted text</h2>
+    <div id="output" class="output"></div>
+    </main>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

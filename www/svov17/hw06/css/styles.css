@@ -1,0 +1,56 @@
+body {
+  font-family: system-ui, sans-serif;
+  padding: 24px;
+  background: linear-gradient(180deg, #f7f7f9 0%, #ffffff 100%);
+  color: #111;
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
+h1 {
+  text-align: center;
+  color: #7c5107;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+textarea, input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0 14px 0;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #7c5107;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.output {
+  white-space: pre-wrap;
+  background: #d7cba9;
+  padding: 12px;
+  border-radius: 8px;
+  min-height: 60px;
+  margin-top: 16px;
+}
