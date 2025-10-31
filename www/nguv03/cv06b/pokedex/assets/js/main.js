@@ -2,7 +2,7 @@ const pokemonForm = document.querySelector('#pokemon-form');
 const pokemonList = document.querySelector('#pokemon-list');
 const existingPokemons = {};
 
-pokemonForm.addEventListener('submit', (event) => {
+pokemonForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(pokemonForm);
     const value = formData.get('value');
@@ -10,7 +10,7 @@ pokemonForm.addEventListener('submit', (event) => {
     const pokemons = [];
     for (const pokemonName of pokemonNames) {
         if (!existingPokemons[pokemonName.trim()]) {
-            const pokemon = createPokemon(pokemonName.trim());
+            const pokemon = await createPokemon(pokemonName.trim());
             pokemons.push(pokemon);
             existingPokemons[pokemonName.trim()] = true;
         }
@@ -18,7 +18,7 @@ pokemonForm.addEventListener('submit', (event) => {
     pokemonList.append(...pokemons);
 });
 
-const createPokemon = (name) => {
+const createPokemon = async (name) => {
     const pokemon = document.createElement('li');
 
     const pokemonNameElement = document.createElement('div');
@@ -38,5 +38,21 @@ const createPokemon = (name) => {
 
     pokemon.append(pokemonNameElement, pokemonImageElement, pokemonRemoveButton);
 
+    const pokemonData = await fetchPokemon(name);
+    const pokemonTypeElement = document.createElement('div');
+    pokemonTypeElement.textContent = pokemonData.types[0].type.name;
+
+    pokemonNameElement.append(pokemonTypeElement);
     return pokemon;
+};
+
+const fetchPokemon = async (name) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+    try {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
 };
