@@ -10,7 +10,7 @@ Na herní plochu umístěte **alespoň 20 karet** (tj. do 5 sloupců a 4 řádky
 
 Po **kliknutí** se karta otočí (tj. stačí aby byl vidět obsah karty, tj. název města, nemusíte dělat animace). Hra skončí ve chvíli, kdy jsou všechny karty odhaleny a uživateli se **zobrazí celkový počet bodů**. 
 
-Používejte pouze Vanilla JavaScript, případně ES6, tj. bez knihovny
+Používejte pouze Vanilla JavaScript, případně ES6, ES7, bez knihoven.
 
 
 
@@ -18,13 +18,16 @@ Používejte pouze Vanilla JavaScript, případně ES6, tj. bez knihovny
 
 - Vytvořte potřebné CSS třídy pro **hrací plochu**, **karty ve výchozím stavu**, **karty v otočeném stavu** apod. Vítána je příprava obrázků podle názvů měst. V tom případě budete pomocí JavaScriptu měnit CSS, aby se zobrazily ne názvy měst ale jejich obrázky.
 - Vyberte DOM element pro hrací plochu a element pro výpis počtu bodů.
-- Nadefinujte **seznam měst** do pole.
+- Nadefinujte **seznam měst** do pole. V případě zájmu si data stáhněte přímo z vhodné API pomocí JavaScriptu.
 - **Naduplikujte tento seznam**, aby každé město tam bylo dvakrát, pomocí metody `array.concat(array)`. 
 - Aby hra byla zajímavější, **zamíchejte pořadí měst** pomocí array metody `array.sort()`, a to následovně:
 ```js
+// seznam měst
 let cities = ['Barcelona', 'Dortmund', 'Madrid', 'Turin', '...'];
+// duplikovat seznam měst
 cities = cities.concat(cities);
-cities.sort(() => { return 0.5 - Math.random(); });
+// zamíchat
+cities.sort(() => 0.5 - Math.random());
 ```
 - Vytvořte **pomocné proměnné**, abyste mohli sledovat stav hry, tj. **počet bodů**, **první otočená karta**, **druhá otočená karta**, **počet správně otočených karet**...
 - Vytvořte funkci, která bude mít na starost **vytvořit jednu kartu** pomocí DOM metod.
