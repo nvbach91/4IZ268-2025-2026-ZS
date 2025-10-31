@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Caesarova šifra</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Caesarova šifra</h1>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <label for="cipher">Zašifrovaný text</label>
+        <textarea id="cipher" rows="6" placeholder="Vložte text určený k dešifrování"></textarea>
+
+        <div class="cipher-row">
+          <div class="key-box">
+            <label for="key">Zadej klíč</label>
+            <input id="key" type="number" min="0" max="25" value="0">
+          </div>
+          <div class="button-box">
+            <label>&nbsp;</label>
+            <div class="controls">
+              <button id="decipherBtn" class="decipherBtn">Decipher!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>Dešifrovaný text</label>
+        <div id="output" class="output">Zde se zobrazí dešifrovaný text...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
