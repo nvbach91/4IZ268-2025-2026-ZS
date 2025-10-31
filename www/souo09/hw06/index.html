@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Long live SPARTA!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1>Long live SPARTA!</h1>
+    <p class="subtitle">Caesar cipher decipher tool</p>
+    <form id="decipher-form" class="card">
+      <label for="cipher-input">Encrypted text (uppercase A–Z, others ignored)</label>
+      <textarea id="cipher-input" placeholder="Enter encrypted text here..." rows="6"></textarea>
+
+      <div class="controls">
+        <label for="key-input">Key (0–25)</label>
+        <input id="key-input" type="number" min="0" max="25" value="0" />
+        <button id="decipher-btn" type="submit">Decipher!</button>
+      </div>
+
+      <div class="output-wrap">
+        <div class="output-label">Decrypted text</div>
+        <div id="output" class="output" aria-live="polite"></div>
+      </div>
+    </form>
+
+    <h2 class="big-h2">IT'S MORPHIN' TIME.</h2>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
