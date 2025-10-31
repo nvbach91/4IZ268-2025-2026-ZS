@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Long live SPARTA!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>LONG LIVE SPARTA!</h1>
+            <p class="subtitle">Caesar Cipher Decoder</p>
+        </header>
+
+        <div class="input-row">
+            <div class="input-group">
+                <label for="cipherText">Encrypted Text:</label>
+                <textarea id="cipherText" placeholder="Enter encrypted text here...">UFE YADBTUZ' FUYQ.</textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="key">Key:</label>
+                <input type="number" id="key" value="12" min="1" max="25">
+            </div>
+        </div>
+
+        <button id="decipherBtn">DECIPHER!</button>
+
+        <div class="result-container">
+            <div class="result-title">Deciphered Text:</div>
+            <div id="decipheredText"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
