@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+.spinner {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 20px solid cadetblue;
+    border-top-color: transparent;
+    animation: spinning 1s linear infinite;
+}
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
