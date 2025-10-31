@@ -1,0 +1,105 @@
+
+body {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-image: url("./poust.jpg");
+    background-position: center bottom;
+    color: #00FF00;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+}
+
+main {
+    background-color: #1a1a1a;
+    border: 3px solid #00AA00;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 0 10px #00FF00;
+}
+
+h1 {
+    color: #FF0000;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #00AA00;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #00FF00;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+textarea, input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #00AA00;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #0d1a0d;
+    color: #00FF00;
+    font-family: 'Consolas', monospace;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+    min-height: 150px;
+}
+
+
+button {
+    background-color: #FF0000;
+    color: #FFFF00;
+    padding: 10px 15px;
+    border: 2px solid #FF0000;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.1s linear;
+}
+
+button:hover {
+    background-color: #800000;
+    border-color: #FFFF00;
+    color: #FFFF00;
+}
+
+#decryptedOutput {
+    margin-top: 30px;
+    padding: 15px;
+    border: 1px solid #00AA00;
+    background-color: #004d00;
+    word-wrap: break-word;
+    min-height: 50px;
+    font-size: 1em;
+    line-height: 1.4;
+    color: #FFFF00;
+    text-align: left;
+}
+
+#decryptedOutput strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #FF0000;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
