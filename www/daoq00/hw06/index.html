@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Long live SPARTA!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Long live SPARTA!</h1>
+
+    <div class="input-text">
+      <textarea id="cipher-text" placeholder="Zadej zašifrovaný text"></textarea>
+    </div>
+
+    <div class="input-key">
+      <label >Klíč: </label>
+      <input type="number" id="used-key" min="0" max="25" value="0">
+    </div>
+
+    <button id="decipher-button">Decipher!</button>
+
+    <div class="output">
+      <h2>Výsledek:</h2>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
