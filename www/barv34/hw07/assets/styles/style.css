@@ -1,0 +1,55 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F0F2F5;
+    margin: 0;
+}
+
+.main-container {
+    text-align: center;
+}
+
+#score {
+    font-size: 2rem;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 600px;
+}
+
+.card {
+    height: 100px;
+    border: 5px solid #1034A6;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: transparent;
+    user-select: none;
+    transition: all 0.6s, color 0.6s;
+    background-image: url('../images/pokeball.png');
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #4A90E2;
+}
+
+.card.flipped {
+    background-color: #FFFFFF;
+    border-color: #FFCC00;
+    color: #333333;
+    cursor: default;
+    background-image: none;
+}
