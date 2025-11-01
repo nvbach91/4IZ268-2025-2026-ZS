@@ -1,0 +1,111 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+  font-family: Pokemon;
+  src: url('../fonts/pokemon-solid.ttf');
+}
+
+.blue-shadow {
+    text-shadow: 
+        -0.1em -0.1em 0 #2a5bb0,
+         0.1em -0.1em 0 #2a5bb0,
+        -0.1em  0.1em 0 #2a5bb0,
+         0.1em  0.1em 0 #2a5bb0,
+        -0.1em 0 0 #2a5bb0,
+         0.1em 0 0 #2a5bb0,
+         0 -0.1em 0 #2a5bb0,
+         0 0.1em 0 #2a5bb0;
+}
+
+body {
+    font-family: 'Pokemon', sans-serif;
+    min-height: 100vh;
+    color: #ffcc03;
+    line-height: 1.5;
+    background:
+        linear-gradient(rgba(63, 72, 60, 0.5), rgba(63, 72, 60, 0.5)),
+        url('../img/pokemon-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1 {
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, min(8vh, 6vw), 4rem);
+}
+
+h2 {
+    font-size: clamp(1rem, min(4vh, 3vw), 2rem);
+    margin-bottom: 2rem;
+}
+
+h1, h2 {
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+#game-field {
+    width: min(80vh, 80vw);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+.card {
+    font-size: clamp(0.5rem, 1.7vw, 1rem);
+    letter-spacing: 0.13em;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(
+        to bottom,
+        rgb(218, 40, 40) 0%,
+        rgb(218, 40, 40) 48%,
+        black 48%,
+        black 52%,
+        white 52%,
+        white 100%
+    );
+    border-radius: 50%;
+    border: 3px solid black;
+    display: grid;
+    place-content: center;
+    position: relative;
+    
+}
+.card::after {
+    content: '';
+    position: absolute;
+    top: 36%;
+    left: 36%;
+    width: 30%;
+    aspect-ratio: 1 / 1;
+    background: white;
+    border: 7px solid black;
+    border-radius: 50%;
+}
+.card:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px blue;
+}
+
+.card.revealed:hover {
+    cursor: unset;
+    box-shadow: none;
+}
+
+.card.revealed {
+    background: linear-gradient(#54245a, rgb(118, 118, 252))
+}
+
+.card.revealed::after {
+    display: none;
+}
+
+@media (min-width: 720px) {
+  #game-field {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
