@@ -1,0 +1,82 @@
+body {
+  background-image: url('https://images8.alphacoders.com/124/thumb-1920-1243956.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Comic Sans MS', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  backdrop-filter: brightness(0.9);
+}
+
+
+h1 {
+  color: #2a75bb;
+  text-shadow: 2px 2px #ffcb05;
+}
+
+#score {
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  color: #2a75bb;
+  text-shadow: 2px 2px #ffcb05;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  grid-gap: 10px;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+  background-color: #f6d02f;
+  border: 3px solid #2a75bb;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card.flipped {
+  background-color: #ffffff;
+  color: #ff0000;
+}
+
+.card.matched {
+  background-color: #a8e6a1;
+  color: #2a75bb;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: -1;
+}
+#controls {
+  margin-bottom: 15px;
+}
+
+#reset {
+  background-color: #ffcb05;
+  border: 2px solid #2a75bb;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  color: #2a75bb;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#reset:hover {
+  background-color: #f6d02f;
+}
