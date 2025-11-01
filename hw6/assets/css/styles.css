@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: 0 2px 10px #eee;
+  box-sizing: border-box;
+  min-width: 260px;
+  max-width: 90vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+textarea, input {
+  width: 100%;
+  box-sizing: border-box;
+  /* aby to se rezisovalo jenom vertikalne */
+  resize: vertical; 
+}
+   
+button {
+  width: 100%;
+}
+
+#output {
+  background: #f0f0f0;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  width: 600px;
+}
