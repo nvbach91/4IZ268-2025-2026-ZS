@@ -19,7 +19,7 @@ for (const city of cities) {
   card.classList.add("card");
   card.innerText = city;
   card.addEventListener("click", async () => {
-    if (!card.classList.contains("revealed")) {
+    if (!card.classList.contains("revealed") && !(firstGuess != null && secondGuess != null)) {
       card.classList.add("revealed");
       if (firstGuess === null) {
         firstGuess = card;
