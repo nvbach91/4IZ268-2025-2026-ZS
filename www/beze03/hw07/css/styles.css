@@ -1,0 +1,38 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.card-div {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.card {
+    background-color: #1976d2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    height: 100px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.card.flipped {
+    background-color: #4caf50;
+    transform: scale(1.05);
+}
+
+.game-div {
+    margin: auto;
+    margin-top: 80px;
+}
+
+.game-div h1 {
+    text-align: center;
+}
