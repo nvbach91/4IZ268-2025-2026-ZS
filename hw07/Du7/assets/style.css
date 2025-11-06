@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Roboto, Arial
+}
+
+body {
+    margin: 16px;
+    background: #fafafa;
+    color: #111
+}
+
+main {
+    max-width: 760px;
+    margin: 0 auto
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 8px
+}
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0
+}
+
+#score {
+    font-weight: 600
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.card {
+    background: #e7f2ff;
+    border: 2px solid #2b6cb0;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.card.revealed {
+    background: #fff;
+    cursor: default
+}
+
+.card.matched {
+    background: #c6f6d5;
+    border-color: #2f855a;
+    cursor: default
+}
+
+.card.hidden {
+    background: #2d3748;
+    color: transparent
+}
+
+button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #2b6cb0;
+    background: #3182ce;
+    color: rgb(0, 255, 217);
+    cursor: pointer
+}
+
+button:active {
+    transform: translateY(1px)
+}
+
+@media (max-width:600px) {
+    #board {
+        grid-template-columns: repeat(4, 1fr)
+    }
+}
