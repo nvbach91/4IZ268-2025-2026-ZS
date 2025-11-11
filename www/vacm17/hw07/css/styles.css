@@ -1,0 +1,55 @@
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+body {
+    height: 100%;
+    font-family: sans-serif;
+}
+
+.game-field {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+    height: fit-content;
+    width: 100%;
+}
+
+.card, .card-correct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    width: calc(20% - 8px);
+    height: 100px;
+
+    pointer-events: auto;
+}
+
+.card {
+    background-color: #387779;
+}
+
+.card:active {
+    background-color: #468081;
+}
+
+.card-correct {
+    background-color: darkolivegreen;
+    font-weight: normal;
+}
+
+@media screen and (min-width: 720px) {
+    .game-field {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .card, .card-correct {
+        height: 150px;
+    }
+}
