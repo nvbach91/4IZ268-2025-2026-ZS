@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f7f6;
+    text-align: center;
+    padding-top: 20px;
+    color: #333;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h2 {
+    font-weight: 400;
+    color: #555;
+}
+
+#points {
+    color: #d9534f;
+    font-size: 1.2em;
+}
+
+#game-field {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 12px;
+    
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card {
+    background-color: #4a90e2; 
+    color: #4a90e2; 
+    border-radius: 5px;
+    height: 120px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    user-select: none;
+}
+
+.card:hover {
+    background-color: #357abd;
+    color: #357abd;
+    transform: translateY(-3px);
+}
+
+.card.revealed {
+    background-color: #f5f5f5; 
+    color: #333;
+    cursor: default;
+}
+
+.card.matched {
+    background-color: #5cb85c;
+    color: #ffffff;
+    transform: scale(0.95);
+    opacity: 0.8;
+}
