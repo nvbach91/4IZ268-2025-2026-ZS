@@ -1,0 +1,57 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: monospace, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#game-field {
+    display: grid;
+    grid-template-columns: repeat(5, 7em);
+    grid-template-rows: repeat(4, 7em);
+    gap: 1em;
+    padding: 1.5em;
+    box-shadow: #434343 inset 0 0 10px;
+    overflow: hidden;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #434343 0 0 5px;
+    font-size: 0;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    user-select: none;
+    background-image: url('../img/pexeso.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform  0.5s ease-in-out, background-size 0.5s ease-in-out;
+}
+
+.card.picked, .card.guessed{
+    transform: rotateX(720deg) rotateY(1080deg) rotateZ(360deg);
+    font-size: 1em;
+    background-size: 0;
+}
+
+.card.guessed {
+    opacity: 0.5;
+}
+
+.card.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}

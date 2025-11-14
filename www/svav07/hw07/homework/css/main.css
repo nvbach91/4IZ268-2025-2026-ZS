@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #099b46 100%);
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    background-color: #26c22b;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#points {
+    font-weight: bold;
+}
+
+#game-field {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid #ddd;
+}
+
+.card {
+    aspect-ratio: 3/4;
+    border: 2px solid #1976D2;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s;
+    transform-style: preserve-3d;
+}
+
+.card:hover:not(.flipped):not(.matched) {
+    transform: scale(1.05);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background: #2196F3 url('../img/Pokemon-logo.png') center / 70% no-repeat;
+}
+
+.card-back {
+    background-color: #fff;
+    border: 2px solid #ddd;
+    transform: rotateY(180deg);
+    padding: 10px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    transform: rotateY(180deg) !important;
+    pointer-events: none;
+}
+
+.card.matched .card-back {
+    opacity: 0.5;
+}
+
+.card-back img {
+    max-width: 85%;
+    height: auto;
+}
+
+.card-back p {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    #game-field {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    #game-field {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

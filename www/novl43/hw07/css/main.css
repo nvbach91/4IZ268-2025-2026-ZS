@@ -1,0 +1,110 @@
+/* Basic page styles */
+html, body {
+	height: 100%;
+	margin: 0;
+	font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+	background: linear-gradient(180deg,#f7f9fc,#e9eef8);
+	color: #222;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h1 {
+	margin: 18px 0 6px;
+	font-weight: 700;
+}
+
+h2 { margin: 0 0 12px; font-weight: 400; }
+
+#game-field {
+	width: min(1000px, 95vw);
+	max-width: 1000px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 12px;
+	padding: 12px;
+	box-sizing: border-box;
+}
+
+.card {
+	perspective: 1000px;
+	min-height: 88px;
+}
+
+.card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 400ms ease;
+	transform-style: preserve-3d;
+	border-radius: 8px;
+	box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+}
+
+.card.flipped .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backface-visibility: hidden;
+	border-radius: 8px;
+	font-size: 18px;
+	padding: 8px;
+	text-align: center;
+}
+
+.card-front {
+	background: #1e90ff;
+	color: white;
+	cursor: pointer;
+}
+
+.card-back {
+	background: #fff;
+	color: #111;
+	transform: rotateY(180deg);
+	border: 2px solid #e0e6f0;
+	cursor: default;
+}
+
+.card.matched .card-back { background: #dff7e3; color: #0a6b2f; border-color: #cfeed3; }
+.card.disabled { pointer-events: none; opacity: 0.95; }
+
+/* Make grid responsive: on narrow screens use fewer columns */
+@media (max-width: 820px) {
+	#game-field { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 620px) {
+	#game-field { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* End game overlay */
+.overlay {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0,0,0,0.45);
+}
+.overlay .box {
+	background: white;
+	padding: 22px 26px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+.overlay button {
+	margin-top: 12px;
+	background: #1e90ff;
+	color: white;
+	border: none;
+	padding: 8px 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+

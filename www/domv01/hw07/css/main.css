@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    height: 100vh;
+}
+#game-field {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    gap: 1rem;
+    width: 100%;
+    
+}
+.card {
+    display: flex;
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    border-radius: 2rem;
+    background-color: rgb(255, 204, 108);
+    border: 1px solid black;
+    transition: all ease 100ms;
+}
+.card:hover {
+    scale: 1.05;
+    transform: rotate(1deg);
+}
+
+.card:nth-child(2):hover {
+    scale: 1.05;
+    transform: rotate(-1deg);
+}
+
+.card:not(:hover) {
+    scale: 0.95;
+}
+
+.card.revealed {
+    background-color: rgb(198, 128, 86);
+}
+
+.card.matched {
+    background-color: rgb(252, 255, 171);
+    cursor: default;
+}
