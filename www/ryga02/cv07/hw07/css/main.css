@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(86, 105, 90);
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+#game-field {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+.card {
+    aspect-ratio: 1;
+    background-image: url('../img/card.jpg');
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+     user-select: none;   
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.card:hover {
+    transform: scale(1.05) translateY(-5px);
+    cursor: pointer;
+}
+.card.revealed {
+    pointer-events: none;
+    color: transparent;
+}
+.card.revealed[data-animal="Cat"] {
+    background-image: url('../img/cat.jpg');
+}
+.card.revealed[data-animal="Dog"] {
+    background-image: url('../img/dog.jpg');
+}
+.card.revealed[data-animal="Elephant"] {
+    background-image: url('../img/elephant.jpg');
+}
+.card.revealed[data-animal="Giraffe"] {
+    background-image: url('../img/giraffe.jpg');
+}
+.card.revealed[data-animal="Lion"] {
+    background-image: url('../img/lion.jpg');
+}
+.card.revealed[data-animal="Monkey"] {
+    background-image: url('../img/monkey.jpg');
+}
+.card.revealed[data-animal="Tiger"] {
+    background-image: url('../img/tiger.jpg');
+}
+.card.revealed[data-animal="Penguin"] {
+    background-image: url('../img/penguin.jpg');
+}
+.card.revealed[data-animal="Horse"] {
+    background-image: url('../img/horse.jpg');
+}
+.card.revealed[data-animal="Cow"] {
+    background-image: url('../img/cow.jpg');
+}
