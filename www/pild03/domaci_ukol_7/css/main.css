@@ -1,0 +1,107 @@
+* { box-sizing: border-box; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(180deg, #e9f0ff, #ffffff);
+  padding: 20px;
+  color: #222;
+  text-align: center;
+}
+
+h1 { margin-bottom: 6px; font-size: 24px; }
+h2 { margin: 0 0 16px 0; font-weight: 400; }
+
+#game-field {
+  width: min(900px, 96vw);
+  margin: 20px auto;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  perspective: 800px;
+}
+
+/* Card structure */
+.card {
+  position: relative;
+  height: 120px;
+  cursor: pointer;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.card.revealed {
+  transform: rotateY(180deg);
+}
+.card.matched {
+  animation: fadeOut 0.5s ease forwards;
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(0.8); pointer-events: none; }
+}
+
+/* Card faces */
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  backface-visibility: hidden;
+}
+
+/* Back face — simple pattern */
+.card-back {
+  background: repeating-linear-gradient(
+    45deg,
+    #4b79ff,
+    #4b79ff 12px,
+    #7ea3ff 12px,
+    #7ea3ff 24px
+  );
+}
+
+/* Front face — city name */
+.card-front {
+  background: linear-gradient(180deg, #2b78ff, #1e54d3);
+  color: white;
+  transform: rotateY(180deg);
+  padding: 10px;
+}
+
+/* Overlay after win */
+#end-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+}
+#end-overlay .panel {
+  background: #fff;
+  padding: 24px 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+#end-overlay button {
+  margin-top: 10px;
+  background: #2b78ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#end-overlay button:hover { opacity: 0.9; }
+
+@media (max-width: 680px) {
+  #game-field { grid-template-columns: repeat(4, 1fr); }
+  .card { height: 100px; }
+}
+@media (max-width: 420px) {
+  #game-field { grid-template-columns: repeat(2, 1fr); }
+  .card { height: 90px; }
+}
