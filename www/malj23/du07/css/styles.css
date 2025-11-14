@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.score-display {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+#score-value {
+    color: #007bff;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid #2980b9;
+}
+
+.card:hover {
+    background-color: #2980b9;
+}
+
+.card.revealed {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.card.matched {
+    background-color: #f39c12;
+    border-color: #e67e22;
+    cursor: default;
+}
+
+.card.matched:hover {
+    background-color: #f39c12;
+}
+
+.restart-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.restart-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-board {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    
+    .card {
+        width: 80px;
+        height: 80px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-board {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+    
+    .card {
+        width: 70px;
+        height: 70px;
+        font-size: 12px;
+    }
+}
