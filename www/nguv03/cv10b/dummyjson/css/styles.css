@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+.multicolumn {
+    display: flex;
+}
+#nav {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    padding: 10px;
+}
+#main {
+    width: 80%;
+    padding: 10px;
+    background-color: pink;
+    display: flex;
+    flex-wrap: wrap;
+}
+.user {
+    width: 25%;
+    text-align: center;
+}
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 20px solid cadetblue;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spinning 1s linear infinite;
+}
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
