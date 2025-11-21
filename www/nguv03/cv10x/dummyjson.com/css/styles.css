@@ -3,7 +3,7 @@
 }
 body {
     font-family: sans-serif;
-    background-color: #f9f9f9;
+    background-color: #e1e1e1;
 }
 .spinner {
     display: block;
@@ -54,7 +54,7 @@ main {
     text-align: center;
     padding: 10px;
     background-color: #fff;
-    border: 10px solid #f9f9f9;
+    border: 10px solid #e1e1e1;
 }
 .user-name {
     font-weight: bold;

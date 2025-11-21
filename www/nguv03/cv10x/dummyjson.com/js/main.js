@@ -1,4 +1,4 @@
-import { fetchAndRenderUsers, searchAndRenderUsers, renderAddUser } from './renders.js';
+import { fetchAndRenderUsers, searchAndRenderUsers, renderAddUserForm } from './renders.js';
 import { mainContainer, listUsersButton, addUserButton, searchUsersInput } from './elements.js';
 
 listUsersButton.on('click', () => {
@@ -6,7 +6,7 @@ listUsersButton.on('click', () => {
 });
 
 addUserButton.on('click', () => {
-    renderAddUser();
+    renderAddUserForm();
 });
 
 let debounceTimeout;

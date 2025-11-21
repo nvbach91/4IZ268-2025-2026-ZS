@@ -111,7 +111,7 @@ export const searchAndRenderUsers = async (searchValue) => {
     }
 };
 
-export const renderAddUser = () => {
+export const renderAddUserForm = () => {
     mainContainer.empty();
     const form = createUserForm({ email: '', firstName: '', lastName: '' }, async (formData) => {
         try {
