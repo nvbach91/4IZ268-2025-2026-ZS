@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+.multicolumn {
+    display: flex;
+}
+#nav {
+    width: 20%;
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+#nav > * {
+    margin-bottom: 10px;
+}
+#main {
+    width: 80%;
+    /* background-color: pink; */
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.user {
+    width: calc(100% / 3);
+    text-align: center;
+}
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 20px solid cadetblue;
+    border-top-color: transparent;
+    animation: spinning 1s linear infinite;
+    border-radius: 50%;
+}
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
