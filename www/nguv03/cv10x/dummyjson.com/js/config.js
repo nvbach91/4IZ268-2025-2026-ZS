@@ -1,0 +1,1 @@
+export const USERS_FETCH_LIMIT = 9;
