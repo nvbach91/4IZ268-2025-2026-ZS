@@ -1,0 +1,89 @@
+body {
+    width: 100%; 
+    display: block;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    justify-self: center;
+}
+
+
+.searchbar {
+    width: 80%;
+    justify-self: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#search-input {
+    width: 80%;
+    height: 40px;
+}
+
+.not-found {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    font-size: x-large;
+    color: red;
+}
+
+#search-button {
+    width: calc(20% - 20px);
+    height: 40px;
+}
+
+.info {
+    width: 100%;
+    display: flex;
+}
+
+#user-profile {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 50px;
+    background-color: aliceblue;
+}
+
+#user-repositories {
+    padding: 50px;
+}
+
+.row {
+    display: flex;
+}
+
+.user-image {
+    justify-content: center;
+    display: flex;
+}
+
+img {
+    border-radius: 200px;
+}
+
+.user-name {
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 30px;
+ }
+
+.col-2 {
+    width: calc(50%);
+    margin-top: 30px;
+    
+}
+
+.col-2:nth-of-type(2) {
+    font-weight: bold;
+}
+
+.col-2 div {
+    padding: 10px 10px;
+    border-bottom: 2px solid black;
+}
+
