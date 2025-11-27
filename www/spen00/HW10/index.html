@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Git The Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/styles.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <header class="page-header">
+        <h1>Git The Hub</h1>
+        <p>Enter a username to search for an user on GitHub</p>
+    </header>
+
+    <main class="container">
+
+        <section class="search-box">
+            <form id="search-form">
+                <label for="username" class="sr-only">GitHub username</label>
+                <input type="text" id="username" name="username" placeholder="např. egoist, gaearon, torvalds" required>
+                <button type="submit" id="search-button">Find</button>
+            </form>
+            <div id="message"></div>
+        </section>
+
+        <section id="user-profile">
+
+        </section>
+
+        <section id="repositories">
+
+        </section>
+
+    </main>
+
+    <footer class="page-footer">
+        <p>© 2025 Git The Hub</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
