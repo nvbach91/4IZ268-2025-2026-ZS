@@ -1,5 +1,5 @@
-const CLIENT_ID = 'Ov23lieTak3wzfkR9d7E';
-const CLIENT_SECRET = '313b2eed8178a178ed3f05c67e33e7cabe1f8845';
+const CLIENT_ID = 'secret';
+const CLIENT_SECRET = 'secret';
 const BASE_API_URL = 'https://api.github.com';
 
 const userProfileContainer = $('#user-profile');
@@ -84,4 +84,5 @@ const displayRepositories = (repositories) => {
     `).join('');
 
     repositoriesList.html(reposHtml);
+
 };
