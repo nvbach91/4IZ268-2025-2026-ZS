@@ -6,3 +6,9 @@ export const spinner = $('<div class="spinner">');
 
 export const addUserButton = $('#add-user');
 // ....
+
+
+// C - POST *
+// R - GET *
+// U - UPDATE
+// D - DELETE

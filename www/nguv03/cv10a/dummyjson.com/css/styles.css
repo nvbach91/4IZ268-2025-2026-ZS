@@ -24,6 +24,8 @@
 .user {
     width: calc(100% / 3);
     text-align: center;
+    background-color: #f1f1f1;
+    border: 10px solid #fff;
 }
 .spinner {
     width: 100px;
@@ -32,6 +34,18 @@
     border-top-color: transparent;
     animation: spinning 1s linear infinite;
     border-radius: 50%;
+}
+.success {
+    background-color: green;
+}
+.error {
+    background-color: red;
+}
+.user-delete {
+    background-color: red;
+}
+.user-update {
+    background-color: yellow;
 }
 @keyframes spinning {
     from {
