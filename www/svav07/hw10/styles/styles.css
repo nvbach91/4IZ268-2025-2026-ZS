@@ -1,0 +1,429 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+body {
+    background-color: #1e1e1e;
+    color: #e2e2e2;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    color: #ffffff;
+    text-align: center;
+}
+
+
+/* ============================================
+   FORM COMPONENTS
+   ============================================ */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    background-color: #262626;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+form label {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background-color: #2b2b2b;
+    color: #e2e2e2;
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 0.6rem 1rem;
+    background-color: #3ab063;
+    color: #e2e2e2;
+    border: 1px solid #2f9057;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45c158;
+}
+
+
+/* ============================================
+   USER PROFILE COMPONENTS
+   ============================================ */
+
+#user-profile {
+    padding: 0;
+    margin-bottom: 1.5rem;
+    background: none;
+    border: none;
+}
+
+.avatar {
+    width: 120px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.user-card {
+    background-color: #262626;
+    border: 1px solid #333;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.user-header {
+    background-color: #3ab063;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0.6rem 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.user-body {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.user-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar-large {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+}
+
+.profile-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem;
+    background-color: #3ab063;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid #2f9057;
+}
+
+.profile-button:hover {
+    background-color: #45c96e;
+}
+
+.user-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.user-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    background-color: #2f2f2f;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #3a3a3a;
+}
+
+.user-label {
+    padding: 0.4rem 0.6rem;
+    background-color: #333333;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-value {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.9rem;
+}
+
+.profile-link {
+    color: #9ecaff;
+    word-break: break-all;
+}
+
+
+/* ============================================
+   REPOSITORIES SECTION
+   ============================================ */
+
+#repositories {
+    background-color: #262626;
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 6px;
+}
+
+#repositories h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+#repositories ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#repositories li {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2b2b2b;
+}
+
+.repo-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 150px 90px;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.repo-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.repo-link {
+    color: #e2e2e2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.repo-link:hover {
+    text-decoration: underline;
+}
+
+.repo-lang {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.repo-stars {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+
+/* ============================================
+   LANGUAGE PILLS
+   ============================================ */
+
+.lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background-color: #333333;
+    font-size: 0.85rem;
+}
+
+.lang-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #aaaaaa;
+}
+
+/* Language color dots */
+.lang-js .lang-dot {
+    background-color: #f7df1e;
+}
+
+.lang-ts .lang-dot {
+    background-color: #3178c6;
+}
+
+.lang-html .lang-dot {
+    background-color: #e34c26;
+}
+
+.lang-css .lang-dot {
+    background-color: #264de4;
+}
+
+.lang-scss .lang-dot {
+    background-color: #cc6699;
+}
+
+.lang-vue .lang-dot {
+    background-color: #41b883;
+}
+
+.lang-react .lang-dot {
+    background-color: #61dafb;
+}
+
+.lang-tsx .lang-dot {
+    background-color: #3178c6;
+}
+
+.lang-java .lang-dot {
+    background-color: #e76f00;
+}
+
+.lang-py .lang-dot {
+    background-color: #3776ab;
+}
+
+.lang-csharp .lang-dot {
+    background-color: #178600;
+}
+
+.lang-cpp .lang-dot {
+    background-color: #00599c;
+}
+
+.lang-c .lang-dot {
+    background-color: #555555;
+}
+
+.lang-php .lang-dot {
+    background-color: #4F5D95;
+}
+
+.lang-ruby .lang-dot {
+    background-color: #CC342D;
+}
+
+.lang-go .lang-dot {
+    background-color: #00ADD8;
+}
+
+.lang-shell .lang-dot {
+    background-color: #89e051;
+}
+
+.lang-kotlin .lang-dot {
+    background-color: #A97BFF;
+}
+
+.lang-swift .lang-dot {
+    background-color: #F05138;
+}
+
+.lang-dart .lang-dot {
+    background-color: #00B4AB;
+}
+
+.lang-rust .lang-dot {
+    background-color: #dea584;
+}
+
+.lang-r .lang-dot {
+    background-color: #276dc3;
+}
+
+.lang-sql .lang-dot {
+    background-color: #e38c00;
+}
+
+.lang-perl .lang-dot {
+    background-color: #0073a1;
+}
+
+.lang-scala .lang-dot {
+    background-color: #dc322f;
+}
+
+.lang-lua .lang-dot {
+    background-color: #000080;
+}
+
+.lang-elixir .lang-dot {
+    background-color: #6e4a7e;
+}
+
+.lang-haskell .lang-dot {
+    background-color: #5e5086;
+}
+
+.lang-clojure .lang-dot {
+    background-color: #5881d8;
+}
+
+.lang-markdown .lang-dot {
+    background-color: #083fa1;
+}
+
+.lang-mdx .lang-dot {
+    background-color: #fcb32c;
+}
+
+.lang-json .lang-dot {
+    background-color: #292929;
+}
+
+.lang-yaml .lang-dot {
+    background-color: #cb171e;
+}
+
+.lang-docker .lang-dot {
+    background-color: #2496ed;
+}
+
+.lang-unknown .lang-dot {
+    background-color: #777777;
+}
+
+
+/* ============================================
+   MEDIA QUERIES
+   ============================================ */
+
+@media (max-width: 768px) {
+    .user-body {
+        flex-direction: column;
+    }
+
+    .avatar-large {
+        width: 100%;
+        height: auto;
+    }
+
+    .user-row {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .repo-row {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 0.25rem;
+    }
+
+    .repo-lang,
+    .repo-stars {
+        justify-content: flex-start;
+        text-align: left;
+    }
+}
