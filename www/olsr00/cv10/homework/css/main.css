@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+hr {
+    border-style: solid;
+    border-color: #eee;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.loader {
+    border: 5px solid cadetblue;
+    border-top: 5px solid #ccc;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+footer {
+    background-color: cadetblue;
+    padding: 20px 0;
+}
+
+header {
+    background: linear-gradient(90deg, #2b7a78, #88d2d0);
+    color: #fff;
+    padding: 30px 10px;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+#search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#search-form input[name="username"] {
+    padding: 10px 12px;
+    width: 280px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#search-form button {
+    padding: 10px 16px;
+    border: none;
+    background: #2b7a78;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #f7f9f9;
+    padding: 16px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.user img {
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.user h2 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+}
+
+.user h2 small {
+    color: #666;
+    font-size: 14px;
+}
+
+.user-error {
+    color: red;
+    font-weight: bold;
+}
+
+#repositories {
+    list-style: none;
+    padding: 0;
+    margin-top: 12px;
+}
+
+#repositories li {
+    padding: 10px 12px;
+    border: 1px solid #eee;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+#repositories a {
+    color: #2b7a78;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media (max-width: 520px) {
+    .user { flex-direction: column; text-align: center }
+    #search-form { flex-direction: column }
+    #search-form input[name="username"] { width: 100% }
+}
