@@ -1,0 +1,129 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+#user-profile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    justify-content: space-evenly;
+}
+
+.profile_border {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#user-profile #informations {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 40%;
+}
+
+#user-profile #profile-picture {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-profile #profile-picture img {
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#user-profile #profile-picture .view_profile {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #2B65EC;
+    color: white;
+    text-decoration: none;
+}
+
+#user-profile h2 {
+    width: 100%;
+    margin: 0 0 10px 0;
+    text-align: left;
+}
+
+#user-profile .user_info {
+    width: 100%;
+    text-align: left;
+    margin: 5px 0;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border-style: solid;
+    border-color: #eee;
+}
+
+#repositories {
+    list-style-type: none;
+    padding: 0;
+    max-width: 70%;
+    margin: auto;
+}
+
+#repositories li {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#repositories li .repo_name {
+    font-weight: bold;
+    text-align: left;
+    width: 30%;
+}
+
+#repositories li .repo_link {
+    text-align: center;
+    width: 70%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    border: 5px solid #2B65EC;
+    border-top: 5px solid #ccc;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+footer {
+    background-color: #2B65EC;
+    padding: 20px 0;
+    color: white;
+}
