@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  background: #f6f6f6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+#search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+#search-form input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 3px 0 0 3px;
+}
+
+#search-form button {
+  padding: 10px 25px;
+  background: #c0392b;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 3px 3px 0;
+}
+
+#user-profile {
+  width: 80%;
+  margin: 0 auto 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  border-top: 8px solid #2c7a7b;
+}
+
+.user-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  background: #2c7a7b;
+  color: white;
+  padding: 10px;
+}
+
+/* User section */
+.user-container {
+  display: flex;
+  text-align: left;
+  gap: 20px;
+}
+
+.user-left img {
+  width: 200px;
+  border-radius: 5px;
+}
+
+.user-right table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-right td {
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+  background: #f0f0f0;
+}
+
+/* Button */
+.profile-button {
+  margin-top: 10px;
+  width: 200px;
+  padding: 10px;
+  background: #c0392b;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Repo section */
+#repositories {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+#repositories li {
+  display: flex;
+  justify-content: space-between;
+  background: #e8f0f1;
+  padding: 8px;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+footer {
+  background-color: cadetblue;
+  padding: 20px 0;
+  margin-top: 40px;
+  color: white;
+}
+
+/* Loader */
+.loader {
+  border: 5px solid cadetblue;
+  border-top: 5px solid #ccc;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
