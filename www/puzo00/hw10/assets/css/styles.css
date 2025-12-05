@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: rgb(1, 1, 17);
+    color: #e6edf3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    width: 900px;
+}
+
+header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+main {
+    background: #161b22;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 0 1px #30363d;
+    flex: 1;
+}
+
+
+main form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+main input[name="search"] {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    background: #0d1117;
+    color: #e6edf3;
+    font-size: 15px;
+}
+
+
+main button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: green;
+    color: white;
+    font-size: 20px;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+main button:hover {
+    background: darkgreen;
+}
+
+#user-profile {
+    margin-bottom: 24px;
+}
+
+.user {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.user .avatar {
+    border-radius: 50%;
+    border: 2px solid #30363d;
+    flex-shrink: 0;
+}
+
+.user .info h2 {
+    color: lightblue;
+}
+
+.user .info h2 small {
+    color: lightgrey;
+}
+
+.user .info p {
+    color: #c9d1d9;
+}
+
+.user .info a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+
+main h2 {
+    margin: 0 0 8px;
+    border-top: 1px solid black;
+    padding-top: 16px;
+}
+
+#repos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#repos li {
+    padding: 8px 0;
+    border-bottom: 1px solid lightcyan;
+}
+
+#repos a {
+    color: lightblue;
+}
+
+
+#repos div {
+    color: lightgrey;
+    margin-top: 2px;
+}
+
+
+#user-profile p,
+#repos p {
+    color: lightgreen;
+}
+
+
+footer {
+    margin-top: auto;
+    text-align: center;
+    color: white;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
