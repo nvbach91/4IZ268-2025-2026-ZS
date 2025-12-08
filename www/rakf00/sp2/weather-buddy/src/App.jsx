@@ -1,12 +1,16 @@
-import './App.css'
+import Dashboard from "./features/dashboard/Dashboard.jsx";
+import Header from "./components/Header.jsx";
 
 function App() {
 
   return (
     <>
-        <h1 className="text-3xl font-bold underline">
-            Weather buddy started...
-        </h1>
+        <div className='min-h-screen bg-slate-900'>
+            <div className='p-8 flex flex-col gap-8'>
+            <Header/>
+            <Dashboard />
+            </div>
+        </div>
     </>
   )
 }
