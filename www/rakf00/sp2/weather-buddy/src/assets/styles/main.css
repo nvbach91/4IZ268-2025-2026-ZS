@@ -4,8 +4,14 @@
 body {
     font-family: 'Roboto', sans-serif;
     caret-color: transparent;
+    color: white;
 }
 
 input:focus {
     caret-color: white;
+}
+
+main{
+    max-width: 1200px;
+    margin: 0 auto;
 }

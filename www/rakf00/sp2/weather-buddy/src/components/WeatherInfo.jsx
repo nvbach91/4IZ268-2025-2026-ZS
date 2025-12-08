@@ -1,14 +1,15 @@
 import {Droplets, Thermometer, Wind} from "lucide-react";
 import Icon from "../assets/images/icons/rain.png";
+import WeatherInfoSlider from "./WeatherInfoSlider.jsx";
 
-export default function WeatherInfoCard() {
+export default function WeatherInfo() {
     return (
         <div>
-            <div className='weather-info-card flex items-center text-white justify-between'>
+            <div className='weather-info-card flex items-center justify-between'>
                 <p className='flex items-center gap-6'>
                     <img src={Icon} width='180' alt='actualWeatherIcon'/>
                     <p><h1 className='text-5xl leading-18'>Beijing</h1>
-                        <span>China</span>
+                        <p>China</p>
                     </p>
                 </p>
                 <div className='flex gap-6'>
@@ -17,15 +18,7 @@ export default function WeatherInfoCard() {
                     <p className='flex items-center'><Wind/><h2 className='text-3xl'>&nbsp;3 m/s</h2></p>
                 </div>
             </div>
-
-            <div className='slider p-10 grid grid-cols-6 gap-6 bg-slate-700 rounded-xl mt-10'>
-                {[...Array(6)].map((_, index) => (
-                <div key={index} className='time-card text-white flex flex-col gap-4 items-center'>
-                    <p className='font-bold text-gray-300'>6:00</p>
-                    <img src={Icon} width='48' alt='actualWeatherIcon'/>
-                    <p className='font-bold text-xl'>5 &#176;C</p>
-                </div>))}
-            </div>
+            <WeatherInfoSlider/>
         </div>
-    )
+    );
 }
