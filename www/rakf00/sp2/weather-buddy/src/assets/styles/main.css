@@ -8,10 +8,14 @@ body {
 }
 
 input:focus {
-    caret-color: white;
+    caret-color: black;
 }
 
 main{
     max-width: 1200px;
     margin: 0 auto;
+}
+input[type="range"] {
+    box-shadow: none !important;
+    --tw-shadow: none !important;
 }
