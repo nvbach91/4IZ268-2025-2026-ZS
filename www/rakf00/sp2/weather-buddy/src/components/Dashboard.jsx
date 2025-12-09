@@ -4,6 +4,7 @@ import DefaultLocation from "./DefaultLocation.jsx";
 import SideBar from "./SideBar.jsx";
 
 export default function Dashboard() {
+
     return (
             <main className='grid grid-cols-[70%_30%] w-full gap-5'>
                 <div className='flex flex-col gap-4'>

@@ -2,7 +2,7 @@ export default function Button({ name, className="", ...props }) {
     return (
         <button
             {...props}
-            className={`cursor-pointer px-4 py-2 text-sm font-medium text-white rounded-xl transition ${className}`}
+            className={`cursor-pointer p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition ${className}`}
         >
             {name}
         </button>
