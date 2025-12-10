@@ -6,13 +6,19 @@ export const searchLocations = async (cityName) => {
     try {
         const response = await axios.get(API_URL, {
             params: {
-                name: cityName,
-                count: 5,
-                language: 'en',
+                name: cityName, count: 5, language: 'en',
             },
         });
-        console.log(response);
-        return response.data.results || [];
+
+        const filteredData = response.data.results.map(location => ({
+            id: location.id,
+            name: location.name,
+            country: location.country,
+            latitude: location.latitude,
+            longitude: location.longitude,
+        }));
+
+        return filteredData || [];
     } catch (error) {
         console.error("Error fetching location data:", error);
         return [];

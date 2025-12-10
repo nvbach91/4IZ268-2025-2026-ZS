@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import useDebounce from './useDebounce.jsx';
 import { searchLocations } from '../services/locationService.js';
+import useStoreSettings from "../store/useStoreSettings.jsx";
 
-const SEARCH_DELAY_MS = 500;
+
+const SEARCH_DELAY_MS = 300;
 
 export default function useSearchBar() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -10,6 +12,9 @@ export default function useSearchBar() {
     const [isLoading, setIsLoading] = useState(false);
 
     const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_DELAY_MS);
+
+    const updateSettings = useStoreSettings((state) => state.updateSettings);
+    const settings = useStoreSettings((state) => state.settings);
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -27,7 +32,8 @@ export default function useSearchBar() {
     }, [debouncedSearchTerm]);
 
     const selectLocation = (location) => {
-        console.log("Selected location:", location.name);
+        let newSettings = { ...settings, location };
+        updateSettings(newSettings);
         setSearchTerm("");
         setResults([]);
     };

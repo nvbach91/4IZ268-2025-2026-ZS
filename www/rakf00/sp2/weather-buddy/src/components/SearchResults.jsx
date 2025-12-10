@@ -4,7 +4,7 @@ export default function SearchResults({results, isLoading, onSelect, searchTerm}
     let content = null;
 
     if (isLoading) content = "Loading...";
-    else if (results.length === 0 && searchTerm.length > 0) content = "No results found.";
+    else if (results.length === 0 && searchTerm.length >0) content = "No results found.";
     else if (results.length > 0)
         content = results.map(location => (
             <div

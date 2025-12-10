@@ -6,7 +6,7 @@ export default function AIRecommendation() {
             <h2 className='text-center text-2xl pt-4'>Looking for advice?</h2>
             <label htmlFor='simpleTime' className='text-lg flex items-center gap-2 w-full justify-center mt-4'>
                 What time will you go out?
-                <input type='time' id='simpleTime' value='00:00'
+                <input type='time' id='simpleTime' defaultValue='00:00'
                        className='bg-slate-600 font-mono p-3 rounded-xl border-none cursor-pointer'
                 />
             </label>
