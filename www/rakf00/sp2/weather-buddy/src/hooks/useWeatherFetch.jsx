@@ -15,7 +15,7 @@ export default function useWeatherFetch() {
                 const data = await fetchWeatherData(currentLocation);
                 setWeatherData(data);
                 setIsLoading(false);
-                console.log(data);
+                console.log("transformovaný: ",data);
             }
 
             fetchData();

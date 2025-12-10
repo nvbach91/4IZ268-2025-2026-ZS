@@ -1,6 +1,7 @@
 import axios from "axios";
+import {formatWeatherData} from "../utils/formatWeatherData";
 
-const API_URL = "https://api.open-meteo.com/v1/forecast";
+const API_URL = "https://api.open-meteo.com/v1/forecast?daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=auto&forecast_days=6&wind_speed_unit=ms&forecast_hours=12&past_hours=0";
 
 export const fetchWeatherData = async (location) => {
     try {
@@ -8,20 +9,11 @@ export const fetchWeatherData = async (location) => {
             params: {
                 latitude: location.latitude,
                 longitude: location.longitude,
-                current: "temperature_2m,precipitation,wind_speed_10m,weather_code",
-                wind_speed_unit: "ms",
-                timezone: "auto",
             }
         });
 
-        const data = response.data.current;
-
-        return {
-            temperature: data.temperature_2m,
-            precipitation: data.precipitation,
-            windSpeed: data.wind_speed_10m,
-            weatherCode: data.weather_code,
-        }
+        console.log(response.data);
+        return formatWeatherData(response.data);
     } catch
         (error) {
         console.error("Error fetching weather data:", error);
