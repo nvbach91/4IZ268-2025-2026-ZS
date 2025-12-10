@@ -1,7 +1,7 @@
 import Input from "./Input.jsx";
 import Button from "./Button.jsx";
 import {X} from "lucide-react";
-import useStoreSettings from "../hooks/useStoreSettings.jsx";
+import useStoreSettings from "../store/useStoreSettings.jsx";
 import {useForm} from "react-hook-form";
 
 export default function ProfileModal({closeModal}) {
@@ -96,7 +96,7 @@ export default function ProfileModal({closeModal}) {
                 <div className='grid grid-cols-10 gap-2 relative'>
                     {[...Array(10)].map((_, i) => (<div key={i} className='relative'>
                         <Input
-                            id={`radio-${i}`}
+                            id={`radio-${i+1}`}
                             type='radio'
                             name='sensitivity'
                             registration={register("sensitivity", {
@@ -105,7 +105,7 @@ export default function ProfileModal({closeModal}) {
                             value={i + 1}
                         />
                         <label
-                            htmlFor={`radio-${i}`}
+                            htmlFor={`radio-${i+1}`}
                             className='radio-card flex flex-col items-center justify-center border border-black rounded-sm cursor-pointer p-3 transition-colors duration-200
                                             peer-checked:bg-black peer-checked:text-white'
                         >
@@ -126,6 +126,7 @@ export default function ProfileModal({closeModal}) {
                 onClick={closeModal}
                 size='26'
                 className='absolute cursor-pointer hover:scale-105 top-3 right-4'
+                visibility={settings ? "visible" : "hidden"}
             />
         </div>
     </div>);

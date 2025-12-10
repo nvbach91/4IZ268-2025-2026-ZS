@@ -14,6 +14,7 @@ export default function useProfileModal() {
     }, []);
 
     const closeModal = useCallback(() => {
+        if (getInitialState()) return;
         setIsModalOpen(false);
     }, []);
 
