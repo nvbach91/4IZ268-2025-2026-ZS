@@ -14,9 +14,9 @@ export default function WeatherInfoCard({location, weatherData}) {
                     </div>
                 </div>
                 <div className='flex justify-end gap-6 w-full whitespace-nowrap'>
-                    <div className='flex items-center'><Thermometer/><h2 className='text-3xl'>18 &#176;C</h2></div>
-                    <div className='flex items-center'><Droplets/><h2 className='text-3xl'>12 %</h2></div>
-                    <div className='flex items-center'><Wind/><h2 className='text-3xl'>&nbsp;3 m/s</h2></div>
+                    <div className='flex items-center'><Thermometer/><h2 className='text-3xl'>{weatherData?.temperature ?? '--'} &#176;C</h2></div>
+                    <div className='flex items-center'><Droplets/><h2 className='text-3xl'>&nbsp;{weatherData?.precipitation ?? '--'} %</h2></div>
+                    <div className='flex items-center'><Wind/><h2 className='text-3xl'>&nbsp;{weatherData?.windSpeed ?? '--'} m/s</h2></div>
                 </div>
             </div>
             <WeatherInfoSlider nextHours={[1,2,3,4,5,6]}/>

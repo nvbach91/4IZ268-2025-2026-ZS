@@ -8,7 +8,7 @@ export const fetchWeatherData = async (location) => {
             params: {
                 latitude: location.latitude,
                 longitude: location.longitude,
-                current : "temperature_2m,precipitation,wind_speed_10m,weather_code",
+                current: "temperature_2m,precipitation,wind_speed_10m,weather_code",
                 wind_speed_unit: "ms",
                 timezone: "auto",
             }
@@ -16,15 +16,14 @@ export const fetchWeatherData = async (location) => {
 
         const data = response.data.current;
 
-        const filteredData = {
+        return {
+            temperature: data.temperature_2m,
             precipitation: data.precipitation,
-            temperature:  data.temperature_2m,
-            windSpeed:  data.wind_speed_10m,
+            windSpeed: data.wind_speed_10m,
             weatherCode: data.weather_code,
-        };
-
-        return filteredData;
-    } catch (error) {
+        }
+    } catch
+        (error) {
         console.error("Error fetching weather data:", error);
     }
 }
