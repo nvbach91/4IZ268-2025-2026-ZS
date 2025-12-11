@@ -20,13 +20,13 @@ export default function Dashboard() {
     return (
             <main className='grid grid-cols-[70%_30%] w-full gap-5'>
                 <div className='flex flex-col gap-4'>
-                    <WeatherInfoCard location={location} weatherData={weatherData} />
+                    <WeatherInfoCard location={location} weatherData={weatherData.current} />
                     <div className='grid grid-cols-3 w-full gap-5'>
                         <AIRecommendation/>
                         <DefaultLocation/>
                     </div>
                 </div>
-                <SideBar/>
+                <SideBar nextDays={weatherData.daily}/>
             </main>
     );
 

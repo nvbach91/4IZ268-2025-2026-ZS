@@ -9,7 +9,7 @@ export default function SearchResults({results, isLoading, onSelect, searchTerm}
         content = results.map(location => (
             <div
                 key={location.id}
-                className='p-3 text-white hover:bg-slate-600 cursor-pointer border-b flex items-center gap-3 border-gray-700 last:border-b-0'
+                className=' z-20 p-3 text-white hover:bg-slate-600 cursor-pointer border-b flex items-center gap-3 border-gray-700 last:border-b-0'
                 onClick={() => onSelect(location)}
             >
                 <MapPin/>  {location.name}, {location.country}

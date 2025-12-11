@@ -1,18 +1,16 @@
 import Icon from "../assets/images/icons/sun.png"
 
-export default function SideBar() {
+export default function SideBar({nextDays}) {
     return (
         <div className='rounded-2xl bg-slate-700 p-8'>
             <p className='uppercase text-gray-300 font-bold'>6-DAY forecast</p>
             <div className='line-cards grid grid-rows-6 h-full'>
-                {Array(6).fill(null).map((_, i) => (
-                    <div key={i} className='HorizontalWeatherCard flex items-center justify-between'>
+                {nextDays.map((day, index) => (
+                    <div key={index} className='HorizontalWeatherCard grid grid-cols-4 place-items-center'>
                         <p className='text-gray-200'>Tuesday</p>
-                        <div className='flex items-center gap-4'>
                             <img src={Icon} width='48' alt='dayWeatherIcon'/>
                             <p className='font-bold'>Sunny</p>
-                        </div>
-                        <p><strong>25</strong>/12</p>
+                        <p className='text-lg'><strong>{day.temperatureMax}&#176;</strong>/{day.temperatureMin}&#176;</p>
                     </div>
                 ))}
             </div>

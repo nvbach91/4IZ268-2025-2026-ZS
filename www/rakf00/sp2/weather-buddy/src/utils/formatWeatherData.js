@@ -1,19 +1,37 @@
-export function formatWeatherData(data){
+export function formatWeatherData(data) {
     return {
-        info:{
+        current: {
             temperature: data.current.temperature_2m,
-            precipitation: data.current.precipitation,
+            humidity: data.current.relative_humidity_2m,
             windSpeed: data.current.wind_speed_10m,
             weatherCode: data.current.weather_code,
+            //odebírám aktulní hodinu aby předpověd byla na další hodinu ...
+            // api nedovoluje vzít o hodinu víc než je takže z api beru předpověd na 13h a první hodinu dávám pryč
+            hourly: data.hourly.time.slice(1).map((time, i) => ({
+                time: new Date(time).getHours() + ':00',
+                temperature: data.hourly.temperature_2m[i+1],
+                weatherCode: data.hourly.weather_code[i+1],
+            }))
         },
-        hourly:{
-            temperature: data.hourly.temperature_2m,
-            weatherCode: data.hourly.weather_code,
-        },
-        daily:{
-            temperatureMax: data.daily.temperature_2m_max,
-            temperatureMin: data.daily.temperature_2m_min,
-            weatherCode: data.daily.weather_code,
-        }
+
+        daily: data.daily.time.map((date, i) => ({
+            date: date,
+            temperatureMax: Math.round(data.daily.temperature_2m_max[i]),
+            temperatureMin: Math.round(data.daily.temperature_2m_min[i]),
+            weatherCode: data.daily.weather_code[i],
+        })),
+
     }
 }
+
+export const EMPTY_WEATHER_DATA = {
+    // data pro WeatherInfoCard
+    current: {
+        temperature: null,
+        humidity: null,
+        windSpeed: null,
+        weatherCode: null,
+        hourly: [], //data pro WeatherInfoSlider
+    },
+    daily: [], // data pro SideBar
+};
