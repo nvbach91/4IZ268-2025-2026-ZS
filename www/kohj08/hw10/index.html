@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Git The Hub</title>
+  <meta name="description" content="Jednoduché vyhledávání GitHub uživatelů a jejich repozitářů (jQuery + AJAX).">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Git The Hub</h1>
+
+    <form id="search-form" class="search">
+      <label class="sr-only" for="username">GitHub username</label>
+      <input id="username" name="username" placeholder="např. cheshire137" autocomplete="off" required>
+      <button type="submit">Hledat</button>
+    </form>
+
+    <section id="user-profile" class="panel" aria-live="polite">
+      <p class="muted">Zadej GitHub uživatelské jméno a odešli.</p>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Git The Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+    <!-- Odkaz na externí CSS soubor -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <h1>Git The Hub</h1>
+        <p>Zadejte uživatelské jméno pro vyhledání uživatele na GitHubu</p>
+      </header>
+      <main>
+        <form id="search-form">
+          <input name="username" placeholder="GitHub username (např. facebook)" required /> 
+          <button type="submit">Najít</button>
+        </form>
+
+        <div class="loader" id="loader"></div>
+        <div id="user-profile"></div>
+        
+        <h2 class="repo-title" id="repo-title">Repozitáře</h2>
+        <ul id="repositories"></ul>
+      </main>
+      <footer>2024 &copy; Git The Hub Project</footer>
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Odkaz na externí JS soubor -->
+    <script src="main.js"></script>
+  </body>
+</html>
