@@ -131,3 +131,4 @@ searchForm.addEventListener('submit', async (e) => {
     }
   }
 })();
+
