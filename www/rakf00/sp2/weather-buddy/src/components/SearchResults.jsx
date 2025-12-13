@@ -18,7 +18,7 @@ export default function SearchResults({results, isLoading, onSelect, searchTerm}
 
     return content && (
         <div
-            className={`absolute z-40 w-full ${content === "No results found." | isLoading && "text-center p-3" } bg-slate-700 border overflow-y-hidden border-gray-600 mt-2 rounded-xl `}>
+            className={`absolute z-40 w-full ${(content === "No results found." || isLoading) && "text-center p-3" } bg-slate-700 border overflow-y-hidden border-gray-600 mt-2 rounded-xl `}>
              {content}
         </div>
     );

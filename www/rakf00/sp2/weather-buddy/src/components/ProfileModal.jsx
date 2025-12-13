@@ -14,15 +14,17 @@ export default function ProfileModal({closeModal}) {
 
     const settings = useStoreSettings((state) => state.settings);
 
+    const {age, height, weight, sensitivity} = settings.preferences || {};
+
     // integruju s RHF a nastavuju default values ze zustandu
     const {
         register, handleSubmit, formState: {errors} } = useForm({
-        defaultValues: settings,
+        defaultValues: {age,height,weight,sensitivity},
         mode: 'onChange',
     });
 
     const onSubmit = (data) => {
-        updateSettings(data);
+        updateSettings({...settings,preferences:{...data}});
         closeModal();
     };
 
@@ -127,7 +129,7 @@ export default function ProfileModal({closeModal}) {
                 onClick={closeModal}
                 size='26'
                 className='absolute cursor-pointer hover:scale-105 top-3 right-4'
-                visibility={settings ? "visible" : "hidden"}
+                visibility={settings.preferences ? "visible" : "hidden"}
             />
         </div>
     </div>);

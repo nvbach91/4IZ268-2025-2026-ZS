@@ -1,30 +1,33 @@
-import { useState, useEffect } from 'react';
-import useDebounce from './useDebounce.jsx';
-import { searchLocations } from '../services/locationService.js';
+import {useEffect, useState} from "react";
+import useDebounce from "./useDebounce.jsx";
+import {searchLocations} from "../services/locationService.js";
 import useStoreSettings from "../store/useStoreSettings.jsx";
 
-
-const SEARCH_DELAY_MS = 300;
+const SEARCH_DELAY_MS = 500;
 
 export default function useSearchBar() {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
     const [results, setResults] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingResults, setIsLoadingResults] = useState(false);
 
     const debouncedSearchTerm = useDebounce(searchTerm, SEARCH_DELAY_MS);
 
     const updateSettings = useStoreSettings((state) => state.updateSettings);
     const settings = useStoreSettings((state) => state.settings);
+    // loading je true když uživatel píše (searchTerm existuje, ale ještě se nerovná debouncedSearchTerm)
+    // nebo když se právě načítají výsledky z API
+    const isLoading = !!(searchTerm && searchTerm !== debouncedSearchTerm) || isLoadingResults;
 
     useEffect(() => {
         const fetchResults = async () => {
             if (debouncedSearchTerm) {
-                setIsLoading(true);
+                setIsLoadingResults(true);
                 const locations = await searchLocations(debouncedSearchTerm);
                 setResults(locations);
-                setIsLoading(false);
+                setIsLoadingResults(false);
             } else {
                 setResults([]);
+                setIsLoadingResults(false);
             }
         };
 
@@ -32,8 +35,7 @@ export default function useSearchBar() {
     }, [debouncedSearchTerm]);
 
     const selectLocation = (location) => {
-       console.log(location);
-        let newSettings = { ...settings, location };
+        let newSettings = {...settings, location};
         updateSettings(newSettings);
         setSearchTerm("");
         setResults([]);

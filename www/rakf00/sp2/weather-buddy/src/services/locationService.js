@@ -10,6 +10,10 @@ export const searchLocations = async (cityName) => {
             },
         });
 
+        if (!response.data.results) {
+            return [];
+        }
+
         const filteredData = response.data.results.map(location => ({
             id: location.id,
             name: location.name,
@@ -18,7 +22,6 @@ export const searchLocations = async (cityName) => {
             longitude: location.longitude,
             timezone: location.timezone,
         }));
-
         return filteredData || [];
     } catch (error) {
         console.error("Error fetching location data:", error);

@@ -12,7 +12,7 @@ export const fetchWeatherData = async (location) => {
             }
         });
 
-        console.log(response.data);
+        //console.log(response.data);
         return formatWeatherData(response.data);
     } catch
         (error) {
