@@ -5,6 +5,7 @@ import SideBar from "./SideBar.jsx";
 import useWeatherFetch from "../hooks/useWeatherFetch.jsx";
 import useStoreSettings from "../store/useStoreSettings.jsx";
 import {Spinner} from "./Spinner.jsx";
+import Slider from "./Slider.jsx";
 
 export default function Dashboard() {
 
@@ -21,6 +22,7 @@ export default function Dashboard() {
             <main className='grid grid-cols-[70%_30%] w-full gap-5'>
                 <div className='flex flex-col gap-4'>
                     <WeatherInfoCard location={location} weatherData={weatherData.current} />
+                    <Slider weatherData={weatherData.hourly}/>
                     <div className='grid grid-cols-3 w-full gap-5'>
                         <AIRecommendation/>
                         <DefaultLocation/>

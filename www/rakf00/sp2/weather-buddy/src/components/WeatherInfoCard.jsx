@@ -1,5 +1,5 @@
 import {Droplets, Thermometer, Wind} from "lucide-react";
-import WeatherInfoSlider from "./WeatherInfoSlider.jsx";
+import Slider from "./Slider.jsx";
 import {weatherMapper} from "../utils/weatherCodeManager.js";
 import WeatherIcon from "./WeatherIcon.jsx";
 
@@ -46,7 +46,6 @@ export default function WeatherInfoCard({location, weatherData}) {
                     </div>
                 </div>
             </div>
-            <WeatherInfoSlider nextHours={weatherData.hourly}/>
         </div>
     );
 }

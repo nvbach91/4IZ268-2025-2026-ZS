@@ -1,5 +1,3 @@
-- WeatherCodeManager (ikony počasí, stav počasí do sidebaru např. sunny, rainy, cloudy, stormy..)
--slider sám ,data předělat na current. hourly, daily
 - den v týdnu v sidebaru podle day... (formatDate.js)
 - den nahoře vlevo dashboardu
 - AIrecommendation + lepší UX + omezení času na aktuální a dál na tu dobu co mám předpověd...

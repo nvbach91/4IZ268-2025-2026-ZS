@@ -2,7 +2,7 @@ import {useSlider} from '../hooks/useSlider';
 import SliderButton from './SliderButton.jsx';
 import SliderItem from './SliderItem.jsx';
 
-export default function WeatherInfoSlider({nextHours}) {
+export default function Slider({weatherData}) {
 
 
     const {
@@ -12,7 +12,7 @@ export default function WeatherInfoSlider({nextHours}) {
         canGoPrev,
         itemWidth,
         translateX
-    } = useSlider(nextHours?.length ?? 0);
+    } = useSlider(weatherData?.length ?? 0);
 
     return (
         <div className='slider p-10 bg-slate-700 rounded-xl mt-10 relative group'>
@@ -24,7 +24,7 @@ export default function WeatherInfoSlider({nextHours}) {
                     className='flex transition-transform duration-500 ease-in-out will-change-transform'
                     style={{transform: `translateX(${translateX}%)`}}
                 >
-                    {nextHours?.map((hour, index) => (
+                    {weatherData?.map((hour, index) => (
                         <div
                             key={index}
                             className='flex-shrink-0'
@@ -34,7 +34,7 @@ export default function WeatherInfoSlider({nextHours}) {
                         </div>
                     ))}
 
-                    {(!nextHours || nextHours.length === 0) && (
+                    {(!weatherData|| weatherData.length === 0) && (
                         <div className='w-full text-center text-gray-400 py-4'>
                             No data available.
                         </div>
