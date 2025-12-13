@@ -5,6 +5,7 @@ body {
     font-family: 'Roboto', sans-serif;
     caret-color: transparent;
     color: white;
+    background: #0b131e;
 }
 
 input:focus {

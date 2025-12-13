@@ -10,6 +10,6 @@ Asynchronní Logika: Využití trojitého asynchronního řetězce API (Open-Met
 
 Stav a Validace: Správa stavu probíhá přes Zustand; formulář profilu je validován pomocí React Hook Form (RHF).
 
-Dále jsou použity tyto knihovny: Axios, Zustand, React Router, React Icons.
+Dále jsou použity tyto knihovny: Axios, Zustand, Lucide Icons.
 
-Webové Zvyklosti: Dodržení principu SPA a uchování stavu lokace v adrese URL (React Router DOM).
+Webové Zvyklosti: Dodržení principu SPA.

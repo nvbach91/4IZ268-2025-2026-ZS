@@ -30,7 +30,7 @@ export default function ProfileModal({closeModal}) {
         <div
         id='modal-backdrop'
         onClick={closeModal}
-        className='cursor-pointer z-30 fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md'
+        className='cursor-pointer z-30 fixed inset-0 flex items-center justify-center backdrop-blur-md'
     >
         <div
             role='dialog'

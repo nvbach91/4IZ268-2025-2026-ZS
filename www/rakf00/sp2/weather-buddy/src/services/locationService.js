@@ -16,6 +16,7 @@ export const searchLocations = async (cityName) => {
             country: location.country,
             latitude: location.latitude,
             longitude: location.longitude,
+            timezone: location.timezone,
         }));
 
         return filteredData || [];

@@ -3,8 +3,7 @@ import {UserRound} from "lucide-react";
 
 export default function Header({openModal}) {
     return (
-        <header className='relative w-full flex items-center justify-between'>
-            <p className='font-bold text-2xl'>FRI | 15.11.2025</p>
+        <header className='relative w-full flex items-center justify-end'>
             <div className='absolute left-1/2 -translate-x-1/2'>
                 <SearchBar/>
             </div>

@@ -14,10 +14,10 @@ export function formatWeatherData(data) {
             weatherCode: data.hourly.weather_code[i+1],
         })),
 
-        daily: data.daily.time.map((date, i) => ({
+        daily: data.daily.time.slice(1).map((date, i) => ({
             date: date,
-            temperatureMax: Math.round(data.daily.temperature_2m_max[i]),
-            temperatureMin: Math.round(data.daily.temperature_2m_min[i]),
+            temperatureMax: Math.round(data.daily.temperature_2m_max[i+1]),
+            temperatureMin: Math.round(data.daily.temperature_2m_min[i+1]),
             weatherCode: data.daily.weather_code[i],
         })),
 

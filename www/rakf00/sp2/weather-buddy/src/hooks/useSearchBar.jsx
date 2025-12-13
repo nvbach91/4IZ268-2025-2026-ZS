@@ -32,6 +32,7 @@ export default function useSearchBar() {
     }, [debouncedSearchTerm]);
 
     const selectLocation = (location) => {
+       console.log(location);
         let newSettings = { ...settings, location };
         updateSettings(newSettings);
         setSearchTerm("");

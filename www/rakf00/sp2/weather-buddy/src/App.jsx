@@ -9,7 +9,7 @@ function App() {
   return (
       <>
           {isModalOpen && <ProfileModal closeModal={closeModal} />}
-          <div className='min-h-screen bg-slate-900'>
+          <div>
               <div className='p-8 flex flex-col gap-16'>
                   <Header openModal={openModal}/>
                   <Dashboard/>
