@@ -83,9 +83,15 @@ const toggle = (event) => {
     </main>
   </div>
 
-  <Toast />
+  <Toast class="max-w-[80vw]" />
 </template>
 
 <style>
+  body {
+    background-color: var(--color-gray-50);
+  }
 
+  .dark-theme body {
+    background-color: var(--color-background);
+  }
 </style>

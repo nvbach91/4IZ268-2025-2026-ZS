@@ -165,16 +165,16 @@ onBeforeUnmount(() => {
 
         </Panel>
     
-        <div class="flex gap-4 items-center mt-auto justify-end">
-          <Button icon="pi pi-bell" severity="secondary" label="Set notification" @click="showNotifModal = true" />
-          <Button v-if="coinsStore.isInWatchlist(id)" severity="danger" @click="coinsStore.toggleWatchlist(id)" label="Remove from watchlist" icon="pi pi-trash" />
-          <Button v-else severity="primary" @click="coinsStore.toggleWatchlist(id)" label="Add to watchlist" icon="pi pi-plus" />
+        <div class="flex sm:gap-4 items-center mt-auto sm:justify-end sm:flex-row flex-col gap-2">
+          <Button icon="pi pi-bell" severity="secondary" class="sm:w-fit w-full" label="Set notification" @click="showNotifModal = true" />
+          <Button class="sm:w-fit w-full" v-if="coinsStore.isInWatchlist(id)" severity="danger" @click="coinsStore.toggleWatchlist(id)" label="Remove from watchlist" icon="pi pi-trash" />
+          <Button class="sm:w-fit w-full" v-else severity="primary" @click="coinsStore.toggleWatchlist(id)" label="Add to watchlist" icon="pi pi-plus" />
         </div>
       </div>
     </template>
   </Card>
 
-  <div class="flex flex-1 lg:h-auto h-125 self-stretch min-w-0">
+  <div class="flex lg:flex-1 lg:h-auto h-125 self-stretch min-w-0">
       <!-- TradingView Widget BEGIN -->
       <div
         ref="tvContainer"
@@ -186,12 +186,12 @@ onBeforeUnmount(() => {
     </div>
   </div>
 
-  <Dialog class="m2" :draggable="false" v-model:visible="showEditNoteDialog" modal :header="hasNote ? `Edit Note for ${name}` : `Add Note for ${name}`" :closable="true" :style="{ minWidth: '300px',width: '500px' }">
+  <Dialog class="w-full max-w-125 mx-2" :draggable="false" v-model:visible="showEditNoteDialog" modal :header="hasNote ? `Edit Note for ${name}` : `Add Note for ${name}`" :closable="true">
     <div class="flex flex-col gap-4">
       <Textarea id="noteTextarea" v-model="note" rows="5" autoResize class="w-full" />
-      <div class="flex justify-between gap-4">
+      <div class="flex sm:flex-row flex-col-reverse justify-between gap-4">
         <Button label="Delete Note" icon="pi pi-trash" severity="danger" outlined @click="coinsStore.clearNote(id); showEditNoteDialog = false;" :disabled="!hasNote" />
-        <div class="flex gap-4">
+        <div class="flex gap-4 sm:justity-start justify-end">
           <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="showEditNoteDialog = false" />
           <Button label="Save" icon="pi pi-check" severity="primary" @click="() => handleSaveNote()" />
         </div>

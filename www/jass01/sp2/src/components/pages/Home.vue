@@ -155,7 +155,7 @@ async function fetchCrypto() {
 
 <template>
 
-  <div class="flex flex-col gap-8 py-32">
+  <div class="flex flex-col gap-8 lg:py-32 py-8">
     <form @submit.prevent="fetchCrypto" class="flex flex-col gap-8">
 
       <div class="flex flex-col">

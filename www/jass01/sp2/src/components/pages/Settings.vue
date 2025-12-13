@@ -1,6 +1,6 @@
 <template>
-  <div class="py-32">
-    <h1 class="text-4xl font-semibold py-8">Settings</h1>
+  <div class="lg:py-32 py-8">
+    <h1 class="text-4xl font-semibold pb-8">Settings</h1>
 
     <div class="flex flex-col gap-8">
       <Card>
@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <Dialog :visible="showDeleteModal" :modal="true" :closable="false" :style="{ width: '400px' }">
+  <Dialog :visible="showDeleteModal" :modal="true" :closable="false" class="w-full max-w-125 mx-2">
     <div class="flex flex-col gap-4">
       <h2 class="text-xl font-semibold">Confirm Deletion</h2>
       <p>Are you sure you want to delete all user data? This action cannot be undone.</p>

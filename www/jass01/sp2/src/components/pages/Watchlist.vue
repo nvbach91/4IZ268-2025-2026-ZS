@@ -82,8 +82,8 @@ function getNote(coinId) {
 </script>
 
 <template>
-  <div class="py-32">
-    <h1 class="text-4xl font-bold mb-6">Watchlist</h1>
+  <div class="lg:py-32 py-8">
+    <h1 class="text-4xl font-semibold mb-6">Watchlist</h1>
     <DataTable v-if="watchlistIds.length > 0" showGridlines :value="storedWatchlist" :loading="loading" class="w-full" responsiveLayout="scroll">
       <ColumnGroup type="header">
         <Row>

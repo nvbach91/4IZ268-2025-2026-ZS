@@ -1,6 +1,6 @@
 <template>
   <Dialog
-    class="mx-2 min-w-125"
+    class="mx-2 w-full max-w-125"
     :visible="props.show"
     :draggable="false"
     modal
