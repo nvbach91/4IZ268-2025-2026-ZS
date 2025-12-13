@@ -1,0 +1,6 @@
+@import "primeicons/primeicons.css";
+@import "tailwindcss";
+
+.router-link-active {
+  @apply underline font-semibold;
+}
