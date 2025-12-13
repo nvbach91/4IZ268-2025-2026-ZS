@@ -1,4 +1,3 @@
-- AIrecommendation + lepší UX
 - oblíbená lokace , logika by mohla být že je hvězdička přepínatelná u názvu lokace,
 a pokud mám lokaci zrovna vybranou nezobrazuje se DefaultLocation.jsx
 - automatický refresh dat na dashboardu po 10 minutách (znovu zavolání vykreslení)

@@ -15,6 +15,7 @@ export default function useWeatherFetch() {
                 setIsLoading(true);
                 const data = await fetchWeatherData(currentLocation);
                 setWeatherData(data);
+                console.log(data);
                 setIsLoading(false);
             }
 
