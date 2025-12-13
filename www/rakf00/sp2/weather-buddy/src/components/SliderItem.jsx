@@ -1,8 +1,9 @@
 import Icon from "../assets/images/icons/rain.png";
+import WeatherIcon from "./WeatherIcon.jsx";
 
 export default function SliderItem({hourData}) {
 
-    // hourData.weatherCode ready na dynamický ikonky
+
 
     return (
         <div
@@ -11,7 +12,7 @@ export default function SliderItem({hourData}) {
             <p className='font-bold text-gray-300'>
                 {hourData.time ?? '--'}
             </p>
-            <img src={Icon} width='48' alt='weather' className='drop-shadow-md'/>
+            <WeatherIcon code={hourData.weatherCode} className='drop-shadow-md'/>
             <p className='font-bold text-xl'>
                 {hourData.temperature ?? '--'} &#176;C
             </p>

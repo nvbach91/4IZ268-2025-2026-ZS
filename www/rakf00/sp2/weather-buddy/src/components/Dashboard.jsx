@@ -26,7 +26,7 @@ export default function Dashboard() {
                         <DefaultLocation/>
                     </div>
                 </div>
-                <SideBar nextDays={weatherData.daily}/>
+                <SideBar weatherData={weatherData.daily}/>
             </main>
     );
 
