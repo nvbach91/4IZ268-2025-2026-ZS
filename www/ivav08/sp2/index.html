@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeForge - Create Your Meme</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div id="app-loader" class="loader-overlay hidden">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1>MemeForge 🎨</h1>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="🔍 Search templates or tags...">
+            </div>
+            <nav>
+                <button id="nav-gallery" class="active">Templates Gallery</button>
+                <button id="nav-favorites">My Favorites</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="page-gallery">
+            <div class="intro">
+                <h2>Choose a Template</h2>
+                <p>Pick a popular image to start creating.</p>
+            </div>
+            <div id="gallery-grid" class="grid-container"></div>
+        </section>
+
+        <section id="page-editor" class="hidden">
+            <button id="back-btn" class="secondary-btn">&larr; Back</button>
+
+            <div class="editor-container">
+                <div class="canvas-wrapper">
+                    <canvas id="meme-canvas"></canvas>
+                </div>
+
+                <div class="controls-panel">
+                    <h3>Edit Meme</h3>
+
+                    <div class="input-group">
+                        <label for="text-top">Top Text</label>
+                        <textarea id="text-top" rows="2" placeholder="Top text here..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="text-bottom">Bottom Text</label>
+                        <textarea id="text-bottom" rows="2" placeholder="Bottom text here..."></textarea>
+                    </div>
+
+                    <div class="actions">
+                        <button id="download-btn" class="primary-btn">⬇ Download Meme</button>
+
+                        <button id="favorite-btn" class="outline-btn">♥ Save to Collection</button>
+
+                        <button id="editor-delete-btn" class="danger-btn hidden">🗑 Delete from Collection</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="page-favorites" class="hidden">
+            <h2>My Favorite Templates</h2>
+            <div id="favorites-grid" class="grid-container"></div>
+            <p id="no-favorites-msg" class="hidden">You haven't saved any templates yet.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Web Technologies Project &copy; 2025</p>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
