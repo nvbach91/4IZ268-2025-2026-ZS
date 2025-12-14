@@ -1,0 +1,137 @@
+/* ---------------------------------------------------------
+   SP2 - Správce úkolů
+   Vlastní styly doplňující Bootstrap
+--------------------------------------------------------- */
+
+/* ZÁKLAD */
+body {
+  background-color: #f4f5f7;
+  font-family: "Inter", Arial, sans-serif;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+}
+
+/* Karty */
+.card {
+  border-radius: 12px;
+  border: 1px solid #e1e4e8;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+/* WEATHER PANEL ---------------------------------------------------- */
+#weather-panel {
+  border-left: 4px solid #0d6efd;
+}
+
+#weather-panel #weather-location {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#weather-panel #weather-desc {
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+#weather-panel #weather-temp {
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+#weather-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+/* FORMULÁŘE -------------------------------------------------------- */
+#task-form input,
+#task-form select {
+  border-radius: 8px;
+}
+
+#task-add-btn {
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+/* FILTRY ----------------------------------------------------------- */
+#filters .btn-group .btn {
+  border-radius: 6px !important;
+  min-width: 105px;
+}
+
+#filters input[type="search"] {
+  border-radius: 8px;
+}
+
+/* TASK LIST -------------------------------------------------------- */
+#task-list .list-group-item {
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.18s ease;
+}
+
+#task-list .list-group-item:hover {
+  background-color: #f0f1f3;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-title {
+  font-weight: 600;
+}
+
+.task-category {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  border-radius: 6px;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* HLÁŠKY / CHYBY --------------------------------------------------- */
+.text-danger {
+  font-weight: 500;
+}
+
+/* FOOTER ----------------------------------------------------------- */
+footer {
+  opacity: 0.7;
+  margin-top: 40px;
+}
+
+/* RESPONSIVITA ----------------------------------------------------- */
+@media (max-width: 576px) {
+  #filters .ms-auto {
+    width: 100%;
+  }
+
+  #filters input {
+    width: 100% !important;
+  }
+
+  #weather-panel {
+    padding: 0.8rem;
+  }
+}
