@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online deníček</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+    <script src="js/main.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Online deníček</h1>
+        <button id="authorize_button" style="display: none;">Přihlásit do Google</button>
+        <button id="signout_button" style="display: none;">Odhlásit z Google</button>
+    </header>
+
+    <div class="main-content-wrapper">
+        <main class="left-panel">
+            <div class="record-panel">
+                <h2>Moje záznamy</h2>
+                <button id="show-form-btn" class="add-btn-large">Přidat záznam</button>
+
+                <div class="entry-form">
+                    <!-- formulář se bude zobrazovat až pomocí js a jednotlive zaznamy se budou ukladat pomoci Browser API -->
+                </div>
+                <div class="entries-panel">
+                    <!-- záznamy se budou načítat pomocí js -->
+                </div>
+            </div>
+
+            <div class="quote-container">
+                <h2>Citát dne</h2>
+                <div id="quote-display">
+                    Načítání citátu...
+                </div>
+            </div>
+        </main>
+
+        <aside class="right-panel">
+            <div class="calendar-container">
+                <div id="current-date" class="current-date">
+                    <!-- aktuální datum se zobrazí zde -->
+                </div>
+                <p id="events-info">Události se zobrazí po přihlášení do Google.</p>
+                <div id="calendar">
+                    <!-- události z Google kalendáře se zobrazí zde -->
+                </div>
+            </div>
+
+            <div class="todo-list-container">
+                <h2>To-Do List</h2>
+                <button id="add-task-btn" class="add-btn-small">Přidat úkol</button>
+                <ul id="todo-list">
+                    <li>
+                        <input type="checkbox" id="task-1">
+                        <label for="task-1">Úkol 1</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="task-2">
+                        <label for="task-2">Úkol 2</label>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+</body>
+
+</html>
