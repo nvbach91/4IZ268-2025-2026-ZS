@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Úkolníček</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Úkolníček</h1>
+
+        <form id="taskForm" class="mb-4">
+            <div class="mb-3">
+                <label for="taskTitle" class="form-label">Název úkolu</label>
+                <input type="text" id="taskTitle" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="taskDesc" class="form-label">Popis</label>
+                <textarea id="taskDesc" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Uložit úkol</button>
+        </form>
+
+        <!-- Task List -->
+        <ul id="taskList" class="list-group">
+            <li>test</li>
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
