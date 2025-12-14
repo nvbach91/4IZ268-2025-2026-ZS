@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TipMaster</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>TipMaster 2026</h1>
+    </header>
+
+    <main class="container">
+        
+        <section class="column" id="matches-column">
+            <h2>Zápasy</h2>
+            <div class="controls">
+                <label>Soutěž:</label>
+                <select id="league-select">
+                    <option value="pl">Premier League</option>
+                    <option value="nhl">NHL</option>
+                </select>
+            </div>
+            
+            <div id="matches-list">
+                <div class="match-item">
+                    <span class="date">10.12. 17:00</span>
+                    <span class="teams">Man Utd vs Liverpool</span>
+                </div>
+                <div class="match-item">
+                    <span class="date">10.12. 19:00</span>
+                    <span class="teams">Arsenal vs West Ham</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="column" id="detail-column">
+            <h2>Detail zápasu</h2>
+            <div id="match-detail-content">
+                <p>Nebyl vybrán žádný zápas.</p>
+                </div>
+
+            <div class="betting-area">
+                <h3>Můj tip</h3>
+                <div class="buttons">
+                    <button class="btn-tip" data-value="1">1</button>
+                    <button class="btn-tip" data-value="0">0</button>
+                    <button class="btn-tip" data-value="2">2</button>
+                </div>
+                <button id="save-tip">Uložit tip</button>
+            </div>
+        </section>
+
+        <section class="column" id="stats-column">
+            <h2>Statistiky</h2>
+            <div class="stats-info">
+                <h3>Moje statistiky</h3>
+                <p>Celková úspěšnost: <span id="total-success">62 %</span></p>
+                <p>Premier League: <span>70 %</span></p>
+                <p>NHL: <span>59 %</span></p>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Graf vývoje</h3>
+                <canvas id="statsChart"></canvas> </div>
+
+            <div class="history-list">
+                <h3>Historie tipování</h3>
+                <ul>
+                    <li>Man City - Arsenal: Tip 1 (Výsledek 5:2)</li>
+                    <li>West Ham - Tottenham: Tip 2 (Výsledek 2:3)</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>TipMaster &copy; 2026</p>
+    </footer>
+
+   
+</body>
+</html>
