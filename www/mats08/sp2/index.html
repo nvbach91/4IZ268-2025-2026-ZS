@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieDB</title>
+    <!-- Fonty -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ikony -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Styl -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <h1 class="logo"></i>MovieDB</h1>
+            
+            <form id="search-form" class="search-box">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Zadejte název..." 
+                        required 
+                        autocomplete="off"
+                    >
+                    <button title="search" type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Notifikace -->
+        <div id="toast" class="toast hidden">Akce OK</div>
+        <div id="spinner" class="spinner hidden"></div>
+        <div id="error-message" class="message error hidden"></div>
+
+        <!-- Výsledky -->
+        <section id="results-section">
+            <div class="section-header">
+                <h2>Výsledky hledání</h2>
+            </div>
+            
+            <div id="movie-list" class="grid-layout">
+                <div class="empty-state">
+                    <i class="fas fa-film"></i>
+                    <p>Zadejte název filmu a objevte svět kinematografie</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Oblíbené -->
+        <section id="favorites-section">
+            <div class="section-header">
+                <h2>Oblíbené</h2>
+                <button id="clear-fav-btn" class="btn-clear">
+                    Vymazat vše
+                </button>
+            </div>
+            <div id="favorites-list" class="grid-layout"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; MATS08 | Semestrální práce</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
