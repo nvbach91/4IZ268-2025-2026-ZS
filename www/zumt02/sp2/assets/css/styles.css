@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+h1 {
+    margin-left: 20vw;
+}
+
+main {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+}
+
+footer {
+    margin-top: auto;
+    border-top: 1px black solid;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.filters {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+}
+
+.content {
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centered-content {
+    justify-content: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons-right {
+    margin-left: auto;
+    margin-right: 10vw;
+}
+
+.anime-desc {
+    width: 50vw;
+}
+
+.page-nav-top {
+    margin-bottom: 10px;
+    border-bottom: 1px black solid;
+    padding-bottom: 10px;
+}
+
+.page-nav-bottom {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
