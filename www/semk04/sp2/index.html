@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Book Catalog</title>
+    
+    <link rel="stylesheet" href="./assests/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <h3>Add new book</h3>
+        
+        <div class="api-section">
+            <label>ISBN or Title:</label>
+            <input type="text" id="api-search" placeholder="Enter the title...">
+            <button id="btn-fetch-api">Load</button>
+        </div>
+        <hr>
+
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" id="title">
+        </div>
+        <div class="form-group">
+            <label>Author:</label>
+            <input type="text" id="author">
+        </div>
+        <div class="form-group">
+            <label>Genre:</label>
+            <input type="text" id="genre">
+        </div>
+        <div class="form-group">
+            <label>Note:</label>
+            <textarea id="note"></textarea>
+        </div>
+        <div class="form-group">
+            <label>URL Cover:</label>
+            <input type="text" id="cover-url">
+            <img id="cover-preview">
+        </div>
+        
+        <button id="btn-add">Add to Catalog</button>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h2>My List</h2>
+        </div>
+        
+        <div id="book-list"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./assests/js/main.js"></script>
+
+</body>
+</html>
