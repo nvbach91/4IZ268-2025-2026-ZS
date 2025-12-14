@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prague HEAT! – Pilot test</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 20px; }
+    button { margin: 6px 6px 6px 0; padding: 8px 10px; }
+    pre { background: #f5f5f5; padding: 12px; border-radius: 8px; overflow: auto; max-height: 70vh; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .small { color: #555; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Prague HEAT! – Pilot test UI</h1>
+  <p class="small">
+    Tohle je jen testovací stránka pro ověření, že backend volá externí API (Golemio + OpenWeather).
+  </p>
+
+  <div class="row">
+    <button id="btn-health">GET /api/health</button>
+    <button id="btn-weather">GET /api/weather/prague</button>
+    <button id="btn-golemio">GET /api/golemio/vehiclepositions</button>
+    <button id="btn-tram">GET golemio?route_type=0</button>
+    <button id="btn-bus">GET golemio?route_type=3</button>
+    <button id="btn-clear">Clear</button>
+  </div>
+
+  <h2>Output</h2>
+  <pre id="out">Klikni na tlačítko.</pre>
+
+  <script>
+    const out = document.getElementById("out");
+
+    async function callApi(path) {
+      out.textContent = "Loading " + path + " ...";
+      try {
+        const resp = await fetch(path);
+        const text = await resp.text();
+        // try to pretty-print JSON
+        try {
+          const json = JSON.parse(text);
+          out.textContent = JSON.stringify(json, null, 2);
+        } catch {
+          out.textContent = text;
+        }
+      } catch (e) {
+        out.textContent = "ERROR: " + e.message;
+      }
+    }
+
+    document.getElementById("btn-health").addEventListener("click", () => callApi("/api/health"));
+    document.getElementById("btn-weather").addEventListener("click", () => callApi("/api/weather/prague"));
+    document.getElementById("btn-golemio").addEventListener("click", () => callApi("/api/golemio/vehiclepositions"));
+    document.getElementById("btn-tram").addEventListener("click", () => callApi("/api/golemio/vehiclepositions?route_type=0"));
+    document.getElementById("btn-bus").addEventListener("click", () => callApi("/api/golemio/vehiclepositions?route_type=3"));
+    document.getElementById("btn-clear").addEventListener("click", () => out.textContent = "Klikni na tlačítko.");
+  </script>
+</body>
+</html>
