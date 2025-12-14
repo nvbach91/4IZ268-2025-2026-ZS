@@ -87,7 +87,7 @@ async function updateCrypto(symbol) {
     const key = import.meta.env.VITE_COINGECKO_API_KEY;
     const query = symbol.toLowerCase();
     const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${encodeURIComponent(query)}`;
-    const headers = key ? { 'x-cg-api-key': key } : {};
+    const headers = key ? { 'x-cg-demo-api-key': key } : {};
     const res = await fetch(url, { headers });
     if (!res.ok) {
       coinData.value = null;
@@ -159,8 +159,8 @@ async function fetchCrypto() {
     <form @submit.prevent="fetchCrypto" class="flex flex-col gap-8">
 
       <div class="flex flex-col">
-        <label for="crypto">Enter the name of the cryptocurrency you want to look up.</label>
-        <InputText v-model="cryptoName" placeholder="BTC" name="crypto" />
+        <label for="crypto">Enter the <strong>name</strong> (not symbol) of the cryptocurrency you want to look up.</label>
+        <InputText v-model="cryptoName" placeholder="Bitcoin" name="crypto" />
       </div>
       
       <Button :loading="loading" class="w-[50%] mx-auto" type="submit" severity="primary" label="Load cryptocurrency" />
