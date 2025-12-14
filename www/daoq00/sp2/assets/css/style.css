@@ -1,0 +1,77 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fcf8f5;
+    color: #333;
+}
+
+header {
+    background-color: #1B3C53;
+    color: white;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+#search-form {
+    display: flex;
+    gap: 10px;
+}
+#search-input {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 300px;
+}
+#search-form button {
+    padding: 10px 20px;
+    background-color: #ffc107; 
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+#search-form button:hover {
+    background-color: #e2ab07;
+    color: white;
+}
+
+#folders-sidebar {
+    width: 250px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+#folders-sidebar h2 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: #1B3C53;
+}
+#add-folder-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #306c97; /* Zelené tlačítko */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#add-folder-btn:hover {
+    background-color: #1B3C53;
+}
+
