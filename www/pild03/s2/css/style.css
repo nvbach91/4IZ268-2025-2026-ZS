@@ -1,0 +1,200 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: #0088A8;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+section {
+    background: white;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #0088A8;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Vyhledávání */
+#recipe-search-input, #search-button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+#recipe-search-input {
+    width: 300px;
+}
+
+#search-button {
+    background-color: #00CC99;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #00A67D;
+}
+
+#search-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.recipe-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: grab;
+    text-align: center;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.recipe-card h4 {
+    font-size: 1em;
+    padding: 10px 5px 0;
+    min-height: 40px;
+}
+
+/* Plánovač */
+#meal-planner-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 2fr); /* Den, Snídaně, Oběd, Večeře */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.grid-header, .day-cell, .meal-slot {
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: center;
+    background-color: #fcfcfc;
+}
+
+.grid-header {
+    background-color: #0088A8;
+    color: white;
+    font-weight: bold;
+}
+
+.day-cell {
+    background-color: #00CC99;
+    color: white;
+    font-weight: bold;
+}
+
+.meal-slot {
+    background-color: #f0f0f0;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.planned-recipe {
+    background-color: #fff;
+    border: 1px solid #0088A8;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    width: 95%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    cursor: grab;
+}
+
+.planned-recipe:hover::after {
+    content: "✖";
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    cursor: pointer;
+}
+
+/* Nákupní seznam */
+#generate-list-button, #clear-planner-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#generate-list-button {
+    background-color: #FF5733;
+    color: white;
+}
+
+#clear-planner-button {
+    background-color: #f44336;
+    color: white;
+}
+
+#shopping-list-content h3 {
+    margin-top: 15px;
+    color: #0088A8;
+}
+
+#shopping-list-content ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+#shopping-list-content li {
+    background: #fcfcfc;
+    border-bottom: 1px dotted #eee;
+    padding: 8px 0;
+}
