@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Please</title>
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"> <!-- local bootstrap because of theme -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="app-container" class="container">
+
+        <div id="start-window" class="container start-window">
+            <div class="row vh-100 d-flex justify-content-center align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="mb-4 fw-bold">PASSPORT PLEASE</h1>
+                    <button class="btn btn-dark btn-lg fw-bold" id="start-game-btn">START GAME</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-window" class="container game-window">
+            <div class="row mb-3 gx-2">
+                <div class="col-4">
+                    <button class="btn btn-dark w-100 fw-bold" id="main-menu-btn">MAIN MENU</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-dark w-100 fw-bold" id="passport-please-btn">PASSPORT PLEASE</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-dark w-100 fw-bold" id="highscore-btn">HIGHSCORE</button>
+                </div>
+            </div>
+            <div class="row mb-4 gx-2">
+                <div class="col-4">
+                    <div class="p-2 border text-center text-secondary fw-bold bg-light" id="current-lives">"LIVES"</div>
+                </div>
+                <div class="col-4">
+                    <div class="p-2 border text-center text-secondary fw-bold bg-light" id="current-score">CURRENT SCORE
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="p-2 border text-center text-secondary fw-bold bg-light" id="current-round">ROUND</div>
+                </div>
+            </div>
+            <div class="row gx-4">
+
+                <div class="col-md-8">
+                    <div class="card p-3 passport-card">
+                        <h4 class="card-title text-center mb-4 text-dark fw-bold">PASSPORT</h4>
+
+                        <form>
+                            <div class="row mb-2">
+                                <label for="area-field" class="col-3 col-form-label text-end fw-bold">AREA</label>
+                                <div class="col-9">
+                                    <input type="text" readonly class="form-control" id="area-field" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <label for="region-field" class="col-3 col-form-label text-end fw-bold">REGION</label>
+                                <div class="col-9">
+                                    <input type="text" readonly class="form-control" id="region-field" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <label for="pop-field" class="col-3 col-form-label text-end fw-bold">POP</label>
+                                <div class="col-9">
+                                    <input type="text" readonly class="form-control" id="pop-field" value="">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <label class="col-3 col-form-label text-end fw-bold">BORDERS</label>
+                                <div class="col-9 d-flex flex-wrap gap-1" id="borders-container">
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <label class="col-3 col-form-label text-end fw-bold">LAT/LNG</label>
+                                <div class="col-9">
+                                    <input type="text" readonly class="form-control" id="hemisphere-field" value="">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <label class="col-3 col-form-label text-end fw-bold">LANDLOCKED</label>
+                                <div class="col-9">
+                                    <input type="text" readonly class="form-control" id="landlocked-field" value="">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row gx-2">
+                            <div class="col-6">
+                                <button class="btn w-100 fw-bold deny-btn" id="deny-btn">DENY</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn w-100 fw-bold allow-btn" id="allow-btn">ALLOW</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="allowed-countries"
+                        class="p-3 text-center allowed-list-area d-flex align-items-center justify-content-center">
+                        <h3 class="text-secondary opacity-50 fw-bold">
+                            ALLOWED COUNTRIES LIST
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4.2.2/dist/bundles/anime.umd.min.js"></script>
+    <script src="assets/js/game.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+</body>
+
+</html>
