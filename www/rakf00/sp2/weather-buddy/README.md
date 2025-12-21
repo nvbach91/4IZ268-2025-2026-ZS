@@ -1,6 +1,6 @@
 🌤️ WeatherBuddy
 
-Single Page Aplikace, jejíž hlavní funkcí je generování personalizovaných doporučení k oblékání pomocí umělé inteligence. Rada je generována na základě aktuálních dat o počasí a individuálního profilu uživatele (otužilost, biometrie), který je trvale uložen v lokálním úložišti.
+Single Page Aplikace, jejíž hlavní funkcí je generování personalizovaných doporučení k oblékání pomocí umělé inteligence. Rada je generována na základě aktuálních dat o počasí a individuálního profilu uživatele (věk, výška, váha, otužilost), který je trvale uložen v lokálním úložišti.
 
 💻 Architektura a Technologie
 

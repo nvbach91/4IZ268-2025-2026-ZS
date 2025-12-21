@@ -32,7 +32,7 @@ exports.handler = async (event) => {
                         role: "user",
                         content: `Write a short personal description of what clothes to choose depending on the weather.
          If it is rainy, mention a raincoat or umbrella, otherwise do not. Short, max 3 sentences. 
-        Info about person: ${JSON.stringify(preferences)}. Hourly weather data: ${JSON.stringify(weatherData)}.`,
+        Consider info about person (age, weight in kg, height in cm etc.): ${JSON.stringify(preferences)} and Hourly weather data: ${JSON.stringify(weatherData)}.`,
                     },
                 ],
                 max_tokens: 100,

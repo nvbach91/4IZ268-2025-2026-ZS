@@ -3,16 +3,15 @@ import useSearchBar from "../hooks/useSearchBar.jsx";
 import SearchResults from "./SearchResults.jsx";
 
 export default function SearchBar() {
-    const {
-        searchTerm, setSearchTerm, results, isLoading, selectLocation
-    } = useSearchBar();
+    const {searchTerm, setSearchTerm, results, isLoading, selectLocation} =
+        useSearchBar();
 
     const handleInputChange = (e) => {
         setSearchTerm(e.target.value);
-    }
+    };
 
     return (
-        <div className='relative'>
+        <div className='relative z-50'>
             <form>
                 <label htmlFor='search' className='sr-only'></label>
                 <div
@@ -39,4 +38,3 @@ export default function SearchBar() {
         </div>
     );
 }
-

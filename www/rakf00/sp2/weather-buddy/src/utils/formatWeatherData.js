@@ -6,7 +6,7 @@ export function formatWeatherData(data) {
             windSpeed: data.current.wind_speed_10m,
             weatherCode: data.current.weather_code,
         },
-        //odebírám aktulní hodinu aby předpověd byla na další hodinu ...
+        //odebírám aktulní hodinu, aby předpověd byla na další hodinu ...
         // api nedovoluje vzít o hodinu víc než je takže z api beru předpověd na 13h a první hodinu dávám pryč
         hourly: data.hourly.time.slice(1).map((time, i) => ({
             time: new Date(time).getHours() + ':00',
@@ -31,7 +31,7 @@ export const EMPTY_WEATHER_DATA = {
         humidity: null,
         windSpeed: null,
         weatherCode: null,
-        hourly: [], //data pro Slider
     },
+    hourly: [], //data pro Slider
     daily: [], // data pro SideBar
 };

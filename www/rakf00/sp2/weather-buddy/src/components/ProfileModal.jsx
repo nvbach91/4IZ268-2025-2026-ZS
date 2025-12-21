@@ -38,7 +38,7 @@ export default function ProfileModal({closeModal}) {
             role='dialog'
             aria-modal='true'
             onClick={handleModalClick}
-            className='relative cursor-default z-40 p-6 w-100 max-w-lg bg-white border-2  text-black rounded-xl shadow-2xl transform transition-all duration-300'
+            className='relative cursor-default z-40 p-6 w-100 max-w-lg bg-white text-black rounded-xl shadow-2xl transform transition-all duration-300'
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h3 className='text-xl font-bold z-50  my-4 text-center'>

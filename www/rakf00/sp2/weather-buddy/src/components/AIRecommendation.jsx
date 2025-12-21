@@ -6,7 +6,7 @@ export default function AIRecommendation({weatherData}) {
     const {isGenerating, isGenerated, getRecommendation, recommendationText} = useAIRecommendation(weatherData);
 
     return (
-        <form className='bg-slate-700 rounded-xl col-span-2'>
+        <form className='bg-slate-700 rounded-xl col-span-2 only:col-span-3 only:pb-14'>
             <h2 className='text-center text-2xl mt-4'>Looking for advice?</h2>
             {isGenerating && (
                 <div className='flex justify-center items-center py-8'>
