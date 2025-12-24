@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Informace a zdroje pro současné studenty Gymnázia Chomutov.">
+    <title>Pro studenty - Gymnázium Chomutov</title>
+    <link rel="icon" type="image/png" href="../assets/img/logo-nontransparent.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../" class="logo">
+                    <img src="../assets/img/logo.png" alt="Gymnázium Chomutov Logo">
+                </a>
+                <button class="hamburger"
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')"
+                    aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="../">Domů</a></li>
+                        <li><a href="../o-skole/">O škole</a></li>
+                        <li><a href="./" class="active">Pro studenty</a></li>
+                        <li><a href="../pro-uchazece/">Pro uchazeče</a></li>
+                        <li><a href="../aktuality/">Aktuality</a></li>
+                        <li><a href="../partneri/">Partneři</a></li>
+                        <li><a href="../kontakty/">Kontakty</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+
+                <div class="content-section">
+                    <h2>Rozvrh hodin</h2>
+                    <div class="bakalari-container">
+                        <div class="bakalari-content">
+                            <p>Aktuální rozvrh hodin najdete v systému Bakaláři. Klikněte na obrázek vpravo pro přístup.
+                            </p>
+                            <p><strong>Důležité:</strong> Sledujte průběžně změny v rozvrhu, které jsou zveřejňovány na
+                                nástěnkách a v elektronické verzi.</p>
+                        </div>
+                        <div class="bakalari-logo-wrapper">
+                            <a href="https://gymcv.bakalari.cz:444/bakaweb/Timetable/Public" target="_blank"
+                                class="bakalari-link">
+                                <img src="../assets/img/bakalari.jpg" alt="Bakaláři - Rozvrh hodin"
+                                    class="bakalari-image">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Organizace roku</h2>
+
+                    <div class="year-calendar-grid">
+                        <!-- Září 2025 -->
+                        <div class="mini-calendar">
+                            <h4>Září 2025</h4>
+                            <div class="mini-days">
+                                <span class="event-day"
+                                    data-tooltip="Zahájení školního roku, opravné ústní maturitní zkoušky">1</span>
+                                <span class="event-day"
+                                    data-tooltip="Výuka dle rozvrhu, začátek aklimatizačního kurzu 1.AB (2.–3.9.), začátek exkurze Fy 3.AC (2.–4.9.)">2</span>
+                                <span>3</span>
+                                <span class="event-day"
+                                    data-tooltip="Poslední den exkurze Fy 3.AC, začátek cyklokurzu 2.A,C (4.–9.9.)">4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span class="event-day"
+                                    data-tooltip="Začátek zájezdu pěv. sboru COMODO do Španělska (7.–15.9.)">7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span class="event-day"
+                                    data-tooltip="Noc s literaturou, projekt Studentské volby">17</span>
+                                <span class="event-day"
+                                    data-tooltip="Projekt LABORA 3.F (Annaberg), probíhá 18.–19.9.">18</span>
+                                <span>19</span>
+                                <span>20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span>28</span>
+                                <span>29</span>
+                                <span>30</span>
+                            </div>
+                        </div>
+
+                        <!-- Říjen 2025 -->
+                        <div class="mini-calendar">
+                            <h4>Říjen 2025</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span>2</span>
+                                <span class="event-day"
+                                    data-tooltip="Den anglicky mluvících zemí – Austrálie a Nový Zéland">3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span class="event-day"
+                                    data-tooltip="Začátek výměnného pobytu HLG Fürth (6.–10.10.), návštěva něm. studentů v Chomutově">6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span class="event-day" data-tooltip="Exkurze Židovské muzeum 4.A,B">9</span>
+                                <span class="event-day" data-tooltip="Exkurze Židovské muzeum 4.C, 6.F">10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span class="event-day" data-tooltip="Schůze Školské rady">14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span>20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span class="event-day" data-tooltip="Státní svátek">28</span>
+                                <span class="event-day" data-tooltip="Podzimní prázdniny">29</span>
+                                <span>30</span>
+                                <span>31</span>
+                            </div>
+                        </div>
+
+                        <!-- Listopad 2025 -->
+                        <div class="mini-calendar">
+                            <h4>Listopad 2025</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span class="event-day" data-tooltip="Uzavření čtvrtletní klasifikace">14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span class="event-day" data-tooltip="Státní svátek">17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span>20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span>28</span>
+                                <span>29</span>
+                                <span>30</span>
+                            </div>
+                        </div>
+
+                        <!-- Prosinec 2025 -->
+                        <div class="mini-calendar">
+                            <h4>Prosinec 2025</h4>
+                            <div class="mini-days">
+                                <span class="event-day"
+                                    data-tooltip="Poslední termín pro odevzdání přihlášky k maturitě">1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span class="event-day" data-tooltip="Maturitní ples 4.A (MD)">5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span class="event-day" data-tooltip="Maturitní ples 6.F (MD)">12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span class="event-day"
+                                    data-tooltip="Začátek vánočních prázdnin (20.12.2025 – 4.1.2026)">20</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">21</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">22</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">23</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">24</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">25</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">26</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">27</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">28</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">29</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">30</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">31</span>
+                            </div>
+                        </div>
+
+                        <!-- Leden 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Leden 2026</h4>
+                            <div class="mini-days">
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">1</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">2</span>
+                                <span class="event-day" data-tooltip="Vánoční prázdniny">3</span>
+                                <span class="event-day" data-tooltip="Konec vánočních prázdnin">4</span>
+                                <span class="event-day" data-tooltip="Zahájení vyučování">5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span class="event-day" data-tooltip="Maturitní ples 4.C (MD)">9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span class="event-day"
+                                    data-tooltip="Planeta 3000: Indie (městské divadlo CV)">14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span class="event-day" data-tooltip="Den otevřených dveří II.">20</span>
+                                <span class="event-day" data-tooltip="Zeměpisná olympiáda – školní kolo">21</span>
+                                <span>22</span>
+                                <span class="event-day" data-tooltip="Uzavření docházky za I. pololetí">23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span class="event-day" data-tooltip="Uzavření klasifikace">26</span>
+                                <span class="event-day"
+                                    data-tooltip="Pedagogická rada (hodnocení I. pololetí), pedagogická rada pro maturitní ročníky">27</span>
+                                <span>28</span>
+                                <span class="event-day"
+                                    data-tooltip="Konec I. pololetí, vydání výpisů z vysvědčení">29</span>
+                                <span class="event-day" data-tooltip="Pololetní prázdniny">30</span>
+                                <span>31</span>
+                            </div>
+                        </div>
+
+                        <!-- Únor 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Únor 2026</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span>20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span class="event-day"
+                                    data-tooltip="Zveřejnění nabídky seminářů (2., 3., 4.–5. ročníky)">27</span>
+                                <span>28</span>
+                            </div>
+                        </div>
+
+                        <!-- Březen 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Březen 2026</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span class="event-day" data-tooltip="Soutěž Matematický náboj, Den čísla Pí">13</span>
+                                <span>14</span>
+                                <span>15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span class="event-day" data-tooltip="Matematický klokan">20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span>28</span>
+                                <span>29</span>
+                                <span>30</span>
+                                <span>31</span>
+                            </div>
+                        </div>
+
+                        <!-- Duben 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Duben 2026</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span class="event-day" data-tooltip="Velikonoční prázdniny (2.–6.4.2026)">2</span>
+                                <span class="event-day" data-tooltip="Velikonoční prázdniny">3</span>
+                                <span class="event-day" data-tooltip="Velikonoční prázdniny">4</span>
+                                <span class="event-day" data-tooltip="Velikonoční prázdniny">5</span>
+                                <span class="event-day" data-tooltip="Velikonoční prázdniny">6</span>
+                                <span class="event-day"
+                                    data-tooltip="Písemné maturitní práce z ČJ, CJ, VV (7.–9.4.)">7</span>
+                                <span class="event-day" data-tooltip="Písemné maturitní práce z ČJ, CJ, VV">8</span>
+                                <span class="event-day" data-tooltip="Písemné maturitní práce z ČJ, CJ, VV">9</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky 1. kolo, 1. termín, čtyřletý cyklus">10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky 1. kolo, 2. termín, čtyřletý cyklus">13</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky 1. kolo, 1. termín, šestiletý cyklus ŠVŠ">14</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky 1. kolo, 2. termín, šestiletý cyklus">15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span>18</span>
+                                <span>19</span>
+                                <span class="event-day"
+                                    data-tooltip="Uzavření klasifikace za III. čtvrtletí (bez maturitních ročníků)">20</span>
+                                <span class="event-day"
+                                    data-tooltip="Pedagogická rada (3. čtvrtl. bez maturantů), Rada rodičů + schůzky s rodiči">21</span>
+                                <span>22</span>
+                                <span>23</span>
+                                <span>24</span>
+                                <span>25</span>
+                                <span>26</span>
+                                <span>27</span>
+                                <span class="event-day" data-tooltip="Uzavření klasifikace maturantů">28</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky – náhradní 1. termín, Pedagogická rada pro maturitní ročníky">29</span>
+                                <span class="event-day"
+                                    data-tooltip="Přijímací zkoušky – náhradní 2. termín, Poslední zvonění maturitních tříd">30</span>
+                            </div>
+                        </div>
+
+                        <!-- Květen 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Květen 2026</h4>
+                            <div class="mini-days">
+                                <span class="event-day" data-tooltip="Státní svátek">1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span class="event-day"
+                                    data-tooltip="Didaktické testy společné části MZ (4.–7.5.)">4</span>
+                                <span class="event-day" data-tooltip="Didaktické testy společné části MZ">5</span>
+                                <span class="event-day" data-tooltip="Didaktické testy společné části MZ">6</span>
+                                <span class="event-day" data-tooltip="Didaktické testy společné části MZ">7</span>
+                                <span class="event-day" data-tooltip="Státní svátek">8</span>
+                                <span>9</span>
+                                <span>10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span>14</span>
+                                <span class="event-day"
+                                    data-tooltip="Zveřejnění výsledků jednotné přijímací zkoušky">15</span>
+                                <span>16</span>
+                                <span>17</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky (18.–29.5.)">18</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">19</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">20</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">21</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">22</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">23</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">24</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">25</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">26</span>
+                                <span class="event-day"
+                                    data-tooltip="Slavnostní předávání maturitních vysvědčení (první 2 třídy, kostel sv. Ignáce), ústní MZ pokračují">27</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">28</span>
+                                <span class="event-day" data-tooltip="Ústní maturitní zkoušky">29</span>
+                                <span>30</span>
+                                <span>31</span>
+                            </div>
+                        </div>
+
+                        <!-- Červen 2026 -->
+                        <div class="mini-calendar">
+                            <h4>Červen 2026</h4>
+                            <div class="mini-days">
+                                <span>1</span>
+                                <span class="event-day" data-tooltip="Schůzka s rodiči budoucích 1. ročníků">2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span class="event-day" data-tooltip="Schůze Školské rady">10</span>
+                                <span>11</span>
+                                <span>12</span>
+                                <span>13</span>
+                                <span class="event-day"
+                                    data-tooltip="Kurz vodní turistiky Vltava (3.ABC, 5.F) – začátek (14.–20.6.)">14</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">15</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">16</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">17</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">18</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">19</span>
+                                <span class="event-day" data-tooltip="Kurz vodní turistiky Vltava">20</span>
+                                <span>21</span>
+                                <span>22</span>
+                                <span class="event-day"
+                                    data-tooltip="Uzavření docházky za II. pololetí + uzavření klasifikace">23</span>
+                                <span>24</span>
+                                <span class="event-day" data-tooltip="Sportovní den">25</span>
+                                <span class="event-day" data-tooltip="Vydávání vysvědčení">26</span>
+                                <span>27</span>
+                                <span>28</span>
+                                <span class="event-day" data-tooltip="Ředitelské volno">29</span>
+                                <span class="event-day" data-tooltip="Ředitelské volno">30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Maturita</h2>
+
+                    <div class="maturita-links">
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Maturita-ve-skolnim-roce-2025-26_v2.pdf"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <span>Maturitní zkoušky ve šk. roce 2025/2026</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/2025/01/08/nahrazeni-zkousky-z-ciziho-jazyka/#:~:text=%C5%BD%C3%A1dost%20o%20uzn%C3%A1n%C3%AD%20zkou%C5%A1ky%20z%20ciz%C3%ADho%20jazyka"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon word-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10 9 9 9 8 9" />
+                                </svg>
+                                <span>Nahrazení zkoušky z cizího jazyka</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Zpusob-zaznamu-textu-pisemne-prace-u-MZ-v2.pdf"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <span>Způsob záznamu písemné práce</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Formular-cj-seznam-cetby-k-MZ.docx"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon word-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10 9 9 9 8 9" />
+                                </svg>
+                                <span>Formulář k seznamu literatury</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item folder-item maturita-folder">
+                            <div class="folder-wrapper">
+                                <button class="doc-link folder-toggle"
+                                    onclick="this.parentElement.parentElement.classList.toggle('active')">
+                                    <svg class="doc-icon folder-icon" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <path
+                                            d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                                    </svg>
+                                    <span>Maturitní témata 2025-26</span>
+                                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9" />
+                                    </svg>
+                                </button>
+                                <div class="folder-content">
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/M_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Matematika</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/NJ_maturitni_temata_2025_26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Německý jazyk</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/VO_maturitni_temata_2025_26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Výtvarný obor</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/ZSV_maturitni_temata_2025_26-.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Společenské vědy</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Aj_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Anglický jazyk</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Bi_maturitni_temata_2025_26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Biologie</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/CH_maturitni_temata_2025_26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Chemie</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/CJ_seznam-cetby-2025_26-1.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>CJL seznam četby 25-26</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/D_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Dějepis</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Fj_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Francouzský jazyk</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Fy_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Fyzika</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/Gg_maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Geografie</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/HV_maturitni-temata2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Hudební výchova</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/IKT-maturitni-temata-2025-26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Informační technologie</span>
+                                    </a>
+                                    <a href="https://www.gymcv.cz/wp-content/uploads/2025/09/RJ_maturitni_temata-2025_26.pdf"
+                                        target="_blank" class="doc-link sub-link">
+                                        <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                        <span>Ruský jazyk</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Formuláře pro stažení</h2>
+
+                    <div class="maturita-links forms-grid">
+                        <div class="doc-item">
+                            <div class="folder-item">
+                                <div class="folder-wrapper">
+                                    <button class="doc-link folder-toggle"
+                                        onclick="this.parentElement.parentElement.classList.toggle('active')">
+                                        <svg class="doc-icon folder-icon" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                                        </svg>
+                                        <span>Žádost o uvolnění</span>
+                                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </button>
+                                    <div class="folder-content">
+                                        <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Zadost-o-uvolneni.docx"
+                                            target="_blank" class="doc-link sub-link">
+                                            <svg class="doc-icon word-icon small" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                                <polyline points="14 2 14 8 20 8" />
+                                                <line x1="16" y1="13" x2="8" y2="13" />
+                                                <line x1="16" y1="17" x2="8" y2="17" />
+                                                <polyline points="10 9 9 9 8 9" />
+                                            </svg>
+                                            <span>Žádost o uvolnění</span>
+                                        </a>
+                                        <a href="https://www.gymcv.cz/wp-content/uploads/2025/11/Zadost-o-uvolneni_2023.pdf"
+                                            target="_blank" class="doc-link sub-link">
+                                            <svg class="doc-icon pdf-icon small" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                                <polyline points="14 2 14 8 20 8" />
+                                            </svg>
+                                            <span>Žádost o uvolnění</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-item">
+                            <div class="folder-item">
+                                <div class="folder-wrapper">
+                                    <button class="doc-link folder-toggle"
+                                        onclick="this.parentElement.parentElement.classList.toggle('active')">
+                                        <svg class="doc-icon folder-icon" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                                        </svg>
+                                        <span>Objednávka promo materiálů</span>
+                                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9" />
+                                        </svg>
+                                    </button>
+                                    <div class="folder-content">
+                                        <a href="https://www.gymcv.cz/wp-content/uploads/2025/11/Objednavka_gymcv_v4.docx"
+                                            target="_blank" class="doc-link sub-link">
+                                            <svg class="doc-icon word-icon small" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                                <polyline points="14 2 14 8 20 8" />
+                                                <line x1="16" y1="13" x2="8" y2="13" />
+                                                <line x1="16" y1="17" x2="8" y2="17" />
+                                                <polyline points="10 9 9 9 8 9" />
+                                            </svg>
+                                            <span>Objednávka</span>
+                                        </a>
+                                        <a href="https://www.gymcv.cz/wp-content/uploads/2025/11/Objednavka_gymcv_v4.xlsx"
+                                            target="_blank" class="doc-link sub-link">
+                                            <svg class="doc-icon excel-icon small" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                                <polyline points="14 2 14 8 20 8" />
+                                                <line x1="16" y1="13" x2="8" y2="13" />
+                                                <line x1="16" y1="17" x2="8" y2="17" />
+                                                <polyline points="10 9 9 9 8 9" />
+                                            </svg>
+                                            <span>Objednávka</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/ISIC-pisemna-zadost-1.pdf"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <span>ISIC - písemná žádost o ISIC</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Prohlaseni-zakonnych-zastupcu-zaka-o-bezinfekcnosti.docx"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon word-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10 9 9 9 8 9" />
+                                </svg>
+                                <span>Prohlášení o bezinfekčnosti</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/06/Prihlaska-ke-stravovani_GCV.docx"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon word-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10 9 9 9 8 9" />
+                                </svg>
+                                <span>Stravování - přihláška</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Informovany-INDIVIDUALNI-souhlas.pdf"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <span>Informovaný individuální souhlas</span>
+                            </a>
+                        </div>
+
+                        <div class="doc-item">
+                            <a href="https://www.gymcv.cz/wp-content/uploads/2025/01/Informovany-GENERALNI-souhlas.pdf"
+                                target="_blank" class="doc-link">
+                                <svg class="doc-icon pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <span>Informovaný generální souhlas</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="../assets/img/logo-uk-school.png" alt="Gymnázium Chomutov Logo" class="footer-logo">
+                </div>
+                <div class="footer-section">
+                    <h3>Rychlé odkazy</h3>
+                    <ul>
+                        <li><a href="../o-skole/">O škole</a></li>
+                        <li><a href="./">Pro studenty</a></li>
+                        <li><a href="../pro-uchazece/">Pro uchazeče</a></li>
+                        <li><a href="../aktuality/">Aktuality</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontakt</h3>
+                    <p>Mostecká 3000<br>
+                        430 01 Chomutov<br>
+                        Tel: +420 474 620 546<br>
+                        Email: info@gymcv.cz</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gymnázium Chomutov. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

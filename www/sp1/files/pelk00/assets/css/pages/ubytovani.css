@@ -1,0 +1,196 @@
+h1 {
+    background-image: url("../../img/ubytovani-head-min.jpg");
+}
+
+.intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 50px auto;
+    gap: 30px;
+    text-align: center;
+    background-color: #f4efe8;
+    padding: 40px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.intro-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.intro-text h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.intro-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.intro-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.intro-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.properties {
+    max-width: 1000px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.property {
+    display: flex;
+    align-items: center;
+    max-width: 1000px;
+    gap: 30px;
+    flex-wrap: wrap;
+    background-color: #f4efe8;
+    padding: 40px;
+    border-radius: 12px;
+}
+
+.property.property-left {
+    flex-direction: row;
+}
+
+.property.property-right {
+    flex-direction: row-reverse;
+}
+
+.property img {
+    flex: 1;
+    min-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.property-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.property-text h3 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.property-text p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.btn-reservation-wrapper {
+    text-align: center;
+}
+
+.btn-reservation {
+    display: inline-block;
+    background: #c1ae92;
+    color: #fff;
+    padding: 15px 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 26px;
+    transition: background-color 0.3s;
+}
+
+.btn-reservation:hover {
+    background: #a99579;
+}
+
+@media screen and (max-width: 1024px) {
+    .btn-reservation {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+
+    .intro {
+        margin: 20px auto;
+    }
+
+    .intro h2 {
+        font-size: 22px;
+    }
+
+    .property-text h3 {
+        font-size: 20px;
+    }
+
+    .intro-text p, .property-text p {
+        font-size: 16px;
+    }
+
+    .intro-image {
+        max-width: 60%;
+        margin: auto;
+    }
+
+    .properties {
+        gap: 20px;
+        margin: 20px auto;
+    }
+
+    .property {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .property img {
+        max-width: 60%;
+        margin: auto;
+    }
+
+    .btn-reservation {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+}
+
+@media print {
+    .btn-reservation {
+        display: none;
+    }
+
+    img {
+        display: none;
+    }
+
+    .intro,
+    .property {
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .intro-text h2,
+    .property-text h3 {
+        color: #000000;
+        font-size: 16px;
+    }
+
+    .intro-text p,
+    .property-text p {
+        font-size: 12px;
+        color: #000000;
+    }
+}

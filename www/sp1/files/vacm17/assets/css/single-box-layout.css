@@ -1,0 +1,63 @@
+.main-box-layout {
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0 0 0.4em #d9d9d9;
+    border: #d6d6d6 solid 2px;
+
+    min-height: fit-content;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.single-box-section {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 20px 10px;
+    gap: 10px;
+}
+
+.single-box-section-heading {
+    font-family: "Jersey 15", sans-serif;
+    font-size: var(--100vw-text-size);
+}
+
+.single-box-section-description {
+    text-align: justify;
+    line-height: 24px;
+}
+
+.single-box-section-image-wrapper {
+    margin: 20px;
+    box-shadow: 0 0 0.4em #d9d9d9;
+}
+
+@media screen and (hover: none) and (pointer: coarse) {
+    .main-box-layout {
+        padding: 20px;
+    }
+
+    .single-box-section-heading {
+        font-size: 64px;
+    }
+
+    .single-box-section-description {
+        font-size: 28px;
+        line-height: 42px;
+    }
+}
+
+@media print {
+    .main-box-layout {
+        border: none;
+        box-shadow: none;
+    }
+
+    .single-box-section {
+        border-bottom: none;
+    }
+
+    .single-box-section-image-wrapper {
+        display: none;
+    }
+}

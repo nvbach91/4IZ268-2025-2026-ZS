@@ -1,0 +1,242 @@
+/* ============================================
+   CONTACTS PAGE STYLES
+   ============================================ */
+
+/* ============================================
+   1. LAYOUT & INTRO
+   ============================================ */
+.contact-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-intro {
+  margin-bottom: 3rem;
+}
+
+.contact-intro p {
+  margin: 0 0 1rem 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.contact-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   2. SOCIAL LINKS (Grid & Cards)
+   ============================================ */
+.social-links h2 {
+  font-size: 1.6rem;
+  color: var(--color-primary);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.social-card {
+  background: var(--bg-glass-panel);
+  border: 2px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  box-shadow: 0 6px 18px var(--box-shadow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+
+.social-card:hover,
+.social-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px var(--box-shadow-color-hover);
+}
+
+.social-card:hover::before,
+.social-card:focus-visible::before {
+  opacity: 1;
+}
+
+/* ============================================
+   3. SOCIAL PLATFORMS (Theme Overrides)
+   ============================================ */
+/* YouTube specific styling */
+.youtube-card {
+  border-color: var(--youtube-border);
+}
+
+.youtube-card::before {
+  background: var(--youtube-bg);
+}
+
+.youtube-card:hover,
+.youtube-card:focus-visible {
+  border-color: var(--youtube-hover-border);
+}
+
+/* Instagram specific styling */
+.instagram-card {
+  border-color: var(--instagram-border);
+}
+
+.instagram-card::before {
+  background: var(--instagram-bg);
+}
+
+.instagram-card:hover,
+.instagram-card:focus-visible {
+  border-color: var(--instagram-hover-border);
+}
+
+/* ============================================
+   4. CARD INTERNALS (Icons & Content)
+   ============================================ */
+.social-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.social-icon img {
+  width: 48px;
+  height: 48px;
+  transition: transform .25s ease;
+  display: block;
+}
+
+.social-card:hover .social-icon img,
+.social-card:focus-visible .social-icon img {
+  transform: scale(1.1);
+}
+
+.social-content {
+  position: relative;
+  z-index: 1;
+}
+
+.social-content h3 {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin: 0 0 0.75rem 0;
+  font-weight: 700;
+}
+
+.social-content p {
+  margin: 0 0 1rem 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.social-handle {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--social-handle-bg);
+  border: 1px solid var(--social-handle-border);
+  border-radius: 20px;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.social-card:hover .social-handle,
+.social-card:focus-visible .social-handle {
+  background: var(--social-handle-hover-bg);
+  border-color: var(--color-accent);
+}
+
+/* ============================================
+   5. CONTACT INFO SECTION
+   ============================================ */
+.contact-info {
+  padding: 2rem;
+}
+
+.contact-info h2 {
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  margin: 0 0 1.25rem 0;
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 0 0 1rem 0;
+  line-height: 1.7;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.contact-info p:last-child {
+  margin-bottom: 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ============================================
+   6. RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .social-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .contact-intro,
+  .contact-info {
+    padding: 1.5rem;
+  }
+
+  .social-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main .container {
+    padding-block: 1.5rem;
+  }
+
+  main h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  .social-links h2,
+  .contact-info h2 {
+    font-size: 1.3rem;
+  }
+
+  .contact-intro,
+  .contact-info {
+    padding: 1.25rem;
+  }
+}

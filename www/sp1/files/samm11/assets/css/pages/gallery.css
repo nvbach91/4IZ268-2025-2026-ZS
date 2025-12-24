@@ -1,0 +1,37 @@
+main > section {
+    column-count: 3;
+    column-gap: 1rem;
+}
+
+main > section img {
+    width: 100%;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+main > section img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1200px) {
+    main > section {
+        column-count: 2;
+        column-gap: 0.8rem;
+    }
+
+    main > section img {
+        margin-bottom: 0.8rem;
+    }
+}
+
+@media (max-width: 800px) {
+    main > section {
+        column-count: 1;
+        column-gap: 0;
+    }
+
+    main > section img {
+        width: 100%;
+        margin-bottom: 0.6rem;
+    }
+}

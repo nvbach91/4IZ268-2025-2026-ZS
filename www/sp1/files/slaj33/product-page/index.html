@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saloos produkty</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/images/saloos-favicon.png">
+</head>
+
+<body>
+    <!--navigation bar-->
+    <nav class="navigation-bar">
+        <div class="navigation-bar-container">
+            <a href="../" id="navigation-bar-logo">Saloos</a>
+            <div class="navigation-bar-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navigation-bar-menu">
+                <li class="navigation-bar-item">
+                    <a href="../product-page/" class="navigation-bar-link" id="current-page">PRODUKTY</a>
+                </li>
+                <li class="navigation-bar-item">
+                    <a href="../contact-page/" class="navigation-bar-link">KONTAKTY</a>
+                </li>
+                <li class="navigation-bar-item">
+                    <a href="../blog-page/" class="navigation-bar-link">BLOG</a>
+                </li>
+                <li class="navigation-bar-item">
+                    <a href="../about-page/" class="navigation-bar-link">O FIRMĚ</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!--obsah stranky-->
+    <div class="main">
+
+        <h1>Produkty</h1>
+        <div class="dropdown-container">
+            <div class="category-container">
+                <h2>Kategorie</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                    fill="#e3e3e3">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </div>
+
+            <ul class="dropdown-menu">
+                <li class="dropdown-item">
+                    <a data-filter="oils" class="product-bar-link">Oleje</a>
+                </li>
+                <li class="dropdown-item">
+                    <a data-filter="skincare" class="product-bar-link">Péče o pleť</a>
+                </li>
+                <li class="dropdown-item">
+                    <a data-filter="baby" class="product-bar-link">Péče o miminko</a>
+                </li>
+                <li class="dropdown-item">
+                    <a data-filter="body" class="product-bar-link">Péče o tělo</a>
+                </li>
+                <li class="dropdown-item">
+                    <a data-filter="cbd" class="product-bar-link">CBD</a>
+                </li>
+                <li class="dropdown-item">
+                    <a data-filter="all" class="product-bar-link">Vše</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-container">
+            <nav class="category-sidebar">
+                <h2>Kategorie</h2>
+                <ul class="product-bar-menu">
+                    <li class="product-bar-item">
+                        <a data-filter="oils" class="product-bar-link">Oleje</a>
+                    </li>
+                    <li class="product-bar-item">
+                        <a data-filter="skincare" class="product-bar-link">Péče o pleť</a>
+                    </li>
+                    <li class="product-bar-item">
+                        <a data-filter="baby" class="product-bar-link">Péče o miminko</a>
+                    </li>
+                    <li class="product-bar-item">
+                        <a data-filter="body" class="product-bar-link">Péče o tělo</a>
+                    </li>
+                    <li class="product-bar-item">
+                        <a data-filter="cbd" class="product-bar-link">CBD</a>
+                    </li>
+                    <li class="product-bar-item">
+                        <a data-filter="all" class="product-bar-link">Vše</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-content">
+                <ul id="layout">
+                    <li class="product">
+                        <img class="product-image" src="../assets/images/products/saloos_ricinovy-olej_50-ml.jpg"
+                            alt="produkt1">
+                        <p class="product-name">Ricinový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image" src="../assets/images/products/saloos_svestkovy-olej_2.jpg"
+                            alt="produkt1">
+                        <p class="product-name">Švestkový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image" src="../assets/images/products/saloos_mandlovy-olej_50-ml.jpg"
+                            alt="produkt1">
+                        <p class="product-name">Mandlový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image"
+                            src="../assets/images/products/extra-bio-arganovy-olej-20-ml_mockup-copy.jpg"
+                            alt="produkt1">
+                        <p class="product-name">Arganový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image" src="../assets/images/products/2305_ro_kokos_kompozice.jpg"
+                            alt="produkt1">
+                        <p class="product-name">Kokosový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image"
+                            src="../assets/images/products/2303_ro_slunecnice_kompozice-copy-2.jpg" alt="produkt1">
+                        <p class="product-name">Slunečnicový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                    <li class="product">
+                        <img class="product-image"
+                            src="../assets/images/products/2209_saloos_extra-bio-sipkovy-olej-20-ml.jpg" alt="produkt1">
+                        <p class="product-name">Šípkový olej</p>
+                        <p class="product-price">100 Kč</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="https://www.instagram.com/saloosnaturcosmetic/" class="footer-link">
+                <p>Instagram</p>
+                <img src="../assets/icons/iconmonstr-instagram-11.svg" alt="Instagram">
+            </a>
+            <a href="https://www.facebook.com/SaloosNaturcosmetic/" class="footer-link">
+                <p>Facebook</p>
+                <img src="../assets/icons/iconmonstr-facebook-3.svg" alt="Facebook">
+            </a>
+        </nav>
+        <p>Jan Šlapák 2025</p>
+        <button id="topButton" title="Go to top">
+            <img src="../assets/icons/arrow_upward_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Go to top"
+                class="footer-arrow">
+        </button>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+.display-div {
+    width: 100%;
+    background: #d7dfe7;
+    display: flex;
+    margin: 30px 0;
+}
+
+.display-div img {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+
+.text-div p {
+    max-width: 50%;
+    padding: 15px;
+    text-align: center;
+}
+
+.evolux-title {
+    font-family: "Georgia", "Times New Roman", serif;
+    margin: 0 0 1rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0A2233;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.evolux-title em {
+    font-style: italic;
+    font-weight: 500;
+}
+
+.text-div img {
+    height: 50px;
+    width: auto;
+}
+
+.jda .text-div img {
+    height: 150px;
+    width: auto;
+}
+
+.display-evolux-about {
+    width: 100%;
+    display: flex;
+    margin: 30px 0;
+    background-image: url("../images/about-background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.display-evolux-about p {
+    padding: 200px 0;
+    text-align: center;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 32px;
+    line-height: 1.35;
+    font-weight: 400;
+    color: #002a46;
+
+}
+
+@media (max-width: 1250px) {
+    .evolux-title {
+        font-size: 2rem;
+    }
+
+    .display-evolux-about p {
+        padding: 100px 0;
+        font-size: 24px;
+    }
+
+    .text-div {
+        padding: 20px 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .display-div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .display-div>img {
+        display: none;
+    }
+
+    .text-div {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .text-div p {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .jda .text-div img {
+        height: 100px;
+    }
+
+    .display-evolux-about p {
+        padding: 50px 20px;
+        /* Reduced padding */
+        font-size: 1.5rem;
+        /* Smaller font */
+    }
+}
+
+@media (max-width: 480px) {
+    .evolux-title {
+        font-size: 1.8rem;
+        /* Smaller title on mobile */
+    }
+
+    .display-evolux-about p {
+        padding: 30px 15px;
+        /* Even less padding */
+        font-size: 1.2rem;
+    }
+
+    .text-div {
+        padding: 10px;
+        /* Maximize space */
+    }
+
+    .display-evolux-about {
+        margin: 10px 0;
+    }
+
+    .display-div {
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,240 @@
+:root {
+    --main-blue: #00529F;
+    --gold: #FEBE10;
+    --text-color: #333;
+    --bg-color: #f4f4f4;
+    --white: #ffffff;
+}
+
+body {
+    /* Změna na Google Font Roboto dle zadání */
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* --- HLAVIČKA A MENU --- */
+header {
+    background-color: var(--white);
+    border-bottom: 5px solid var(--main-blue);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--main-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+nav {
+    background-color: var(--text-color);
+    color: var(--white);
+    text-align: center;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover, nav a:focus {
+    background-color: var(--main-blue);
+    text-decoration: underline;
+}
+
+nav a.active {
+    background-color: var(--gold);
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+/* --- ROZLOŽENÍ STRÁNKY  --- */
+.container {
+    display: flex;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px;
+    gap: 30px;
+}
+
+/* Hlavní obsah */
+main {
+    flex: 3;
+    background-color: var(--white);
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+/* Postranní panel */
+aside {
+    flex: 1;
+    background-color: var(--main-blue);
+    color: var(--white);
+    padding: 20px;
+    border-radius: 5px;
+    height: fit-content;
+}
+
+/* --- STYLOVÁNÍ TEXTU --- */
+h2, h3 {
+    color: var(--main-blue);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 5px;
+}
+
+aside h3 {
+    color: var(--white);
+    border-color: var(--white);
+}
+
+p a {
+    color: var(--main-blue);
+    text-decoration: underline;
+}
+
+/* Obrázky */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 4px;
+}
+
+figure {
+    margin: 10px 0;
+    padding: 10px;
+    background: #eee;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.gallery-item {
+    flex: 1 1 250px;
+}
+
+.text-columns {
+    column-count: 3;
+    column-gap: 30px;
+    text-align: justify;
+}
+
+/* Patička - rozšířená */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.footer-links a {
+    color: var(--gold);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* --- RESPONZIVITA --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+        border-bottom: 1px solid #444;
+    }
+    
+    .text-columns {
+        column-count: 1;
+    }
+}
+
+@media print {
+    nav, aside, footer {
+        display: none;
+    }
+
+    body, main, .container {
+        background: white;
+        color: black;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        display: block;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    
+    /* Oprava pro tisk - omezení velikosti obrázků */
+    img {
+        max-width: 300px; 
+        max-height: 200px;
+    }
+    
+    .gallery-grid {
+        display: block;
+    }
+}

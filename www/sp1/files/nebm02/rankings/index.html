@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/print-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <title>Žebříčky | Michal Nebeský</title>
+</head>
+
+<body>
+    <header>
+        <h1>Michal Nebeský</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../">Domů</a></li>
+            <li><a href="../news/">Novinky</a></li>
+            <li><a href="../reviews/">Recenze</a></li>
+            <li><a href="./" class="active">Žebříčky</a></li>
+            <li><a href="../top-list/">Top listy</a></li>
+            <li><a href="../about/">O mně</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="container">
+
+            <section>
+                <h2 class="generic-title">Archiv žebříčků</h2>
+
+                <aside>
+                    <div class="search-widget">
+                        <form action="#">
+                            <input type="text" placeholder="Hledejte v žebříčcích" aria-label="Vyhledávání">
+                            <button type="submit" aria-label="Hledat">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                </aside>
+
+                <div class="section-header">
+                    <div class="sort-buttons">
+                        <span>Seřadit:</span>
+                        <a href="#" class="sort-btn active">Nejnovější</a>
+                        <a href="#" class="sort-btn">Top</a>
+                        <a href="#" class="sort-btn">Nejstarší</a>
+                    </div>
+                </div>
+                <div class="generic-articles">
+
+                     <article>
+                        <img src="../assets/img/spotify.png" alt="Spotify charts">
+                        <div class="aside-article-info">
+                            <h3><a href="#">Žebříčky: To nejposlouchanější za rok 2025</a></h3>
+                            <p class="perex">Podívame se na žebříček nejposlouchanějších písniček v roce 2025.</p>
+                            <p>1. prosince 2025</p>
+                        </div>
+                    </article>
+                    <article>
+                        <img src="../assets/img/steamdb.jpg" alt="SteamDB 2025 top games">
+                        <div class="aside-article-info">
+                            <h3><a href="#">Žebříčky: Ty nehranější hry za rok 2025 podle SteamDB</a></h3>
+                            <p class="perex">Podívame se na žebříček nejhranějších her podle SteamDB v roce 2025.</p>
+                            <p>1. prosince 2025</p>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="pagination">
+                    <a href="#" class="disabled">&laquo; Předchozí</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">Další &raquo;</a>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Michal Nebeský</p>
+    </footer>
+</body>
+
+</html>

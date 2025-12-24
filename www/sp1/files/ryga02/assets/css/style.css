@@ -1,0 +1,663 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    font-family: open-sans, sans-serif;
+    color: black;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    font-family: 'Caveat', sans-serif;
+    font-size: 50px;
+    color: #461220;
+    font-weight: bold;
+}
+
+
+
+nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #A6808C;
+    justify-content: space-around;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    width: 20%;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav a:hover {
+    color: #461220;
+    transition: background-color 0.5s linear;
+}
+
+nav a.active {
+    position: relative;
+    text-decoration: none;
+    color: #461220;
+}
+
+nav a.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+    width: 50%;
+    height: 3px;
+    background-color: #461220;
+}
+
+
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #A6808C;
+    color: white;
+    margin-top: 20px;
+}
+
+.fa-solid {
+    color: inherit;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+}
+
+.row {
+    display: flex;
+    align-items: stretch;
+    gap: 15px;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.card-text h3 {
+    margin-bottom: 15px;
+    color: #883d51;
+    font-size: 24px;
+}
+
+.card-text p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.intro {
+    flex: 0 0 65%;
+}
+
+.about {
+    flex: 0 0 60%;
+}
+
+.career {
+    flex: 0 0 60%;
+}
+
+.personal-life {
+    flex: 0 0 60%;
+}
+
+.card-image {
+    flex: 0 0 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.question {
+    font-size: 30px;
+    margin: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    background-color: white;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.menu-item {
+    width: calc(100%/7);
+    text-align: center;
+    align-items: center;
+}
+
+.menu-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 10px;
+    margin: 0 auto 10px;
+    border-radius: 2px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.video-section {
+    padding: 20px;
+    background-color: white;
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 26px;
+    color: #883d51;
+    margin: 20px;
+    border-bottom: 2px solid #A6808C;
+    padding-bottom: 10px;
+}
+
+.video-container {
+    display: flex;
+    width: 100%;
+    max-width: 560px;
+    margin-top: 15px;
+}
+
+iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+}
+
+.comment {
+    margin: 0 20px 20px 20px;
+    text-align: justify;
+}
+
+.album-section {
+    margin-bottom: 25px;
+    padding: 25px;
+}
+
+.album-section h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #883d51;
+    border-bottom: 2px solid #A6808C;
+    padding-bottom: 10px;
+}
+
+.album-content {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.tracklist {
+    padding: 20px;
+    width: 35%;
+}
+
+.tracklist ol,
+.tracklist ul {
+    padding-left: 20px;
+}
+
+.tracklist li {
+    padding: 8px 0;
+    line-height: 1.6;
+}
+
+.comments {
+    padding: 20px;
+    width: 65%;
+}
+
+.comments ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.comments li {
+    padding: 12px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.comments li:before {
+    content: "★";
+    color: #883d51;
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+}
+
+.trivia-container {
+    margin-bottom: 25px;
+    padding: 25px;
+}
+
+.trivia-section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+}
+
+.trivia-section h2 {
+    color: #883d51;
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #A6808C;
+}
+
+.trivia-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.trivia-section li {
+    padding: 12px 0;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.trivia-section li:before {
+    content: "★";
+    color: #883d51;
+    position: absolute;
+    left: 0;
+    font-size: 18px;
+    top: 12px;
+}
+
+.page-title {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 36px;
+    color: #461220;
+}
+
+.gallery-container {
+    column-count: 3;
+    column-gap: 15px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    break-inside: avoid;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+
+
+@media (max-width: 1024px) {
+    .cards,
+    .trivia-container,
+    .gallery-container {
+        max-width: 900px;
+    }
+    
+    .gallery-container {
+        column-count: 2;
+    }
+    
+    header {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    .intro,
+    .about,
+    .career,
+    .personal-life,
+    .card-image {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+    
+    .card-image img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .album-content {
+        flex-direction: column;
+    }
+    
+    .tracklist,
+    .comments {
+        width: 100%;
+    }
+    
+    .menu {
+        flex-wrap: wrap;
+    }
+    
+    .menu-item {
+        width: calc(100%/3);
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 720px) {
+    header {
+        font-size: 35px;
+        padding: 15px 0;
+    }
+    
+    nav a {
+        padding: 12px 0;
+        font-size: 14px;
+    }
+    
+    .page-title {
+        font-size: 30px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 640px) {
+    .gallery-container {
+        column-count: 1;
+        padding: 15px;
+    }
+    
+    .video-container {
+        max-width: 100%;
+    }
+    
+    .trivia-container {
+        padding: 10px;
+    }
+    
+    .trivia-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-item {
+        width: calc(100%/2);
+    }
+    
+    header {
+        font-size: 28px;
+    }
+    
+    nav a {
+        font-size: 12px;
+        padding: 10px 0;
+    }
+    
+    .page-title {
+        font-size: 26px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .album-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 320px) {
+    header {
+        font-size: 24px;
+    }
+    
+    nav a {
+        font-size: 10px;
+        width: 20%;
+    }
+    
+    .menu-item {
+        width: 100%;
+    }
+    
+    .page-title {
+        font-size: 22px;
+    }
+}
+
+@media print {
+    nav,
+    .menu,
+    footer,
+    .video-container,
+    iframe {
+        display: none !important;
+    }
+    
+
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    header {
+        font-size: 36px;
+        padding: 10px 0;
+        border-bottom: 2px solid black;
+        margin-bottom: 20px;
+    }
+    
+   
+    .page-title {
+        font-size: 28px;
+        margin: 20px 0;
+        page-break-after: avoid;
+    }
+    
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+    
+    
+    a[href^="#"]:after {
+        content: "";
+    }
+    
+    .cards {
+        max-width: 100%;
+        margin: 0;
+    }
+    
+    .row {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    .card {
+        padding: 15px;
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+    
+    .card-text h3 {
+        font-size: 20px;
+        border-bottom: 1px solid black;
+        padding-bottom: 5px;
+    }
+    
+    .card-image {
+        display: none; 
+    }
+
+    .album-section {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+    }
+    
+    .album-section h3 {
+        font-size: 20px;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+    }
+    
+    .album-content {
+        flex-direction: column;
+    }
+    
+    .tracklist,
+    .comments {
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .section-title {
+        font-size: 22px;
+        margin: 15px 0;
+        border-bottom: 2px solid black;
+        padding-bottom: 5px;
+        page-break-after: avoid;
+    }
+    
+    .trivia-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .trivia-section {
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+    }
+    
+    .trivia-section h2 {
+        font-size: 20px;
+        margin: 0 0 10px 0;
+        padding: 0 0 5px 0;
+        border-bottom: 2px solid black;
+    }
+    
+    .trivia-section li:before {
+        color: black !important;
+    }
+    
+   
+    .gallery-container {
+        column-count: 2;
+        column-gap: 10px;
+        padding: 0;
+        max-width: 100%;
+    }
+    
+    .gallery-item {
+        page-break-inside: avoid;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+    }
+    
+    .gallery-item img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    
+    .comments li:before,
+    .trivia-section li:before {
+        color: black !important;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    ul, ol {
+        page-break-inside: avoid;
+    }
+  
+    @page {
+        margin: 2cm;
+    }
+    
+    @page :first {
+        margin-top: 1cm;
+    }
+}

@@ -1,0 +1,736 @@
+:root {
+    --color-primary: #1C4E80;
+    --color-secondary: #00B5A3;
+    --color-accent: #F6A623;
+    --color-bg: #e9f2fe;
+    --color-text: #1A1A1A;
+    --color-text-muted: #3e4148;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* ---------- HLAVIČKA ---------- */
+header {
+    background: #ffffff;
+    border-bottom: 2px solid rgba(148, 163, 184, 0.4);
+    padding: 16px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 25px;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* ---------- NAVIGÁCIA ---------- */
+.main-nav>ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav>ul>li {
+    position: relative;
+}
+
+.main-nav a {
+    font-size: 16px;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    padding: 7px 0;
+    display: inline-block;
+}
+
+.main-nav a:hover {
+    color: var(--color-secondary);
+}
+
+.main-nav a.active {
+    color: var(--color-primary);
+    font-weight: 600;
+    position: relative;
+}
+
+.main-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-secondary);
+    border-radius: 999px;
+}
+
+/* ---------- SUBMENU ---------- */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.15);
+    padding: 5px 0;
+    min-width: 120px;
+    list-style: none;
+    margin: 0;
+    display: none;
+    z-index: 10;
+}
+
+.submenu li {
+    display: block;
+}
+
+.submenu a {
+    width: 100%;
+    padding: 7px 14px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.submenu a:hover {
+    color: var(--color-secondary);
+}
+
+.has-submenu:hover>.submenu {
+    display: block;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 60px 10%;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../img/molekula.jpg");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ---------- HERO MAIN ---------- */
+
+.hero-main {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 40px;
+    align-items: center;
+}
+
+.hero-main .hero-left h1 {
+    font-size: 60px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    text-shadow: 0px 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.hero-main .hero-left p {
+    max-width: 540px;
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin-bottom: 32px;
+}
+
+.hero-main .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 10px 32px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+    background: var(--color-secondary);
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 181, 163, 0.35);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #036171;
+    border: 2px solid var(--color-secondary);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.hero-main .hero-right {
+    background: linear-gradient(to bottom, #155086, #00b5a3);
+    border-radius: 16px;
+    padding: 25px 25px;
+    color: #ffffff;
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.12);
+}
+
+.hero-main .hero-right h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.hero-main .hero-right p {
+    font-size: 14px;
+    max-width: 100%;
+}
+
+/* ---------- HERO SIMPLE ---------- */
+
+.hero-simple {
+    padding: 20px 10% 20px;
+}
+
+.hero-simple h1 {
+    font-size: 35px;
+    color: var(--color-primary);
+    text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Sekcia s kartami ---------- */
+.section-cards {
+    padding: 70px 10% 90px;
+    background: var(--color-bg);
+}
+
+.section-cards .section-title {
+    font-size: 35px;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-cards .card-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px 28px;
+}
+
+.section-cards .card {
+    background: #ffffff;
+    border-radius: 32px;
+    padding: 28px 32px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    min-height: 140px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.section-cards .card:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.18);
+}
+
+.section-cards .card:hover h3 {
+    color: var(--color-bg);
+}
+
+.section-cards .card h3 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ---------- AKCENTNÁ SEKCIA ---------- */
+
+.section-accent {
+    padding: 30px 10% 40px;
+    background: #ffffff;
+}
+
+.accent-box {
+    border-radius: 24px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, var(--color-accent), #ffe6b3);
+    color: #4a2500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+}
+
+.accent-text h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.accent-text p {
+    font-size: 14px;
+    max-width: 520px;
+    text-align: justify;
+}
+
+.btn-accent {
+    padding: 12px 28px;
+    border-radius: 999px;
+    border: 1px solid #4a2500;
+    background: #ffffff;
+    color: #4a2500;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    background: #4a2500;
+    color: #fff7e6;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+}
+
+/* ---------- KONTAKT ---------- */
+
+.contact-section {
+    padding: 30px 10% 80px;
+    background: var(--color-bg);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 32px;
+    align-items: stretch;
+}
+
+.contact-map {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.contact-map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    border: 0;
+}
+
+.contact-info {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px 32px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.contact-info h2 {
+    font-size: 26px;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.contact-info h3 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.contact-block p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+.contact-btn {
+    margin-top: 12px;
+    align-self: flex-start;
+}
+
+/* ---------- SEKCIA STRÁNKY ---------- */
+.page-section {
+    padding: 60px 10% 60px;
+    background: var(--color-bg);
+}
+
+/* ---------- LAYOUT: TEXT + BOX ---------- */
+
+.section-split {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.section-split-main h2 {
+    font-size: 32px;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+}
+
+.section-split-main p {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    margin-bottom: 12px;
+}
+
+.section-split-box {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 24px 26px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.section-split-box h3 {
+    font-size: 20px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.section-split-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.section-split-box li {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+    padding-left: 18px;
+    position: relative;
+}
+
+.section-split-box li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--color-secondary);
+}
+
+/* ---------- GRID KARIET ---------- */
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.feature-grid {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 24px 26px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.18);
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+}
+
+/* ---------- GRID PARTNERI ---------- */
+.section-heading p {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    max-width: 720px;
+    margin: 8px auto 0;
+}
+
+.partners-grid {
+    align-items: stretch;
+}
+
+.partner-card ul {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+}
+
+.partner-card li {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+}
+
+/* FOOTER */
+
+.site-footer {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: 24px 20px;
+    font-size: 14px;
+}
+
+.site-footer a {
+    color: var(--color-bg);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto 8px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+}
+
+.footer-copy {
+    text-align: center;
+    margin: 0 auto;
+    border-top: 1px solid var(--color-bg);
+    padding-top: 8px;
+    font-size: 13px;
+}
+
+/* ---------- RESPONZÍVNE MENU ---------- */
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    cursor: pointer;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 999px;
+    position: relative;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.nav-toggle-label span::before {
+    top: -6px;
+}
+
+.nav-toggle-label span::after {
+    top: 6px;
+}
+
+/* ---------- RESPONZIVITA ---------- */
+@media (max-width: 900px) {
+
+    .hero-main,
+    .contact-grid,
+    .section-split,
+    .section-cards .card-grid,
+    .feature-grid {
+        grid-template-columns: 100%;
+    }
+
+    .hero {
+        padding: 40px 6%;
+    }
+
+    header {
+        padding: 12px 6%;
+    }
+
+    .accent-box {
+        flex-direction: column;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    .main-nav {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        left: 0;
+        background: #ffffff;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+        box-shadow: 0 12px 25px rgba(15, 23, 42, 0.1);
+        display: none;
+        padding: 10px 6% 16px;
+        z-index: 20;
+    }
+
+    .main-nav>ul {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 6px 0;
+    }
+
+    .submenu {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 4px 0 4px 12px;
+        display: block;
+    }
+
+    .nav-toggle:checked+.nav-toggle-label+.main-nav {
+        display: block;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ---------- TLAČ ---------- */
+@media print {
+
+    body {
+        background: #ffffff;
+        color: #000000;
+        font-size: 12pt;
+    }
+
+    .hero::before,
+    .accent-box,
+    .section-cards .card,
+    .feature-card,
+    .section-split-box,
+    .contact-info,
+    .contact-map {
+        box-shadow: none;
+    }
+
+    header,
+    .nav-toggle,
+    .nav-toggle-label {
+        display: none;
+    }
+
+    .hero {
+        padding: 20px 0;
+    }
+
+    .hero-main,
+    .hero-simple {
+        padding: 0;
+    }
+
+    .hero-main .hero-left h1,
+    .hero-simple h1 {
+        font-size: 24pt;
+        text-shadow: none;
+    }
+
+    .page-section,
+    .section-cards,
+    .contact-section,
+    .section-accent {
+        padding: 16px 0;
+    }
+
+    .hero-main,
+    .contact-grid,
+    .section-split,
+    .section-cards .card-grid,
+    .feature-grid,
+    .partners-grid {
+        grid-template-columns: 100%;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent {
+        display: none;
+    }
+
+    .footer-inner {
+        display: none;
+    }
+
+    .footer-copy {
+        font-size: 10px;
+    }
+
+    .contact-map {
+        display: none;
+    }
+}

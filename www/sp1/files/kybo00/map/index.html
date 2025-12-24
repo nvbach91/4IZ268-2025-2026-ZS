@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyWeather - Mapa</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon" href="../assets/images/weather_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1> OnlyWeather </h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="../">Domovská stránka</a></li>
+                <li><a href="../list/">Seznam kamer</a></li>
+                <li><a href="../map/">Mapa</a></li>
+
+                <li class="dropdown">
+                    <a>Detail kamer ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../detail/cam1/">Praha - centrum</a></li>
+                        <li><a href="../detail/cam2/">Dukovany - elektrárna</a></li>
+                        <li><a href="../detail/cam3/">Olomouc - jižní směr</a></li>
+                        <li><a href="../detail/cam4/">Plzeň - Mikulka</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../about/">O webu</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="map">
+            <h1>Mapa kamer</h1>
+            <p>Zobrazení všech dostupných kamer podle geografické polohy. Klikněte na červený bod pro zobrazení detailu
+                kamery.</p>
+
+            <div class="map-container">
+                <img src="../assets/images/mapa.png" alt="Mapa České republiky">
+
+                <a href="../detail/cam1/" class="map-dot dot-praha" title="Praha - centrum"><br>Praha - centrum</a>
+                <a href="../detail/cam2/" class="map-dot dot-dukovany" title="Dukovany - elektrárna"><br>Dukovany -
+                    elektrárna</a>
+                <a href="../detail/cam3/" class="map-dot dot-olomouc" title="Olomouc - jižní směr"><br>Olomouc - jižní
+                    směr</a>
+                <a href="../detail/cam4/" class="map-dot dot-plzen" title="Plzeň - Mikulka"><br>Plzeň - Mikulka</a>
+            </div>
+
+            <div class="map-legend">
+                <h3>Dostupné lokality:</h3>
+                <ul>
+                    <li><span class="legend-dot"></span> <a href="../detail/cam1/">Praha - centrum</a></li>
+                    <li><span class="legend-dot"></span> <a href="../detail/cam2/">Dukovany - elektrárna</a></li>
+                    <li><span class="legend-dot"></span> <a href="../detail/cam3/">Olomouc - jižní směr</a></li>
+                    <li><span class="legend-dot"></span> <a href="../detail/cam4/">Plzeň - Mikulka</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <p>Copyright &copy; 2025 OnlyWeather</p>
+        </div>
+    </footer>
+</body>
+
+</html>

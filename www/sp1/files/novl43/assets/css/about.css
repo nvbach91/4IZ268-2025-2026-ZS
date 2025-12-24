@@ -1,0 +1,523 @@
+/* CELÁ STRÁNKA O NÁS ---------------------------------- */
+body {
+  background: var(--color-primary-light);
+}
+
+
+.about-page {
+  padding-bottom: clamp(60px, 8vw, 100px);
+}
+
+/* HERO ------------------------------------------------ */
+
+.about-hero {
+  padding: clamp(40px, 8vw, 60px) 0 20px;
+  text-align: center;
+}
+
+.about-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+}
+
+.about-hero-title {
+  font-family: var(--font-base);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.about-hero-subtitle {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+/* OBECNÉ SEKCE ---------------------------------------- */
+
+.about-section {
+  padding: clamp(40px, 7vw, 60px) 0;
+}
+
+.about-section-title {
+  font-family: var(--font-base);
+  font-size: clamp(22px, 2.4vw, 36px);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0 0 20px;
+}
+
+/* NÁŠ PŘÍBĚH ------------------------------------------ */
+
+
+.section-about {
+  background: var(--color-primary-light);
+  padding: clamp(60px, 8vw, 100px) 0;
+}
+
+.about-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 60px);
+}
+
+/* LEVÁ ČÁST – STATS / KARTY ------------------------ */
+
+.about-highlight {
+  position: relative;
+  flex: 1;
+  max-width: 540px;
+}
+
+.about-highlight-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  background: var(--color-primary);
+  transform: rotate(3deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.about-stats {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  border-radius: 25px;
+  padding: clamp(24px, 3vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.about-stat-card {
+  background: linear-gradient(
+    90deg,
+    rgba(241, 211, 167, 1) 0%,
+    rgba(234, 188, 123, 1) 100%
+  );
+  border-radius: 20px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-stat-number {
+  font-family: var(--font-base);
+  font-size: 28px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-dark);
+}
+
+.about-stat-text {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-main);
+}
+
+/* PRAVÁ ČÁST – TEXT + FEATURE CARDS ---------------- */
+
+.about-text {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-heading {
+  font-family: var(--font-base);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.about-lead {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-medium);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.about-body {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  line-height: var(--lh-relaxed);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+/* Feature cards pod textem ------------------------- */
+
+.about-features {
+  margin-top: 12px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.feature-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.feature-icon-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary);
+  border-radius: 12px;
+}
+
+.feature-icon-image {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 5px;
+  left: 5px;
+  object-fit: contain;
+}
+
+.feature-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.feature-title {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-medium);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.feature-text {
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--lh-normal);
+}
+
+/* -------------------------------------------------- */
+/* RESPONSIVE                                         */
+/* -------------------------------------------------- */
+
+/* Tablet – stack do jednoho sloupce, vycentrovat */
+@media (max-width: 1024px) {
+  .about-inner {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .about-highlight {
+    max-width: 100%;
+  }
+
+  .about-text {
+    max-width: 100%;
+  }
+}
+
+/* Mobile – 1 sloupec features */
+@media (max-width: 768px) {
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+
+  .section-about {
+    padding: 50px 0;
+  }
+}
+
+/* HODNOTY --------------------------------------------- */
+
+.about-values {
+  background: var(--color-bg-secondary);
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 30px);
+}
+
+.value-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.value-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.value-title {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.value-text {
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-main);
+  margin: 0;
+  line-height: var(--lh-normal);
+}
+
+/* TÝM -------------------------------------------------- */
+
+.about-team-intro {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-main);
+  margin: 0 0 20px;
+  max-width: 680px;
+}
+
+.about-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 30px);
+}
+
+.team-member {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.team-photo-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-base);
+  font-size: 20px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary-dark);
+  margin-bottom: 6px;
+}
+
+.team-name {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+.team-role {
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.team-bio {
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-main);
+  margin: 0;
+  line-height: var(--lh-normal);
+}
+
+/* RESPONSIVE ------------------------------------------ */
+
+@media (max-width: 1024px) {
+  .about-story-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .about-highlight-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .about-highlight-card {
+    flex: 1 1 160px;
+  }
+
+  .about-values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .about-values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-team-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-section {
+    padding: 32px 0;
+  }
+
+  .about-hero {
+    padding-top: 32px;
+  }
+}
+
+
+
+
+/* --------------------------------------------- */
+/* PRINT – STRÁNKA O NÁS                         */
+/* --------------------------------------------- */
+
+@media print {
+
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  nav,
+  header,
+  footer,
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    display: none !important;
+  }
+
+  body,
+  .about-page,
+  .about-hero,
+  .section-about,
+  .about-values {
+    background: transparent !important;
+  }
+
+  .about-hero {
+    padding: 16px 0 !important;
+    text-align: left !important;
+  }
+
+  .about-hero-inner {
+    align-items: flex-start !important;
+  }
+
+  .about-inner,
+  .about-values-grid,
+  .about-team-grid,
+  .about-features {
+    display: block !important;
+  }
+
+  .about-highlight,
+  .about-text {
+    max-width: 100% !important;
+  }
+
+  .about-highlight-bg {
+    transform: none !important;
+  }
+
+  .about-stats,
+  .about-stat-card,
+  .value-card,
+  .team-member {
+    background: transparent !important;
+    border-radius: 0 !important;
+    border: 1px solid #000 !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+    margin-bottom: 10px !important;
+    page-break-inside: avoid !important;
+  }
+
+  .team-photo-placeholder,
+  .value-icon,
+  .feature-icon-bg {
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  .about-features {
+    grid-template-columns: 1fr !important;
+  }
+
+  .feature-icon-image {
+    display: none !important;
+  }
+
+  .about-section,
+  .section-about {
+    padding: 16px 0 !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .about-section,
+  .section-about,
+  .value-card,
+  .team-member {
+    page-break-inside: avoid !important;
+  }
+}

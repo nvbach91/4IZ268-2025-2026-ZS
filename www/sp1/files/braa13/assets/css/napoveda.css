@@ -1,0 +1,60 @@
+.help-content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.help-content h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #f8d66d;
+    margin-bottom: 30px;
+}
+
+.help-content h2 {
+    font-size: 1.8em;
+    color: #d7d7d7;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #24334d;
+    padding-bottom: 5px;
+}
+
+.help-content p {
+    margin-top: 10px;
+    line-height: 1.7;
+    color: #a0a8b4;
+}
+
+.command-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.command-list li {
+    background-color: #1c273d;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #24334d;
+    font-family: 'Courier New', monospace;
+}
+
+.highlight {
+    color: #f8d66d;
+    font-weight: bold;
+}
+
+.command-syntax {
+    color: #f8d66d;
+    font-weight: bold;
+}
+
+.help-section ul {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #d7d7d7;
+}

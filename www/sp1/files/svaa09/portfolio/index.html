@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Prohlédněte si mé vybrané projekty. Ukázky redesignů, webových stránek a mobilních aplikací.">
+  <meta name="keywords" content="portfolio, projekty, case studies, ukázky práce, webové projekty">
+  <meta name="author" content="Adam Švarc">
+
+  <title>Portfolio | Adam Švarc</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="../" class="navbar__logo">Adam Švarc</a>
+
+        <input type="checkbox" id="menu-toggle" class="navbar__checkbox">
+
+        <label for="menu-toggle" class="navbar__burger">
+          <i data-lucide="menu" class="navbar__burger-icon navbar__burger-open"></i>
+          <i data-lucide="x" class="navbar__burger-icon navbar__burger-close"></i>
+        </label>
+
+        <ul class="navbar__menu">
+          <li><a href="../" class="navbar__link">Domů</a></li>
+          <li><a href="../sluzby/" class="navbar__link">Služby</a></li>
+          <li><a href="../o-mne/" class="navbar__link">O mně</a></li>
+          <li><a href="../portfolio/" class="navbar__link navbar__link--active">Portfolio</a></li>
+          <li><a href="../kontakt/" class="btn btn--primary">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <span class="page-header__label">Portfolio</span>
+        <h1>Moje projekty</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="projects">
+          <a href="../portfolio/scormium-lms/" class="project-card">
+            <div class="project-card__image">
+              <img src="../assets/img/card-scormium.png" alt="Náhled projektu Scormium LMS">
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Scormium LMS</h2>
+              <p class="project-card__year">2025 · E-earning aplikace</p>
+            </div>
+          </a>
+
+          <a href="../portfolio/akademie-podnikani/" class="project-card">
+            <div class="project-card__image">
+              <img src="../assets/img/card-akademie-podnikani.png"
+                alt="Náhled Akademie podnikání pro Českou spořitelnu">
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Akademie podnikání</h2>
+              <p class="project-card__year">2025 · Česká spořitelna</p>
+            </div>
+          </a>
+
+          <a href="../portfolio/crm-conmix/" class="project-card">
+            <div class="project-card__image">
+              <img src="../assets/img/card-conmix.png" alt="Náhled CRM systému Conmix">
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">CRM Conmix</h2>
+              <p class="project-card__year">2025 · Webový systém</p>
+            </div>
+          </a>
+
+          <a href="../portfolio/dobry-pritel/" class="project-card">
+            <div class="project-card__image">
+              <img src="../assets/img/card-dobry-pritel.png" alt="Náhled webové prezentace Dobrý přítel">
+            </div>
+            <div class="project-card__content">
+              <h2 class="project-card__title">Dobrý přítel</h2>
+              <p class="project-card__year">2025 · Webová prezentace</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <nav class="footer__nav">
+        <a href="../" class="footer__link">Domů</a>
+        <a href="../sluzby/" class="footer__link">Služby</a>
+        <a href="../portfolio/" class="footer__link">Portfolio</a>
+        <a href="../o-mne/" class="footer__link">O mně</a>
+        <a href="../kontakt/" class="footer__link">Kontakt</a>
+      </nav>
+
+      <div class="footer__social">
+        <a href="https://www.instagram.com/adamsvarc/" class="footer__social-link" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="https://dribbble.com/adamsvarc" class="footer__social-link" aria-label="Dribbble">
+          <i data-lucide="dribbble"></i>
+        </a>
+        <a href="https://github.com/asvarc" class="footer__social-link" aria-label="GitHub">
+          <i data-lucide="github"></i>
+        </a>
+        <a href="https://linkedin.com/in/adamsvarc" class="footer__social-link" aria-label="LinkedIn">
+          <i data-lucide="linkedin"></i>
+        </a>
+      </div>
+
+      <p class="footer__text">© 2025 Adam Švarc. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+
+</body>
+
+</html>

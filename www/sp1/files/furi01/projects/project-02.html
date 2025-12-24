@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Portfolio | Projekt 02</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">DA</span>
+        <span class="logo-text">Dátový analytik</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Domov</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link nav-link-active">Projekty</a></li>
+          <li class="nav-item"><a href="../studies/index.html" class="nav-link">Štúdie</a></li>
+          <li class="nav-item"><a href="../about/index.html" class="nav-link">O mne</a></li>
+          <li class="nav-item"><a href="../contact/index.html" class="nav-link">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <h1>COVID-19 Štatistický Dashboard</h1>
+      <p class="section-intro">
+        Jednoduchý dashboard, ktorý sleduje základné čísla o pandémii a skúša ukázať trendy bez zbytočne komplikovaných grafov.
+      </p>
+    </section>
+
+    <section class="projects-list">
+      <article class="project-card">
+        <img src="https://via.placeholder.com/800x350/e74c3c/ffffff?text=COVID-19+Dashboard" alt="COVID dashboard náhľad" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Čo som chcel zistiť</h3>
+          <p class="card-description">
+            Skôr než „vedecký výskum“ išlo o skúšanie, ako sa menia denné prírastky, sedemdňové priemery a ako to celé vyzerá na mape.
+          </p>
+
+          <h3 class="card-title">Nástroje a dáta</h3>
+          <div class="project-tags">
+            <strong class="tag">SQL</strong>
+            <strong class="tag">Power BI</strong>
+            <strong class="tag">REST API</strong>
+            <strong class="tag">ETL</strong>
+          </div>
+
+          <h3 class="card-title">Jednoduchý dotaz</h3>
+          <pre><code>SELECT
+  report_date,
+  country,
+  new_cases,
+  new_deaths
+FROM covid_daily
+WHERE country = 'Slovakia'
+ORDER BY report_date;</code></pre>
+
+          <p class="card-description">
+            Dashboard ukazuje pár základných kariet, jednoduchý čiarový graf a tabuľku. Cieľom bolo „vidieť čísla“, nie postaviť ideálny BI systém.
+          </p>
+
+          <a href="index.html" class="btn-primary">Späť na projekty</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Data Portfolio – Projekt 02</p>
+    </div>
+  </footer>
+</body>
+</html>

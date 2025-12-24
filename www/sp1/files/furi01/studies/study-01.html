@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Portfolio | Štúdia 01</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">DA</span>
+        <span class="logo-text">Dátový analytik</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Domov</a></li>
+          <li class="nav-item"><a href="../projects/index.html" class="nav-link">Projekty</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link nav-link-active">Štúdie</a></li>
+          <li class="nav-item"><a href="../about/index.html" class="nav-link">O mne</a></li>
+          <li class="nav-item"><a href="../contact/index.html" class="nav-link">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <h1>Štúdia 01 – Jednoduchý churn príklad</h1>
+      <p class="section-intro">
+        Malá cvičná case study o tom, ako by sa dali identifikovať zákazníci, ktorí pravdepodobne odídu.
+      </p>
+    </section>
+
+    <section class="projects-list">
+      <article class="project-card">
+        <div class="card-content">
+          <h3 class="card-title">Zadanie</h3>
+          <p class="card-description">
+            Fiktívna SaaS firma chce vedieť, ktorí zákazníci majú vyššiu šancu zrušiť službu. Dáta sú jednoduchá tabuľka s revenue a počtom prihlásení.
+          </p>
+
+          <h3 class="card-title">Postup</h3>
+          <p class="card-description">
+            Najprv som spravil základný výber aktívnych a neaktívnych zákazníkov, pozrel priemernú útratu a aktivitu. Nič sofistikované, skôr „pohľad z hora“.
+          </p>
+
+          <h3 class="card-title">Ukážkový SQL dotaz</h3>
+          <pre><code>SELECT
+  customer_id,
+  AVG(monthly_revenue) AS avg_revenue,
+  AVG(login_count) AS avg_logins
+FROM customer_stats
+GROUP BY customer_id;</code></pre>
+
+          <p class="card-description">
+            Z výsledkov by sa dali vytiahnuť jednoduché segmenty: nízka aktivita + nízka útrata = kandidát na churn. Je to skôr tréningový príklad než hotový model.
+          </p>
+
+          <a href="index.html" class="btn-primary">Späť na štúdie</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Data Portfolio – Štúdia 01</p>
+    </div>
+  </footer>
+</body>
+</html>

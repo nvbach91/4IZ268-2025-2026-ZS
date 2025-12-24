@@ -1,0 +1,444 @@
+:root {
+    --ink: #0d1b2a;
+    --accent: #e63946;
+    --surface: #f4f6fb;
+    --muted: #6c7a89;
+    --gradient: linear-gradient(155deg, #ffffff, #e0eafc);
+    --gradient-contrast: linear-gradient(-155deg, #0d1b2a, #1b3a5a);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: var(--ink);
+    background-color: var(--surface);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    line-height: 1.6;
+    background-color: var(--surface);
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:focus-visible,
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.page-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-header {
+    background-color: white;
+    border-bottom: 1px solid #d0d7e3;
+    padding: 1rem clamp(1rem, 3vw, 2.5rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.site-brand span {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+}
+
+.primary-nav {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.primary-nav a {
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.35rem;
+    font-size: 0.95rem;
+}
+
+.primary-nav a.active,
+.primary-nav a:focus-visible {
+    background-color: var(--accent);
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    padding: clamp(1.5rem, 3vw, 3rem);
+}
+
+.hero-panel {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--gradient);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #dfe6ef;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.service-card {
+    background: white;
+    padding: 0;
+    border-radius: 0.85rem;
+    border: 1px solid #dfe6ef;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+.service-card .action-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+}
+
+.card-image {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    min-height: 150px;
+    border-radius: 0.85rem 0.85rem 0 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-image h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0 0.75rem;
+    border-radius: 20px;
+}
+
+.card-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    filter: grayscale(100%);
+    transition: filter 400ms ease, transform 400ms ease;
+    will-change: filter, transform;
+    transform: scale(1.03);
+    z-index: 0;
+    opacity: 1;
+}
+
+.card-image>* {
+    position: relative;
+    z-index: 1;
+}
+
+.service-card:hover .card-image::before,
+.card-image:focus-within::before {
+    filter: grayscale(0%);
+    transform: scale(1);
+}
+
+.service-card--billiard .card-image::before {
+    background-image: url('../img/billiard.jpg');
+}
+
+.service-card--laser-game .card-image::before {
+    background-image: url('../img/laser-game.jpg');
+}
+
+.service-card--table-tennis .card-image::before {
+    background-image: url('../img/table-tennis.jpg');
+}
+
+.service-card p {
+    background: var(--gradient-contrast);
+    margin: 0;
+    color: var(--surface);
+    padding: 0.5rem;
+}
+
+.news-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.action-link {
+    display: inline-block;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.service-card .action-link {
+    border-radius: 0 0 0.85rem 0.85rem;
+}
+
+.action-link.primary {
+    background-color: var(--accent);
+    color: white;
+}
+
+.page-footer {
+    background: var(--gradient-contrast);
+    color: white;
+    padding: 1rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.column-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.column-layout>section {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    border: 1px solid #dfe6ef;
+}
+
+.photo-gallery {
+    margin-top: 2rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.gallery-grid img {
+    border-radius: 0.5rem;
+    border: 1px solid #dfe6ef;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    transition: filter 150ms ease-out;
+}
+
+.gallery-grid img:hover {
+    filter: blur(2px);
+}
+
+@media (max-width: 900px) {
+    .column-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.banner-section {
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.banner-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+    z-index: 0;
+}
+
+.banner-section--billiard::before {
+    background-image: url('../img/billiard-bg.jpg');
+}
+
+.banner-section--table-tennis::before {
+    background-image: url('../img/table-tennis-bg.png');
+}
+
+.banner-section--laser-game::before {
+    background-image: url('../img/laser-game-bg.jpg');
+}
+
+.banner-section--about-us::before {
+    background-image: url('../img/about-us.jpg');
+    background-position-y: -100px;
+}
+
+.banner-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding: 1rem;
+}
+
+.banner-content h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner-content p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 640px) {
+    .primary-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.game-card {
+    background: var(--gradient);
+    border-radius: 1rem;
+    border: 1px solid #dfe6ef;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.game-card h2 {
+    color: var(--ink);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+}
+
+.game-card h3 {
+    color: var(--ink);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.game-card p {
+    color: #4a5568;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+.game-card ul {
+    padding-left: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.game-card li {
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    position: relative;
+}
+
+.game-card li::marker {
+    color: var(--accent);
+}
+
+.game-card li strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.game-card img {
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.news-date {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+.spacer-top {
+    margin-top: 2rem;
+}
+
+.address-block {
+    font-style: normal;
+    margin-bottom: 1rem
+}
+
+.map-container {
+    margin: 1rem 0;
+}
+
+.map-iframe {
+    border: 0;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 300px;
+}
+
+.billing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.pricing-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}

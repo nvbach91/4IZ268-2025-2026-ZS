@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Černý rytíř - Kontakty</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="icon" href="../assets/img/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="centered">
+        <div class="title">
+            <img src="../assets/img/logo.png" alt="ČERNÝ RYTÍŘ logo" class="logo">
+            <h1>ČERNÝ RYTÍŘ</h1>
+        </div>
+        <nav>
+            <a href="../">Domů</a>
+            <a href="../obchod">Obchod</a>
+            <a href="../aktuality/">Aktuality</a>
+            <a href="../turnaje/">Turnaje</a>
+            <a class="active" href="../kontakty/">Kontakty</a>
+            <a class="cart"><i class="fas fa-shopping-cart"></i> Košík</a>
+        </nav>
+    </header>
+    <main class="centered">
+        <!--
+        Stránky pro obchod Černý rytíř
+
+        Černý rytíř je kamenný a webový ochod zabývající se prodejem sběratelských karetních her (TCG) jako je Magic,
+        nebo Pokémon, her na hrdiny (TTRPG) jako je Dungeons&Dragons, stolních válečných her (Wargaming) jako je
+        Warhammer 40,000 a příslušenství k výše zmíněnému, komiksů a sběratelských předmětů. Černý rytíř také funguje
+        jako herna a pořádá vlastní turnaje. Oficiální web lze nalézt na adrese: https://cernyrytir.cz/
+
+        Cílem práce bude navrhnout nové vzezření a rozložení webu.
+
+        Soupis stránek:
+        sp1 - hlavní/uvítací stránka, zobrazuje aktuality a novinky v obchodě
+        sp1/aktuality - umožnuje zobrazení historie aktualit
+        sp1/aktuality/2025/10 ... - aktuality z října 2025
+        sp1/obchod - rozcestník pro kategorie obchodu
+        sp1/obchod/*kategorie* - stránka obchodu s kategorií zboží
+        sp1/turnaje - informace o pravidelných turnajích
+        sp1/kontakty - stránka s kontakty pro obchod
+        -->
+        <div class="content">
+            <div class="flex-row">
+                <div class="flex-col maps">
+                    <h2>Kde nás najdete</h2>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2559.7412598068704!2d14.441776999999998!3d50.091131!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94bdb6a25821%3A0x4b49fbb78eae206a!2zxIxlcm7DvSByeXTDrcWZ!5e0!3m2!1scs!2scz!4v1762538437223!5m2!1scs!2scz"
+                        allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!4v1762538507072!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJRGgwcGZqYXc.!2m2!1d50.09115078727261!2d14.44170334204753!3f139.96592508466802!4f-17.63561077243172!5f0.7820865974627469"
+                        allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="flex-col">
+                    <h2>Prodejna</h2>
+                    <p>
+                        Černý rytíř<br>
+                        Za Poříčskou branou 21<br>
+                        186 00<br>
+                        Praha 8<br>
+                        <a href="mailto:praha@cernyrytir.cz"><i class="fas fa-envelope"></i> praha@cernyrytir.cz</a>
+                        <h3>Otevírací doba</h3>
+                        <div><strong>Po-Pá</strong> 11-19<br></div>
+                        <div><strong>So-Ne</strong> 10-18<br></div>
+                    </p>
+                </div>
+                <div class="flex-col">
+                    <h2>Zákaznická linka</h2>
+                    <p>
+                        <i class="fas fa-phone"></i> +420 731 164 496<br>
+                        <a href="mailto:eshop@cernyrytir.cz"><i class="fas fa-envelope"></i> eshop@cernyrytir.cz</a>
+                        <h3>Provozní doba</h3>
+                        <div><strong>Po-Pá</strong> 10-18<br></div>
+                    </p>
+                    <h2>Sociální sítě</h2>
+                    <div>
+                        <a href="https://www.youtube.com/@Cernyrytir_hry"><i class="fab fa-youtube"></i> Oficiální YouTube</a><br>
+                        <a href="https://ripandship.cernyrytir.cz/"><i class="fab fa-youtube"></i> Rip & Ship</a><br>
+                        <br>
+                        <a href="https://www.facebook.com/cernyrytircz/"><i class="fab fa-facebook"></i> Oficiální Facebook</a><br>
+                        <a href="https://www.facebook.com/groups/794538429239447"><i class="fab fa-facebook"></i> Facebook Rytíř live</a><br>
+                        <br>
+                        <a href="https://www.instagram.com/cernyrytircz/"><i class="fab fa-instagram"></i> Oficiální Instagram</a><br>
+                        <a href="https://www.instagram.com/cernyrytir_pokemon/"><i class="fab fa-instagram"></i> Instagram Černý rytíř pokémon</a><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="centered">
+        <a href="../podminky/" target="_blank">Dodací podmínky</a>
+        <div>Tomáš Zummer, 2025</div>
+    </footer>
+</body>
+
+</html>

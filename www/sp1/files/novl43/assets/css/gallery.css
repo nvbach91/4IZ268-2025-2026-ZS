@@ -1,0 +1,181 @@
+/* HERO GALERIE ----------------------------------- */
+body{
+    background-color: var(--color-primary-light);
+}
+
+.gallery-hero {
+  padding: clamp(40px, 8vw, 60px) 0 20px;
+  text-align: center;
+}
+
+.gallery-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+}
+
+.gallery-hero-title {
+  font-family: var(--font-base);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gallery-hero-subtitle {
+  font-family: var(--font-base);
+  font-size: 16px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text-main);
+  margin: 0;
+}
+
+/* HLAVNÍ OBSAH GALERIE --------------------------- */
+
+.gallery-main {
+  padding: 0 0 clamp(60px, 8vw, 100px);
+}
+
+/* FILTRY */
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: clamp(20px, 3vw, 30px);
+}
+
+.gallery-filter-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-primary);
+  background: #ffffff;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease,
+    box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-filter-btn:hover {
+  background: var(--color-primary-light);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.gallery-filter-btn.is-active {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* GRID OBRÁZKŮ ----------------------------------- */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.gallery-item {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1.03);
+}
+
+/* RESPONSIVE ------------------------------------- */
+
+@media (max-width: 768px) {
+  .gallery-filters {
+    gap: 8px;
+  }
+
+  .gallery-filter-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
+
+/* --------------------------------------------- */
+/* TISK – GALERIE                                */
+/* --------------------------------------------- */
+
+@media print {
+
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #000 !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  nav,
+  header,
+  footer,
+  .gallery-filters,
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    display: none !important;
+  }
+
+  body,
+  .gallery-main,
+  .gallery-hero {
+    background: transparent !important;
+  }
+
+  .gallery-hero {
+    padding: 16px 0 !important;
+    text-align: left !important;
+  }
+
+  .gallery-hero-inner {
+    align-items: flex-start !important;
+  }
+
+  .gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .gallery-item img {
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .gallery-item {
+    border-radius: 0 !important;
+    page-break-inside: avoid !important;
+  }
+
+  .gallery-main {
+    padding: 0 !important;
+  }
+}

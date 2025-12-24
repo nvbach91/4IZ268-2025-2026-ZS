@@ -1,0 +1,107 @@
+@media print {
+
+    *, *::before, *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+    }
+
+    body {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    nav,                
+    aside,              
+    footer,             
+    .search-widget,     
+    .filter-widget,     
+    .sort-buttons,      
+    .pagination,        
+    .hero-bg,           
+    button,             
+    .path               
+    {
+        display: none !important;
+    }
+
+    .container, 
+    body > main {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .two-columns {
+        display: block !important;
+    }
+
+    .mainNews, 
+    .about-content,
+    .article-detail,
+    .generic-articles {
+        flex: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+        filter: contrast(110%) !important; 
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+        color: #000 !important;
+        border-bottom: 1px solid #000;
+    }
+
+    p, ul, ol, blockquote {
+        page-break-inside: avoid;
+        orphans: 3;
+        widows: 3;
+    }
+
+    blockquote {
+        border-color: #000;
+    }
+
+    .generic-articles article {
+        width: 100% !important;
+        flex: none !important;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+    }
+
+    header {
+        text-align: left;
+        padding: 0;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000;
+    }
+    
+    header h1 {
+        font-size: 20pt;
+        margin: 0;
+        border: none;
+    }
+    
+    header::after {
+        content: "https://eso.vse.cz/~nebm02/sp1/";
+        display: block;
+        font-size: 10pt;
+        margin-top: 5px;
+    }
+}

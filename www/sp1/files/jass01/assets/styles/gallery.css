@@ -1,0 +1,60 @@
+@import "./main.css";
+
+.gallery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gallery-section .header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.gallery-section .header-row a {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.1s ease-out;
+  cursor: pointer;
+}
+
+.gallery-section .header-row a:hover {
+  color: var(--text-dark);
+}
+
+.gallery-section .header-row a.disabled {
+  text-decoration: none;
+  color: var(--text-disabled);
+  transition: color 0.1s ease-out;
+  cursor: not-allowed;
+}
+
+.gallery-section .images {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--gallery-img-size), 1fr)
+  );
+  gap: 1.5rem;
+  padding: 0 1rem;
+  padding-bottom: 1rem;
+}
+
+.gallery-section .images img {
+  width: 100%;
+  aspect-ratio: 5/4;
+  border-radius: var(--rounded-sm);
+  object-fit: cover;
+  transition: transform 0.1s ease-out;
+}
+.gallery-section .images img:hover {
+  transform: scale(1.02);
+}
+
+@media print {
+  .gallery-section .images {
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

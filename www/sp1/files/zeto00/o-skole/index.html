@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="O Gymnáziu Chomutov - historie, poslání, vize a hodnoty naší školy.">
+    <title>O škole - Gymnázium Chomutov</title>
+    <link rel="icon" type="image/png" href="../assets/img/logo-nontransparent.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../" class="logo">
+                    <img src="../assets/img/logo.png" alt="Gymnázium Chomutov Logo">
+                </a>
+                <button class="hamburger"
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')"
+                    aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="../">Domů</a></li>
+                        <li><a href="./" class="active">O škole</a></li>
+                        <li><a href="../pro-studenty/">Pro studenty</a></li>
+                        <li><a href="../pro-uchazece/">Pro uchazeče</a></li>
+                        <li><a href="../aktuality/">Aktuality</a></li>
+                        <li><a href="../partneri/">Partneři</a></li>
+                        <li><a href="../kontakty/">Kontakty</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="content-section">
+                    <h2>Historie školy</h2>
+                    <div class="image-text-section">
+                        <div class="text-content">
+                            <p>Gymnázium Chomutov má dlouholetou tradici sahající až do 19. století. Škola prošla
+                                různými obdobími vývoje a postupně se etablovala jako jedno z nejvýznamnějších středních
+                                vzdělávacích zařízení v Ústeckem kraji.</p>
+
+                            <p>Moderní kapitola historie školy začala po roce 1989, kdy se škola otevřela novým
+                                vzdělávacím metodám a mezinárodní spolupráci. V průběhu let jsme se stali uznávanou
+                                institucí s vynikající pověstí a kvalitními výsledky našich absolventů.</p>
+
+                            <p>V současné době poskytujeme vzdělání více než 500 studentům v čtyřletém a šestiletém
+                                studijním programu. Naši absolventi pravidelně dosahují vynikajících výsledků u
+                                přijímacích zkoušek na vysoké školy.</p>
+                        </div>
+                        <div class="image-content">
+                            <img src="../assets/img/school-old.jpg" alt="Historická budova Gymnázia Chomutov">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Pedagogický sbor</h2>
+                    <div class="teachers-grid">
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher1">
+                            <label for="teacher1">
+                                <img src="../assets/img/img-teachers/zahradka.jpg" alt="Mgr. Jaroslav Zahrádka">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Jaroslav Zahrádka</span>
+                                    <span class="teacher-detail">Ředitel</span>
+                                    <span class="teacher-detail"><a href="mailto:reditel@gymcv.cz">reditel@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 620 546</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher2">
+                            <label for="teacher2">
+                                <img src="../assets/img/img-teachers/moule.jpg" alt="Mgr. Petr Moule">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Petr Moule</span>
+                                    <span class="teacher-detail">Zástupce ředitele</span>
+                                    <span class="teacher-detail"><a href="mailto:moulep@gymcv.cz">moulep@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 531</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher3">
+                            <label for="teacher3">
+                                <img src="../assets/img/img-teachers/fucilova.jpg" alt="PhDr. Eva Fučilová">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">PhDr. Eva Fučilová</span>
+                                    <span class="teacher-detail">Zástupce ředitele</span>
+                                    <span class="teacher-detail"><a href="mailto:fucilova@gymcv.cz">fucilova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 620 565</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher4">
+                            <label for="teacher4">
+                                <img src="../assets/img/img-teachers/hunackova.jpg" alt="Iveta Huňáčková">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Iveta Huňáčková</span>
+                                    <span class="teacher-detail">Sekretářka</span>
+                                    <span class="teacher-detail"><a href="mailto:hunackova@gymcv.cz">hunackova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher5">
+                            <label for="teacher5">
+                                <img src="../assets/img/img-teachers/lisa.jpg" alt="Mgr. Lenka Lisá">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Lenka Lisá</span>
+                                    <span class="teacher-detail">Psycholog</span>
+                                    <span class="teacher-detail"><a href="mailto:lisa@gymcv.cz">lisa@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1015</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher6">
+                            <label for="teacher6">
+                                <img src="../assets/img/img-teachers/zetkova.jpg" alt="Ing. Oksana Zetková">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Ing. Oksana Zetková</span>
+                                    <span class="teacher-detail">Ekonomka</span>
+                                    <span class="teacher-detail"><a href="mailto:zetkova@gymcv.cz">zetkova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1024</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher7">
+                            <label for="teacher7">
+                                <img src="../assets/img/img-teachers/bernasova.jpg" alt="Ing. Marcela Bernasová">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Ing. Marcela Bernasová</span>
+                                    <span class="teacher-detail">Účetní a referent</span>
+                                    <span class="teacher-detail"><a href="mailto:bernasova@gymcv.cz">bernasova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1034</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher8">
+                            <label for="teacher8">
+                                <img src="../assets/img/img-teachers/slabihoud.jpg" alt="Jiří Slabyhoud">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Jiří Slabyhoud</span>
+                                    <span class="teacher-detail">Správce budovy</span>
+                                    <span class="teacher-detail"><a href="mailto:skolnik@gymcv.cz">skolnik@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1004</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher9">
+                            <label for="teacher9">
+                                <img src="../assets/img/img-teachers/borovickova.jpg" alt="Mgr. Veronika Borovičková">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Veronika Borovičková</span>
+                                    <span class="teacher-detail">Český jazyk, ZSV</span>
+                                    <span class="teacher-detail"><a href="mailto:borovickova@gymcv.cz">borovickova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1013</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher10">
+                            <label for="teacher10">
+                                <img src="../assets/img/img-teachers/cenkova.jpg" alt="Mgr. Miroslava Cenková">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Miroslava Cenková</span>
+                                    <span class="teacher-detail">Německý jazyk, Ruský jazyk</span>
+                                    <span class="teacher-detail"><a href="mailto:cenkova@gymcv.cz">cenkova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1021</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher11">
+                            <label for="teacher11">
+                                <img src="../assets/img/img-teachers/coubalova.jpg" alt="Mgr. Martina Coubalová">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Martina Coubalová</span>
+                                    <span class="teacher-detail">Německý jazyk, Matematika</span>
+                                    <span class="teacher-detail"><a href="mailto:coubalova@gymcv.cz">coubalova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1031</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher12">
+                            <label for="teacher12">
+                                <img src="../assets/img/img-teachers/capounova.jpg" alt="Mgr. Daniela Čapounová">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Daniela Čapounová</span>
+                                    <span class="teacher-detail">Biologie, Chemie</span>
+                                    <span class="teacher-detail"><a href="mailto:capounova@gymcv.cz">capounova@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1011</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher13">
+                            <label for="teacher13">
+                                <img src="../assets/img/img-teachers/capounovamagdalena.jpg"
+                                    alt="Bc. Magdalena Čapounová">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Bc. Magdalena Čapounová</span>
+                                    <span class="teacher-detail">Chemie, Biologie</span>
+                                    <span class="teacher-detail"><a href="mailto:capounova2@gymcv.cz">capounova2@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1014</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher14">
+                            <label for="teacher14">
+                                <img src="../assets/img/img-teachers/dvorak.jpg" alt="Mgr. Matěj Dvořák">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Matěj Dvořák</span>
+                                    <span class="teacher-detail">Tělesná výchova</span>
+                                    <span class="teacher-detail"><a href="mailto:dvorak@gymcv.cz">dvorak@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1001</span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="teacher-card">
+                            <input type="checkbox" id="teacher15">
+                            <label for="teacher15">
+                                <img src="../assets/img/img-teachers/haviar.jpg" alt="Mgr. Jakub Haviar">
+                                <span class="teacher-info">
+                                    <span class="teacher-name">Mgr. Jakub Haviar</span>
+                                    <span class="teacher-detail">Český jazyk, ZSV</span>
+                                    <span class="teacher-detail"><a href="mailto:haviar@gymcv.cz">haviar@gymcv.cz</a></span>
+                                    <span class="teacher-detail">+420 474 624 140 / 1013</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Mise a hodnoty</h2>
+
+                    <div class="image-text-section values-section">
+                        <div class="image-content">
+                            <img src="../assets/img/finish.jpg" alt="Úspěch a dokončení">
+                        </div>
+                        <div class="text-content">
+                            <h3>Excelence a úspěch</h3>
+                            <p>Podporujeme vysoké standardy v akademické práci i osobním rozvoji. Vedeme studenty k
+                                tomu, aby dávali do každé činnosti to nejlepší a dokázali své úkoly dovést do zdárného
+                                konce.</p>
+                            <p>Naším cílem je rozvíjet u studentů nejen znalosti, ale i schopnost samostatného myšlení,
+                                kritického hodnocení a neustálého zdokonalování. Věříme, že excelence není cíl, ale
+                                cesta – každodenní snaha být lepší než včera.</p>
+                            <p>Úspěch našich studentů měříme nejen akademickými výsledky, ale také jejich osobním
+                                růstem, schopností překonávat překážky a odvahou jít si za svými cíli s vytrvalostí a
+                                odhodláním.</p>
+                        </div>
+                    </div>
+
+                    <div class="image-text-section values-section">
+                        <div class="text-content">
+                            <h3>Spolupráce a respekt</h3>
+                            <p>Věříme v sílu týmové práce a vzájemné podpory. Učíme studenty, že společně dokážeme více
+                                a že úspěch jednoho je úspěchem celé komunity. Respekt k druhým je základem našeho
+                                společného vzdělávání.</p>
+                            <p>Podporujeme prostředí, kde se studenti učí naslouchat různým názorům, respektovat
+                                odlišnosti a konstruktivně spolupracovat při dosahování společných cílů. Komunikace
+                                založená na vzájemné úctě je klíčem k úspěšné spolupráci.</p>
+                            <p>V našich třídách a projektech klademe důraz na to, že každý hlas má hodnotu a každý
+                                příspěvek je důležitý. Týmová práce nás učí nejen sdílet úspěchy, ale také společně
+                                čelit výzvám a podporovat se v obtížných chvílích.</p>
+                        </div>
+                        <div class="image-content">
+                            <img src="../assets/img/finish2.jpg" alt="Spolupráce a týmová práce">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="../assets/img/logo-uk-school.png" alt="Gymnázium Chomutov Logo" class="footer-logo">
+                </div>
+                <div class="footer-section">
+                    <h3>Rychlé odkazy</h3>
+                    <ul>
+                        <li><a href="./">O škole</a></li>
+                        <li><a href="../pro-studenty/">Pro studenty</a></li>
+                        <li><a href="../pro-uchazece/">Pro uchazeče</a></li>
+                        <li><a href="../aktuality/">Aktuality</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontakt</h3>
+                    <p>Mostecká 3000<br>
+                        430 01 Chomutov<br>
+                        Tel: +420 474 620 546<br>
+                        Email: info@gymcv.cz</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gymnázium Chomutov. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

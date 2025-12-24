@@ -1,0 +1,227 @@
+/* Page-only CSS for "Řešení pro výrobu" */
+
+/* --- Full-height 3 columns --- */
+.solutions{
+    min-height:calc(100vh - 86px);
+}
+
+.solutions-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    min-height:calc(100vh - 86px);
+    position:relative;
+}
+
+/* Always-visible white vertical separators */
+.solutions-grid::before,
+.solutions-grid::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:1px;
+    background:rgba(255,255,255,0.55);
+    z-index:10;
+}
+.solutions-grid::before{
+    left: calc(100% / 3);
+}
+.solutions-grid::after{
+    left: calc(200% / 3);
+}
+
+/* Panels */
+.solution-panel{
+    position:relative;
+    isolation:isolate;
+    min-height:calc(100vh - 86px);
+    padding:clamp(1.4rem, 2.5vw, 2.2rem);
+    display:flex;
+    align-items:flex-end;
+    color:#fff;
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    transition:transform .35s ease;
+}
+
+.solution-panel{
+    box-shadow:none !important;
+}
+
+.solution-panel:hover{
+    transform:translateY(-4px);
+}
+
+/* Soft overlay */
+.solution-overlay{
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(12,74,110,.50) 0%, rgba(12,74,110,.70) 60%, rgba(12,74,110,.92) 100%);
+    z-index:-1;
+}
+
+/* Column shading variants */
+.solution-panel--1 .solution-overlay{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(12, 74, 110, 0.18) 0%,
+        rgba(12, 74, 110, 0.32) 60%,
+        rgba(12, 74, 110, 0.46) 100%
+      );
+}
+.solution-panel--2 .solution-overlay{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(17, 124, 117, 0.18) 0%,
+        rgba(20, 150, 168, 0.32) 60%,
+        rgba(26, 213, 216, 0.46) 100%
+      );
+}
+.solution-panel--3 .solution-overlay{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(72, 64, 154, 0.18) 0%,
+        rgba(72, 64, 154, 0.32) 60%,
+        rgba(66, 46, 127, 0.48) 100%
+      );
+}
+
+/* texture */
+.solution-panel::after{
+    content:"";
+    position:absolute;
+    inset:-20%;
+    background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 55%);
+    mix-blend-mode:soft-light;
+    opacity:.55;
+    z-index:-1;
+}
+
+/* Content box */
+.solution-content{
+    width:100%;
+    max-width:52ch;
+    display:grid;
+    gap:.75rem;
+    background:rgba(12,74,110,.24);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+    padding:1.2rem 1.2rem 1.05rem;
+    backdrop-filter: blur(2px);
+}
+
+.solution-kicker{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.solution-icon{
+    width:46px;
+    height:46px;
+    object-fit:contain;
+    background:rgba(255,255,255,.9);
+    border-radius:12px;
+    padding:8px;
+}
+
+.solution-num{
+    font-weight:800;
+    letter-spacing:.08em;
+    opacity:.6;
+}
+
+.solution-content h2{
+    margin:.2rem 0 0;
+    font-size:clamp(1.45rem, 2.4vw, 1.9rem);
+    line-height:1.2;
+}
+
+.solution-content p{
+    margin:0;
+    color:rgba(255,255,255,.92);
+}
+
+.solution-list{
+    margin:.2rem 0 0;
+    padding-left:1.1rem;
+    color:rgba(255,255,255,.9);
+}
+
+.solution-link{
+    margin-top:.35rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.45rem;
+    font-weight:800;
+    color:#fff;
+    text-decoration:none;
+    width:max-content;
+    padding:.6rem .9rem;
+    border-radius:10px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.22);
+    transition:background .2s ease, transform .08s ease;
+}
+
+.solution-link:hover{
+    background:rgba(255,255,255,.24);
+}
+.solution-link:active{
+    transform:translateY(1px);
+}
+
+/* Reveal – progresivní: bez JS je obsah viditelný */
+.reveal{
+    opacity:1;
+    transform:none;
+}
+
+.has-js .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+}
+
+.has-js .reveal.is-visible{
+    opacity:1;
+    transform:none;
+}
+
+/* Responsive */
+@media (max-width: 1100px){
+    .solutions-grid{
+        grid-template-columns:1fr;
+        min-height:auto;
+    }
+
+    /* Remove vertical separators on mobile */
+    .solutions-grid::before,
+    .solutions-grid::after{
+        display:none;
+    }
+
+    .solution-panel{
+        min-height:70vh;
+        align-items:center;
+    }
+    .solution-content{
+        max-width:70ch;
+    }
+}
+
+@media (max-width: 720px){
+    .solution-panel{
+        min-height:65vh;
+        padding:1rem;
+    }
+    .solution-content{
+        padding:1rem;
+    }
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Unofficial student website of VŠE Falons Prague - official ice hockey team of University of Economics and Business.">
+    <meta name="author" content="Jakub Hrouda">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="./assets/img/favicon2.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Main Page | VŠE Falcons Prague</title>
+</head>
+
+<body>
+    <header class="page-header-main">
+        <h1>VŠE Falcons Prague</h1>
+        <h3>The Official University Ice Hockey Team of Prague University of Economics and Business</h3>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="./" class="active">Main Page</a></li>
+            <li class="dropdown">
+                <a href="./team/players/">Team</a>
+                <ul class="dropdown-menu">
+                    <li><a href="./team/players/">Players</a></li>
+                    <li><a href="./team/staff/">Staff</a></li>
+                </ul>
+            </li>
+            <li><a href="./stats/">Stats</a></li>
+            <li class="dropdown">
+                <a href="./scores/past-events/">Scores</a>
+                <ul class="dropdown-menu">
+                    <li><a href="./scores/past-events/">Past events</a></li>
+                    <li><a href="./scores/upcoming-events/">Upcoming events</a></li>
+                </ul>
+            </li>
+            <li><a href="./contacts/">Contacts</a></li>
+        </ul>
+    </nav>
+    <main class="home-page">
+
+        <!-- Intro -->
+        <section class="home-section home-intro">
+            <div class="home-intro-text">
+                <h2>Welcome to VŠE Falcons Prague</h2>
+                <p>
+                    VŠE Falcons Prague is the official university ice hockey team of the Prague University of
+                    Economics and
+                    Business. The team competes in the <strong>University Ice Hockey League (ULLH)</strong> and
+                    brings
+                    together students from different faculties who share passion for hockey, teamwork and fair play.
+                </p>
+                <p>
+                    On this website you can find the current roster, results of played games, basic player
+                    statistics
+                    and contact information for the 2025/26 season.
+                </p>
+            </div>
+
+            <div class="home-intro-image">
+                <img src="./assets/img/falcons.jpg" alt="VŠE Falcons Prague">
+            </div>
+        </section>
+
+        <!-- Next / Last game highlight -->
+        <section class="home-section">
+            <h2>Game highlights</h2>
+            <div class="home-highlights">
+                <!-- Next game -->
+                <article class="home-card">
+                    <h3 class="home-card-title">Next game</h3>
+                    <p class="home-game-date">ÚT 9. 12. 2025, 20:00 · ULLH</p>
+                    <p class="home-game-teams">
+                        UK Kings Prague vs VŠE Falcons Prague
+                    </p>
+                    <p class="home-game-status">Venue: Ice Arena Kateřinky, Prague</p>
+                    <a href="./scores/upcoming-events/" class="btn-link">See all upcoming games</a>
+                </article>
+
+                <!-- Last game -->
+                <article class="home-card">
+                    <h3 class="home-card-title">Last result</h3>
+                    <p class="home-game-date">PO 1. 12. 2025, 20:15 · ULLH</p>
+                    <p class="home-game-teams">
+                        Riders Univerzita Pardubice 5&nbsp;:&nbsp;6 SN VŠE Falcons Prague
+                    </p>
+                    <p class="home-game-result home-game-result-win">Final score · WIN</p>
+                    <a href="./scores/past-events/" class="btn-link">See all past games</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Meet the team -->
+        <section class="home-section home-team-section">
+            <div class="home-team-text">
+                <h2>Meet the team</h2>
+                <p>
+                    The roster of VŠE Falcons Prague is built from students of different study programs at VŠE. The
+                    team combines experienced players with newcomers and represents the university in the ULLH.
+                </p>
+                <p>
+                    Get to know all players and members of the coaching staff on the dedicated pages.
+                </p>
+            </div>
+            <div class="home-team-actions">
+                <a href="./team/players/" class="btn-primary">Player roster</a>
+                <a href="./team/staff/" class="btn-primary">Coaching staff</a>
+            </div>
+        </section>
+
+        <!-- Stats teaser -->
+        <section class="home-section home-stats-section">
+            <h2>Team leaders 2025/26</h2>
+            <p class="home-stats-intro">
+                Basic overview of selected offensive leaders of VŠE Falcons Prague in the 2025/26 season.
+                Full statistics can be found on the Stats page.
+            </p>
+            <div class="home-stats-box">
+                <table class="home-stats-table">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>Position</th>
+                            <th>G</th>
+                            <th>P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alen Jurak</td>
+                            <td>F</td>
+                            <td>10</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>Jiří Fibigr</td>
+                            <td>F</td>
+                            <td>5</td>
+                            <td>14</td>
+                        </tr>
+                        <tr>
+                            <td>Jan Ramert</td>
+                            <td>F</td>
+                            <td>1</td>
+                            <td>12</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="./stats/" class="btn-link stats-link">Go to full stats</a>
+            </div>
+        </section>
+
+        <!-- Project info -->
+        <section class="home-section home-project-info">
+            <h2>About this website</h2>
+            <p>
+                This website was created as a student project for the course
+                <strong>Web Technologies</strong> at the Prague University of Economics and Business.
+                Its purpose is to demonstrate the structure and design of a simple static website for a
+                university sports team.
+            </p>
+            <p>
+                All data on this website (results, statistics and contacts) are illustrative and do not
+                represent the official communication of the team or the university.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-column">
+                <h3>VŠE Falcons Prague</h3>
+                <ul class="footer-nav">
+                    <li><a href="./">Main Page</a></li>
+                    <li><a href="./team/players/">Team – Players</a></li>
+                    <li><a href="./team/staff/">Team – Staff</a></li>
+                    <li><a href="./stats/">Stats</a></li>
+                    <li><a href="./scores/past-events/">Scores – Past events</a></li>
+                    <li><a href="./scores/upcoming-events/">Scores – Upcoming events</a></li>
+                    <li><a href="./contacts/">Contacts</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow us</h3>
+                <ul class="footer-social">
+                    <li>Instagram: <span>@vsefalcons</span></li>
+                    <li>Facebook: <span>VŠE Falcons Prague</span></li>
+                    <li>TikTok: <span>@vsefalcons</span></li>
+                    <li>Email: <a href="mailto:marketing@vsefalcons.cz">marketing@vsefalcons.cz</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column footer-copy">
+                <p>© 2025 VŠE Falcons Prague</p>
+                <p>This website was created as a student project for the course Web Technologies at the Prague
+                    University of Economics and Business. It is not an official website of the team or the university.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

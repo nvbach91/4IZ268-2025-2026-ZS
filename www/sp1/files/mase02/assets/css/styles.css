@@ -1,0 +1,280 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Bebas Neue", sans-serif;
+    background-color: rgb(0, 0, 0);
+}
+
+.logo img {
+    height: 60px;
+    margin: 20px;
+    margin-left: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+.menu {
+    display: flex;
+    gap: 40px;
+    margin: 20px;
+    margin-right: 30px;
+}
+
+.menu-item {
+    font-size: 30px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 12px 10px;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    color: rgb(238, 43, 50);
+}
+
+.main-content {
+    text-align: center;
+}
+
+.main-content-about {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    flex-direction: row;
+}
+
+
+.main-content-contacts {
+    margin-left: 50px;
+    color: white;
+}
+
+.text {
+    margin-right: 180px;
+    margin-left: 50px;
+    color: white;
+    text-align: justify;
+    font-family: "Montserrat", sans-serif;
+
+}
+
+h1 {
+    font-size: 50px;
+    letter-spacing: 3px;
+    margin: 10px;
+    margin-top: 20px;
+}
+
+.page-home h1 {
+    color: rgb(250, 190, 3);
+}
+
+.page-about h1 {
+    margin-left: 0px;
+    margin-bottom: 30px;
+    font-family: "Bebas Neue", sans-serif;
+
+}
+
+.page-music h1 {
+    text-align: center;
+    margin: 20px;
+    color: white;
+}
+
+.page-videos h1 {
+    color: white;
+    margin: 20px;
+    text-align: center;
+}
+
+.page-tour h1 {
+    color: white;
+}
+
+
+.page-contacts h1 {
+    margin: 0px;
+    margin-top: 80px;
+
+}
+
+h2 {
+    font-size: 40px;
+    letter-spacing: 3px;
+    margin-bottom: 0
+}
+
+.song_cover img {
+    height: 500px;
+    margin: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.button {
+    padding: 15px 24px;
+    background: rgb(250, 190, 3);
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px 0;
+    letter-spacing: 2px;
+    border-radius: 3px;
+
+}
+
+.picture img {
+    height: 520px;
+    margin: 50px;
+    margin-left: 0px;
+    margin-right: 100px;
+}
+
+.concert-row {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 20px auto;
+    width: 60%;
+}
+
+.concert-date,
+.concert-city {
+    flex: 1;
+    padding: 18px 0;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+
+}
+
+.concert-date {
+    color: white;
+}
+
+.concert-city {
+    color: black;
+}
+
+
+.concert-date {
+    background-color: rgb(238, 43, 50);
+}
+
+.concert-city {
+    background-color: white;
+}
+
+
+.email {
+    margin-top: 0;
+    padding: 0;
+    font-size: 25px;
+
+}
+
+.email p {
+    margin-top: 0;
+    padding: 0;
+}
+
+.music,
+.video {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.music-card {
+    flex: 1 1 30%;
+    max-width: 30%;
+    text-align: center;
+}
+
+.video-card {
+    flex: 1 1 calc(33.333% - 40px);
+    max-width: calc(33.333% - 40px);
+    text-align: center;
+    position: relative;
+}
+
+.cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 1;
+}
+
+
+.cover:hover::after {
+    opacity: 1;
+}
+
+
+.listen-button,
+.watch-button {
+    position: absolute;
+    z-index: 2;
+    padding: 12px 22px;
+    border: 2px solid white;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.cover:hover .listen-button,
+.cover:hover .watch-button {
+    opacity: 1;
+}
+
+
+
+.title {
+    color: white;
+    font-size: 25px;
+    padding-top: 15px;
+}
+
+.footer {
+    margin: 80px;
+}
+
+@media print {
+
+    header,
+    nav,
+    .menu,
+    .menu-item,
+    .button,
+    footer,
+    .watch-button,
+    .listen-button {
+        display: none;
+    }
+
+    * {
+        color: black !important;
+    }
+}

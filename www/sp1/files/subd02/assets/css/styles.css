@@ -1,0 +1,659 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-bottom: 4px solid #cc0000;
+
+    display: flex;
+    justify-content: center;
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-img {
+    display: block;
+    margin-right: 20px;
+    width: 100px;
+    height: 100px;
+}
+
+.super-title {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sub-title {
+    font-size: 2rem;
+    color: #cc0000;
+    margin: 0;
+    font-weight: bold;
+}
+
+nav {
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+nav a:hover,
+nav a:focus {
+    background-color: #cc0000;
+    text-decoration: underline;
+}
+
+nav li.active a {
+    background-color: #cc0000;
+    text-decoration: underline;
+}
+
+.content-wrapper {
+    padding: 0 20px;
+    margin: 20px auto;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: row;
+    max-width: 1310px;
+}
+
+main {
+    flex: 4;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+aside {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: 5px solid #cc0000;
+    border-radius: 5px;
+
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    max-width: fit-content;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+    padding: 15px;
+}
+
+aside li {
+    margin-bottom: 10px;
+}
+
+h1,
+h2,
+h3 {
+    color: #1a1a1a;
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+main a,
+aside a {
+    color: #cc0000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+main a:hover,
+aside a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+figure {
+    margin: auto;
+    max-width: fit-content;
+    background: #eee;
+    padding: 5px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 5px;
+    font-style: italic;
+}
+
+.section-text {
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.published {
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.about-history {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.history-img {
+    margin: 0 0 15px 20px;
+    max-width: 40%;
+}
+
+address {
+    font-style: normal;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fdfdfd;
+    border-left: 4px solid #cc0000;
+}
+
+#video-iframe {
+    aspect-ratio: 16/9;
+    width: 80%;
+    border-radius: 8px;
+}
+
+.cards-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #cc0000;
+    transition: transform 0.2s;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.card .name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0 15px 0;
+}
+
+.contact-details a {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+.billing-list dt {
+    font-weight: bold;
+    float: left;
+    width: 150px;
+    clear: left;
+    margin-bottom: 10px;
+}
+
+.billing-list dd {
+    margin-bottom: 10px;
+    margin-left: 160px;
+}
+
+#contact-map {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+}
+
+.tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tech-table caption {
+    padding: 10px;
+    font-style: italic;
+    color: #666;
+    text-align: left;
+}
+
+.tech-table th {
+    background-color: #cc0000;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+}
+
+.tech-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.tech-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.vehicle-card {
+    background: #fff;
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.vehicle-card h3 {
+    width: 100%;
+    margin-top: 0;
+    color: #cc0000;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.vehicle-card figure {
+    flex: 1 1 300px;
+    margin: 0;
+}
+
+.vehicle-card .vehicle-specs {
+    flex: 2 1 300px;
+}
+
+.vehicle-image{
+    width: 600px;
+    height: auto;
+}
+
+.vehicle-specs ul {
+    list-style-type: square;
+    padding-left: 20px;
+    color: #444;
+}
+
+.vehicle-specs li {
+    margin-bottom: 5px;
+}
+
+.news-item {
+    margin-bottom: 30px;
+}
+
+.news-item h2 {
+    margin-bottom: 5px;
+}
+
+.news-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.news-image {
+    margin: 0;
+}
+
+.news-image img {
+    max-width: 300px;
+    height: auto;
+}
+
+.news-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+}
+
+.news-text p {
+    margin-top: 0;
+}
+
+.news-meta {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 0;
+    align-self: flex-end;
+}
+
+.skills-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 20px 0;
+}
+
+.skills-list li {
+    position: relative;
+
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.season-info {
+    background-color: #f9f9f9;
+    border-left: 3px solid #cc0000;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.season-info h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #cc0000;
+}
+
+.training-card {
+    background-color: #fff3f3;
+    border: 1px solid #ffcccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.training-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #333;
+    border-bottom: 1px dotted #cc0000;
+    padding-bottom: 5px;
+}
+
+.training-card p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+.training-card .location {
+    font-style: italic;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.note {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+.leader-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.leader-card h3 {
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 1rem;
+    display: block;
+    margin: 0 0 10px 0;
+}
+
+.leader-card a {
+    margin: 5px 0;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #bbb;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 4px solid #cc0000;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .site-img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .site-title {
+        text-align: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav a {
+        text-align: center;
+        border-bottom: 1px solid #333;
+    }
+
+    aside {
+        position: inherit;
+        min-width: 100%;
+    }
+
+    .about-history {
+        display: block;
+    }
+
+    .history-img {
+        margin: 0 auto 20px auto;
+        display: block;
+        max-width: 100%;
+    }
+
+    #video-iframe {
+        aspect-ratio: 16/9;
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .tech-table th {
+        background-color: #fff;
+        color: #000;
+        border-bottom: 2px solid #000;
+    }
+
+    .vehicle-card {
+        page-break-inside: avoid;
+        border: none;
+    }
+
+    .news-content {
+        flex-direction: column;
+    }
+
+    .news-image {
+        width: 100%;
+    }
+}
+
+@media print {
+    body {
+        background-color: #fff !important;
+        color: #000 !important;
+        font-size: 12pt;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    nav,
+    iframe,
+    .read-more,
+    .note,
+    button,
+    figure {
+        display: none !important;
+    }
+
+    footer {
+        border: none;
+    }
+
+    header {
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+        justify-content: flex-start;
+        background: none !important;
+    }
+
+    .site-logo {
+        color: #000 !important;
+    }
+
+    .super-title,
+    .sub-title {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+
+    .content-wrapper {
+        display: block;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    main,
+    aside {
+        width: 100%;
+        border: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        flex: none;
+        background: none !important;
+        float: none;
+    }
+
+    .tech-table {
+        box-shadow: none;
+        border: 2px solid #000;
+    }
+
+    .tech-table th {
+        background-color: #fff !important;
+        color: #000 !important;
+        border: 1px solid #000;
+        border-bottom: 2px solid #000;
+        font-weight: bold;
+    }
+
+    .tech-table td {
+        border: 1px solid #000;
+        color: #000 !important;
+    }
+
+    .tech-table caption {
+        color: #000;
+        font-weight: bold;
+    }
+
+    h1,
+    h2,
+    h3 {
+        page-break-after: avoid;
+        color: #000 !important;
+    }
+
+    tr,
+    .card,
+    article,
+    .vehicle-card,
+    aside {
+        page-break-inside: avoid;
+    }
+
+    .vehicle-card,
+    .card {
+        border: none;
+        box-shadow: none;
+    }
+}

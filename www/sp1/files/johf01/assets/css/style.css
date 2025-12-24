@@ -1,0 +1,549 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
+body {
+    margin: 0;
+    font-family: "Faculty Glyphic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #f7f7f7;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+.header {
+    position: fixed;
+    display: flex;
+    top: 0;
+    height: 76px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #edcdbf;
+    text-align: center;
+}
+
+.nav {
+    margin: 15px;
+    display: flex;
+}
+
+.nav-item {
+    padding: 10px;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-item-selected {
+    background-color: chocolate;
+    border-radius: 15%;
+}
+
+.nav-item:hover {
+    background-color: chocolate;
+    border-radius: 15%;
+}
+
+.nav-middle-link {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    text-decoration: none;
+}
+
+.top-logo {
+    margin-top: 3px;
+    height: 70px;
+    width: auto;
+}
+
+
+
+
+
+
+
+.content-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.top-heading {
+    width: 100%;
+    height: 400px;
+    background-image: url(../img/vnitrek.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-heading h1 {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: rgb(248, 241, 247);
+    font-family: "Fleur De Leah";
+    font-weight: 500;
+    font-style: normal;
+    font-size: 90px;
+    padding: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.main {
+    margin-top: 76px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.7;
+}
+
+.main p {
+    font-size: larger;
+}
+
+.main ul {
+    font-size: larger;
+}
+
+h3 {
+    font-size: x-large;
+}
+
+h4 {
+    font-size: larger;
+}
+
+
+
+
+
+
+.section {
+    text-align: center;
+    width: 100%;
+}
+
+.section-odd {
+    background-color: burlywood;
+    padding: 2%;
+}
+
+.section-even {
+    background-color: white;
+    padding: 2%;
+}
+
+.section h3 {
+    color: purple;
+}
+
+.section-columns {
+    margin-bottom: 4%;
+}
+
+.picture-between-sections-div {
+    height: 300px;
+    width: 100%;
+    background-image: url(../img/okna.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.above-column-heading {
+    margin-top: 3%;
+    margin-bottom: 0;
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.two-columns-left-column {
+    width: 70%;
+    flex: 1;
+    margin-left: 7%;
+    margin-right: 7%;
+    align-content: center;
+}
+
+.two-columns-right-column {
+    object-fit: contain;
+    flex: 1;
+    margin-left: 7%;
+    margin-right: 7%;
+    padding: 0;
+    max-width: 50%;
+}
+
+.column-picture {
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
+}
+
+.gallery-grid {
+    justify-self: center;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, max-content);
+    gap: 1%;
+}
+
+.gallery-picture-div {
+    display: flex;
+    max-height: 400px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.gallery-picture {
+    max-width: 100%;
+
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+
+.specialty-photo {
+    max-width: 400px;
+}
+
+.section-diferenciator {
+    height: 100px;
+    background-image: url(../img/background-opakujici.jpeg);
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.specialty-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+
+
+
+
+
+.menu {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.menu-column {
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    flex: 23%;
+}
+
+.menu h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 8px 0;
+    font-size: 18px;
+}
+
+
+.back-to-top {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+}
+
+#back-to-top-icon {
+    width: 70px;
+    height: auto;
+}
+
+
+picture-contact {
+    max-width: 450px;
+    height: auto;
+    border-radius: 25%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-info {
+    justify-content: center;
+    border-bottom: grey 1px solid;
+}
+
+.footer-info-object {
+    margin: 2% 5% 2% 5%;
+    min-width: 210px;
+    text-align: center;
+}
+
+.one-social {
+    margin: 15px;
+}
+
+
+
+
+
+@media screen and (max-width: 1150px) {
+    .menu-column {
+        flex: 33%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, max-content);
+    }
+
+    .two-columns-left-column {
+        align-self: center;
+        width: 80%;
+        ;
+    }
+
+    .two-columns-right-column {
+        align-self: center;
+    }
+
+    .columns {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 626px) {
+    .main {
+        margin-top: 114px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, max-content);
+    }
+
+    .menu-column {
+        flex: 70%;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .main {
+        margin-top: 76px;
+    }
+
+    .nav {
+        margin: 1%;
+    }
+
+    .column-picture {
+        width: 70%;
+    }
+
+    .two-columns-left-column {
+        width: 90%;
+    }
+
+    .two-columns-right-column {
+        width: 90%;
+        align-self: center;
+    }
+
+    .specialty-photo {
+        max-width: 90%;
+    }
+
+    .columns {
+        flex-direction: column;
+    }
+
+    .section {
+        justify-content: center;
+        align-items: center;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .just-text-column {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .section-columns {
+        justify-content: center;
+        align-items: center;
+    }
+
+    h3 {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+}
+
+
+@media print {
+    .nav {
+        display: none;
+    }
+
+    .header {
+        background-color: white;
+    }
+
+    body {
+        background-color: white;
+        color: black;
+        font-size: 12pt;
+        line-height: 1.5;
+        font-family: serif;
+    }
+
+    .top-heading {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .top-heading h1 {
+        height: fit-content;
+        margin-top: 15px;
+        padding: 0;
+        border: 0;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: white;
+        font-size: medium;
+    }
+
+    picture-contact {
+        display: none;
+    }
+
+    .menu-column li {
+        font-size: medium;
+    }
+
+    p {
+        break-inside: avoid;
+    }
+
+    .section-diferenciator {
+        display: none;
+    }
+
+    h3 {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        color: black;
+    }
+
+    .above-column-heading {
+        margin: 0;
+    }
+
+    .section-columns {
+        margin: 0;
+    }
+
+    .section {
+        background-color: white;
+    }
+
+    .section h3 {
+        color: black;
+    }
+
+    .top-heading {
+        background-image: none;
+    }
+
+    .picture-between-sections-div {
+        display: none;
+    }
+
+    .column-picture {
+        display: none;
+    }
+
+    .nav-middle-link::before {
+        content: "web Srnková káva";
+        display: block;
+        margin-top: 10px;
+        font-size: 12px;
+        color: black;
+    }
+}

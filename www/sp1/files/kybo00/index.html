@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyWeather - Domovská stránka</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="icon" href="./assets/images/weather_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1> OnlyWeather </h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="./">Domovská stránka</a></li>
+                <li><a href="./list/">Seznam kamer</a></li>
+                <li><a href="./map/">Mapa</a></li>
+
+                <li class="dropdown">
+                    <a>Detail kamer ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./detail/cam1/">Praha - centrum</a></li>
+                        <li><a href="./detail/cam2/">Dukovany - elektrárna</a></li>
+                        <li><a href="./detail/cam3/">Olomouc - jižní směr</a></li>
+                        <li><a href="./detail/cam4/">Plzeň - Mikulka</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="./about/">O webu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="intro">
+            <h1>Aktuální hydrometeorologická situace</h1>
+            <p>Vítejte na webu OnlyWeather. Sledujte aktuální situaci v jednotlivých lokalitách prostřednictvím online
+                kamer.
+            </p>
+            <p>
+                Ať už se chystáte na hory, k vodě, nebo jen potřebujete vědět, jak
+                to vypadá v cílové destinaci, naše kamery Vám poskytnou okamžitý a nezkreslený vizuální přehled o stavu
+                oblohy,
+                sněhové pokrývce, dopravě či aktuální návštěvnosti.
+            </p>
+        </div>
+
+        <div>
+            <h2>Aktuální pohledy z kamer</h2>
+
+            <div class="camera-grid">
+                <div class="camera-card">
+                    <h3>Praha</h3>
+                    <img src="http://portal.chmi.cz/files/portal/docs/meteo/kam/thumbs/praha_libus.gif"
+                        alt="Kamera Praha">
+                    <a class="button" href="./detail/cam1/">Zobrazit detail</a>
+                </div>
+
+                <div class="camera-card">
+                    <h3>Dukovany</h3>
+                    <img src="http://portal.chmi.cz/files/portal/docs/meteo/kam/thumbs/dukovany.gif" alt="Kamera Brno">
+                    <a class="button" href="./detail/cam2/">Zobrazit detail</a>
+                </div>
+
+                <div class="camera-card">
+                    <h3>Olomouc</h3>
+                    <img src="http://portal.chmi.cz/files/portal/docs/meteo/kam/thumbs/olomouc.gif" alt="Kamera Šumava">
+                    <a class="button" href="./detail/cam3/">Zobrazit detail</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h2>Rychlé odkazy</h2>
+            <div class="link-grid">
+                <a class="quick-card" href="./map/">
+                    <h3>Mapa kamer</h3>
+                    <p>Zobrazte polohu všech kamer na mapě.</p>
+                </a>
+                <a class="quick-card" href="./list/">
+                    <h3>Seznam kamer</h3>
+                    <p>Kompletní výpis lokalit a pozorovacích míst.</p>
+                </a>
+                <a class="quick-card" href="./about/">
+                    <h3>O projektu</h3>
+                    <p>Zdrojová data, informace a kontakt.</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <p>Copyright &copy; 2025 OnlyWeather</p>
+        </div>
+    </footer>
+</body>
+
+</html>

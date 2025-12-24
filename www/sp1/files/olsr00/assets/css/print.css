@@ -1,0 +1,137 @@
+@media print {
+    :root {
+        --ink: #000000;
+        --accent: #000000;
+        --surface: #ffffff;
+        --muted: #333333;
+        --gradient: none;
+        --gradient-contrast: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    .site-header,
+    .primary-nav,
+    .page-footer,
+    .action-link,
+    .cta-group,
+    .gallery-grid,
+    iframe {
+        display: none !important;
+    }
+
+    .page-shell {
+        display: block;
+    }
+
+    .main-content {
+        padding: 0;
+        margin: 0;
+    }
+
+    .game-card,
+    .service-card,
+    .hero-panel,
+    .column-layout>section {
+        background: none !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        border-radius: 0 !important;
+        color: black !important;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+        padding: 1rem !important;
+    }
+
+    .service-card {
+        display: block;
+        border: 1px solid #000;
+    }
+
+    .card-image {
+        display: none;
+    }
+
+    .service-card p {
+        background: none !important;
+        color: black !important;
+        padding: 0;
+    }
+
+    .banner-section {
+        height: auto;
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin-bottom: 1rem;
+        color: black !important;
+        display: block;
+    }
+
+    .banner-section::before,
+    .banner-section::after {
+        display: none !important;
+    }
+
+    .banner-content {
+        position: static;
+        color: black !important;
+        padding: 0;
+        text-align: left;
+    }
+
+    .banner-content h1 {
+        text-shadow: none !important;
+        color: black !important;
+        font-size: 24pt;
+        margin-bottom: 0.5rem;
+    }
+
+    .banner-content p {
+        text-shadow: none !important;
+        color: black !important;
+        max-width: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: black !important;
+        page-break-after: avoid;
+        border-bottom-color: #000 !important;
+    }
+
+    p,
+    li,
+    dl,
+    dt,
+    dd {
+        color: black !important;
+    }
+
+    a {
+        text-decoration: none;
+        color: black !important;
+    }
+
+    .service-grid,
+    .column-layout,
+    .news-wrapper {
+        display: block !important;
+    }
+
+    .service-card,
+    .game-card {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .game-card img {
+        display: none;
+    }
+}

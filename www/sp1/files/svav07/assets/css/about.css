@@ -1,0 +1,92 @@
+/* ============================================
+   ABOUT PAGE STYLES
+   ============================================ */
+
+/* ============================================
+   1. LAYOUT & WRAPPERS
+   ============================================ */
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   2. SECTIONS & TYPOGRAPHY
+   ============================================ */
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section:last-child {
+  margin-bottom: 0;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin: 0 0 1.25rem 0;
+  text-align: left;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.about-section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+}
+
+.about-section p {
+  margin: 0 0 1rem 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   3. RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 1.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.35rem;
+  }
+
+  .about-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main .container {
+    padding-block: 1.5rem;
+  }
+
+  main h1 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .about-section {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}

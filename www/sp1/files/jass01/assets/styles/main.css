@@ -1,0 +1,348 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #197708;
+  --accent: #4caf50;
+  --text: #333333;
+  --text-dark: black;
+  --text-light: white;
+  --background: #f9f9f9;
+  --background-light: white;
+  --text-disabled: #9c9c9c;
+
+  --rounded-xl: 2.5rem;
+  --rounded-lg: 1.75rem;
+  --rounded-md: 1.25rem;
+  --rounded-sm: 0.75rem;
+  --rounded-xs: 0.25rem;
+
+  --tile-img-size: 400px;
+  --location-tile-img-size: 300px;
+  --gallery-img-size: 400px;
+
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lora", serif;
+  color: var(--text-dark);
+}
+
+h1 {
+  font-weight: 600;
+}
+h2,
+h3 {
+  font-weight: 500;
+}
+
+p {
+  text-align: justify;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  font-family: "Work Sans", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* "Shared" styles (components, but not really) */
+
+/* SCREEN WRAPPER */
+
+.screen-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 4rem 4rem 6rem 4rem;
+}
+
+/* MAIN NAV */
+.main-nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background);
+  /* Ensure gap on small screens */
+  gap: 1rem;
+}
+
+.mobile-nav {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--background);
+  /* Ensure gap on small screens */
+  gap: 1rem;
+  width: 100%;
+}
+
+.mobile-nav-noscript ul {
+  list-style-type: none;
+}
+
+.mobile-nav-noscript ul li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mobile-nav-noscript ul li.active {
+  font-weight: 500;
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.nav-wrapper {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  padding: 1rem 4rem;
+  border-bottom: 1px solid rgb(218, 218, 218);
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.main-nav,
+.mobile-nav {
+  max-width: 1800px;
+}
+
+.mobile-nav .mobile-nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-size: 2rem;
+  font-family: "Lora", serif;
+  font-weight: 600;
+}
+
+.main-nav > .nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.mobile-nav-links {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: -300px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-light);
+  gap: 2rem;
+  list-style: none;
+  cursor: pointer;
+  height: 100vh;
+  width: fit-content;
+  padding: 2rem 3rem;
+  border-right: 1px solid var(--text-disabled);
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+}
+
+.mobile-nav-links.open {
+  left: 0;
+}
+
+.mobile-nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main-nav > .nav-links > .nav-link a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.main-nav .nav-link {
+  padding-bottom: 2px;
+  transition: all 0.1s ease-out;
+}
+
+.main-nav .nav-link.active {
+  border-bottom: 1px solid var(--primary);
+}
+
+.main-nav .nav-link:hover {
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--primary);
+}
+
+/* Button */
+
+.btn {
+  border-radius: var(--rounded-xs);
+  border: 2px solid transparent;
+  outline: 0;
+  padding: 0.75em 1.5em;
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+}
+
+.btn-secondary {
+  border: 2px solid var(--text-light);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background-color: var(--text-light);
+  color: var(--primary);
+}
+.btn-stretch {
+  width: 100%;
+}
+
+/* Other */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* TRIP TILE */
+
+.carousel {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(calc(var(--tile-img-size) + 4rem), 1fr)
+  ); /* or auto-fit */
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0 1rem;
+  padding-bottom: 1rem;
+}
+
+.trip-tile {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: var(--tile-img-size);
+  width: 100%;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: var(--rounded-sm);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trip-tile .preview-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: var(--rounded-xs);
+}
+
+.trip-tile .description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trip-tile :last-child {
+  margin-top: auto;
+  margin-left: auto;
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1100px) {
+  .mobile-nav {
+    display: flex;
+  }
+  .main-nav {
+    display: none;
+  }
+  .nav-wrapper {
+    padding: 1rem 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    --tile-img-size: 200px;
+    --gallery-img-size: 300px;
+  }
+  .screen-wrapper {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  :root {
+    --tile-img-size: 150px;
+    --gallery-img-size: 200px;
+  }
+  .screen-wrapper {
+    padding: 1rem;
+  }
+}
+
+@media print {
+  .nav,
+  .mobile-nav,
+  .nav-wrapper,
+  .btn {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0;
+  }
+
+  .carousel,
+  .trip-tile {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+}

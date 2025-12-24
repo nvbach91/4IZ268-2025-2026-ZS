@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnlyWeather - Seznam kamer</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="icon" href="../assets/images/weather_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1> OnlyWeather </h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="../">Domovská stránka</a></li>
+                <li><a href="../list/">Seznam kamer</a></li>
+                <li><a href="../map/">Mapa</a></li>
+
+                <li class="dropdown">
+                    <a>Detail kamer ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../detail/cam1/">Praha - centrum</a></li>
+                        <li><a href="../detail/cam2/">Dukovany - elektrárna</a></li>
+                        <li><a href="../detail/cam3/">Olomouc - jižní směr</a></li>
+                        <li><a href="../detail/cam4/">Plzeň - Mikulka</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../about/">O webu</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="camera-list">
+            <h1>Seznam dostupných kamer</h1>
+            <p>Zde najdete kompletní výpis všech lokalit, které jsou na webu k dispozici.</p>
+
+            <div>
+                <div class="camera-item">
+                    <a href="../detail/cam1/">
+                        <h3>Praha - centrum</h3>
+                        <p>Webkamera v centru Prahy, pohled na Staré Město.</p>
+                    </a>
+                </div>
+
+                <div class="camera-item">
+                    <a href="../detail/cam2/">
+                        <h3>Dukovany - elektrárna</h3>
+                        <p>Webkamera u jaderné elektrárny Dukovany, zobrazuje aktuální situaci na areálu.</p>
+                    </a>
+                </div>
+
+                <div class="camera-item">
+                    <a href="../detail/cam3/">
+                        <h3>Olomouc - jižní směr</h3>
+                        <p>Webkamera sledující počasí a okolní krajinu směrem na jih od Olomouce.</p>
+                    </a>
+                </div>
+
+                <div class="camera-item">
+                    <a href="../detail/cam4/">
+                        <h3>Plzeň - Mikulka</h3>
+                        <p>Webkamera z hory Mikulka poskytující pohled na město Plzeň a okolní údolí.</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            <p>Copyright &copy; 2025 OnlyWeather</p>
+        </div>
+    </footer>
+</body>
+
+</html>

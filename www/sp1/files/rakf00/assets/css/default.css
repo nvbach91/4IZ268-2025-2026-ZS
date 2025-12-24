@@ -1,0 +1,577 @@
+/*default values reset/set template*/
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    video {
+        aspect-ratio: 16/9;
+    }
+
+    html, body {
+        overscroll-behavior: none;
+    }
+
+
+    img {
+        max-width: 100%;
+        border-style: none
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    input {
+        border: none;
+    }
+
+    ul, ol {
+        list-style-type: none;
+    }
+    html {
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    .navbar-text {
+        font-size: 2.5em;
+        margin: 0.67em 0;
+        font-weight: bold;
+    }
+
+    a {
+        background-color: transparent;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    button, input, optgroup, select, textarea {
+        font-family: inherit; /* 1 */
+        font-size: 100%; /* 1 */
+        line-height: 1.15; /* 1 */
+        margin: 0; /* 2 */
+        background-color: transparent;
+    }
+
+    p {
+        line-height: 1.65;
+        font-size: 18px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    /* Moje styly */
+    /* Header */
+    body {
+        caret-color: transparent; /* kurzor bude neviditelný */
+    }
+
+    .navbar {
+        background: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Oswald", serif;
+        letter-spacing: 0.1rem;
+        padding: 5px 5rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 999999999;
+        min-height: 2.5em;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+
+    nav {
+        display: flex;
+        gap: 2rem;
+        font-size: larger;
+    }
+
+    nav a:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        transform: scale(103%);
+    }
+
+    nav .active {
+        text-decoration: underline;
+    }
+
+    nav .close-btn {
+        display: none;
+    }
+
+    .menu-icon, .menu-toggle-checkbox {
+        display: none;
+    }
+
+    .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        line-height: 40px;
+        color: white;
+        height: 600px;
+        background-repeat: repeat;
+        background-attachment: fixed;
+        font-family: "Kanit", serif;
+        font-weight: bold;
+        background-size: cover;
+    }
+
+    .w100 {
+        width: 100%;
+    }
+
+    .overlay {
+        inset: 0;
+        position: absolute;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.07));
+    }
+
+    .absolute {
+        position: absolute;
+    }
+
+    .relative {
+        position: relative;
+    }
+
+    /* Main a Footer */
+    main, footer {
+        font-family: "Inter", serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    main p {
+        color: #4B5563
+    }
+
+    footer {
+        background: #182c3d;
+        color: white;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+        padding: 60px 0 40px 0;
+        gap: 2rem;
+    }
+
+    .footer > div {
+        display: flex;
+        gap: 3rem;
+    }
+
+    .socials {
+        font-size: xx-large;
+    }
+
+    .links {
+        font-size: larger;
+    }
+
+    .footer a:hover {
+        color: #d1cdcd;
+    }
+
+    .copyright-line {
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    /* Sekce a opakovaně použité třídy */
+    .line {
+        height: 1px;
+        width: 100%;
+        content: " ";
+        background: rgba(24, 44, 61, 0.13);
+    }
+
+    .btn {
+        padding: 1rem 1.5rem;
+        background: #8a9c82;
+        color: white;
+        border-radius: 9999px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        display: inline-block;
+    }
+
+
+    .btn:hover {
+        background: #A8B5A0FF;
+    }
+
+    section > div {
+        flex: 1;
+    }
+
+    section {
+        gap: 3vw;
+    }
+
+    section div > p {
+        font-size: 20px;
+    }
+
+    section h1 {
+        margin-bottom: 1rem !important;
+    }
+
+    .section-image {
+        text-align: center;
+    }
+
+    .section-text > p {
+        margin-top: 1rem;
+    }
+
+    .section-image img {
+        height: 100%;
+        border-radius: 1rem;
+    }
+    .section-text h2{
+        font-size: 32px;
+    }
+    .content-center {
+        display: flex;
+        max-width: 1440px;
+        padding: 80px 10px;
+        width: 100%;
+
+    }
+
+    .container-child-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .place-card {
+        background: #ffffff;
+        border-radius: 1rem;
+        overflow: hidden;
+        flex: 1 0 21%;
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .hero-text h2 {
+        font-weight: 600;
+    }
+
+    .place-card img {
+        object-fit: cover;
+        width: 100%;
+        height: 16rem;
+    }
+
+    .place-card > div {
+        padding: 1.5rem;
+    }
+
+    .place-card h3 {
+        margin-bottom: 1rem;
+    }
+
+    .hover-effect {
+        transition: transform 0.3s;
+    }
+
+    .hover-effect:hover {
+        transform: scale(102%);
+        cursor: pointer;
+    }
+
+    .container-layout {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card-container {
+        padding: 50px 0 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1.5vw;
+    }
+
+    .section-icons {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .section-icons p, .section-icons h3 {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        line-height: 1.65;
+    }
+
+    .section-icons p i, .section-icons h3 i {
+        font-size: 2rem;
+    }
+
+    .image-container:hover {
+        color: white;
+    }
+
+    .image-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 1rem;
+    }
+
+    .image-container:hover::after {
+        opacity: 1;
+    }
+
+
+/* Notebooky */
+@media (max-width: 1280px) {
+    nav {
+        gap: 1rem;
+        font-size: 18px;
+    }
+
+    .navbar {
+        padding: 16px 2rem;
+    }
+
+
+    .navbar-text {
+        text-align: center;
+        font-size: 1.7em;
+    }
+
+    .hero {
+        height: 100vh;
+    }
+
+    .content-center {
+        max-width: 1180px;
+    }
+
+
+}
+
+/* Tablety */
+@media (max-width: 1024px) {
+    .navbar .logo {
+        display: none;
+    }
+
+    /* Nav hamburger menu */
+    nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+    }
+
+    nav a {
+        font-size: 24px;
+        text-decoration: none;
+    }
+
+    nav .close-btn {
+        display: block;
+        position: absolute;
+        top: -6px;
+        right: 13px;
+        font-size: 60px;
+        cursor: pointer;
+    }
+
+    .menu-toggle-checkbox:checked ~ nav {
+        display: flex;
+    }
+
+    .menu-icon {
+        display: block;
+        font-size: 32px;
+        color: black;
+        position: relative;
+    }
+
+    .content-center {
+        max-width: 924px !important;
+        flex-direction: column !important;
+    }
+
+    .cuisine button {
+        display: none;
+    }
+
+    .place-card {
+        flex-basis: 35%;
+    }
+
+}
+
+/* velké mobily */
+@media (max-width: 768px) {
+    .navbar .logo {
+        display: none;
+    }
+
+    .content-center {
+        max-width: 668px !important;
+    }
+}
+
+/*Mobily */
+@media (max-width: 575px) {
+    .navbar {
+        padding: 5px 10px;
+        align-items: baseline;
+    }
+
+    .navbar .logo {
+        display: none;
+    }
+
+    .navbar-text {
+        font-size: 22px;
+    }
+
+
+    .hero {
+        background-position-y: center !important;
+        max-height: 65vh;
+        background-attachment: inherit;
+    }
+
+    .hero-text h1 {
+        font-size: 28px;
+    }
+
+    .hero-text h2 {
+        font-size: 18px;
+        margin: 0 3vw;
+    }
+
+    section > p {
+        text-align: center !important;
+    }
+
+    .section-text p {
+        text-align: left !important;
+    }
+
+    .section-image img, .section-icons {
+        margin-top: 1rem;
+    }
+
+
+    .content-center {
+        padding: 40px 20px;
+        flex-direction: column !important;
+
+    }
+
+    .footer {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer .links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer > div {
+        gap: 2rem;
+    }
+
+    .card-container {
+        flex-direction: column;
+        gap: 3vh;
+        padding-top: 40px;
+    }
+}
+
+/*Tisk */
+@media print {
+
+    .hero, button,.btn, footer, .culture-icons {
+        display: none !important;
+    }
+
+    .navbar .logo, .navbar span, .navbar nav {
+        display: none;
+    }
+
+    .navbar {
+        text-align: center;
+        display: block;
+        position: initial;
+        box-shadow: none;
+    }
+
+    h1 {
+        margin: 0 !important;
+    }
+
+    .content-center {
+        padding: 0 !important;
+    }
+
+    section {
+        text-align: center;
+    }
+
+    .section-image {
+        display: none;
+    }
+
+    .place-card img {
+        display: none;
+    }
+
+    .place-card {
+        box-shadow: none !important;
+    }
+
+    .place-card div {
+        padding: 0 !important;
+    }
+
+
+}
+
+

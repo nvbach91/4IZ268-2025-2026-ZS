@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Where the legend begins. Discover the prequel The Assassin's Blade and the first two novels in the Throne of Glass series: Throne of Glass and Crown of Midnight.">
+    <meta name="keywords" content="The Assassin's Blade, Throne of Glass, Crown of Midnight, Celaena Sardothien, Sam Cortland, Chaol Westfall, Dorian Havilliard, Adarlan, Assassin's Guild, prequel">
+    <meta name="author" content="Kateřina Semrádová">
+    <meta name="robots" content="index, follow">
+    <title>The Assassin's Blade, Throne of Glass & Crown of Midnight | The Beginning</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/header-footer.css">
+    <link rel="stylesheet" href="../../assets/css/media.css">
+    <script src="https://kit.fontawesome.com/0b687ae938.js" crossorigin="anonymous"></script>
+
+    <link rel="shortcut icon" href="https://ih1.redbubble.net/image.2845249637.9836/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.u2.jpg" type="image/jpg">
+</head>
+<body>
+
+    <header>
+        <input type="checkbox" id="burger-toggle" class="burger-toggle">
+        <label for="burger-toggle" class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav class="menu">
+            <div class="menu-items">
+                <div class="menu-item"><a href="../../">Home</a></div>
+                <div class="menu-item" ><a href="../../characters/">Characters</a></div>
+                <div class="menu-item"><a href="../" class="active">Books</a></div>
+                <div class="menu-item"><a href="../../reading-order/">Reading order</a></div>
+                <div class="menu-item"><a href="../../author/">Author</a></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="books-page-2">
+        <h1>The Assassin's Blade, Throne of Glass & Crown of Midnight</h1>
+
+        <!-- Prequel-->
+        <div class="books-layout">
+            
+            <!-- Prequel-->
+            <div id="assassins-blade" class="books-grid">
+                <div class="books-img-1 img-cover-1 img-print"></div>
+                <div class="books-2-description">
+                    <h3 class="books-2-title">The Assassin's Blade | Prequel </h3>
+                    <p>
+                        pages: 451 <br>
+                        published: 4th March 2014 <br>
+                        characters: Celaena Sardothien, Sam Cortland, Ansel of Briarcliff <br>
+                        Arobynn Hamel, Yrene Towers, Lysandra
+                        <br><br>
+                        Celaena Sardothien is her kingdom’s most feared assassin. Though she works for the powerful and ruthless Assassin’s Guild,
+                        Celaena yields to no one and trusts only her fellow killer for hire, Sam.
+                        <br><br>
+                        A prequel to Throne of Glass, this collection of five novellas offers readers a deeper look into the history of this cunning assassin and her enthralling and deadly world.
+                    </p>
+                </div>
+
+                <div class="books-img-3 img-01 img-print"></div>
+                <div class="books-4-box">
+                    "My name is Celaena Sardothien,
+                    and I will not be afraid."
+                </div>
+                <div class="books-img-5 img-02 img-print"></div>
+            </div>
+
+            <!-- Throne of Glass-->
+            <div id="throne-of-glass" class="books-grid">
+                <div class="books-img-1 img-cover-2 img-print"></div>
+                <div class="books-2-description">
+                    <h3 class="books-2-title">Throne of Glass</h3>
+                    <p>
+                        pages: 406 <br>
+                        published: 7th August 2012 <br>
+                        characters: Celaena Sardothien, Chaol Westfall, Prince Dorian Havilliard, Nehemia, Kaltain Rompier
+                        <br><br>
+                        In a land without magic, where the king rules with an iron hand, an assassin is summoned to the castle. She comes not to kill the king, but to win her freedom. If she defeats twenty-three killers, 
+                        thieves, and warriors in a competition, she is released from prison to serve as the king's champion. Her name is Celaena Sardothien.
+                        <br><br>
+                        The Crown Prince will provoke her. The Captain of the Guard will protect her. But something evil dwells in the castle of glass—and it's there to kill. When her competitors start dying one by one, 
+                        Celaena's fight for freedom becomes a fight for survival, and a desperate quest to root out the evil before it destroys her world.  
+                    </p>
+                </div>
+
+                <div class="books-img-3 img-03 img-print"></div>
+                <div class="books-4-box">
+                    "My name is Celaena Sardothien. But it makes no difference if my name's Celaena or Lillian or Bitch, because I'd still beat you, no matter what you call me."
+                </div>
+                <div class="books-img-5 img-04 img-print"></div>
+            </div>
+
+            <!-- Crown of Midnight-->
+            <div class="books-grid" id="crown-of-midnight" >
+                <div class="books-img-1 img-cover-3 img-print"></div>
+                <div class="books-2-description">
+                    <h3 class="books-2-title">Crown of Midnight</h3>
+                    <p>
+                        pages: 420 <br>
+                        published: 15th August 2013 <br>
+                        characters: Celaena Sardothien, Chaol Westfall, Prince Dorian Havilliard, Nehemia, Archer Finn, Kaltain Rompier
+                        <br><br>
+                        From the throne of glass rules a king with a fist of iron and a soul as black as pitch. Assassin Celaena Sardothien 
+                        won a brutal contest to become his Champion. Yet Celaena is far from loyal to the crown. She hides her secret vigilantly; she knows that the man she serves is bent on evil.
+                        <br><br>
+                        Keeping up the deadly charade becomes increasingly difficult when Celaena realizes she is not the only one seeking justice. As she tries to untangle the mysteries buried deep 
+                        within the glass castle, her closest relationships suffer. It seems no one is above questioning her allegiances—not the Crown Prince Dorian; not Chaol, the Captain of the Guard; not even her best friend, Nehemia, a foreign princess with a rebel heart.
+                    </p>
+                </div>
+
+                <div class="books-img-3 img-05 img-print"></div>
+                <div class="books-4-box">
+                    "But death was her curse and her gift, and death had been her good friend these long, long years."
+                </div>
+                <div class="books-img-5 img-06 img-print"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+       <div>
+            <div class="f-name">
+                <p>&copy; 2025 | Kateřina Semrádová</p>
+            </div>
+       
+
+            <div class="social-links">
+                <div class="sl-item">
+                    <a href="https://www.instagram.com/sarahjmaas/" target="_blank" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="sl-item">
+                    <a href="https://www.goodreads.com/author/show/3433047.Sarah_J_Maas" target="_blank" aria-label="Goodreads">
+                        <i class="fa-brands fa-goodreads-g"></i>
+                    </a>
+                </div>
+                <div class="sl-item">
+                    <a href="https://open.spotify.com/playlist/3XLZm8MVJrWz1bIM1TIhG4?si=03ca794855494c9f" target="_blank" aria-label="Spotify">
+                        <i class="fa-brands fa-spotify"></i>
+                    </a>
+                </div>
+            </div>
+        </div> 
+    </footer>
+</body>
+</html>

@@ -1,0 +1,883 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+/* PAGE HEADERS */
+
+.page-header-main,
+.page-header-players,
+.page-header-staff,
+.page-header-stats,
+.page-header-events,
+.page-header-contacts {
+    background-position: center;
+    background-size: cover;
+}
+
+/* Backgrounds */
+.page-header-main {
+    background-image: url("../img/title-photo.jpg");
+    padding: 70px 0;
+}
+
+.page-header-players {
+    background-image: url("../img/players.jpg");
+}
+
+.page-header-staff {
+    background-image: url("../img/staff.jpg");
+}
+
+.page-header-stats {
+    background-image: url("../img/stats.jpg");
+}
+
+.page-header-events {
+    background-image: url("../img/score.jpg");
+}
+
+.page-header-contacts {
+    background-image: url("../img/contacts.jpg");
+}
+
+/* Main header (showcase; H1&H3) */
+.page-header-main h1,
+.page-header-main h3 {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    max-width: 1024px;
+}
+
+/* Other header – just H1 */
+.page-header-players h1,
+.page-header-staff h1,
+.page-header-stats h1,
+.page-header-events h1,
+.page-header-contacts h1 {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 60px 0;
+    text-align: center;
+}
+
+/* NAV */
+
+nav {
+    background-color: #003875;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul>li {
+    flex: 1;
+    text-align: center;
+}
+
+nav ul a {
+    display: block;
+    padding: 20px 0;
+    color: white;
+    text-decoration: none;
+    border-radius: 0;
+    transition: 0.2s ease;
+}
+
+nav ul a:hover,
+nav ul a.active {
+    background: white;
+    color: #003875;
+}
+
+.dropdown {
+    position: relative;
+    background-color: #003875;
+}
+
+.dropdown>a {
+    padding-right: 0;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #31659e;
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    width: 150%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 0;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+    background: white;
+    color: #003875;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* ROSTER */
+
+.roster {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 32px 16px 48px;
+}
+
+.roster h1 {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.roster h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.roster h3 {
+    margin: 32px 0 16px;
+    font-size: 18px;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 5px;
+}
+
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 19px;
+}
+
+.player-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.player-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.player-icon {
+    font-size: 48px;
+    color: #cccccc;
+    flex-shrink: 0;
+}
+
+.player-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.player-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555555;
+}
+
+.player-name {
+    margin: 0;
+    font-size: 17px;
+}
+
+.player-position {
+    font-size: 14px;
+    color: black;
+}
+
+.player-meta {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #555555;
+}
+
+/* STATS – TABLES */
+
+.stats-page {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 20px 10px 40px;
+}
+
+.stats-section {
+    margin-top: 30px;
+}
+
+.stats-intro {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    max-width: 700px;
+}
+
+.stats-section h2 {
+    font-size: 28px;
+}
+
+/* Tables */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    /* phone */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+table th,
+table td {
+    padding: 8px 12px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+table th {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    background-color: #003875;
+    color: #ffffff;
+}
+
+table td:nth-child(2) {
+    text-align: left;
+    /* name left, other center */
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+/* SCORES – CARDS */
+
+.scores-page {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 30px 10px 50px;
+}
+
+.scores-header h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.scores-header p {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.scores-section {
+    margin-top: 10px;
+}
+
+/* Grid with cards */
+.game-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Game card */
+.game-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 12px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Top row */
+.game-heading {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    color: #cccccc;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.game-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    color: #555555;
+    margin-bottom: 6px;
+}
+
+.game-meta .game-date {
+    font-weight: 500;
+}
+
+/* Middle row */
+.game-teams {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+/* Team name */
+.team-name {
+    font-weight: 500;
+}
+
+.team-home .team-name {
+    text-align: left;
+}
+
+.team-away .team-name {
+    text-align: right;
+}
+
+/* Score */
+.game-score {
+    justify-self: center;
+    min-width: 110px;
+    text-align: center;
+}
+
+.score-main {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.score-result-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* Result colors */
+.game-card--win .score-main {
+    color: #15803d;
+}
+
+.game-card--loss .score-main {
+    color: #b91c1c;
+}
+
+.game-card--tbd .score-main {
+    color: #1d4ed8;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #003875;
+    color: #f4f4f4;
+    margin-top: 40px;
+    padding: 20px 10px;
+    font-size: 14px;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-column {
+    flex: 1 1 220px;
+}
+
+.footer-column h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.footer-nav,
+.footer-social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav li,
+.footer-social li {
+    margin-bottom: 4px;
+}
+
+/* Footer links */
+footer a {
+    color: #f4f4f4;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Copyright block */
+.footer-copy p {
+    margin: 4px 0;
+}
+
+/* Footer – phone */
+@media (max-width: 700px) {
+    .footer-inner {
+        flex-direction: column;
+    }
+
+    .footer-column,
+    .footer-copy {
+        text-align: center;
+    }
+}
+
+/* CONTACTS PAGE */
+
+.contacts-page {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 20px 10px 40px;
+}
+
+.contacts-intro h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.contacts-intro p {
+    margin: 4px 0;
+}
+
+.contacts-note {
+    font-size: 13px;
+    color: #555555;
+    max-width: 750px;
+}
+
+.contacts-section {
+    margin-top: 25px;
+}
+
+.contacts-section h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Contact cards – team contacts */
+.contacts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.contact-card {
+    flex: 1 1 260px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px 14px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.contact-card h4 {
+    margin: 0 0 6px;
+    font-size: 16px;
+}
+
+.contact-role {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: #555555;
+}
+
+.contact-line {
+    margin: 0;
+    font-size: 14px;
+}
+
+.arena-name {
+    font-weight: 600;
+}
+
+/* Layout Home Arena + Social Media */
+.contacts-two-columns {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+    align-items: flex-start;
+}
+
+.contacts-column {
+    flex: 1;
+    min-width: 260px;
+}
+
+.contacts-column h3 {
+    margin-top: 0;
+}
+
+.contacts-column p,
+.contacts-column li {
+    margin: 6px 0;
+}
+
+/* Social media list */
+.social-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0 0;
+}
+
+.social-list li {
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+/* Responsivity – Contacts */
+@media (max-width: 768px) {
+    .contacts-two-columns {
+        flex-direction: column;
+    }
+}
+
+/* MAIN PAGE */
+
+.home-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 10px 40px;
+}
+
+.home-section {
+    margin-bottom: 30px;
+}
+
+/* Intro */
+.home-intro {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.home-intro-text {
+    flex: 2 1 350px;
+}
+
+.home-intro h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.home-intro p {
+    max-width: 750px;
+    margin: 4px 0;
+}
+
+.home-intro-image {
+    flex: 1 1 280px;
+    display: flex;
+    justify-content: center;
+}
+
+.home-intro-image img {
+    width: 100%;
+    max-width: 330px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+/* Highlights (next / last game) */
+.home-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.home-card {
+    flex: 1 1 260px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px 16px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.home-card-title {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+.home-game-date {
+    margin: 0 0 4px;
+    font-size: 13px;
+    color: #555555;
+}
+
+.home-game-teams {
+    margin: 0 0 4px;
+    font-weight: 500;
+}
+
+.home-game-status,
+.home-game-result {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #555555;
+}
+
+.home-game-result-loss {
+    color: #b91c1c;
+}
+
+/* Meet the team */
+.home-team-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+
+.home-team-text {
+    flex: 2 1 320px;
+}
+
+.home-team-text p {
+    margin: 4px 0;
+    max-width: 650px;
+}
+
+.home-team-actions {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Buttons / links */
+.btn-primary,
+.btn-secondary,
+.btn-link {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #003875;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #024c9f;
+}
+
+.btn-link {
+    color: #003875;
+    padding: 0;
+    border-radius: 0;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Stats teaser */
+.home-stats-section h2 {
+    margin-bottom: 6px;
+}
+
+.home-stats-intro {
+    margin: 4px 0 10px;
+    max-width: 700px;
+}
+
+.home-stats-box {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px 12px 12px;
+    background-color: #ffffff;
+    max-width: 520px;
+}
+
+.home-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.home-stats-table th,
+.home-stats-table td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 6px 8px;
+    text-align: left;
+}
+
+.home-stats-table th {
+    font-weight: 600;
+    background-color: #003875;
+    color: #ffffff;
+}
+
+.home-stats-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.stats-link {
+    margin-top: 8px;
+    display: inline-block;
+}
+
+/* Project info */
+.home-project-info p {
+    max-width: 750px;
+    margin: 4px 0;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Responsivity – main */
+@media (max-width: 768px) {
+    .home-highlights {
+        flex-direction: column;
+    }
+
+    .home-team-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .home-team-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+/* PRINT */
+@media print {
+
+    /* nav, header, footer hide */
+    nav,
+    header,
+    footer {
+        display: none ;
+    }
+
+    /* Background img hide */
+    .page-header-main,
+    .page-header-players,
+    .page-header-staff,
+    .page-header-scores,
+    .page-header-contacts {
+        background: none ;
+        height: auto ;
+        padding: 0 ;
+    }
+
+    body {
+        font-size: 16px;
+        color: #000;
+        background: #fff ;
+    }
+
+    .game-card {
+        border: 1px solid #aaa ;
+        box-shadow: none ;
+        padding: 10px ;
+    }
+
+    img,
+    .player-icon {
+        max-width: 150px ;
+        height: auto ;
+    }
+
+    /* Grid – non-break */
+    .players-grid,
+    .game-cards-grid,
+    .contacts-grid {
+        display: block ;
+    }
+
+    .table-wrapper {
+        overflow: visible;
+    }
+
+    .game-cards-grid {
+        display: block;
+    }
+
+    /* cards non-break */
+    .game-card {
+        margin-bottom: 8px;
+    }
+
+    .stats-section,
+    .scores-section,
+    .scores-header {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    .home-team-section,
+    .game-card,
+    .player-card {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .home-team-actions,
+    .btn-primary,
+    .btn-link {
+        display: none;
+    }
+}

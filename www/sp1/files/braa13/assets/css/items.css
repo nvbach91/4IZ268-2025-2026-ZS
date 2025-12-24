@@ -1,0 +1,82 @@
+.items-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.item-card {
+    background-color: #1c273d;
+}
+
+.item-card img {
+    height: 180px;
+    object-fit: contain;
+    background-color: #0b1220;
+    padding: 15px;
+    border-bottom: 1px solid #24334d;
+}
+
+.item-info {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.item-info h3 {
+    margin-top: 0;
+    font-size: 1.4em;
+    color: #f8d66d;
+    margin-bottom: 5px;
+}
+
+.item-info p {
+    color: #a0a8b4;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.tag-quest {
+    background-color: #7b432a;
+    color: #ffd8a1;
+}
+
+.tag-gear {
+    background-color: #334e68;
+    color: #b3c5e0;
+}
+
+.tag-treasure {
+    background-color: #6d5b1f;
+    color: #fff9e0;
+}
+
+.tag-consumable {
+    background-color: #7b3343;
+    color: #f7b3c5;
+}
+
+.tag-locale {
+    background-color: #3d4a46;
+    color: #d1e0d3;
+}
+
+@media (max-width: 600px) {
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+}

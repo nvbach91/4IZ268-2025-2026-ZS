@@ -1,0 +1,87 @@
+/* ===== PRINT VERSION ===== */
+
+@media print {
+
+  /* Reset barev */
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Skrýt prvky, které se netisknou */
+  .site-header,
+  .primary-nav,
+  .nav-toggle,
+  .pallet-hero-bg,
+  .pallet-focus-bg,
+  .pallet-scenarios-bg,
+  footer,
+  .cta,
+  .btn {
+    display: none !important;
+  }
+
+  /* Layout do jednoho sloupce */
+  .container,
+  .main-content,
+  .pallet-hero-inner,
+  .pallet-focus-inner,
+  .pallet-scenarios-inner {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Hero text normálně viditelný */
+  .pallet-hero {
+    background: none !important;
+    padding: 0 0 1rem !important;
+  }
+
+  /* Boxy — orámování, čistý tisk */
+  .pallet-focus-box,
+  .pallet-scenarios-box {
+    border: 1px solid #000 !important;
+    background: none !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Grid → 1 sloupec */
+  .pallet-focus-grid,
+  .pallet-scenarios-grid {
+    display: block !important;
+  }
+
+  .pallet-focus-item,
+  .pallet-scenarios-item {
+    border: 1px solid #000 !important;
+    background: none !important;
+    margin-bottom: 0.7rem !important;
+    padding: 0.7rem !important;
+  }
+
+  /* Odkazy zobrazit i s URL */
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+  }
+
+  /* Titul stránky nahoře */
+  body::before {
+    content: "DITES Robotika – Tisková verze";
+    display: block;
+    font-weight: bold;
+    font-size: 14pt;
+    margin-bottom: 1rem;
+  }
+}

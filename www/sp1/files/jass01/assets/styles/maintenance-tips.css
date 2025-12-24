@@ -1,0 +1,85 @@
+@import "./main.css";
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero .hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.hero .hero-img {
+  width: 50%;
+  aspect-ratio: 5/4;
+  object-fit: cover;
+  border-radius: var(--rounded-md);
+}
+
+.maintenance {
+  display: flex;
+  gap: 4rem;
+  padding: 4rem;
+  background-color: white;
+  border-radius: var(--rounded-md);
+  align-items: center;
+}
+
+.maintenance.rev {
+  flex-direction: row-reverse;
+}
+
+.maintenance .text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.maintenance .maintenance-img {
+  width: 40%;
+  aspect-ratio: 5/4;
+  object-fit: cover;
+  border-radius: var(--rounded-sm);
+}
+
+@media screen and (max-width: 800px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero .hero-img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .maintenance,
+  .maintenance.rev {
+    padding: 2rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .maintenance .maintenance-img {
+    width: 100%;
+  }
+}
+
+@media print {
+  .maintenance {
+    width: 100%;
+  }
+  .maintenance .text {
+    width: 100%;
+  }
+  .maintenance-img,
+  .hero-img {
+    display: none !important;
+  }
+}

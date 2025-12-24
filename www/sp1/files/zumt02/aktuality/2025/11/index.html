@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Černý rytíř - Aktuality</title>
+    <link rel="stylesheet" href="../../../assets/css/styles.css">
+    <link rel="icon" href="../../../assets/img/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="centered">
+        <div class="title">
+            <img src="../../../assets/img/logo.png" alt="ČERNÝ RYTÍŘ logo" class="logo">
+            <h1>ČERNÝ RYTÍŘ</h1>
+        </div>
+        <nav>
+            <a href="../../../">Domů</a>
+            <a href="../../../obchod">Obchod</a>
+            <a class="active" href="../../../aktuality/">Aktuality</a>
+            <a href="../../../turnaje/">Turnaje</a>
+            <a href="../../../kontakty/">Kontakty</a>
+            <a class="cart"><i class="fas fa-shopping-cart"></i> Košík</a>
+        </nav>
+        <nav>
+            <a class="active" href="../../2025/">2025</a>
+        </nav>
+        <nav>
+            <a href="../10/">10</a>
+            <a class="active" href="../11/">11</a>
+        </nav>
+    </header>
+    <main class="centered">
+        <!--
+        Stránky pro obchod Černý rytíř
+
+        Černý rytíř je kamenný a webový ochod zabývající se prodejem sběratelských karetních her (TCG) jako je Magic,
+        nebo Pokémon, her na hrdiny (TTRPG) jako je Dungeons&Dragons, stolních válečných her (Wargaming) jako je
+        Warhammer 40,000 a příslušenství k výše zmíněnému, komiksů a sběratelských předmětů. Černý rytíř také funguje
+        jako herna a pořádá vlastní turnaje. Oficiální web lze nalézt na adrese: https://cernyrytir.cz/
+
+        Cílem práce bude navrhnout nové vzezření a rozložení webu.
+
+        Soupis stránek:
+        sp1 - hlavní/uvítací stránka, zobrazuje aktuality a novinky v obchodě
+        sp1/aktuality - umožnuje zobrazení historie aktualit
+        sp1/aktuality/2025/10 ... - aktuality z října 2025
+        sp1/obchod - rozcestník pro kategorie obchodu
+        sp1/obchod/*kategorie* - stránka obchodu s kategorií zboží
+        sp1/turnaje - informace o pravidelných turnajích
+        sp1/kontakty - stránka s kontakty pro obchod
+        -->
+        <div class="content">
+            <div class="search">
+                <i class="fas fa-search"></i>
+                <input>
+                <button>Hledat</button>
+            </div>
+            <div class="flex-row">
+                <div class="flex-col news">
+                    <div id="article-1">
+                        <h2>Novinky ze světů Warhammer</h2>
+                        <img src="https://cernyrytir.cz/images/news/news_warhammer.jpg" alt="Logo Warhammer">
+                        <p><strong>Warhammer Quest:</strong><br>
+                            - Již nějakou dobu teasovaná deskovka Darkwater je Co-op dungeon crawl pro jednoho až čtyři
+                            hráče. Vhodná jak pro rychlý skirmish, tak i pro celovečerní hraní.<br>
+                            - Odehrává se v ruinách Jade Abbey, kde se pustíte do boje proti přisluhovačům Nurgla. Celá
+                            kampaň je rozdělena na několik scénářů. Na výběr budete mít ze čtyř základních hrdinů, ale
+                            během kampaně se dají získat další tři. Do cesty se vám postaví Scions of the Plaguefather a
+                            ostatní jednotky.<br>
+                            <br>
+                            <strong>Warhammer 40K:</strong><br>
+                            - Titus se vrací. Dostane příběhové rozšíření 500 Worlds: Titus.<br>
+                            - Rozšíření bude obsahovat čtyři knihy plné loru, kampaní, misí, detachmentů a mnoho
+                            dalšího.<br>
+                            - Titus dostane i novou jednotku The Wardens of Ultramar. Společně se postaví proti Nekrosor
+                            Ammentar, který má jako posilu celý 500 Worlds Battalion: Necrons box. Nesmíme také
+                            zapomenout na již dříve leaknutého C’tan Shard of the Nightbringer.<br>
+                            <br>
+                            <strong>Necromunda:</strong><br>
+                            - Po delší době dostane i Necromunda větší novinku The Aranthian Succession: Spire of
+                            Primus. Pravidla pro nové warbandy Ironhead Squat Charter Masters & Drill Masters a Palanite
+                            Justicars doplňuje je i solo model Ozostium Aranthus the Divine Prince.<br>
+                            <br>
+                            <strong>Kill Team:</strong><br>
+                            - Dead Silence vychází už 22.11. Obsahuje dvě nové warbandy - Wolf Scouts a XV26 Stealth
+                            Battlesuits.<br>
+                            <br>
+                            <strong>Age of Sigmar:</strong><br>
+                            - Můžeme očekávat příběhové rozšíření Path to Glory: Blighted Wilds, ve kterém najdete
+                            mimojine i pravidla pro stoupence Nurgla z již zmíněné Darkwater. Vše je doplněno o
+                            Battletome: Maggotkin of Nurgle obsahující pravidla ke všem dalším nově oznámeným
+                            modelům.<br>
+                            <br>
+                            <strong>Old World:</strong><br>
+                            - Ještě chvíli zůstáváme u Grand Cathay vojsk. Arcane Journal: The Breaching of the Great
+                            Bastion se soustředí na obranu Grand Cathay a přináší pravidla k novým modelům: Astromancers
+                            of the Celestial Court, Crane Gun Team, Iron Hail Gunners a Peasant Levy.<br>
+                            - Všechny jednotky budou dostupné v nové velké krabici Defenders of the Great Bastion Army
+                            Reinforcement Set a později i samostatně.<br>
+                            <br>
+                            <strong>Horus Heresy:</strong><br>
+                            - Dva nové sety: Siege Assault Battle Group a Mechanicum Skitarii Battle Group plus kniha
+                            Skitarii: The Steel Hand of Mars.<br>
+                            - Legions Imperialis dostane hned 3 nové sety: Saturnine Battle Group, Legiones Astartes a
+                            Solar Auxilia dostanou Combined Arms Battle Group. To vše shrnuto v knize Journal Strategia:
+                            The Ruin of the Salamanders.<br>
+                            <br>
+                            Novinku v obrázkové podobě najdete na našem <a
+                                href="https://www.facebook.com/cernyrytircz">Facebooku</a>.
+                            <br>
+                            UPDATE 8.11.2025
+                        </p>
+                    </div>
+                    <div id="article-2">
+                        <h2>Phantasmal launch stream party</h2>
+                        <img src="https://cernyrytir.cz/images/news/phantasmal_rip.jpg" alt="Logo Ripandship">
+                        <p>Od <strong>pondělí 10. 11. do čtvrtka 13. 11.</strong> to na kanále rozjedeme naplno. Čtyři dny po sobě, každý
+                            večer od <strong>18:30</strong>, společně otevřeme boostery <strong>Mega Evolution Phantasmal Flames</strong> a mrkneme se, co
+                            v sobě set doopravdy ukrývá.<br>
+                            <br>
+                            <strong>Máš tak šanci otevřít Phantasmal Flame ještě před oficiálním releasem (14.11.).</strong> Jo, fakt. Je
+                            to taková první otevíračka pro naše hráče.<br>
+                            <br>
+                            Chceš vidět první reakce, nejlepší pull momenty a trochu toho klasického stream chaosu? Tak
+                            doraž. Bude to jízda.<br>
+                            <br>
+                            Boostery Phantasmal Flames si už teď můžeš rezervovat na <a
+                                href="https://ripandship.cernyrytir.cz/">Ripandship</a>, ale karty odesíláme až
+                            pátek 14.11., v den oficiálního release sady.
+                        </p>
+                    </div>
+                    <div id="article-3">
+                        <h2>LORCANA WHISPERS IN THE WELL - EXTRA BONUS K BOXU!</h2>
+                        <img src="https://cernyrytir.cz/images/news/lorcana_bonus.jpg" alt="Logo Whispers in the Well">
+                        <p>Z hlubin studny přichází nové příběhy - <strong>Lorcana Whispers in the Well</strong> je za dveřmi.<br>
+                            Vychází už v <strong>pátek 7.11.</strong> a kdo sáhne po Booster Boxu Whispers in the Well v předprodeji, tak
+                            si s ním odnese i <strong>2x Lorcana - Reign of Jafar Boostery jako extra bonus navíc!</strong><br>
+                            <br>
+                            A jestli si myslíš, že dva extra boostery nic nezmění… no, to ještě nevíš, co ti padne.<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="centered">
+        <a href="../../../podminky/" target="_blank">Dodací podmínky</a>
+        <div>Tomáš Zummer, 2025</div>
+    </footer>
+</body>
+
+</html>

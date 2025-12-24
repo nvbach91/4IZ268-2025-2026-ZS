@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+        "axios": "^1.7.9",
+        "htmlhint": "^1.8.0"
+    }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The epic conclusion to Sarah J. Maas's Throne of Glass series. Read summaries for Tower of Dawn and the final battle in Kingdom of Ash.">
+    <meta name="keywords" content="Tower of Dawn, Kingdom of Ash, KoA, ToD, Chaol Westfall, Yrene Towers, The Thirteen, Manon Blackbeak, Aelin Galathynius, series finale, book summary">
+    <meta name="author" content="Kateřina Semrádová">
+    <title>Tower of Dawn & Kingdom of Ash</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/header-footer.css">
+    <link rel="stylesheet" href="../../assets/css/media.css">
+    <script src="https://kit.fontawesome.com/0b687ae938.js" crossorigin="anonymous"></script>
+
+    <link rel="shortcut icon" href="https://ih1.redbubble.net/image.2845249637.9836/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.u2.jpg" type="image/jpg">
+</head>
+<body>
+
+    <header>
+        <input type="checkbox" id="burger-toggle" class="burger-toggle">
+        <label for="burger-toggle" class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav class="menu">
+            <div class="menu-items">
+                <div class="menu-item"><a href="../../">Home</a></div>
+                <div class="menu-item" ><a href="../../characters/">Characters</a></div>
+                <div class="menu-item"><a href="../" class="active">Books</a></div>
+                <div class="menu-item"><a href="../../reading-order/">Reading order</a></div>
+                <div class="menu-item"><a href="../../author/">Author</a></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="books-page-2">
+        <h1>Tower of Dawn & Kingdom of Ash</h1>
+
+        <div class="books-layout">
+            
+            <!-- Tower of Dawn -->
+            <div class="books-grid" id="tower-of-dawn">
+                <div class="books-img-1 img-cover-7 img-print"></div>
+                <div class="books-2-description">
+                    <h3 class="books-2-title">Tower of Dawn</h3>
+                    <p>
+                        pages: 688 <br>
+                        published: 5th September 2017 <br>
+                        characters: Chaol Westfall, Yrene Towers, Nesryn Faliq, Sartaq
+                        <br><br>
+                        Chaol Westfall and Nesryn Faliq have arrived in the shining city of Antica to forge an alliance with the Khagan of the Southern Continent, whose vast armies are Erilea's last hope. 
+                        But they have also come to Antica for another purpose: to seek healing at the famed Torre Cesme for the wounds Chaol received in Rifthold.
+                        <br><br>
+                        After enduring unspeakable horrors as a child, Yrene Towers has no desire to help the young lord from Adarlan, let alone heal him. Yet she has sworn an oath to assist those in 
+                        need—and will honor it. But Lord Westfall carries shadows from his own past, and Yrene soon comes to realize they could engulf them both.
+                    </p>
+                </div>
+
+                <div class="books-img-3 img-13 img-print"></div>
+                <div class="books-4-box">
+                    "I think she was a god... I never learned her name. She only left a note with two lines. "For wherever you need to go - and then some. The world needs more healers"
+                </div>
+                <div class="books-img-5 img-14 img-print"></div>
+            </div>
+
+            <!-- Kingdom of Ash -->
+            <div class="books-grid" id="kingdom-of-ash">
+                <div class="books-img-1 img-cover-8 img-print"></div>
+                <div class="books-2-description">
+                    <h3 class="books-2-title">Kingdom of Ash</h3>
+                    <p>
+                        pages: 984 <br>
+                        published: 23rd October 2018 <br>
+                        characters: 	
+                        Chaol Westfall, Manon Blackbeak, Dorian Havilliard, Aedion Ashryver, Aelin Ashryver Galathynius,<br> Rowan Whitethorn, Elide Lochan, Lorcan Salvaterre
+                        <br><br>
+                        Aelin Galathynius has vowed to save her people ― but at a tremendous cost. Locked within an iron coffin by the Queen of the Fae, Aelin must draw upon her fiery will 
+                        as she endures months of torture. The knowledge that yielding to Maeve will doom those she loves keeps her from breaking, but her resolve is unraveling with each passing day…
+                        <br><br>
+                        With Aelin captured, friends and allies are scattered to different fates. Some bonds will grow even deeper, while others will be severed forever. As destinies weave together at last, all must fight if Erilea is to have any hope of salvation.
+                    </p>
+                </div>
+
+                <div class="books-img-3 img-15 img-print"></div>
+                <div class="books-4-box">
+                    "We are the Thirteen,” she said. “From now until the Darkness claims us."
+                </div>
+                <div class="books-img-5 img-16 img-print"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+       <div>
+            <div class="f-name">
+                <p>&copy; 2025 | Kateřina Semrádová</p>
+            </div>
+       
+
+            <div class="social-links">
+                <div class="sl-item">
+                    <a href="https://www.instagram.com/sarahjmaas/" target="_blank" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="sl-item">
+                    <a href="https://www.goodreads.com/author/show/3433047.Sarah_J_Maas" target="_blank" aria-label="Goodreads">
+                        <i class="fa-brands fa-goodreads-g"></i>
+                    </a>
+                </div>
+                <div class="sl-item">
+                    <a href="https://open.spotify.com/playlist/3XLZm8MVJrWz1bIM1TIhG4?si=03ca794855494c9f" target="_blank" aria-label="Spotify">
+                        <i class="fa-brands fa-spotify"></i>
+                    </a>
+                </div>
+            </div>
+        </div> 
+    </footer>
+</body>
+</html>

@@ -1,0 +1,149 @@
+.main-box-layout {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 90%;
+    margin: 0 auto;
+
+    padding: 10px;
+    column-gap: 30px;
+    row-gap: 30px;
+}
+
+.small-box, .large-box {
+    display: flex;
+    flex-direction: column;
+    min-height: 215px;
+    background: white;
+
+    box-shadow: 0 0 0.4em #d9d9d9;
+    border: #d6d6d6 solid 2px;
+
+    padding: 20px 20px;
+}
+
+.small-box {
+    width: calc(30% - 15px);
+    max-height: fit-content;
+}
+
+.small-box-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 100%;
+}
+
+.small-box-image {
+    height: 157px;
+    width: 108px;
+}
+
+.small-box-subtext {
+    color: grey;
+    font-style: italic;
+    text-align: center;
+    height: 10%;
+    width: 100%;
+}
+
+.large-box {
+    justify-content: space-between;
+    gap: 15px;
+
+    width: calc(70% - 15px);
+    height: fit-content;
+}
+
+.large-box-heading {
+    font-family: "Jersey 15", sans-serif;
+    font-size: 32px;
+    height: 20%;
+}
+
+.large-box-description {
+    height: 40%;
+}
+
+.large-box-stats {
+    width: 100%;
+    height: 40%;
+}
+
+.large-box-stats table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-stat, .table-stat-special {
+    border: 2px solid #d9d9d9;
+    text-align: center;
+    padding: 5px;
+}
+
+.table-stat {
+    width: 20%;
+}
+
+.table-stat-special {
+    width: 40%;
+}
+/* MEDIA */
+
+@media screen and (max-width: 860px), (hover: none) and (pointer: coarse) {
+    .main-box-layout {
+        margin: 0 5%;
+        width: 90%;
+    }
+
+    .large-box {
+        width: 100%;
+    }
+
+    .small-box {
+        width: calc(50% - 15px);
+    }
+
+    .small-box-image {
+        height: calc(314px * 1.4);
+        width: calc(216px * 1.4);
+    }
+}
+
+@media screen and (hover: none) and (pointer: coarse) {
+    .large-box-heading {
+        font-size: 64px;
+    }
+
+    .large-box-description, .table-stat, .table-stat-special {
+        font-size: 28px;
+    }
+
+    .table-stat, .table-stat-special {
+        border-width: 3px;
+        padding: 10px;
+    }
+
+    .small-box-subtext {
+        font-size: 28px;
+    }
+
+    .small-box {
+        height: 600px;
+    }
+}
+
+@media print {
+    .large-box, .small-box {
+        border: #d6d6d6 solid 2px;
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+    .small-box-image {
+        filter: grayscale(100%);
+    }
+}
+

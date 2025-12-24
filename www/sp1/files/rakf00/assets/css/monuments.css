@@ -1,0 +1,149 @@
+.hero {
+    background-image: url("../img/heros/hero-monuments.jpg");
+    background-position: center;
+}
+
+.historic-timeline-container {
+    background: #f1eee5;
+}
+
+.timeline {
+    position: relative;
+    padding: 40px 0;
+}
+
+/* --- dělící line --- */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: #ccc;
+    top: 40px;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -1px; /* line v středu */
+}
+
+.timeline-container {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+
+/* --- tečky na line --- */
+.timeline-container::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #999;
+    border-radius: 50%;
+    top: 50px; /* pozice teček */
+    z-index: 1;
+    border: 4px solid #e6dcd3;
+}
+
+/* levé boxy */
+.left {
+    left: 0;
+}
+
+/* pravé boxy */
+.right {
+    left: 50%;
+}
+
+/* --- levé tečky--- */
+.left::after {
+    right: -9px;
+}
+
+/* --- pravé tečky --- */
+.right::after {
+    left: -9px;
+}
+
+.timeline-content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.1);
+
+}
+
+.timeline-content h3 {
+    margin-bottom: 0.7rem;
+}
+
+.timeline-content p {
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.prague-map {
+    gap: 3vw;
+}
+
+@media (max-width: 575px) {
+
+    .timeline::after, .timeline-container::after {
+        display: none;
+    }
+
+    .timeline {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 3vh;
+    }
+
+    .timeline-container {
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+
+    .prague-map {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 1280px) {
+    .hero {
+        background-position-y: 60px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .prague-map .section-image img {
+        width: 70%;
+    }
+}
+
+@media print {
+    .historic-timeline-container {
+        background: transparent;
+    }
+
+    .timeline-container {
+        position: initial;
+        width: initial;
+    }
+
+    .timeline-content {
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .timeline-container::after, .timeline::after {
+        content: none;
+        background: transparent;
+    }
+
+
+}

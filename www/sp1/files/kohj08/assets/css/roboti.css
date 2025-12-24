@@ -1,0 +1,235 @@
+/* Page-only CSS pro "Roboti KUKA" */
+
+.robots-section{
+  padding:3.5rem 0;
+}
+
+/* Hero */
+
+.robots-hero{
+  position:relative;
+  color:#fff;
+  background: linear-gradient(120deg, rgba(12,74,110,.9) 0%, rgba(30,120,166,.86) 55%, rgba(58,160,216,.78) 100%);
+  overflow:hidden;
+}
+
+.robots-hero-bg{
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(255,255,255,.18), transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(255,255,255,.18), transparent 45%),
+    url("../img/header-robot-arm.png");
+  background-size:cover;
+  background-position:center;
+  mix-blend-mode:overlay;
+  opacity:.45;
+  pointer-events:none;
+}
+
+.robots-hero-inner{
+  position:relative;
+  padding:4.2rem 0 3.2rem;
+  display:grid;
+  gap:1.2rem;
+  max-width:48rem;
+}
+
+.robots-eyebrow{
+  margin:0;
+  font-size:.85rem;
+  letter-spacing:.14em;
+  font-weight:800;
+  text-transform:uppercase;
+  color:rgba(226,232,240,.95);
+}
+
+.robots-hero-inner h1{
+  margin:0;
+  font-size:clamp(2.1rem, 4.6vw, 3rem);
+  line-height:1.18;
+}
+
+.robots-lead{
+  margin:0;
+  font-size:clamp(1rem, 2.3vw, 1.15rem);
+  max-width:40rem;
+  color:rgba(241,245,249,.98);
+}
+
+/* Sekce s robotem */
+
+.robots-header{
+  text-align:left;
+  margin-bottom:1.8rem;
+}
+
+.robots-header p{
+  margin:.2rem 0 0;
+  color:var(--gray-600);
+}
+
+.robots-grid{
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+.robot-card{
+  background:#fff;
+  border-radius:20px;
+  border:1px solid #e2e8f0;
+  box-shadow:0 16px 44px rgba(15,23,42,.10);
+  padding:1.6rem 1.6rem 1.5rem;
+  display:grid;
+  grid-template-columns:minmax(0, 1.3fr) minmax(0, 1fr);
+  gap:1.8rem;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.robot-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59,130,246,.14), transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(45,212,191,.10), transparent 60%);
+  opacity:.9;
+  pointer-events:none;
+}
+
+.robot-card-inner{
+  position:relative;
+  display:grid;
+  gap:.8rem;
+  z-index:1;
+}
+
+.robot-headline{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.5rem .7rem;
+}
+
+.robot-series{
+  font-weight:700;
+  font-size:1.15rem;
+}
+
+.robot-tag{
+  padding:.20rem .6rem;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  border:1px solid transparent;
+}
+
+.robot-tag--paletizace{
+  background:rgba(56,189,248,.10);
+  color:#0369a1;
+  border-color:rgba(56,189,248,.35);
+}
+
+.robot-text{
+  margin:0;
+  color:var(--gray-600);
+}
+
+.robot-specs{
+  margin:.4rem 0 0;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:.4rem 1.4rem;
+}
+
+.robot-specs div{
+  display:flex;
+  flex-direction:column;
+  gap:.05rem;
+}
+
+.robot-specs dt{
+  font-size:.8rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:#94a3b8;
+}
+
+.robot-specs dd{
+  margin:0;
+  font-weight:600;
+}
+
+/* ---- ÚPRAVA OBRÁZKU ROBOTA ---- */
+
+.robot-image-wrapper{
+  position:relative;
+  z-index:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:#fff;
+  border-radius:18px;
+  border:1px solid #e2e8f0;
+  padding:1.2rem;
+  box-shadow:0 16px 40px rgba(15,23,42,.08);
+  overflow:hidden;
+}
+
+.robot-image{
+  width:100%;
+  height:auto;
+  border-radius:inherit;
+  filter:drop-shadow(0 8px 20px rgba(15,23,42,.35));
+}
+
+/* CTA */
+
+.robots-cta{
+  margin-top:2.2rem;
+  display:flex;
+  justify-content:flex-start;
+}
+
+/* Reveal */
+
+.reveal{
+  opacity:1;
+  transform:none;
+}
+
+/* JS animace */
+.has-js .reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+
+.has-js .reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+/* Responsive */
+
+@media (max-width:980px){
+  .robot-card{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:720px){
+  .robot-card{
+    padding:1.4rem 1.1rem 1.2rem;
+    gap:1.2rem;
+  }
+
+  .robot-specs{
+    grid-template-columns:1fr;
+  }
+}

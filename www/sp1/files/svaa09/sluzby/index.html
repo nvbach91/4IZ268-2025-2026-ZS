@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Nabízím UX/UI design, tvorbu design systémů a konzultace. Pomohu vám vytvořit produkt, který bude fungovat.">
+  <meta name="keywords" content="UX služby, UI design, design systém, konzultace, webdesign">
+  <meta name="author" content="Adam Švarc">
+
+  <title>Služby | Adam Švarc</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="../" class="navbar__logo">Adam Švarc</a>
+
+        <input type="checkbox" id="menu-toggle" class="navbar__checkbox">
+
+        <label for="menu-toggle" class="navbar__burger">
+          <i data-lucide="menu" class="navbar__burger-icon navbar__burger-open"></i>
+          <i data-lucide="x" class="navbar__burger-icon navbar__burger-close"></i>
+        </label>
+
+        <ul class="navbar__menu">
+          <li><a href="../" class="navbar__link">Domů</a></li>
+          <li><a href="../sluzby/" class="navbar__link navbar__link--active">Služby</a></li>
+          <li><a href="../o-mne/" class="navbar__link">O mně</a></li>
+          <li><a href="../portfolio/" class="navbar__link">Portfolio</a></li>
+          <li><a href="../kontakt/" class="btn btn--primary">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <span class="page-header__label">Služby</span>
+        <h1>Jak vám mohu pomoci</h1>
+      </div>
+    </section>
+
+    <div class="section">
+      <div class="container">
+        <div class="cards">
+          <article class="card">
+            <div class="card__icon">🎨</div>
+            <h2 class="card__title">UX/UI Design</h2>
+            <p>Komplexní návrh uživatelského rozhraní od výzkumu přes wireframy až po finální vizuální design. Zaměřuji
+              se na intuitivnost a konverzní optimalizaci.</p>
+            <ul>
+              <li>Uživatelský výzkum</li>
+              <li>Wireframing a prototypování</li>
+              <li>Vizuální design</li>
+              <li>Testování použitelnosti</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__icon">📐</div>
+            <h2 class="card__title">Design systémy</h2>
+            <p>Vytváření konzistentních design systémů, které umožňují efektivní škálování produktu a udržení vizuální
+              jednotnosti.</p>
+            <ul>
+              <li>Komponenty a vzory</li>
+              <li>Style guide</li>
+              <li>Dokumentace</li>
+              <li>Implementační podpora</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="card__icon">💬</div>
+            <h2 class="card__title">Konzultace</h2>
+            <p>Odborné poradenství pro firmy, které chtějí zlepšit své produkty nebo procesy. Pomáhám identifikovat
+              problémy a navrhnout řešení.</p>
+            <ul>
+              <li>UX audit</li>
+              <li>Workshop facilitace</li>
+              <li>Mentoring</li>
+              <li>Strategické poradenství</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <section class="section section--alt">
+      <div class="container">
+        <h2>Jak spolupráce probíhá</h2>
+        <div class="cards">
+          <article class="card">
+            <h3 class="card__title">1. Úvodní schůzka</h3>
+            <p>Společně probereme váš projekt, cíle a očekávání. Dozvím se více o vaší firmě a uživatelích.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">2. Návrh řešení</h3>
+            <p>Připravím návrh spolupráce včetně rozsahu, časového harmonogramu a cenové nabídky.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">3. Realizace</h3>
+            <p>Pracuji iterativně s pravidelnými konzultacemi, abyste měli kontrolu nad průběhem projektu.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">4. Předání</h3>
+            <p>Předám kompletní výstupy včetně zdrojových souborů a dokumentace pro vývojáře.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <nav class="footer__nav">
+        <a href="../" class="footer__link">Domů</a>
+        <a href="../sluzby/" class="footer__link">Služby</a>
+        <a href="../portfolio/" class="footer__link">Portfolio</a>
+        <a href="../o-mne/" class="footer__link">O mně</a>
+        <a href="../kontakt/" class="footer__link">Kontakt</a>
+      </nav>
+
+      <div class="footer__social">
+        <a href="https://www.instagram.com/adamsvarc/" class="footer__social-link" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="https://dribbble.com/adamsvarc" class="footer__social-link" aria-label="Dribbble">
+          <i data-lucide="dribbble"></i>
+        </a>
+        <a href="https://github.com/asvarc" class="footer__social-link" aria-label="GitHub">
+          <i data-lucide="github"></i>
+        </a>
+        <a href="https://linkedin.com/in/adamsvarc" class="footer__social-link" aria-label="LinkedIn">
+          <i data-lucide="linkedin"></i>
+        </a>
+      </div>
+
+      <p class="footer__text">© 2025 Adam Švarc. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+
+</body>
+
+</html>

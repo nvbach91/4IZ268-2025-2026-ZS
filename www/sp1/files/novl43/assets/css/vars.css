@@ -1,0 +1,84 @@
+:root {
+  --font-base: "Montserrat", sans-serif;
+
+
+  /* -------------------------------------- */
+  /* 🎨 COLOR SYSTEM                        */
+  /* -------------------------------------- */
+
+  /* Brand */
+  --color-primary: #dc9023;   /* tvoje hlavní "slunečnicová" */
+  --color-primary-dark: #b97317;
+  --color-primary-light: #f3e7e2;
+
+  /* Text */
+  --color-text-main: #4c4343;
+  --color-text-secondary: #656565;
+  --color-text-inverse: #ffffff;
+
+  /* Backgrounds */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f5f5f5;
+  --color-bg-tertiary: #e6e6e6;
+
+  /* States */
+  --color-disabled: #f2f2f2;
+  --color-error: #f22424;
+
+  /* -------------------------------------- */
+  /* 🌈 GRADIENTS                           */
+  /* -------------------------------------- */
+
+  --gradient-green: linear-gradient(104deg, #6ac532 0%, #3c8843 100%);
+  --gradient-red: linear-gradient(104deg, #c53232 0%, #5b5f5c 100%);
+  --gradient-blue: linear-gradient(104deg, #38d1e3 0%, #3f5ce1 100%);
+  --gradient-brand: linear-gradient(180deg, #00b670 0%, #65edb9 100%);
+
+  /* -------------------------------------- */
+  /* ✏ TYPOGRAPHY SYSTEM                    */
+  /* -------------------------------------- */
+
+  /* Font family */
+  --font-base: "Montserrat", sans-serif;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Font sizes */
+  --fs-80: 80px;
+  --fs-34: 34px;
+  --fs-24: 24px;
+  --fs-18: 18px;
+  --fs-16: 16px;
+  --fs-14: 14px;
+  --fs-12: 12px;
+
+  /* Line heights */
+  --lh-tight: 120%;
+  --lh-normal: 150%;
+  --lh-relaxed: 160%;
+
+  /* Text style shortcuts */
+  --title-large: var(--fs-80);
+  --title-medium: var(--fs-34);
+  --title-small: var(--fs-18);
+
+  --text-body: var(--fs-16);
+  --text-body-small: var(--fs-14);
+  --text-label: var(--fs-12);
+
+
+
+
+    /* Breakpoint variables */
+  --bp-ultra: 1600px;
+  --bp-desktop: 1440px;
+  --bp-laptop: 1280px;
+  --bp-tablet: 1024px;
+  --bp-tablet-sm: 768px;
+  --bp-mobile: 576px;
+  --bp-mobile-sm: 400px;
+}

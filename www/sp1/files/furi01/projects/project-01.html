@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Portfolio | Projekt 01</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">DA</span>
+        <span class="logo-text">Dátový analytik</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Domov</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link nav-link-active">Projekty</a></li>
+          <li class="nav-item"><a href="../studies/index.html" class="nav-link">Štúdie</a></li>
+          <li class="nav-item"><a href="../about/index.html" class="nav-link">O mne</a></li>
+          <li class="nav-item"><a href="../contact/index.html" class="nav-link">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <h1>Analýza spotrebiteľského správania v e-commerce</h1>
+      <p class="section-intro">
+        Detailný pohľad na nákupné správanie zákazníkov, prediktívne modely a praktický dashboard pre marketingový tím.
+      </p>
+    </section>
+
+    <section class="projects-list">
+      <article class="project-card">
+        <img src="https://via.placeholder.com/800x350/3498db/ffffff?text=E-commerce+Analytics" alt="Detail E-commerce Analytics" class="card-image">
+        <div class="card-content">
+          <h3 class="card-title">Ciele projektu</h3>
+          <p class="card-description">
+            Cieľom bolo identifikovať kľúčové segmenty zákazníkov, pochopiť ich nákupné správanie a pripraviť odporúčania pre retenčné kampane.
+          </p>
+
+          <h3 class="card-title">Použité nástroje</h3>
+          <div class="project-tags">
+            <strong class="tag">Python</strong>
+            <strong class="tag">Pandas</strong>
+            <strong class="tag">SQL</strong>
+            <strong class="tag">Tableau</strong>
+          </div>
+
+          <h3 class="card-title">Ukážka transformačnej logiky</h3>
+          <pre><code>WITH orders_enriched AS (
+  SELECT
+    customer_id,
+    order_id,
+    order_date,
+    revenue
+  FROM orders
+)
+SELECT
+  customer_id,
+  SUM(revenue) AS clv
+FROM orders_enriched
+GROUP BY customer_id;</code></pre>
+
+          <p class="card-description">
+            Výstupom bol jednoduchý dashboard, ktorý umožňuje stakeholderom filtrovať zákazníkov podľa hodnoty CLV a sledovať vývoj churnu v čase.
+          </p>
+
+          <a href="index.html" class="btn-primary">Späť na projekty</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Data Portfolio – Projekt 01</p>
+  </footer>
+</body>
+</html>

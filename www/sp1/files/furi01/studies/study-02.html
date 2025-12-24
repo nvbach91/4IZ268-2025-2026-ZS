@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Portfolio | Štúdia 02</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <span class="logo-mark">DA</span>
+        <span class="logo-text">Dátový analytik</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Domov</a></li>
+          <li class="nav-item"><a href="../projects/index.html" class="nav-link">Projekty</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link nav-link-active">Štúdie</a></li>
+          <li class="nav-item"><a href="../about/index.html" class="nav-link">O mne</a></li>
+          <li class="nav-item"><a href="../contact/index.html" class="nav-link">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <h1>Štúdia 02 – Malý marketingový príklad</h1>
+      <p class="section-intro">
+        Krátka ukážka, ako sa dajú kampane rozdeliť podľa výkonu a rozumne to zobraziť v tabuľke a jednoduchom grafe.
+      </p>
+    </section>
+
+    <section class="projects-list">
+      <article class="project-card">
+        <div class="card-content">
+          <h3 class="card-title">Dáta</h3>
+          <p class="card-description">
+            V dátach sú kampane, rozpočet, počet kliknutí a počet objednávok. Na začiatok stačí prepočítať cenu za klik a cenu za objednávku.
+          </p>
+
+          <h3 class="card-title">Jednoduchý prepočet</h3>
+          <pre><code>SELECT
+  campaign_name,
+  budget,
+  clicks,
+  orders,
+  budget / clicks AS cpc,
+  budget / orders AS cpo
+FROM campaigns;</code></pre>
+
+          <p class="card-description">
+            Na základe takto jednoducho spočítaných metrík sa dajú kampane rozdeliť na tie, ktoré dávajú zmysel a tie, ktoré sú skôr na skúšku.
+          </p>
+
+          <a href="index.html" class="btn-primary">Späť na štúdie</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Data Portfolio – Štúdia 02</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,495 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: whitesmoke;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #33333a;
+}
+
+.page {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 40px 60px;   
+}
+
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-family: "Playfair Display", serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: #50566a;
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+    font-size: 0.92rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #777b8a;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #50566a;
+    border-color: #b9dde8;
+}
+
+.ghost-btn {
+    font-family: inherit;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    padding: 8px 18px;
+    border: 1px solid rgba(80,86,106,0.25);
+    background: transparent;
+    color: #50566a;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ghost-btn:hover {
+    background: rgba(191,247,236,0.25);
+    border-color: rgba(80,86,106,0.35);
+}
+
+.home-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: 56px;
+    align-items: start;
+    margin-bottom: 40px;
+    padding-top: 40px;
+}
+
+.home-text {
+    max-width: 750px;
+}
+
+.home-visual {
+    display: flex;
+    justify-content: flex-end;  
+    align-items: flex-start;
+}
+
+.perfume-card {
+    background: #f4d5f4;
+    border-radius: 22px;
+    padding: 24px 26px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    position: relative;   
+    box-shadow: none;
+}
+
+.page-title {
+    font-family: "Playfair Display", serif;
+    font-size: 3.6rem;
+    line-height: 1.05;
+    margin: 0 0 12px;
+    color: #50566a;
+}
+
+.page-subtitle {
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: #555a66;
+    margin-bottom: 14px;
+    padding-top: 40px;
+}
+
+.perfume-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 999px;
+    color: #555;
+}
+
+.perfume-img {
+    width: 140px;
+    display: block;
+    margin: 26px auto 18px;
+    object-fit: contain;
+}
+
+.perfume-name {
+    font-family: "Playfair Display", serif;
+    font-size: 1.2rem;
+    margin: 0;
+    color: #50566a;
+}
+
+.perfume-notes {
+    font-size: 0.8rem;
+    margin: 6px 0 16px;
+    color: #555;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.info-card {
+    background: #fbf4db;
+    border-radius: 18px;
+    padding: 16px 18px;
+}
+
+.info-card:nth-child(2) { background: #bff7ec; }
+.info-card:nth-child(3) { background: #b9dde8; }
+
+.page-content-title {
+    font-family: "Playfair Display", serif;
+    font-size: 3.6rem;
+    margin: 0 0 12px;
+    color: #50566a;
+}
+
+.page-content-subtitle {
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: #555a66;
+    margin-bottom: 20px;
+    max-width: 560px;
+}
+
+.compare-section {
+    margin-top: 40px;
+}
+
+.compare-row {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.compare-card {
+    flex: 1;
+    background: #fffdf9;
+    border-radius: 18px;
+    border: solid #b9dde8;
+    padding: 18px 22px 20px;
+    box-shadow: none;
+    font-size: 0.92rem;
+    color: #444a55;
+}
+
+.compare-scent-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.2rem;
+    margin: 0 0 4px;
+    color: #50566a;
+}
+
+.compare-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+}
+
+.compare-tagline {
+    font-size: 0.85rem;
+    color: #777c8c;
+    margin: 0 0 10px;
+}
+
+.compare-card h4 {
+    margin: 10px 0 4px;
+    font-size: 0.95rem;
+    color: #414655;
+}
+
+.compare-card ul {
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.season-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.season-list li {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.season-list li span {
+    width: 18px;
+}
+
+.term-block {
+    background: #fff;
+    border: 8px solid #b9dde8;
+    padding: 20px 26px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+}
+
+.dupes-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 18px;
+}
+
+.dupe-card {
+    background: #fff;
+    border-radius: 18px;
+    border: solid #b9dde8;
+    padding: 18px 20px;
+}
+
+.news-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.news-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e5e5;   
+    background: transparent;           
+    border-radius: 0;
+}
+
+.news-content {
+    flex: 1;                          
+}
+
+.news-content h2 {
+    margin: 0 0 6px;
+    font-family: "Playfair Display", serif;
+    font-size: 1.5rem;
+    color: #50566a;
+}
+
+.news-tagline {
+    margin: 0 0 8px;
+    font-weight: 500;
+}
+
+.news-content p {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+    color: #444a55;
+}
+
+.news-meta {
+    margin-top: 8px;
+}
+
+.news-image {
+    flex: 0 0 140px;   
+}
+
+.news-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+}
+
+.site-footer {
+    padding: 40px 0 20px;
+    margin-top: 60px;
+    border-top: 1px solid #dcdcdc;
+    color: var(--slate);
+    background: transparent;
+}
+
+.footer-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand .logo {
+    font-family: "Playfair Display", serif;
+    font-size: 1.4rem;
+    color: var(--slate);
+}
+
+.footer-copy {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.footer-contact {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.footer-contact a {
+    color:  #555;
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 900px) {
+
+    .page {
+        padding: 24px 16px;
+    }
+
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .nav {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+
+    .home-section {
+        grid-template-columns: 1fr;   
+        gap: 32px;
+        padding-top: 24px;
+    }
+
+    .page-title,
+    .page-content-title {
+        font-size: 2.4rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .compare-row {
+        flex-direction: column;       
+    }
+
+    .dupes-grid {
+        display: block;   
+    }
+
+    .dupe-card{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .news-card {
+        flex-direction: column;      
+        align-items: flex-start;
+    }
+
+    .news-image {
+        margin-top: 12px;
+        flex-basis: auto;
+        max-width: 180px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 24px;
+        text-align: center;
+    }
+
+    .footer-copy {
+        font-size: 0.8rem;
+    }
+}
+
+
+@media print {
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    .page {
+        padding: 0;
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    .site-header .nav,
+    .ghost-btn,
+    .footer-copy {
+        display: none !important;
+    }
+
+    .logo {
+        color: #000 !important;
+    }
+
+    .perfume-card,
+    .info-card,
+    .compare-card,
+    .dupe-card,
+    .term-block,
+    .news-card {
+        background: #ffffff !important;
+        border-color: #000 !important;
+        box-shadow: none !important;
+    }
+
+    img {
+        max-width: 60mm;
+        height: auto;
+    }
+
+    .compare-card,
+    .dupe-card,
+    .news-card,
+    .term-block {
+        page-break-inside: avoid;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+
+    .info-card:nth-child(2),
+    .info-card:nth-child(3) {
+        background: #fff !important;
+    }
+
+    .perfume-badge {
+        display: none !important;
+    }
+}

@@ -1,0 +1,186 @@
+.world-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.map-overview-container {
+    text-align: center;
+    margin: 0 auto 50px auto;
+    max-width: 800px;
+}
+
+.map-overview {
+    display: block;
+    width: 100%;
+    border: 2px solid #3d4a60;
+    border-radius: 8px;
+}
+
+.map-overview-container figcaption {
+    margin-top: 10px;
+    font-style: italic;
+    color: #a0a8b4;
+}
+
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.room-card {
+    background-color: #152033;
+}
+
+.room-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.room-info {
+    padding: 15px;
+}
+
+.room-info h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #f8d66d;
+    margin-bottom: 5px;
+}
+
+.room-info p {
+    color: #a0a8b4;
+    font-size: 0.9em;
+}
+
+.room-page-layout {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 40px;
+}
+
+.room-page-layout h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 3em;
+    color: #f8d66d;
+}
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 40px;
+}
+
+.main-column h2 {
+    font-size: 1.8em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: #f8d66d;
+}
+
+.main-column p,
+.main-column ul {
+    font-size: 1em;
+    color: #d7d7d7;
+    margin-bottom: 1.5em;
+    line-height: 1.6;
+}
+
+.room-image {
+    margin: 30px 0;
+}
+
+.room-image img {
+    max-height: 550px;
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.room-image figcaption {
+    font-style: italic;
+    color: #a0a8b4;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.sidebar-column {
+    background-color: #152033;
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;
+    border: 1px solid #24334d;
+    text-align: left;
+}
+
+.sidebar-column h2 {
+    color: white;
+    font-size: 1.4em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar-column strong {
+    color: #f8d66d;
+}
+
+.sidebar-column a {
+    color: #b3c5e0;
+    text-decoration: none;
+}
+
+.sidebar-column a:hover {
+    color: #f8d66d;
+    text-decoration: underline;
+}
+
+.reward-info {
+    font-style: italic;
+    padding: 10px;
+    border: 1px dashed #f8d66d;
+    background-color: #24334d;
+    border-radius: 4px;
+    margin-top: 15px;
+    color: #f8d66d;
+}
+
+.exits {
+    list-style: none;
+    padding: 0;
+}
+
+.exits li {
+    margin-bottom: 8px;
+}
+
+.exits a {
+    color: #b3c5e0;
+    text-decoration: underline;
+}
+
+.exits a:hover {
+    color: #f8d66d;
+}
+
+@media (max-width: 900px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .main-column {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .rooms-grid {
+        grid-template-columns: 1fr;
+    }
+}

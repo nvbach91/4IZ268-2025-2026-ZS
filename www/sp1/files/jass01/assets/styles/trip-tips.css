@@ -1,0 +1,210 @@
+@import "./main.css";
+
+.hero {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.hero-img-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  width: 70%;
+}
+
+.hero .cta {
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero-img-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--rounded-sm);
+  transition: scale 0.1s ease-out;
+}
+.hero-img-grid img:hover {
+  scale: 1.03;
+  z-index: 10;
+}
+
+.hero-img-grid :first-child {
+  grid-area: 1 / 1 / 3 / 2;
+  height: 100%;
+}
+
+#locations {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.location-tile {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: var(--location-tile-img-size);
+  width: 100%;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: var(--rounded-sm);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.location-tile .preview-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: var(--rounded-xs);
+}
+
+.location-tile .description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.location-tile :last-child {
+  margin-top: auto;
+  margin-left: auto;
+}
+
+.hero-locations {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-locations .hero-img-grid {
+  width: 50%;
+}
+
+.hero-locations .cta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 2rem;
+}
+
+.post-hero {
+  display: grid;
+  place-items: center;
+  padding: 8rem 4rem;
+  border-radius: var(--rounded-xl);
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+.post-hero h1 {
+  color: white;
+}
+
+.post-hero-eu-1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/images/pictures/trip_tips/europe/trip_1.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.post-hero-cz-1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/images/pictures/trip_tips/czechia/trip_1.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.empty-carousel {
+  padding: 4rem;
+  width: 100%;
+  background-color: #f3f4f6;
+  border-radius: var(--rounded-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-hero-eu-2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/images/pictures/trip_tips/europe/trip_2.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.post-hero-eu-3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/images/pictures/trip_tips/europe/trip_3.jpg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.post-hero .hero-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1000px;
+}
+
+.list-tile {
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--rounded-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.list-tile ul,
+.list-tile ol {
+  padding-left: 1.5rem;
+}
+
+.sec-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 1100px) {
+  .hero .cta {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero .cta {
+    padding: 2rem;
+  }
+  .hero-locations {
+    flex-direction: column-reverse;
+  }
+  .hero-locations .hero-img-grid,
+  .hero .hero-img-grid {
+    width: 100%;
+  }
+  .sec-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero-img-grid {
+    gap: 0.5rem;
+  }
+}

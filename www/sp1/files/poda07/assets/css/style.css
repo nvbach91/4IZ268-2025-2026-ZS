@@ -1,0 +1,556 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+    color: #222222;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+/* Container a resp */
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 24px;
+    }
+}
+
+/* Hlavička */
+
+.header {
+    background-color: white;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.header_container {
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.logo {
+    font-size: medium;
+    font-weight: 1000;
+    text-decoration: none;
+    color: rgb(6, 60, 6);
+    line-height: 1.2;
+    text-align: center;
+}
+
+.main_navigation {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nav_list {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_unit {
+    text-decoration: none;
+    color: #444444;
+    font-size: small;
+}
+
+.nav_unit:hover {
+    color: #222222;
+    text-decoration: underline;
+}
+
+/* Úvod */
+
+.hero {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home .hero {
+    background-image: url("../img/nahled.jpg");
+}
+
+.story .hero {
+    background-image: url("../img/nahled_pribeh.jpg");
+}
+
+.catalog .hero {
+    background-image: url("../img/nahled_katalog.jpg");
+}
+
+.contact .hero {
+    background-image: url("../img/nahled_kontakty.jpg");
+}
+
+.product .hero {
+    background-image: url("../img/nahled_produkt.jpg");
+}
+
+.order .hero,
+.final .hero {
+    background-image: url("../img/nahled_kosik.jpg");
+}
+
+.hero_container {
+    padding-bottom: 50px;
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero_content {
+    max-width: 520px;
+}
+
+.home .hero_content,
+.product .hero_content,
+.order .hero_content,
+.final .hero_content,
+.contact .hero_content,
+.catalog .hero_content {
+    color: white;
+}
+
+.story .hero_content {
+    color: #222222;
+}
+
+.title_h1 {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.text_h2 {
+    font-size: large;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+/* Mohlo by se líbit / katalog */
+
+.featured {
+    padding: 40px 0;
+    background-color: #f8f8f8;
+}
+
+.featured .text_h2,
+.order .text_h2 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.product_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product_card {
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease;
+}
+
+.product_card:hover {
+    transform: translateY(-4px);
+}
+
+.product_link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.product_img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+}
+
+.product_name {
+    font-size: small;
+    font-weight: 500;
+    padding: 12px 14px 16px;
+    text-align: center;
+}
+
+/* Footer */
+
+.footer {
+    margin-top: 48px;
+    background-color: #f3f3f3;
+    font-size: small;
+}
+
+.footer_container,
+.footer_bottom {
+    padding: 20px 0;
+}
+
+.footer_contact_block {
+    max-width: 320px;
+}
+
+.footer_heading {
+    font-size: small;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #222222;
+}
+
+.footer_text {
+    margin: 0;
+    line-height: 1.7;
+    color: #555555;
+}
+
+.footer_link {
+    color: #2a5f2a;
+    text-decoration: none;
+}
+
+.footer_link:hover {
+    text-decoration: underline;
+}
+
+.footer_bottom {
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer_bottom_text {
+    margin: 0;
+    color: #777777;
+    font-size: small;
+}
+
+.footer_bottom_link {
+    font-size: small;
+    color: #2a5f2a;
+    text-decoration: none;
+}
+
+.footer_bottom_link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .footer_bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/*--------------------O NÁS------------------*/
+
+.story_block .text_h2 {
+    padding-top: 50px;
+    padding-bottom: 23px;
+}
+
+.story_columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/*------------------katalog----------------*/
+
+.category_description {
+    max-width: 800px;
+    margin: 0 auto 32px;
+    font-size: small;
+    line-height: 1.6;
+    color: #444444;
+    text-align: center;
+}
+
+/*-----------------Kontakty---------------*/
+
+.contact_content {
+    padding: 16px 18px 20px;
+}
+
+.contact_title {
+    font-size: medium;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: #333333;
+}
+
+.contact_text {
+    margin: 0;
+    font-size: small;
+    color: #555555;
+    line-height: 1.6;
+}
+
+/* ------------ detail produktu ---------- */
+
+.product_section {
+    padding: 32px 0 40px;
+}
+
+.product_section .footer_bottom_link {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: small;
+}
+
+.product_section .story_columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.product_section .story_columns > div {
+    flex: 1 1 300px;
+}
+
+.product_section .product_img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+.product_section .product_name {
+    font-size: small;
+    font-weight: 500;
+    padding: 12px 0 0;
+    text-align: left;
+}
+
+.product_buy_box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.product_buy_box label {
+    font-size: small;
+}
+
+.product_buy_box input[type="number"] {
+    width: 80px;
+    padding: 6px 8px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+}
+
+.buy_button {
+    background-color: rgb(6, 60, 6);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: small;
+    cursor: pointer;
+}
+
+.buy_button:hover {
+    background-color: rgb(4, 45, 4);
+}
+
+/* --------- Košík + formulář --------- */
+
+.order_section {
+    padding-top: 32px;
+    font-size: small;
+}
+
+.order_section .story_columns {
+    align-items: flex-start;
+}
+
+.order_section .product_card {
+    padding: 20px;
+}
+
+.order_section .text_h2 {
+    margin-bottom: 12px;
+}
+
+.order_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    text-align: left;
+    font-size: medium;
+}
+
+.order_table th {
+    padding-bottom: 8px;
+}
+
+.order_table td {
+    padding-right: 40px;
+}
+
+.order_form_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 32px;
+    margin-bottom: 24px;
+}
+
+.order_form .field {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio_group label {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .order_form_grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* skrytý heading protože warningy */
+
+.art {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/*-----------Tisk blbne to----------*/
+
+@media print {
+
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        margin: 10mm;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    .header,
+    .hero,
+    .footer_bottom,
+    .footer_bottom_link {
+        display: none !important;
+    }
+
+    .featured {
+        margin-top: 0;
+    }
+
+    .text_h2 {
+        margin-bottom: 8mm;
+    }
+
+    .product_grid {
+        display: block !important;
+    }
+
+    .product_card {
+        display: flex;
+        align-items: flex-start;
+        gap: 10mm;
+        margin-bottom: 12mm;
+        page-break-inside: avoid;
+    }
+
+    .product_img {
+        max-width: 40mm;
+        height: auto;
+    }
+
+    .product_name {
+        font-size: 14pt;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .art {
+        font-size: 0;
+    }
+
+    .footer {
+        border-top: 1px solid #000;
+        margin-top: 15mm;
+        padding-top: 5mm;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .story {
+        display: block;
+        margin-top: 0;
+    }
+
+    .story_container {
+        display: block;
+    }
+
+    .story_block {
+        page-break-inside: avoid;
+        margin-bottom: 12mm;
+    }
+
+    .story_columns {
+        display: block;
+        margin-bottom: 8mm;
+    }
+
+    .story_columns p {
+        margin-bottom: 4mm;
+    }
+}

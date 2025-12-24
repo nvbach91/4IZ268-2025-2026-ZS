@@ -1,0 +1,303 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.centered {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5%;
+    background-color: rgb(85, 43, 12);
+    border-top: 4px silver solid;
+    border-left: 4px silver solid;
+    border-right: 4px grey solid;
+    border-bottom: 4px grey solid;
+    font-family: serif;
+    font-weight: bold;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: larger;
+    color: black;
+    padding: 5px;
+    border: 2px black solid;
+    background-image: linear-gradient(to bottom right, silver, white, silver);
+}
+
+nav a:hover {
+    background-image: linear-gradient(to bottom right, goldenrod, white, goldenrod);
+    cursor: pointer;
+}
+
+nav .cart {
+    margin-left: auto;
+}
+
+main {
+    background-color:lightgoldenrodyellow;
+    border-left: 4px burlywood solid;
+    border-right: 4px burlywood solid;
+    border-bottom: 4px burlywood solid;
+}
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: linear-gradient(to left, rgb(37, 37, 37), black, rgb(37, 37, 37));
+}
+
+h2 {
+    font-family: serif;
+    font-weight: bold;
+}
+
+p {
+    font-size: large;
+}
+
+label {
+    font-size: large;
+}
+
+.content {
+    flex: 1;
+    padding: 10px;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: 10px;
+    color: white;
+}
+
+footer a {
+    color: white;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10%;
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.news img {
+    float: left;
+    margin: 0 15px 10px 0;
+    box-shadow: 0 0 10px white;
+}
+
+.news {
+    justify-content: left;
+}
+
+.item {
+    min-width: 50vw;
+    max-width: 60vw;
+    padding: 10px;
+    border-bottom: 1px grey solid;
+}
+
+.item img {
+    float: left;
+    margin: 0 15px 10px 0;
+    box-shadow: 0 0 10px white;
+}
+
+.item .stock {
+    color: green;
+}
+
+.item .stock-eshop {
+    color:cornflowerblue;
+}
+
+.item .stock-red {
+    color:red;
+}
+
+.item .stock-eshop-red {
+    color:darkred;
+}
+
+.item input {
+    width: 48px;
+}
+
+.item button {
+    color: white;
+    background-image: linear-gradient(to top right, green 20%, greenyellow 100%);
+    font-size: large;
+    border: 2px greenyellow solid;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.item button:hover {
+    background-image: linear-gradient(to top right, black 0%, darkgreen 50%);
+    border-color: green;
+    cursor: pointer;
+}
+
+.item-head {
+    display: flex;
+}
+
+.item-title {
+    font-family: serif;
+}
+
+.item-cost {
+    margin-left: auto;
+    font-family: sans-serif;
+}
+
+.right {
+    text-align: right;
+}
+
+.pagenav {
+    margin-top: auto;
+}
+
+.pagenav i:hover {
+    cursor: pointer;
+}
+
+.search {
+    padding: 8px;
+}
+
+.search button {
+    color: white;
+    background-image: linear-gradient(to top right, blue 20%, lightskyblue 100%);
+    font-size: large;
+    border: 2px lightskyblue solid;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.search button:hover {
+    background-image: linear-gradient(to top right, black 0%, darkblue 50%);
+    border-color: blue;
+    cursor: pointer;
+}
+
+.active {
+    background-image: linear-gradient(to bottom right, gold, white, gold);
+}
+
+.logo {
+    width: 10vw;
+    height: 10vw;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Modern Antiqua", serif;
+}
+
+.maps iframe {
+    width: 30vw;
+    height: 30vw;
+}
+
+@media print {
+
+    * {
+        background: none !important;
+        box-shadow: none !important;
+    }
+
+    body {
+        background: none !important;
+        color: black !important;
+        font-family: serif;
+        font-size: normal;
+    }
+
+    h1, h2, h3 {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+    nav,
+    .search,
+    .pagenav,
+    .cart,
+    button,
+    .item button,
+    footer,
+    .item .right,
+    .maps {
+        display: none !important;
+    }
+
+    label {
+        color: black;
+    }
+
+    .centered {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        border: none;
+        background: none;
+    }
+
+
+    img {
+        max-width: 40% !important;
+        height: auto !important;
+        float: left !important;
+        margin: 0 1rem 1rem 0 !important;
+        filter: grayscale(100%) !important;
+    }
+
+    .item img,
+    .news img {
+        box-shadow: none !important;
+    }
+
+    .item,
+    .news {
+        border: none;
+        padding: 0;
+        max-width: 100%;
+        min-width: auto;
+    }
+}

@@ -1,0 +1,973 @@
+
+
+
+/* SLUŽBY – VERTIKÁLNÍ TIMELINE */
+
+
+
+.sluzby-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.sluzby-header-text {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem 1.8rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.sluzby-header-text h1 {
+    margin-top: 0;
+    color: #003363;
+}
+
+.sluzby-header-aside {
+    background-color: #0b2f5f;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 1.6rem 1.4rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.sluzby-header-aside h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+.sluzby-header-aside ul {
+    margin: 0.6rem 0 0;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+}
+
+/* timeline služeb */
+
+.sluzby-timeline {
+    margin-bottom: 3rem;
+}
+
+.sluzby-timeline h2 {
+    color: #003363;
+}
+
+.sluzby-timeline-list {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    position: relative;
+}
+
+.sluzby-timeline-list::before {
+    content: "";
+    position: absolute;
+    left: 1.2rem;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    /*background: linear-gradient(#004b8d, rgba(0,75,141,0.1));*/
+    background-color: white;
+}
+
+.sluzby-timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.6rem 0 1.2rem;
+}
+
+.sluzby-timeline-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    background-color: white;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+.sluzby-timeline-content {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.06);
+}
+
+.sluzby-timeline-content h3 {
+    margin: 0 0 0.3rem;
+}
+
+/* postup spolupráce */
+
+.sluzby-steps {
+    margin-bottom: 3rem;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem 1.5rem 2.2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.sluzby-steps h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #003363;
+}
+
+.sluzby-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.6rem;
+}
+
+.sluzby-step {
+    background-color: #f7f9fc;
+    border-radius: 14px;
+    padding: 1.1rem 1rem 1.3rem;
+}
+
+.sluzby-step-number {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background-color: #004b8d;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+/* responsivita – služby */
+
+@media (max-width: 900px) {
+    .sluzby-header {
+        grid-template-columns: 1fr;
+    }
+
+    .sluzby-steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .sluzby-steps-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sluzby-header-text,
+    .sluzby-header-aside,
+    .sluzby-steps {
+        padding-inline: 1.3rem;
+    }
+}
+
+
+
+
+/* KONTAKT – NOVÝ LAYOUT */
+
+
+
+.kontakt-hero {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem 1.8rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.kontakt-hero h1 {
+    margin-top: 0;
+    color: #003363;
+}
+
+.kontakt-hero p {
+    margin-bottom: 0.8rem;
+}
+
+.kontakt-hero ul {
+    margin: 0.3rem 0 0;
+    padding-left: 1.2rem;
+}
+
+
+.kontakt-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.kontakt-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 1.8rem 1.6rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.kontakt-card h2 {
+    margin-top: 0;
+    color: #003363;
+}
+
+
+
+.kontakt-info dl {
+    margin: 0 0 1rem;
+}
+
+.kontakt-info dt {
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+}
+
+.kontakt-info dd {
+    margin: 0 0 0.7rem;
+}
+
+.kontakt-info a {
+    color: #004b8d;
+    text-decoration: underline;
+}
+
+.kontakt-info-note {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+
+.kontakt-form-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 1.5rem;
+}
+
+.kontakt-form {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.kontakt-form label {
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.kontakt-form input,
+.kontakt-form textarea {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font: inherit;
+}
+
+.kontakt-form input:focus,
+.kontakt-form textarea:focus {
+    outline: 2px solid #004b8d;
+    outline-offset: 1px;
+}
+
+/* mapa */
+
+.kontakt-map-column iframe {
+    width: 100%;
+    height: 260px;
+    border-radius: 14px;
+    border: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.kontakt-adresa {
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+}
+
+/* RESPONSIVITA – KONTAKT */
+
+@media (max-width: 900px) {
+    .kontakt-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kontakt-form-map {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .kontakt-hero {
+        padding-inline: 1.4rem;
+    }
+
+    .kontakt-card {
+        padding-inline: 1.4rem;
+    }
+}
+
+
+/* RESET & BASE */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background-color: #f3f3f3;
+    color: #1e1e1e;
+    line-height: 1.6;
+}
+
+a {
+    color: #004b8d;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* HEADER */
+
+.site-header {
+    background-color: #fffdfa;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+}
+
+.logo-link img {
+    width: 40px;
+    margin-right: 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.site-name {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #003363;
+}
+
+/* NAV */
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.main-nav a {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    color: #1e1e1e;
+    transition: 0.2s;
+}
+
+.main-nav a:hover {
+    background-color: #e6eef8;
+}
+
+.main-nav a.active {
+    background-color: #004b8d;
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .header-inner {
+        flex-direction: column;      
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;             
+        gap: 0.4rem;
+    }
+
+    .main-nav a {
+        padding: 0.35rem 0.8rem;    
+        font-size: 0.95rem;
+    }
+}
+
+
+/*  MAIN LAYOUT – HOMEPAGE */
+
+.main-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+/*HERO CARD – HOMEPAGE*/
+
+.hero-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+    height: 450px;
+    background-image: url("../img/hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.58);
+    color: #fff;
+    padding: 1.8rem 2rem;
+}
+
+.hero-overlay h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.7rem;
+}
+
+.hero-overlay p {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+    background-color: #0a66c2;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #004b9a;
+}
+
+/*SERVICES PANEL – HOMEPAGE*/
+
+.services {
+    background-color: #e6f0ff;
+    padding: 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+}
+
+.services h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #003363;
+}
+
+.services ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+}
+
+.services li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.4rem 0;
+    font-size: 1.05rem;
+}
+
+.service-icon {
+    font-size: 1.4rem;
+    width: 1.8rem;
+    text-align: center;
+}
+
+/*FOOTER*/
+
+.site-footer {
+    background-color: #062347;
+    color: #ffffff;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.footer-inner h3 {
+    margin-top: 0;
+    font-size: 1rem;
+}
+
+.footer-contact a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+.footer-projects a {   
+
+    color: skyblue;
+}
+
+
+
+/* social icons */
+
+.footer-social .social-icons {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.footer-social .social-icons a {
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.15);
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.footer-social .social-icons a:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+.footer-social .social-icons img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1); 
+}
+
+/* bottom */
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.25);
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+/*ACCESSIBILITY FOCUS*/
+
+.main-nav a:focus-visible,
+.footer-contact a:focus-visible,
+.footer-social a:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/*PAGE O NÁS*/
+
+.page-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
+}
+
+
+/* foto + jak pracujeme */
+
+.about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.about-photo img {
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.about-how {
+    border-radius: 20px;
+    background-color: #ffffff;
+    padding: 2rem 1.8rem;
+}
+
+.about-how h2 {
+    margin-top: 0;
+    color: #003363;
+}
+
+/* tři pilíře */
+
+.about-pill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.about-pill {
+    background-color: #003363;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.about-pill h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+}
+
+/* Co vám můžeme nabídnout */
+
+.about-offer {
+    margin-bottom: 3rem;
+}
+
+.about-offer h2 {
+    text-align: center;
+    color: #003363;
+}
+
+.about-offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.offer-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.4rem 1.3rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    text-align: left;
+}
+
+.offer-icon {
+    font-size: 1.7rem;
+    display: inline-block;
+    margin-bottom: 0.7rem;
+}
+
+/* BargelStav hdonoty */
+
+.about-stats-simple {
+    margin-top: 1rem;
+    padding: 2.5rem 1.5rem 3rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0b2f5f, #004b8d);
+    color: #ffffff;
+    text-align: center;
+}
+
+.about-stats-simple h2 {
+    margin-top: 0;
+}
+
+.about-stats-simple-subtitle {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.about-stats-simple-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-stats-simple .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.2rem;
+}
+
+.about-stats-simple .stat-label {
+    margin: 0;
+    font-size: 0.95rem;
+    color: white;
+    font-weight: bold;
+}
+
+/*O NÁS — ÚVOD DVOU SLOUPCŮ*/
+
+.about-intro-grid {
+    margin-bottom: 3rem;
+    padding: 1.8rem 1.4rem;         
+    background-color: #ffffff;
+    border-radius: 20px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: center;
+}
+
+.about-intro-text h1 {
+    color: #003363;
+    margin-top: 0;
+}
+
+.about-intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Responsivita – O nás, úvod */
+@media (max-width: 900px) {
+    .about-intro-grid {
+        grid-template-columns: 1fr;  
+        gap: 1.5rem;
+    }
+
+    .about-intro-image {
+        justify-self: center;
+    }
+
+    .about-intro-image img {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-intro-grid {
+        padding: 1.4rem 1.1rem;      
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    /* homepage */
+    .main-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    /* o nás */
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .about-pill-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-offer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-stats-simple-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    /* homepage hero */
+    .hero-image {
+        height: 250px;
+    }
+
+    .hero-overlay h1 {
+        font-size: 1.4rem;
+    }
+
+    /* o nás */
+    .about-pill-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-offer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-stats-simple-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-stats-simple {
+        padding-inline: 1rem;
+    }
+}
+
+
+/* PROJEKTY – STRÁNKA */
+
+.projects-intro {
+    max-width: 900px;
+    margin-bottom: 2.5rem;
+    background-color: #ffffff;
+    padding: 2rem 1.8rem;
+    border-radius: 20px;
+}
+
+.projects-intro h1 {
+    margin-top: 0;
+    color: #003363;
+}
+
+/* seznam projektů */
+
+.project-list {
+    display: grid;
+    gap: 2rem;
+}
+
+/* jednotlivá karta projektu */
+
+.project-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 1.8rem 1.6rem 1.6rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.project-card h2 {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+    color: #003363;
+}
+
+.project-meta {
+    margin: 0 0 0.8rem;
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.project-meta span + span::before {
+    content: " ";
+}
+
+/* fotky projektu */
+
+.project-photos {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.project-photos figure {
+    margin: 0;
+}
+
+.project-photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* RESPONSIVITA – PROJEKTY */
+
+@media (max-width: 900px) {
+    .project-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .projects-intro {
+        padding-inline: 1.4rem;
+    }
+
+    .project-card {
+        padding-inline: 1.3rem;
+    }
+
+    .project-photos {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* FOTOKOLEKCE */
+
+
+.gallery-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto 3rem;
+    padding: 0 1rem;
+}
+
+.gallery-intro {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.gallery-intro h1 {
+    margin-top: 0;
+    color: #003363;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.25s ease;
+    cursor: pointer;
+}
+
+.photo-gallery img:hover {
+    transform: scale(1.03);
+}
+

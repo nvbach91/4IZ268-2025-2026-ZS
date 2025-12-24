@@ -1,0 +1,190 @@
+/* ============================================
+   PROJECTS PAGE STYLES
+   ============================================ */
+
+/* ============================================
+   1. LAYOUT & GRID SYSTEM
+   ============================================ */
+/* Override page-shell overflow for sticky sidebar */
+.page-projects .page-shell {
+  overflow: visible;
+}
+
+/* Two-column layout: sidebar + content */
+.projects-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ============================================
+   2. SIDEBAR NAVIGATION
+   ============================================ */
+/* Left column: project list (sticky while scrolling) */
+.project-list {
+  padding: 1.5rem;
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.project-list h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  text-align: left;
+}
+
+.project-list nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.project-link {
+  display: block;
+  padding: .75rem 1rem;
+  background: var(--white-80);
+  border: 1px solid var(--white-10);
+  border-radius: 8px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  background: var(--project-link-hover-bg);
+  border-color: var(--color-accent);
+  transform: translateX(4px);
+}
+
+/* ============================================
+   3. PROJECT CONTENT AREA
+   ============================================ */
+/* Right column: all projects visible and stacked */
+.project-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border-bottom: none;
+  padding-bottom: 0;
+  padding-top: 0.5rem;
+}
+
+.project-item {
+  display: block;
+  scroll-margin-top: 2rem;
+  padding-top: 3.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--white-10);
+  position: relative;
+}
+
+.project-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.project-item h2 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  text-align: left;
+}
+
+/* ============================================
+   4. MEDIA & EMBEDS
+   ============================================ */
+/* Video embed */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  background: var(--color-black);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ============================================
+   5. PROJECT INFO & TYPOGRAPHY
+   ============================================ */
+.project-info {
+  color: var(--color-text);
+}
+
+.project-info h3 {
+  margin: 1.25rem 0 .75rem 0;
+  font-size: 1.15rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.project-info h3:first-of-type {
+  margin-top: 0;
+}
+
+.project-info p {
+  margin: 0 0 .5rem 0;
+  line-height: 1.6;
+}
+
+.project-info p strong {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+}
+
+/* ============================================
+   6. RESPONSIVE
+   ============================================ */
+/* Responsive: stack columns on narrow screens */
+@media (max-width: 900px) {
+  .projects-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .project-list {
+    position: static;
+  }
+
+  .project-list nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    flex: 1 1 calc(50% - .5rem);
+    text-align: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .project-link {
+    flex-basis: 100%;
+  }
+
+  .project-detail {
+    padding: 1.25rem;
+  }
+
+  .project-item h2 {
+    font-size: 1.4rem;
+  }
+}

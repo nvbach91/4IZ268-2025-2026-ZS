@@ -1,0 +1,150 @@
+/* ============================================
+   HOME PAGE STYLES
+   ============================================ */
+
+/* ============================================
+   1. HERO & INTRO
+   ============================================ */
+.hero-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  padding-block: 1.25rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--nav-active);
+  letter-spacing: .6px;
+}
+
+.site-title {
+  margin: 0;
+  line-height: 1.05;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.main-paragraph {
+  margin: 0;
+  max-width: 64ch;
+  text-align: center;
+  color: var(--color-text-body);
+  font-size: 1rem;
+}
+
+main p {
+  max-width: 70ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ============================================
+   2. CARD SYSTEM
+   ============================================ */
+.card {
+  position: relative;
+  overflow: hidden;
+  background-image: var(--card-bg-gradient);
+  color: var(--color-card-text);
+  border: 1px solid var(--white-05);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 18px var(--box-shadow-color);
+  background-size: 120% 120%;
+  background-position: center;
+  transition: transform .18s ease, box-shadow .18s ease, color .35s ease;
+  height: 100%;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--card-hover-gradient);
+  opacity: 0;
+  transition: opacity .45s ease;
+  mix-blend-mode: normal;
+}
+
+.card h3,
+.card p {
+  color: inherit;
+  transition: color .35s ease;
+  margin: 0;
+}
+
+.card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: var(--white-80);
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px var(--box-shadow-color-hover);
+  color: var(--color-card-text-hover);
+}
+
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 1;
+}
+
+.card-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================
+   3. CARD GRID
+   ============================================ */
+.card-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-items: stretch;
+  margin-top: 1.5rem;
+}
+
+/* ============================================
+   4. RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+  .hero-intro {
+    padding-block: .9rem;
+    gap: .4rem;
+  }
+
+  .site-title {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+  }
+
+  .eyebrow {
+    font-size: 1rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

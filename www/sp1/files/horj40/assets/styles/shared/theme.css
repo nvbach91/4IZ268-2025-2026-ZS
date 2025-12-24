@@ -1,0 +1,18 @@
+:root {
+  --bg: #ffffff;
+  --bg-body: #f8fafc;
+  --bg-grey: #fafbfc;
+  --text: #003264;
+  --blue-bg: #00326488;
+  --text-hover: #00C8FF;
+  --muted: #64748b;
+  --green: #00E17D;
+  --white: #ffffff;
+  --border-soft: rgba(0, 50, 100, 0.12);
+  --border-soft-strong: rgba(0, 50, 100, 0.2);
+  --border-inverse: rgba(255, 255, 255, 0.6);
+  --shadow-green: rgba(0, 225, 125, 0.25);
+  --radius: 16px;
+  --header-h: 100px;
+  --container: 1200px;
+}

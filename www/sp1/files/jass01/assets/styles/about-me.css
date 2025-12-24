@@ -1,0 +1,123 @@
+@import "./main.css";
+
+.hero {
+  display: flex;
+  align-items: center;
+
+  padding: 0 4rem;
+  gap: 4rem;
+}
+
+.hero .content {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.hero img {
+  width: 50%;
+  height: 500px;
+  object-fit: cover;
+  object-position: 20% 60%;
+  border-radius: var(--rounded-md);
+}
+
+.journey {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  gap: 4rem;
+  background-color: var(--background-light);
+  border-radius: var(--rounded-md);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.journey .content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.journey img {
+  width: 30%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: 20% 80%;
+  border-radius: var(--rounded-sm);
+}
+
+.hobbies {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hobby-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.hobby-tile {
+  background-color: var(--background-light);
+  border-radius: var(--rounded-sm);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .hero,
+  .journey {
+    flex-direction: column-reverse;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+
+  .journey {
+    padding: 1rem;
+  }
+
+  .journey img {
+    width: 100%;
+    aspect-ratio: 3/2;
+  }
+
+  .hero img,
+  .hero .content {
+    width: 100%;
+  }
+
+  .hobby-tiles {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero img {
+    height: 300px;
+  }
+}
+
+@media print {
+  .hero,
+  .journey {
+    flex-direction: column-reverse;
+    gap: 2rem;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  .hero img {
+    width: 100%;
+    height: auto;
+  }
+  .hobby-tiles {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

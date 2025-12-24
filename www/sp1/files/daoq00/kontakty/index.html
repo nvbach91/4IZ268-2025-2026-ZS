@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>Kontakty</title>
+</head>
+
+<body>
+    <header>
+        <a href="../"><span class="logo">Crème de la Crème</span></a>
+        <nav>
+            <a href="../">Domovská stránka</a>
+            <a href="../uvod/">Speciality</a>
+            <a href="../o-nas/">O nás</a>
+            <a href="../produkty/">Zmrzlina</a>
+            <a href="../dorty/">Dorty</a>
+            <a href="../muzeum/">Muzeum</a>
+            <a href="../klubovna/">Klubovna</a>
+            <a href="../prace/">Kariéra</a>
+            <a href="../kontakty/">Kontakty</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Kde najdete naše zmrzlinárny</h1>
+        <div class="branch-row">
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-francouzska.jpg" alt="Zmrzlinárna Francouzská">
+                    <div class="branch-container">
+                        <h2>Zmrzlinárna Francouzská</h2>
+                        <p>Francouzská 761/21, Praha 2</p>
+                        <p>Po - Ne <br>13:00 - 21:00 </p>
+                        <p><a href="tel:+420602143793">+420 602 143 793</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-prubezna.jpg" alt="Zmrzlinárna Průběžná">
+                    <div class="branch-container">
+                        <h2>Zmrzlinárna Průběžná</h2>
+                        <p>Průběžná 1939/58? Praha 10</p>
+                        <p>Po - Ne <br>11:00 - 20:00 </p>
+                        <p><a href="tel:+420721022505">+420 721 022 505</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-stross.jpg" alt="Zmrzlinárna Stross">
+                    <div class="branch-container">
+                        <h2>Zmrzlinárna Stross</h2>
+                        <p>Stross. nám. 978/3, Praha 7</p>
+                        <p>Po - Ne <br>11:00 - 20:00 </p>
+                        <p><a href="tel:+420725360116">+420 725 360 116</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="branch-row">
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-husova.jpg" alt="Zmrzlinárna Husova">
+                    <div class="branch-container">
+                        <h2>Zmrzlinárna Husova</h2>
+                        <p>Husova 231/12, Praha 1</p>
+                        <p>Po - Ne <br>12:00 - 22:30 </p>
+                        <p><a href="tel:+420702186191">+420 702 186 191</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-kastany.jpg" alt="Zmrzlinárna Pod Kaštany">
+                    <div class="branch-container">
+                        <h2>Zmrzlinárna Pod Kaštany</h2>
+                        <p>Pod Kaštany 236/2, Praha 6</p>
+                        <p>Po - Ne <br>11:00 - 20:00 </p>
+                        <p><a href="tel:+420601361794">+420 601 362 794</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-collum">
+                <div class="card">
+                    <img src="../assets/img/pobocka-narodni.jpg" alt="Zmrzlinový salón Národní">
+                    <div class="branch-container">
+                        <h2>Zmrzlinový salón Národní</h2>
+                        <p>Národní 341/23, Praha 1</p>
+                        <p>Po - Ne <br>11:00 - 22:30 </p>
+                        <p><a href="tel:+420725556706">+420 725 556 706</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="form-container">
+            <div class="text-container">
+                <h2>Chcete se na něco zeptat?</h2>
+                <h3>Napište nám </h3>
+                <form action="/submit" method="POST">
+                    <div class="form-row">
+                        <div>
+                            <label for="fname">Jméno:</label>
+                            <input type="text" id="fname" name="fname">
+                        </div>
+                        <div>
+                            <label for="lname">Příjmení:</label>
+                            <input type="text" id="lname" name="lname">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div>
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div>
+                            <label for="phone">Telefon:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="123456789"
+                                pattern="[0-9]{3}[0-9]{3}[0-9]{3}">
+                        </div>
+                    </div>
+                    <label id="subject">Zpráva</label>
+                    <textarea name="subject" class="subject"></textarea>
+
+                    <input type="submit" value="Odeslat">
+                </form>
+            </div>
+            <div>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20481.548557163747!2d14.411714389629223!3d50.08266263157234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zY3LDqG1lIGRlIGxhIGNyw6htZQ!5e0!3m2!1scs!2scz!4v1764668867170!5m2!1scs!2scz"
+                    width="550" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="collums">
+            <ul>
+                <li><a href="../o-nas/">O nás</a></li>
+                <li><a href="../produkty/">Zmrzlina</a></li>
+                <li><a href="../dorty/">Dorty</a></li>
+            </ul>
+            <ul>
+                <li><a href="../prace/">Práce</a></li>
+                <li><a href="../kontakty/">Kontakty</a></li>
+            </ul>
+            <ul>
+                <li><i class="fa fa-instagram"></i><a
+                        href="https://www.instagram.com/cremedelacremeprague/?hl=cs">Instagram</a></li>
+                <li><i class="fa fa-facebook-official"></i><a
+                        href="https://www.facebook.com/cremedelacremeprague/?locale=cs_CZ">Facebook</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Dao Quynh Anh</p>
+        </div>
+    </footer>
+</body>
+
+</html>

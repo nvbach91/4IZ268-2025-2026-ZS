@@ -1,0 +1,106 @@
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+    background-color: #5A8F76; 
+
+    border-bottom: 2px solid black;
+}
+
+.menu-items {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.menu-item {
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: inherit;
+ }
+
+.menu-item:hover {
+    background-color: #3f6754;
+    border-radius: 5px;
+}
+
+.menu-item a.active {
+    background-color: #3f6754;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+/** Hides the burger mechanics on desktop **/
+.burger-toggle, .burger-menu {
+    display: none;
+}
+
+/** Footer **/
+.print-only {
+    display: none;
+}
+
+footer {
+    background-color: #dbe6dc;
+    border-top: 1px solid #3f6754;
+    display: flex;
+    justify-content: center;
+
+    padding: 10px;
+}
+
+.f-name {
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+}
+
+.sl-item {
+    width: 60px;             
+    height: 45px;            
+    background-color: #9fc1b2;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 10px 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: all 0.3s ease;
+}
+
+.sl-item a {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+}
+
+.sl-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: transparent;
+}
+
+.sl-item:nth-child(1):hover {
+    background-color: #E1306C;
+}
+
+.sl-item:nth-child(2):hover {
+    background: #372213; 
+}
+
+.sl-item:nth-child(3):hover {
+    background: #1DB954;
+}

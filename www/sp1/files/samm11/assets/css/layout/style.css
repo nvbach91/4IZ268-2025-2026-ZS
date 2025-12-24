@@ -1,0 +1,165 @@
+:root {
+    --border-color-white: rgba(255, 255, 255, 0.4);
+    --border-color-black: rgba(0, 0, 0, 0.4);
+    --font: #061516;
+    --palette-1: #f4f3f0;
+    --palette-2: #fafaf8;
+    --palette-3: #8B4513;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--font);
+    text-decoration: none;
+    list-style-type: none;
+    font-family: "Avenir", "Futura PT", "Nexa", "Proxima Nova", "Montserrat", "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > header {
+    height: 30rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+body > header * {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+body > header p {
+    max-width: 500px;
+}
+
+body > header h1 {
+    font-size: max(4rem, 5vw);
+    font-weight: lighter;
+}
+
+
+body > header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../../img/other/cover.jpg");
+    background-position: 0 -270px;
+    background-size: auto;
+    background-repeat: repeat;
+    filter: blur(1.5px);
+    z-index: -1;
+}
+
+body > header > nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px var(--border-color-white) solid;
+}
+
+body > main {
+    padding: 3rem 5rem;
+    background-color: var(--palette-1);
+}
+
+nav img {
+    filter: invert(1);
+}
+
+nav > menu {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.5rem;
+}
+
+menu a {
+    color: white;
+}
+
+
+menu a.active, menu a:hover {
+    font-weight: bold;
+    transition: font-weight 0.3s;
+}
+
+body > footer {
+    margin-top: auto;
+    padding: 2rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    background-color: #d6c7bd;
+    border-top: 1px var(--border-color-black) solid;
+}
+
+@media (max-width: 1200px) {
+    body > header {
+        padding: 0.8rem;
+        height: 24rem;
+    }
+
+    body > header::before {
+        background-position: center center;
+    }
+
+    body > main {
+        padding: 2rem 3rem;
+    }
+
+    nav > menu {
+        gap: 1rem;
+        font-size: 1.1rem;
+    }
+
+    body > footer {
+        padding: 1.2rem 3rem;
+    }
+}
+
+@media (max-width: 800px) {
+    body > header {
+        padding: 0.6rem;
+    }
+
+    body > header::before {
+        background-image: url("../../img/other/cover_vert.jpg");
+        background-position: center top;
+    }
+
+    body > header h1 {
+        font-size: 2.2rem;
+    }
+
+    body > header p {
+        max-width: 360px;
+        font-size: 0.95rem;
+    }
+
+    body > main {
+        padding: 0.8rem 0.6rem;
+    }
+
+    nav > menu {
+        gap: 0.6rem;
+        font-size: 1rem;
+    }
+
+    body > footer {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: stretch;
+    }
+}

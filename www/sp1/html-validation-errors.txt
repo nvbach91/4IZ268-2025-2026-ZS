@@ -1,0 +1,1625 @@
+
+   Config loaded: .htmlhintrc
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\index.html
+      L22 |...               <button class="hamburger" onclick="this.classList.toggle('active'); document.querySele...
+                                                      ^ Inline script [  onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\index.html
+      L30 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L52 |                <button onclick="location.href='./ubytovani/index.html'">Vstupte k nám</button>
+                                  ^ Inline script [  onclick="location.href='./ubytovani/index.html'" ] cannot be used. (inline-script-disabled)
+      L198 |                <button onclick="location.href='./okoli/index.html'">Prozkoumat okolí</button>
+                                   ^ Inline script [  onclick="location.href='./okoli/index.html'" ] cannot be used. (inline-script-disabled)
+      L216 |                <button onclick="location.href='./galerie/index.html'">Galerie</button>
+                                   ^ Inline script [  onclick="location.href='./galerie/index.html'" ] cannot be used. (inline-script-disabled)
+      L227 |            <a href="#top" onclick="scrollToTop()">
+                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\index.html
+      L93 |        <a href='./contact/'>Kontakt</a>
+                     ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L118 |            <img src=./assets/img/photos/image10.jpg alt="Facebookový príspevok 1" width="33%" loadin...
+                            ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L162 |            width="33%" height="auto" style="border:0;"
+                                                 ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\index.html
+      L2 |<html lang='cs'>
+               ^ The value of attribute [ lang ] must be in double quotes. (attr-value-double-quotes)
+      L4 |    <meta charset='UTF-8'>
+                   ^ The value of attribute [ charset ] must be in double quotes. (attr-value-double-quotes)
+      L5 |    <meta content='width=device-width, initial-scale=1' name='viewport'>
+                   ^ The value of attribute [ content ] must be in double quotes. (attr-value-double-quotes)
+      L5 |...nt='width=device-width, initial-scale=1' name='viewport'>
+                                                     ^ The value of attribute [ name ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='assets/img/favicon.ico' rel='icon'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='assets/img/favicon.ico' rel='icon'>
+                                                 ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='assets/css/default.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='assets/css/default.css' rel='stylesheet'>
+                                                 ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='assets/css/home.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='assets/css/home.css' rel='stylesheet'>
+                                              ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L10 |    <link href='https://fonts.googleapis.com' rel='preconnect'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L10 |...link href='https://fonts.googleapis.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L11 |    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L11 |...sorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L12 |    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14....
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L13 |          rel='stylesheet'>
+           ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L14 |...s://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L18 |    <div class='navbar'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='./'><img alt='prague-city-buildings-logo' height='70'
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='./'><img alt='prague-city-buildings-logo' height='70'
+                                  ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='./'><img alt='prague-city-buildings-logo' height='70'
+                                                 ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L19 |.../'><img alt='prague-city-buildings-logo' height='70'
+                                                      ^ The value of attribute [ height ] must be in double quotes. (attr-value-double-quotes)
+      L20 |                                       src='./assets/img/navbar-logo.svg'></a>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='./'>PRAŽSKÝ PRŮVODCE</a>
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='./'>PRAŽSKÝ PRŮVODCE</a>
+                                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...     <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ id ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                                           ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                                               ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <a class='active' href='./'>Domů</a>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <a class='active' href='./'>Domů</a>
+                                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L27 |            <a href='monuments'>Památky</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a href='nature'>Příroda</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a href='restaurants'>Restaurace</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L30 |            <a href='tips'>Tipy</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L33 |    <div class='hero relative'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L34 |        <div class='overlay absolute '></div>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L34 |        <div class='overlay absolute '></div>
+                       ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
+      L35 |        <div class='hero-text absolute '>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |        <div class='hero-text absolute '>
+                       ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
+      L42 |    <section class='unesco content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L43 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L51 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L52 |            <img alt='prague-unesco' loading='lazy' src='./assets/img/sections/unesco.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L52 |            <img alt='prague-unesco' loading='lazy' src='./assets/img/sections/unesco.jpg'>
+                                               ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L52 |... <img alt='prague-unesco' loading='lazy' src='./assets/img/sections/unesco.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L55 |    <section class='must-see-container container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L56 |        <div class='must-see content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L59 |            <div class='must-see-places card-container'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |                <div class='place-card'><img alt='prague-castle' src='assets/img/places/monuments/prg...
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |...            <div class='place-card'><img alt='prague-castle' src='assets/img/places/monuments/prg-cas...
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L60 |...ss='place-card'><img alt='prague-castle' src='assets/img/places/monuments/prg-castle.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L65 |                <div class='place-card'><img alt='charles-bridge' src='assets/img/places/monuments/ch...
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L65 |...            <div class='place-card'><img alt='charles-bridge' src='assets/img/places/monuments/charle...
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L65 |...s='place-card'><img alt='charles-bridge' src='assets/img/places/monuments/charles-bridge.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L70 |                <div class='place-card'><img alt='staromestske-namesti-orloj'
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L70 |...            <div class='place-card'><img alt='staromestske-namesti-orloj'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L71 |                                             src='assets/img/places/monuments/magic-clock.jpg'>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L76 |                <div class='place-card'><img alt='mala-strana' src='assets/img/places/monuments/mala-...
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L76 |...            <div class='place-card'><img alt='mala-strana' src='assets/img/places/monuments/mala-stra...
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L76 |...lass='place-card'><img alt='mala-strana' src='assets/img/places/monuments/mala-strana.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L84 |    <section class='cuisine content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L85 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L95 |            <a href='restaurants' class='btn'>Objevit místní restaurace</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L95 |            <a href='restaurants' class='btn'>Objevit místní restaurace</a>
+                                            ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L97 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L98 |            <img alt='prague-unesco' loading='lazy' src='assets/img/sections/cuisine.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L98 |            <img alt='prague-unesco' loading='lazy' src='assets/img/sections/cuisine.jpg'>
+                                               ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L98 |... <img alt='prague-unesco' loading='lazy' src='assets/img/sections/cuisine.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L101 |    <div class='line'></div>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L102 |    <section class='culture content-center'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L103 |        <div class='section-text'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L109 |            <div class='section-icons'>
+                            ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L110 |                <p><i class='lni lni-ship-1'></i>Vyhlídkové plavby po řece</p>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L111 |                <p><i class='lni lni-colour-palette-3'></i>Muzea, galerie a koncerty</p>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L112 |                <p><i class='lni lni-bike'></i>Vyjížďky na kole po březích Vltavy</p>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L115 |        <div class='section-image'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L116 |            <img alt='prague-culture' loading='lazy' src='assets/img/sections/culture.jpg'>
+                            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L116 |            <img alt='prague-culture' loading='lazy' src='assets/img/sections/culture.jpg'>
+                                                 ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L116 |...<img alt='prague-culture' loading='lazy' src='assets/img/sections/culture.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L121 |    <div class='footer content-center'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L122 |        <div class='socials'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L123 |            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L123 |...     <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L123 |...://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L124 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L124 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                    ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L124 |...='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L125 |            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a...
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L125 |...    <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L125 |...//www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L126 |            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L126 |...     <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L126 |...://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L128 |        <div class='links'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L129 |            <a href='./'>Domů</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L130 |            <a href='monuments/'>Památky</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L131 |            <a href='nature/'>Příroda</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L132 |            <a href='restaurants'>Restaurace</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L133 |            <a href='tips'>Tipy</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L136 |    <div class='copyright-line'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\novl43\index.html
+      L42 |...<li class="menu-item"><a href="./o-nas/" class="menu-link ">O nás</a></li>
+                                                      ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bary03\index.html
+      L245 |...g src="./assets/images/left_contact.jpg" alt="Interiér  CAFÉ V ZAHRADĚ">
+                                                       ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L265 |... src="./assets/images/right_contact.jpg" alt="Interiér  CAFÉ V ZAHRADĚ">
+                                                       ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\barv34\index.html
+      L28 |...f="./assets/images/photos/hero-1920.jpg" imagesrcset="
+                                                      ^ The attributes of [ imagesrcset ] must not have leading or trailing whitespace. (attr-whitespace)
+      L28 |...f="./assets/images/photos/hero-1920.jpg" imagesrcset="
+                                                      ^ The attributes of [ imagesrcset ] must be separated by only one space. (attr-whitespace)
+      L105 |             srcset="
+            ^ The attributes of [ srcset ] must not have leading or trailing whitespace. (attr-whitespace)
+      L105 |             srcset="
+            ^ The attributes of [ srcset ] must be separated by only one space. (attr-whitespace)
+      L554 |                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-re...
+            ^ Inline style [ 
+                            style="border:0;" ] cannot be used. (inline-style-disabled)
+      L581 |    <div id="back-to-top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\pro-uchazece\index.html
+      L27 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L184 |                            onclick="this.classList.toggle('active'); this.nextElementSibling.classLi...
+            ^ Inline script [ 
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L196 |                            onclick="this.classList.toggle('active'); this.nextElementSibling.classLi...
+            ^ Inline script [ 
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L208 |                            onclick="this.classList.toggle('active'); this.nextElementSibling.classLi...
+            ^ Inline script [ 
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L220 |                            onclick="this.classList.toggle('active'); this.nextElementSibling.classLi...
+            ^ Inline script [ 
+                            onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\pro-studenty\index.html
+      L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L538 |                                    onclick="this.parentElement.parentElement.classList.toggle('activ...
+            ^ Inline script [ 
+                                    onclick="this.parentElement.parentElement.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L700 |                                        onclick="this.parentElement.parentElement.classList.toggle('a...
+            ^ Inline script [ 
+                                        onclick="this.parentElement.parentElement.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+      L743 |                                        onclick="this.parentElement.parentElement.classList.toggle('a...
+            ^ Inline script [ 
+                                        onclick="this.parentElement.parentElement.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\kontakty\index.html
+      L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\partneri\index.html
+      L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\aktuality\index.html
+      L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\o-skole\index.html
+      L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
+           ^ Inline script [ 
+                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\ubytovani\index.html
+      L27 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L99 |            <a href="#top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\okoli\index.html
+      L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L159 |            <a href="#top" onclick="scrollToTop()">
+                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\kontakty\index.html
+      L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L64 |...1scs!2scz!4v1645123456789!5m2!1scs!2scz"  style="border:0;" allowfullscreen="" loading="lazy"></ifram...
+                                                      ^ Inline style [   style="border:0;" ] cannot be used. (inline-style-disabled)
+      L73 |            <a href="#top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\cenik\index.html
+      L30 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L74 |            <a href="#top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\galerie\index.html
+      L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L32 |    <div class="header-apt-section ">
+                   ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
+      L62 |            <a href="#top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svav07\projects\index.html
+      L2 |<html lang="cs" style="scroll-behavior: smooth;">
+                         ^ Inline style [  style="scroll-behavior: smooth;" ] cannot be used. (inline-style-disabled)
+      L78 |...="PURPLE KISS - Sweet Juice Dance Cover" style="border:0"
+                                                      ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L106 |...         title="BTS - Go Go Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L135 |...    title="EVERGLOW - FIRST Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L164 |...         title="KARINA - UP Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L193 |...       title="MAMAMOO - HIP Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L222 |...       title="AESPA - DRAMA Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L252 |..."KISS OF LIFE - Midas Touch Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L282 |...            title="YouTube video player" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L310 |...       title="VIVIZ - Untie Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+      L340 |..."PURPLE KISS - Love is dead Dance Cover" style="border:0"
+                                                       ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\subd02\kontakt\index.html
+      L54 |                <iframe style="border:none" src="https://mapy.com/s/jasazekojo" id="contact-map"></if...
+                                  ^ Inline style [  style="border:none" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\spen00\Navy\index.html
+      L28 |                    <li><a href= "../STC/index.html">Stormtrooper</a></li>
+                                     ^ The attribute 'href' must not have spaces between the name and value. (attr-no-unnecessary-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\slaj33\contact-page\index.html
+      L54 |                    <p>M+H, Saloos naturcosmetic s.r.o. <br>
+                               ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p> ] on line 54. (tag-pair)
+      L75 |...                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                                      ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\slaj33\about-page\index.html
+      L71 |                <ul id="layout" style="margin: 40px 0;">
+                                          ^ Inline style [  style="margin: 40px 0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\semk04\author\index.html
+      L50 |                <p class="author-text">
+                           ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p class="author-text"> ] on line 50. (tag-pair)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\menu\index.html
+      L80 |            width="33%" height="auto" style="border:0;"
+                                                ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\gallery\index.html
+      L88 |            width="33%" height="auto" style="border:0;"
+                                                ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\blog\index.html
+      L249 |            width="33%" height="auto" style="border:0;"
+                                                 ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\contact\index.html
+      L102 |            width="600" height="500" style="border:0; -webkit-filter: grayscale(70%); filter: graysca...
+                                                ^ Inline style [  style="border:0; -webkit-filter: grayscale(70%); filter: grayscale(70%);" ] cannot be used. (inline-style-disabled)
+      L146 |            width="33%" height="auto" style="border:0;"
+                                                 ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\about\index.html
+      L120 |            width="33%" height="auto" style="border:0;"
+                                                 ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\video_klipy\index.html
+      L29 |        <a href="../home/index.html"><i class='fas fa-home'></i> Home </a>
+                                                  ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L30 |...       <a href="../trivia/index.html"><i class='fas fa-star'></i> Trivia</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L31 |...  <a href="../diskografie/index.html"><i class='fas fa-music'></i> Diskografie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L33 |...      <a href="../galerie/index.html"><i class='fas fa-heart'></i> Galerie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\trivia\index.html
+      L25 |        <a href="../home/index.html"><i class='fas fa-home'></i> Home </a>
+                                                  ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L26 |..."../trivia/index.html" class="active"><i class='fas fa-star'></i> Trivia</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L27 |...  <a href="../diskografie/index.html"><i class='fas fa-music'></i> Diskografie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L29 |...      <a href="../galerie/index.html"><i class='fas fa-heart'></i> Galerie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\home\index.html
+      L31 |...f="../home/index.html" class="active"><i class='fas fa-home'></i> Home </a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L32 |...       <a href="../trivia/index.html"><i class='fas fa-star'></i> Trivia</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L33 |...  <a href="../diskografie/index.html"><i class='fas fa-music'></i> Diskografie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |...      <a href="../galerie/index.html"><i class='fas fa-heart'></i> Galerie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |                        style="width: 300px; height: auto;">
+           ^ Inline style [ 
+                        style="width: 300px; height: auto;" ] cannot be used. (inline-style-disabled)
+      L84 |                        style="width: auto; height: 400px;">
+           ^ Inline style [ 
+                        style="width: auto; height: 400px;" ] cannot be used. (inline-style-disabled)
+      L106 |                        style="width: auto; height: 400px;">
+            ^ Inline style [ 
+                        style="width: auto; height: 400px;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\galerie\index.html
+      L24 |        <a href="../home/index.html"><i class='fas fa-home'></i> Home</a>
+                                                  ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L25 |...       <a href="../trivia/index.html"><i class='fas fa-star'></i> Trivia</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L26 |...  <a href="../diskografie/index.html"><i class='fas fa-music'></i> Diskografie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L28 |...../galerie/index.html" class="active"><i class='fas fa-heart'></i> Galerie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\diskografie\index.html
+      L31 |        <a href="../home/index.html"><i class='fas fa-home'></i> Home</a>
+                                                  ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L32 |...       <a href="../trivia/index.html"><i class='fas fa-star'></i> Trivia</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L33 |...iskografie/index.html" class="active"><i class='fas fa-music'></i> Diskografie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |...      <a href="../galerie/index.html"><i class='fas fa-heart'></i> Galerie</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\tips\index.html
+      L2 |<html lang='cs'>
+               ^ The value of attribute [ lang ] must be in double quotes. (attr-value-double-quotes)
+      L4 |    <meta charset='UTF-8'>
+                   ^ The value of attribute [ charset ] must be in double quotes. (attr-value-double-quotes)
+      L5 |    <meta content='width=device-width, initial-scale=1' name='viewport'>
+                   ^ The value of attribute [ content ] must be in double quotes. (attr-value-double-quotes)
+      L5 |...nt='width=device-width, initial-scale=1' name='viewport'>
+                                                     ^ The value of attribute [ name ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='../assets/img/favicon.ico' rel='icon'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L7 |...  <link href='../assets/img/favicon.ico' rel='icon'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='../assets/css/default.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L8 |...  <link href='../assets/css/default.css' rel='stylesheet'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='https://fonts.googleapis.com' rel='preconnect'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L9 |...link href='https://fonts.googleapis.com' rel='preconnect'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L10 |    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L10 |...sorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L11 |    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14....
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L12 |          rel='stylesheet'>
+           ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L13 |    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L13 |...s://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='../assets/css/tips.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='../assets/css/tips.css' rel='stylesheet'>
+                                                  ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L19 |    <div class='navbar'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                  ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                                 ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L20 |....'><img alt='prague-city-buildings-logo' height='70'
+                                                      ^ The value of attribute [ height ] must be in double quotes. (attr-value-double-quotes)
+      L21 |                                       src='../assets/img/navbar-logo.svg'></a>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L23 |...     <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ id ] must be in double quotes. (attr-value-double-quotes)
+      L23 |...='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L24 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L24 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                                           ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                                               ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L27 |            <a href='../'>Domů</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a href='../monuments/'>Památky</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a href='../nature/'>Příroda</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L30 |            <a href='../restaurants'>Restaurace</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L31 |            <a class='active' href='./'>Tipy</a>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L31 |            <a class='active' href='./'>Tipy</a>
+                                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L34 |    <div class='hero relative'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |        <div class='overlay'></div>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L36 |        <div class='hero-text absolute'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L43 |    <section class='transport content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L44 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L46 |            <div class='section-icons'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L47 |                <h3><i class='lni lni-train-1'></i>Používej městskou hromadnou dopravu</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L50 |                <h3><i class='lni lni-bike'></i>Sdílená kola</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L54 |                <h3><i class='lni lni-car-4'></i> Car Sharing</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L59 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |            <img alt='tramvaj-v-praze' loading='lazy' src='../assets/img/sections/mhd.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L60 |            <img alt='tramvaj-v-praze' loading='lazy' src='../assets/img/sections/mhd.jpg'>
+                                                 ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L60 |...img alt='tramvaj-v-praze' loading='lazy' src='../assets/img/sections/mhd.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L63 |    <div class='line'></div>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L64 |    <section class='habits content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L65 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L70 |            <div class='section-icons'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L71 |                <h3><i class='lni lni-water-drop-1'></i>Noste si láhev</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L73 |                <h3><i class='lni lni-credit-card-multiple'></i>Vyhněte se směnárnám</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L76 |                <h3><i class='lni lni-crown-3'></i> Dávejte spropitné</h3>
+                                 ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L82 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L83 |            <img alt='bud-chytry' loading='lazy' src='../assets/img/sections/habits.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L83 |            <img alt='bud-chytry' loading='lazy' src='../assets/img/sections/habits.jpg'>
+                                            ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L83 |...    <img alt='bud-chytry' loading='lazy' src='../assets/img/sections/habits.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L86 |    <section class='applications-container container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L87 |        <div class='applications content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L90 |            <div class='applications-cards'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L91 |                <a class='application-card' href='https://pid.cz/informace-k-cestovani/mobilni-aplika...
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L91 |...             <a class='application-card' href='https://pid.cz/informace-k-cestovani/mobilni-aplikace/...
+                                                      ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L92 |                   target='_blank'>
+           ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L93 |                     <span class='app-icon'>
+                                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L94 |                        <img alt='litacka-aplikace-ikona' loading='lazy' src='../assets/img/sections/...
+                                       ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L94 |...       <img alt='litacka-aplikace-ikona' loading='lazy' src='../assets/img/sections/litacka.jpg'>
+                                                      ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L94 |...='litacka-aplikace-ikona' loading='lazy' src='../assets/img/sections/litacka.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L99 |                <a class='application-card' href='https://mapy.com/' target='_blank'>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L99 |...             <a class='application-card' href='https://mapy.com/' target='_blank'>
+                                                      ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L99 |...plication-card' href='https://mapy.com/' target='_blank'>
+                                                      ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L100 |                     <span class='app-icon'>
+                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L101 |                        <img alt='mapy.cz-aplikace-ikona' loading='lazy' src='../assets/img/sections/...
+                                        ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L101 |...       <img alt='mapy.cz-aplikace-ikona' loading='lazy' src='../assets/img/sections/mapy.jpg'>
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L101 |...='mapy.cz-aplikace-ikona' loading='lazy' src='../assets/img/sections/mapy.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L106 |                <a class='application-card' href='https://bolt.eu/' target='_blank'>
+                              ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L106 |...             <a class='application-card' href='https://bolt.eu/' target='_blank'>
+                                                       ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L106 |...pplication-card' href='https://bolt.eu/' target='_blank'>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L107 |                     <span class='app-icon'>
+                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L108 |                        <img alt='bolt-aplikace-ikona' loading='lazy' src='../assets/img/sections/bol...
+                                        ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L108 |...          <img alt='bolt-aplikace-ikona' loading='lazy' src='../assets/img/sections/bolt-1.svg'>
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L108 |...alt='bolt-aplikace-ikona' loading='lazy' src='../assets/img/sections/bolt-1.svg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L118 |    <div class='footer content-center'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L119 |        <div class='socials'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L120 |            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L120 |...     <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L120 |...://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L121 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L121 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                    ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L121 |...='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L122 |            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a...
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L122 |...    <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L122 |...//www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L123 |            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L123 |...     <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L123 |...://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L125 |        <div class='links'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L126 |            <a href='..'>Domů</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L127 |            <a href='../monuments/'>Památky</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L128 |            <a href='../nature/'>Příroda</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L129 |            <a href='../restaurants'>Restaurace</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L130 |            <a href='./'>Tipy</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L133 |    <div class='copyright-line'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\restaurants\index.html
+      L2 |<html lang='cs'>
+               ^ The value of attribute [ lang ] must be in double quotes. (attr-value-double-quotes)
+      L4 |    <meta charset='UTF-8'>
+                   ^ The value of attribute [ charset ] must be in double quotes. (attr-value-double-quotes)
+      L5 |    <meta content='width=device-width, initial-scale=1' name='viewport'>
+                   ^ The value of attribute [ content ] must be in double quotes. (attr-value-double-quotes)
+      L5 |...nt='width=device-width, initial-scale=1' name='viewport'>
+                                                     ^ The value of attribute [ name ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='../assets/img/favicon.ico' rel='icon'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L7 |...  <link href='../assets/img/favicon.ico' rel='icon'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='../assets/css/default.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L8 |...  <link href='../assets/css/default.css' rel='stylesheet'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='https://fonts.googleapis.com' rel='preconnect'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L9 |...link href='https://fonts.googleapis.com' rel='preconnect'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L10 |    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L10 |...sorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L11 |    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14....
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L12 |          rel='stylesheet'>
+           ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L13 |    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L13 |...s://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='../assets/css/restaurants.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L14 |...ink href='../assets/css/restaurants.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L18 |    <div class='navbar'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                  ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                                 ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L19 |....'><img alt='prague-city-buildings-logo' height='70'
+                                                      ^ The value of attribute [ height ] must be in double quotes. (attr-value-double-quotes)
+      L20 |                                       src='../assets/img/navbar-logo.svg'></a>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...     <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ id ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                                           ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                                               ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <a href='../'>Domů</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L27 |            <a href='../monuments/'>Památky</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a href='../nature/'>Příroda</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a class='active' href='./'>Restaurace</a>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a class='active' href='./'>Restaurace</a>
+                                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L30 |            <a href='../tips'>Tipy</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L33 |    <div class='hero'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L34 |        <div class='overlay'></div>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |        <div class='hero-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L42 |    <section class='restaurant-container cz container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L43 |        <div class='restaurants content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L46 |            <div class='restaurant-cards card-container'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L47 |                <a class='place-card hover-effect'><img alt='restaurace-cafe-savoy'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L47 |... <a class='place-card hover-effect'><img alt='restaurace-cafe-savoy'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L48 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L48 |...                          loading='lazy' src='../assets/img/places/restaurants/cafe-savoy.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L54 |                <a class='place-card hover-effect'><img alt='restaurace-lokal-dlouha'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L54 |... <a class='place-card hover-effect'><img alt='restaurace-lokal-dlouha'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L55 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L55 |...                          loading='lazy' src='../assets/img/places/restaurants/lokal-dlouha.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L60 |                <a class='place-card hover-effect'><img alt='restaurace-u-mateje'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |... <a class='place-card hover-effect'><img alt='restaurace-u-mateje'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L61 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L61 |...                          loading='lazy' src='../assets/img/places/restaurants/umateje.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L70 |    <section class='restaurant-container it container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L71 |        <div class='restaurants content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L74 |            <div class='restaurant-cards card-container'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L75 |                <a class='place-card hover-effect'><img alt='restaurace-pizza-nuova'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L75 |... <a class='place-card hover-effect'><img alt='restaurace-pizza-nuova'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L76 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L76 |...                          loading='lazy' src='../assets/img/places/restaurants/pizza-nuova.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L81 |                <a class='place-card hover-effect'><img alt='restaurace-pasta-fresca'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L81 |... <a class='place-card hover-effect'><img alt='restaurace-pasta-fresca'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L82 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L82 |...                          loading='lazy' src='../assets/img/places/restaurants/pasta-fresca.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L88 |                <a class='place-card hover-effect'><img alt='vinarna-bokovka'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L88 |... <a class='place-card hover-effect'><img alt='vinarna-bokovka'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L89 |                                                        loading='lazy' src='../assets/img/places/rest...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L89 |...                          loading='lazy' src='../assets/img/places/restaurants/vinarna-bokovka.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L97 |    <section class='restaurant-container asia container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L98 |        <div class='restaurants content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L101 |            <div class='restaurant-cards card-container'><a class='place-card hover-effect'><img
+                            ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L101 |...ass='restaurant-cards card-container'><a class='place-card hover-effect'><img
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L102 |                    alt='restaurace-sia' loading='lazy' src='../assets/img/places/restaurants/sia.jpg...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L102 |                    alt='restaurace-sia' loading='lazy' src='../assets/img/places/restaurants/sia.jpg...
+                                                    ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L102 |...     alt='restaurace-sia' loading='lazy' src='../assets/img/places/restaurants/sia.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L106 |            </a> <a class='place-card hover-effect'><img alt='restaurace-sasazu'
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L106 |... <a class='place-card hover-effect'><img alt='restaurace-sasazu'
+                                                       ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L107 |                                                         loading='lazy' src='../assets/img/places/res...
+            ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L107 |...                          loading='lazy' src='../assets/img/places/restaurants/sasazu.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L111 |            </a> <a class='place-card hover-effect'><img alt='bistro-pho-vietnam-tuan-lan'
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L111 |... <a class='place-card hover-effect'><img alt='bistro-pho-vietnam-tuan-lan'
+                                                       ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L112 |                                                         loading='lazy' src='../assets/img/places/res...
+            ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L112 |...                          loading='lazy' src='../assets/img/places/restaurants/pho.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L119 |    <section class='restaurant-container streetfood container-layout'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L120 |        <div class='content-center container-child-center'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L123 |            <div class='streetfood-cards'>
+                            ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L124 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L125 |                        alt='manifesto-andel' loading='lazy' src='../assets/img/places/restaurants/ma...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L125 |...                   alt='manifesto-andel' loading='lazy' src='../assets/img/places/restaurants/manifes...
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L125 |...    alt='manifesto-andel' loading='lazy' src='../assets/img/places/restaurants/manifesto.png'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L126 |                    <h3 class='absolute'>Manifesto Anděl</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L127 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L128 |                        alt='churros-staromak' loading='lazy' src='../assets/img/places/restaurants/c...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L128 |...                  alt='churros-staromak' loading='lazy' src='../assets/img/places/restaurants/churros...
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L128 |...   alt='churros-staromak' loading='lazy' src='../assets/img/places/restaurants/churros.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L129 |                    <h3 class='absolute'>Churros Staromák</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L130 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L131 |                        alt='basak-hot-dog' loading='lazy' src='../assets/img/places/restaurants/corn...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L131 |...                     alt='basak-hot-dog' loading='lazy' src='../assets/img/places/restaurants/corndog...
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L131 |...      alt='basak-hot-dog' loading='lazy' src='../assets/img/places/restaurants/corndog.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L132 |                    <h3 class='absolute'>Basak hot dog</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L133 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L134 |                        alt='gemuse-corner' loading='lazy' src='../assets/img/places/restaurants/gemu...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L134 |...                     alt='gemuse-corner' loading='lazy' src='../assets/img/places/restaurants/gemuse....
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L134 |...      alt='gemuse-corner' loading='lazy' src='../assets/img/places/restaurants/gemuse.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L135 |                    <h3 class='absolute'>Gemuse Corner</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L136 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L137 |                        alt='dia-india' loading='lazy' src='../assets/img/places/restaurants/india.jp...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L137 |                        alt='dia-india' loading='lazy' src='../assets/img/places/restaurants/india.jp...
+                                                   ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L137 |...          alt='dia-india' loading='lazy' src='../assets/img/places/restaurants/india.jpeg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L138 |                    <h3 class='absolute'>Dia India</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L139 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L140 |                        alt='trdelnik' loading='lazy' src='../assets/img/places/restaurants/trdlo.jpg...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L140 |                        alt='trdelnik' loading='lazy' src='../assets/img/places/restaurants/trdlo.jpg...
+                                                  ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L140 |...           alt='trdelnik' loading='lazy' src='../assets/img/places/restaurants/trdlo.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L141 |                    <h3 class='absolute'>Si Trdlo?</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L142 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L143 |                        alt='sausage-go' loading='lazy' src='../assets/img/places/restaurants/sausage...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L143 |                        alt='sausage-go' loading='lazy' src='../assets/img/places/restaurants/sausage...
+                                                    ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L143 |...         alt='sausage-go' loading='lazy' src='../assets/img/places/restaurants/sausage-go.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L144 |                    <h3 class='absolute'>Sausage-GO</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L145 |                <div class='streetfood-card relative image-container'><img
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L146 |                        alt='jackob&apos;s-burger' loading='lazy' src='../assets/img/places/restauran...
+            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L146 |...              alt='jackob&apos;s-burger' loading='lazy' src='../assets/img/places/restaurants/jackobs...
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L146 |...lt='jackob&apos;s-burger' loading='lazy' src='../assets/img/places/restaurants/jackobs.jpeg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L147 |                    <h3 class='absolute'>Jackob&apos;s Burger</h3></div>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L153 |    <div class='footer content-center'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L154 |        <div class='socials'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L155 |            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L155 |...     <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L155 |...://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L156 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L156 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                    ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L156 |...='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L157 |            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a...
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L157 |...    <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L157 |...//www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L158 |            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L158 |...     <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L158 |...://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L160 |        <div class='links'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L161 |            <a href='..'>Domů</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L162 |            <a href='../monuments/'>Památky</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L163 |            <a href='../nature/'>Příroda</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L164 |            <a href='./'>Restaurace</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L165 |            <a href='../tips'>Tipy</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L168 |    <div class='copyright-line'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\nature\index.html
+      L2 |<html lang='cs'>
+               ^ The value of attribute [ lang ] must be in double quotes. (attr-value-double-quotes)
+      L4 |    <meta charset='UTF-8'>
+                   ^ The value of attribute [ charset ] must be in double quotes. (attr-value-double-quotes)
+      L5 |    <meta content='width=device-width, initial-scale=1' name='viewport'>
+                   ^ The value of attribute [ content ] must be in double quotes. (attr-value-double-quotes)
+      L5 |...nt='width=device-width, initial-scale=1' name='viewport'>
+                                                     ^ The value of attribute [ name ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='../assets/img/favicon.ico' rel='icon'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L7 |...  <link href='../assets/img/favicon.ico' rel='icon'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='../assets/css/default.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L8 |...  <link href='../assets/css/default.css' rel='stylesheet'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='https://fonts.googleapis.com' rel='preconnect'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L9 |...link href='https://fonts.googleapis.com' rel='preconnect'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L10 |    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L10 |...sorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L11 |    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14....
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L12 |          rel='stylesheet'>
+           ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L13 |    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L13 |...s://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='../assets/css/nature.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L14 |...   <link href='../assets/css/nature.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L18 |    <div class='navbar'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                  ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L19 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                                 ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L19 |....'><img alt='prague-city-buildings-logo' height='70'
+                                                      ^ The value of attribute [ height ] must be in double quotes. (attr-value-double-quotes)
+      L20 |                                       src='../assets/img/navbar-logo.svg'></a>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L21 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...     <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ id ] must be in double quotes. (attr-value-double-quotes)
+      L22 |...='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                                           ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L25 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                                               ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <a href='../'>Domů</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L27 |            <a href='../monuments/'>Památky</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a class='active' href='./'>Příroda</a>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a class='active' href='./'>Příroda</a>
+                                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a href='../restaurants'>Restaurace</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L30 |            <a href='../tips'>Tipy</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L33 |    <div class='hero relative'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L34 |        <div class='overlay'></div>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |        <div class='hero-text absolute'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L42 |    <section class='woods content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L43 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L52 |                    href='https://lesypraha.cz/mista/?_mista_kategorie=lesni-detska-hriste%2Clesy%2Cp...
+           ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L53 |                    target='_blank' class='btn'>Mapa lesů a parků Prahy</a>
+           ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L53 |                    target='_blank' class='btn'>Mapa lesů a parků Prahy</a>
+                                              ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L55 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L56 |            <img alt='lesy-v-praze' loading='lazy' src='../assets/img/sections/woods.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L56 |            <img alt='lesy-v-praze' loading='lazy' src='../assets/img/sections/woods.jpg'>
+                                              ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L56 |...  <img alt='lesy-v-praze' loading='lazy' src='../assets/img/sections/woods.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L59 |    <section class='rivers content-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L60 |        <div class='section-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L69 |           <a href='https://lesypraha.cz/mista/?_mista_kategorie=vodni-nadrze%2Cpotoky'
+                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L70 |                                     target='_blank' class='btn'>Mapa řek a potoků Prahy</a>
+           ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L70 |...                         target='_blank' class='btn'>Mapa řek a potoků Prahy</a>
+                                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L72 |        <div class='section-image'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L73 |            <img alt='reky-v-praze' loading='lazy' src='../assets/img/sections/rivers.jpg'>
+                           ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L73 |            <img alt='reky-v-praze' loading='lazy' src='../assets/img/sections/rivers.jpg'>
+                                              ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L73 |...  <img alt='reky-v-praze' loading='lazy' src='../assets/img/sections/rivers.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L76 |    <section class='nature-slider-container container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L77 |        <div class='nature-slider content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L80 |            <div class='relative w100'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L81 |                <div class='slider'>
+                               ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L82 |                    <div class='relative image-container'><img alt='obora-hvezda'
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L82 |...iv class='relative image-container'><img alt='obora-hvezda'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L83 |                                                               loading='lazy' src='../assets/img/slid...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L83 |...                          loading='lazy' src='../assets/img/slider/slider1.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L84 |                        <h3 class='relative'>Obora Hvězda</h3></div>
+                                      ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L85 |                    <div class='relative image-container'><img alt='kralovska-stromovka'
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L85 |...iv class='relative image-container'><img alt='kralovska-stromovka'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L86 |                                                               loading='lazy' src='../assets/img/slid...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L86 |...                          loading='lazy' src='../assets/img/slider/slider2.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L88 |                    <div class='relative image-container'><img alt='park-na-cibulce'
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L88 |...iv class='relative image-container'><img alt='park-na-cibulce'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L89 |                                                               loading='lazy' src='../assets/img/slid...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L89 |...                          loading='lazy' src='../assets/img/slider/slider3.jpeg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L91 |                    <div class='relative image-container'><img alt='kinskeho-zahrada'
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L91 |...iv class='relative image-container'><img alt='kinskeho-zahrada'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L92 |                                                               loading='lazy' src='../assets/img/slid...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L92 |...                          loading='lazy' src='../assets/img/slider/slider4.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L94 |                    <div class='relative image-container'><img alt='kralovska-zahrada-prazskeho-hradu...
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L94 |...iv class='relative image-container'><img alt='kralovska-zahrada-prazskeho-hradu'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L95 |                                                               loading='lazy' src='../assets/img/slid...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L95 |...                          loading='lazy' src='../assets/img/slider/slider5.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L97 |                    <div class='relative image-container'><img alt='petrin' loading='lazy'
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L97 |...iv class='relative image-container'><img alt='petrin' loading='lazy'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L97 |...ative image-container'><img alt='petrin' loading='lazy'
+                                                      ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L98 |                                                               src='../assets/img/slider/slider6.jpg'...
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L100 |                    <div class='relative image-container'><img alt='divoka-sarka'
+                                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L100 |...iv class='relative image-container'><img alt='divoka-sarka'
+                                                       ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L101 |                                                               loading='lazy' src='../assets/img/slid...
+            ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L101 |...                          loading='lazy' src='../assets/img/slider/slider7.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L104 |                <button class='left' type='button'><i class='lni lni-chevron-left'></i></button>
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L104 |                <button class='left' type='button'><i class='lni lni-chevron-left'></i></button>
+                                                ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L104 |...   <button class='left' type='button'><i class='lni lni-chevron-left'></i></button>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L105 |                <button class='right' type='button'><i class='lni lni-chevron-left rotate-icon'></i><...
+                                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L105 |                <button class='right' type='button'><i class='lni lni-chevron-left rotate-icon'></i><...
+                                                 ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L105 |...  <button class='right' type='button'><i class='lni lni-chevron-left rotate-icon'></i></button>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L111 |    <div class='footer content-center'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L112 |        <div class='socials'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L113 |            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L113 |...     <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L113 |...://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L114 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L114 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                    ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L114 |...='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L115 |            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a...
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L115 |...    <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L115 |...//www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L116 |            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L116 |...     <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L116 |...://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L118 |        <div class='links'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L119 |            <a href='..'>Domů</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L120 |            <a href='../monuments/'>Památky</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L121 |            <a href='./'>Příroda</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L122 |            <a href='../restaurants'>Restaurace</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L123 |            <a href='../tips'>Tipy</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L126 |    <div class='copyright-line'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L130 |<script src='../assets/js/slider.js'></script>
+                   ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\monuments\index.html
+      L2 |<html lang='cs'>
+               ^ The value of attribute [ lang ] must be in double quotes. (attr-value-double-quotes)
+      L4 |    <meta charset='UTF-8'>
+                   ^ The value of attribute [ charset ] must be in double quotes. (attr-value-double-quotes)
+      L5 |    <meta content='width=device-width, initial-scale=1' name='viewport'>
+                   ^ The value of attribute [ content ] must be in double quotes. (attr-value-double-quotes)
+      L5 |...nt='width=device-width, initial-scale=1' name='viewport'>
+                                                     ^ The value of attribute [ name ] must be in double quotes. (attr-value-double-quotes)
+      L7 |    <link href='../assets/img/favicon.ico' rel='icon'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L7 |...  <link href='../assets/img/favicon.ico' rel='icon'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L8 |    <link href='../assets/css/default.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L8 |...  <link href='../assets/css/default.css' rel='stylesheet'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L9 |    <link href='../assets/css/monuments.css' rel='stylesheet'>
+                   ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L9 |...<link href='../assets/css/monuments.css' rel='stylesheet'>
+                                                     ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L10 |    <link href='https://fonts.googleapis.com' rel='preconnect'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L10 |...link href='https://fonts.googleapis.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L11 |    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L11 |...sorigin href='https://fonts.gstatic.com' rel='preconnect'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L12 |    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14....
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L13 |          rel='stylesheet'>
+           ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L14 |    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                    ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L14 |...s://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+                                                      ^ The value of attribute [ rel ] must be in double quotes. (attr-value-double-quotes)
+      L19 |    <div class='navbar'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                  ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L20 |        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                                 ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L20 |....'><img alt='prague-city-buildings-logo' height='70'
+                                                      ^ The value of attribute [ height ] must be in double quotes. (attr-value-double-quotes)
+      L21 |                                       src='../assets/img/navbar-logo.svg'></a>
+           ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                     ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L22 |        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+                                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L23 |        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L23 |...     <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ id ] must be in double quotes. (attr-value-double-quotes)
+      L23 |...='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+                                                      ^ The value of attribute [ type ] must be in double quotes. (attr-value-double-quotes)
+      L24 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L24 |        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+                                           ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L26 |            <label class='close-btn' for='menu-toggle'>&times;</label>
+                                               ^ The value of attribute [ for ] must be in double quotes. (attr-value-double-quotes)
+      L27 |            <a href='..'>Domů</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a class='active' href='./'>Památky</a>
+                         ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L28 |            <a class='active' href='./'>Památky</a>
+                                        ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L29 |            <a href='../nature/'>Příroda</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L30 |            <a href='../restaurants'>Restaurace</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L31 |            <a href='../tips'>Tipy</a>
+                         ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L34 |    <div class='hero'>
+                   ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L35 |        <div class='hero-text'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L42 |    <section class='monuments-container container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L43 |        <div class='monuments content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L46 |            <div class='monument-cards card-container'>
+                           ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L47 |                <a class='place-card hover-effect'><img alt='vaclavske-namesti'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L47 |... <a class='place-card hover-effect'><img alt='vaclavske-namesti'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L48 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L48 |...                          loading='lazy' src='../assets/img/places/monuments/wenceslas-square.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L53 |                <a class='place-card hover-effect'><img alt='narodni-muzeum'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L53 |... <a class='place-card hover-effect'><img alt='narodni-muzeum'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L54 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L54 |...                          loading='lazy' src='../assets/img/places/monuments/national-museum.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L59 |                <a class='place-card hover-effect'><img alt='zidovske-muzeum-a-hrbitov'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L59 |... <a class='place-card hover-effect'><img alt='zidovske-muzeum-a-hrbitov'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L60 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L60 |...                          loading='lazy' src='../assets/img/places/monuments/jewish-synagoga.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L65 |                <a class='place-card hover-effect'><img alt='narodni-divadlo'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L65 |... <a class='place-card hover-effect'><img alt='narodni-divadlo'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L66 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L66 |...                          loading='lazy' src='../assets/img/places/monuments/national-theatre.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L71 |                <a class='place-card hover-effect'><img alt='prazsky hrad'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L71 |... <a class='place-card hover-effect'><img alt='prazsky hrad'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L72 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L72 |...                          loading='lazy' src='../assets/img/places/monuments/prg-castle.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L77 |                <a class='place-card hover-effect'><img alt='karluv-most'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L77 |... <a class='place-card hover-effect'><img alt='karluv-most'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L78 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L78 |...                          loading='lazy' src='../assets/img/places/monuments/charles-bridge.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L83 |                <a class='place-card hover-effect'><img alt='staromestske-namesti-orloj'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L83 |... <a class='place-card hover-effect'><img alt='staromestske-namesti-orloj'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L84 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L84 |...                          loading='lazy' src='../assets/img/places/monuments/magic-clock.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L89 |                <a class='place-card hover-effect'><img alt='mala-strana'
+                             ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L89 |... <a class='place-card hover-effect'><img alt='mala-strana'
+                                                      ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L90 |                                                        loading='lazy' src='../assets/img/places/monu...
+           ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L90 |...                          loading='lazy' src='../assets/img/places/monuments/mala-strana.jpg'>
+                                                      ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L98 |    <section class='historic-timeline-container container-layout'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L99 |        <div class='historic-timeline content-center container-child-center'>
+                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L102 |            <div class='timeline'>
+                            ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L103 |                <div class='timeline-container left'>
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L104 |                    <div class='timeline-content'>
+                                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L112 |                <div class='timeline-container right'>
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L113 |                    <div class='timeline-content'>
+                                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L122 |                <div class='timeline-container left'>
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L123 |                    <div class='timeline-content'>
+                                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L131 |                <div class='timeline-container right'>
+                                ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L132 |                    <div class='timeline-content'>
+                                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L144 |    <section class='prague-map content-center'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L145 |        <div class='section-text'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L156 |                <a href='https://dveprahy.cz/' class='btn' target='_blank'>Interaktivní mapa Prahy</a...
+                              ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L156 |...          <a href='https://dveprahy.cz/' class='btn' target='_blank'>Interaktivní mapa Prahy</a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L156 |... href='https://dveprahy.cz/' class='btn' target='_blank'>Interaktivní mapa Prahy</a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L158 |        <div class='section-image'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L159 |            <img alt='historicka-mapa-prahy' loading='lazy' src='../assets/img/sections/historic-map....
+                            ^ The value of attribute [ alt ] must be in double quotes. (attr-value-double-quotes)
+      L159 |...        <img alt='historicka-mapa-prahy' loading='lazy' src='../assets/img/sections/historic-map.jpg'...
+                                                       ^ The value of attribute [ loading ] must be in double quotes. (attr-value-double-quotes)
+      L159 |...t='historicka-mapa-prahy' loading='lazy' src='../assets/img/sections/historic-map.jpg'>
+                                                       ^ The value of attribute [ src ] must be in double quotes. (attr-value-double-quotes)
+      L164 |    <div class='footer content-center'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L165 |        <div class='socials'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L166 |            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L166 |...     <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L166 |...://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L167 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L167 |            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                    ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L167 |...='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L168 |            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a...
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L168 |...    <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L168 |...//www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L169 |            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L169 |...     <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ target ] must be in double quotes. (attr-value-double-quotes)
+      L169 |...://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+                                                       ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L171 |        <div class='links'>
+                        ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+      L172 |            <a href='..'>Domů</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L173 |            <a href='./'>Památky</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L174 |            <a href='../nature/'>Příroda</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L175 |            <a href='../restaurants'>Restaurace</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L176 |            <a href='../tips'>Tipy</a>
+                          ^ The value of attribute [ href ] must be in double quotes. (attr-value-double-quotes)
+      L179 |    <div class='copyright-line'>
+                    ^ The value of attribute [ class ] must be in double quotes. (attr-value-double-quotes)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\puzo00\contact\index.html
+      L51 |...                width="750" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                                      ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\petj30\ubytovani\index.html
+      L20 |...mpPlovarnaSobeslav" target="_blank"><img src="../assets/img/facebook.png" width="18"></a></li>
+                                                      ^ An alt attribute must be present on <img> elements. (alt-require)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\olsr00\events\index.html
+      L40 |            <div class="news-wrapper" style="margin-bottom: 2rem;">
+                                                ^ Inline style [  style="margin-bottom: 2rem;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\novl43\galerie\index.html
+      L153 |    </div>
+                ^ Tag must be paired, no start tag: [ </div> ] (tag-pair)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\kohj08\robotika\index.html
+      L171 |            <div style="display:flex; align-items:center; gap:0.6rem;">
+                            ^ Inline style [  style="display:flex; align-items:center; gap:0.6rem;" ] cannot be used. (inline-style-disabled)
+      L174 |                   style="width:40px; height:auto; opacity:0.9;">
+            ^ Inline style [ 
+                   style="width:40px; height:auto; opacity:0.9;" ] cannot be used. (inline-style-disabled)
+      L175 |              <h2 style="margin:0;">Roboti KUKA</h2>
+                             ^ Inline style [  style="margin:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\index.html
+      L114 |            src="../assets/images/pictures/trip_tips/hero/img_2.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L114 |            src="../assets/images/pictures/trip_tips/hero/img_2.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+      L119 |            src="../assets/images/pictures/trip_tips/hero/img_3.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L119 |            src="../assets/images/pictures/trip_tips/hero/img_3.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\domv01\jisteni\index.html
+      L132 |        <div class="media" style="display: none"></div>
+                                      ^ Inline style [  style="display: none" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\domv01\ferraty\index.html
+      L110 |        <div class="media" style="display: none"></div>
+                                      ^ Inline style [  style="display: none" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\daoq00\kontakty\index.html
+      L140 |...                width="550" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+                                                       ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\daoq00\dorty\index.html
+      L64 |...     <img src="../assets/img/dort02.jpg" alt="Black forest ">
+                                                      ^ The attributes of [ alt ] must not have leading or trailing whitespace. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\chem12\historie\index.html
+      L49 |    <p>Dnes Uhříněves nabízí kombinaci historických památek, jako jsou zámek a kostel Všech svatých, ...
+               ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p> ] on line 49. (tag-pair)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bobv02\events\index.html
+      L37 |                <img class="band-photo" src="../assets/Images/badnaee.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L43 |                <img class="band-photo" src="../assets/Images/ssssssss.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L49 |                <img class="band-photo" src="../assets/Images/bogun.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L55 |                <img class="band-photo" src="../assets/Images/oolbadn.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L68 |                <img class="band-photo" src="../assets/Images/vananan.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L74 |                <img class="band-photo" src="../assets/Images/mucarai.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L80 |                <img class="band-photo" src="../assets/Images/bugonsolo.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+      L86 |                <img class="band-photo" src="../assets/Images/squirrel-burn.jpg">
+                               ^ An alt attribute must be present on <img> elements. (alt-require)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\barv34\gdpr\index.html
+      L226 |    <div id="back-to-top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bart24\zapasy\index.html
+      L39 |            <div style="margin-bottom: 4rem;">
+                           ^ Inline style [  style="margin-bottom: 4rem;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bart24\akademie\index.html
+      L40 |...              <a href="#u10" class="btn" style="background-color: #555;">Přípravka u11</a>
+                                                      ^ Inline style [  style="background-color: #555;" ] cannot be used. (inline-style-disabled)
+      L54 |                    <ul style="list-style: none;">
+                                  ^ Inline style [  style="list-style: none;" ] cannot be used. (inline-style-disabled)
+      L72 |                    <ul style="list-style: none;">
+                                  ^ Inline style [  style="list-style: none;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bare19\BargelStav\fotokolekce.html
+      L48 |...      <img src="assets/img/klaster1.jpg" alt="Rekonstrukce kláštera  ukázka 1">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L49 |...      <img src="assets/img/klaster2.jpg" alt="Rekonstrukce kláštera  ukázka 2">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L50 |...      <img src="assets/img/klaster3.jpg" alt="Rekonstrukce kláštera  ukázka 3">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L51 |...      <img src="assets/img/klaster4.jpg" alt="Rekonstrukce kláštera  ukázka 4">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L52 |...      <img src="assets/img/klaster5.jpg" alt="Rekonstrukce kláštera  ukázka 5">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+      L53 |...      <img src="assets/img/klaster6.jpg" alt="Rekonstrukce kláštera  ukázka 6">
+                                                      ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svov17\homepage\contact\index.html
+      L91 |            style="border:0;" 
+           ^ Inline style [ 
+            style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\world\index.html
+      L108 |            src="../../assets/images/pictures/trip_tips/world/hero_2.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L108 |            src="../../assets/images/pictures/trip_tips/world/hero_2.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/world/hero_3.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/world/hero_3.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\europe\index.html
+      L108 |            src="../../assets/images/pictures/trip_tips/europe/hero_2.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L108 |            src="../../assets/images/pictures/trip_tips/europe/hero_2.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/europe/hero_3.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/europe/hero_3.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\czechia\index.html
+      L108 |            src="../../assets/images/pictures/trip_tips/czechia/hero_2.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L108 |            src="../../assets/images/pictures/trip_tips/czechia/hero_2.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/czechia/hero_3.jpg
+            ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
+      L113 |            src="../../assets/images/pictures/trip_tips/czechia/hero_3.jpg
+            ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svov17\homepage\past_events\3\index.html
+      L3 |<head>
+          ^ Tag must be paired, missing: [ </head> ], start tag match failed [ <head> ] on line 3. (tag-pair)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\europe\2\index.html
+      L129 |...      <li>Distance: 2,500 to 3,000 km/li></li>
+                                                       ^ Special characters must be escaped : [ > ]. (spec-char-escape)
+
+Scanned 379 files, found 741 errors in 60 files (466 ms)

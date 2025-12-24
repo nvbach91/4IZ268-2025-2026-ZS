@@ -1,0 +1,248 @@
+/* ============================================
+   MEMBERS PAGE STYLES
+   ============================================ */
+
+/* ============================================
+   1. MEMBER OVERVIEW (Top Grid Navigation)
+   ============================================ */
+.members-overview {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: var(--bg-glass-panel);
+  border-radius: 16px;
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 2px 12px var(--box-shadow-color);
+}
+
+.member-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: transform .2s ease;
+}
+
+.member-preview:hover {
+  transform: translateY(-4px);
+}
+
+.member-preview-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid var(--color-accent);
+  box-shadow: 0 4px 12px var(--box-shadow-color);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.member-preview:hover .member-preview-photo {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 16px var(--box-shadow-color-hover);
+}
+
+.member-preview-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.member-preview-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+  text-align: center;
+}
+
+/* ============================================
+   2. MEMBERS LAYOUT (Main Grid)
+   ============================================ */
+.members-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   3. MEMBER CARDS (Individual Profiles)
+   ============================================ */
+.member-card {
+  background: var(--white-90);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+.member-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 4px solid var(--color-accent);
+  box-shadow: 0 4px 12px var(--box-shadow-color);
+  flex-shrink: 0;
+}
+
+.member-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.member-content {
+  flex: 1;
+  text-align: left;
+}
+
+.member-name {
+  font-size: 1.75rem;
+  color: var(--color-primary);
+  margin: 0 0 0.25rem 0;
+  font-weight: 700;
+}
+
+.member-age {
+  font-size: 1rem;
+  color: var(--color-muted);
+  margin: 0 0 1.25rem 0;
+  font-weight: 500;
+}
+
+.member-info {
+  text-align: left;
+  width: 100%;
+}
+
+.member-info h3 {
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin: 1.25rem 0 0.5rem 0;
+  font-weight: 600;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.member-info h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 3px;
+  height: 1rem;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.member-info h3:first-of-type {
+  margin-top: 0;
+}
+
+.member-info p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* ============================================
+   4. RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .member-card {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .member-content {
+    text-align: center;
+  }
+
+  .member-photo {
+    width: 130px;
+    height: 130px;
+  }
+
+  .member-info {
+    text-align: left;
+  }
+}
+
+/* Responsive grid for overview */
+@media (max-width: 1200px) {
+  .members-overview {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .members-overview {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+
+  .member-preview-photo {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 540px) {
+  .members-overview {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .member-preview-photo {
+    width: 70px;
+    height: 70px;
+    border-width: 2px;
+  }
+
+  .member-preview-name {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .members-grid {
+    gap: 1.5rem;
+  }
+
+  .member-card {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .member-photo {
+    width: 120px;
+    height: 120px;
+    border-width: 3px;
+  }
+
+  .member-name {
+    font-size: 1.5rem;
+  }
+
+  .member-info h3 {
+    font-size: 0.95rem;
+  }
+
+  .member-info p {
+    font-size: 0.9rem;
+  }
+}

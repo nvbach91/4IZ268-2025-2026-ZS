@@ -1,0 +1,500 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", Arial, sans-serif;
+    background-color: #0e1724;
+    color: white;
+    line-height: 1.6;
+}
+
+.header {
+    width: 100%;
+    background-color: #0b1220;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.item-card,
+.char-card,
+.room-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.nav a,
+.item-card,
+.char-card,
+.room-card {
+    text-decoration: none;
+}
+
+.nav a {
+    margin-left: 20px;
+    color: #d7d7d7;
+    font-weight: 500;
+}
+
+.nav a.active,
+.nav a:hover {
+    color: #f8d66d;
+}
+
+.item-card:hover,
+.char-card:hover {
+    transform: translateY(-5px);
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 10px #f8d66d;
+}
+
+.help-content h1,
+.story-content h1,
+.room-page-layout h1,
+.items-content h1,
+.npc-content h1 {
+    color: #f8d66d;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    color: #a0a8b4;
+}
+
+.hero {
+    height: 480px;
+    background-image: url('../img/rooms/VstupnaJaskyna.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.55);
+    padding: 30px 50px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #dcdcdc;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #f8d66d;
+    color: #1c1c1c;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #ffd34f;
+}
+
+.features {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.features h2 {
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.feature-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feature-box {
+    width: 300px;
+    padding: 20px;
+    background-color: #152033;
+    border-radius: 8px;
+    border: 1px solid #24334d;
+}
+
+.footer {
+    margin-top: 60px;
+    padding: 20px 40px;
+    background-color: #0b1220;
+    border-top: 1px solid #1b273d;
+    color: #a0a8b4;
+    font-size: 0.9em;
+}
+
+.footer-content-min {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copyright-text {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 20px;
+}
+
+.footer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #a0a8b4;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.footer-icon:hover {
+    color: #f8d66d;
+}
+
+.footer-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.info-page-content {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+}
+
+.info-page-content h1 {
+    font-size: 2.2em;
+    color: #f8d66d;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #1b273d;
+    padding-bottom: 15px;
+}
+
+.info-page-content h2 {
+    font-size: 1.5em;
+    color: #ffffff;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+.author-details,
+.link-list {
+    list-style: none;
+    padding: 0;
+}
+
+.author-details li,
+.link-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #24334d;
+    color: #a0a8b4;
+    display: flex;
+}
+
+.author-details li strong {
+    color: #ffffff;
+    min-width: 150px;
+    font-weight: bold;
+}
+
+.link-list a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.link-list a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 15px 20px;
+    }
+
+    .nav {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav a {
+        margin: 5px 10px;
+    }
+
+    .feature-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-box {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero-content {
+        padding: 20px 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-content-min {
+        flex-direction: column;
+    }
+
+    .copyright-text {
+        order: 1;
+        margin: 10px 0;
+    }
+
+    .footer-icon.back-to-top {
+        order: 2;
+    }
+
+    .footer-icon.info-link {
+        order: 3;
+    }
+}
+
+@media print {
+
+    .header,
+    .nav,
+    .btn,
+    .footer-icon,
+    .features {
+        display: none !important;
+    }
+
+    img,
+    figure,
+    .room-image,
+    [style*="background-image"],
+    [class*="icon"] {
+        display: none !important;
+    }
+
+    body {
+        background-color: white !important;
+        color: black !important;
+        font-size: 11pt;
+        margin: 0;
+        padding: 0;
+        line-height: 1.3;
+    }
+
+    main {
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        color: black !important;
+    }
+
+    .footer,
+    .footer-content-min {
+        background-color: white !important;
+        border-top: 1px solid #ccc !important;
+        color: black !important;
+        display: block !important;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .copyright-text {
+        color: black !important;
+        display: block !important;
+        margin: 0 !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    .logo {
+        color: black !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    .exits a,
+    .sidebar-column a {
+        text-decoration: none !important;
+        color: black !important;
+    }
+
+    a::after {
+        content: " [" attr(href) "] ";
+        font-size: 9pt;
+        color: #555;
+    }
+
+    .exits a::after {
+        content: none !important;
+    }
+
+    .items-grid,
+    .rooms-grid,
+    .story-content {
+        display: block !important;
+    }
+
+    .item-card {
+        display: flex !important;
+        flex-direction: row !important;
+        background-color: white !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        margin-bottom: 15px;
+        color: black !important;
+    }
+
+    .item-card img {
+        width: 100px !important;
+        height: 100px !important;
+        background-color: white !important;
+        border-bottom: none !important;
+        border-right: 1px solid #ccc !important;
+    }
+
+    .item-info {
+        padding: 10px 15px !important;
+        color: black !important;
+    }
+
+    .item-info h3,
+    .char-info h3 {
+        color: black !important;
+        font-size: 1.2em !important;
+    }
+
+    .item-info p,
+    .char-info p {
+        color: #333 !important;
+    }
+
+    .tag {
+        border: 1px solid #999 !important;
+        background-color: #eee !important;
+        color: #333 !important;
+    }
+
+    .char-card {
+        background-color: white !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .char-card img {
+        height: 150px !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .sidebar-column strong,
+    .command-syntax,
+    .highlight {
+        color: black !important;
+        background-color: transparent !important;
+    }
+
+    .reward-info {
+        color: black !important;
+        background-color: transparent !important;
+        border: 1px solid black !important;
+    }
+
+    .help-content {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .help-content h1,
+    .help-content h2,
+    .story-content h1,
+    .story-content h2 {
+        color: black !important;
+        text-shadow: none !important;
+        border-bottom: 1px solid black !important;
+        border-color: #999 !important;
+    }
+
+    .command-list li {
+        background-color: #eee !important;
+        border: 1px solid #ccc !important;
+        color: #333 !important;
+    }
+
+    .story-content {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .story-content p {
+        color: #333 !important;
+    }
+
+    .room-card {
+        background-color: white !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        margin-bottom: 15px;
+    }
+
+    .sidebar-column {
+        background-color: white !important;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        color: black !important;
+    }
+
+    .content-wrapper {
+        display: block !important;
+    }
+
+    .main-column {
+        padding-right: 0 !important;
+    }
+}

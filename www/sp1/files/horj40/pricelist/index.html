@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="cs" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ceník služeb | Žehlík</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/page-styles/pricelist.css">
+    <link rel="icon" href="../assets/images/ico/favicon.ico">
+    <script type="module" src="../assets/scripts/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Přeskočit na obsah</a>
+
+    <header>
+      <div class="header-wrapper">
+        <div class="header-actions-wrapper">
+          <a href="../" aria-label="Domů">
+            <div class="logo">
+              <img src="../assets/images/svg/logo.svg" alt="Logo Žehlík">
+            </div>
+          </a>
+
+          <div class="mobile-hamburger-menu-button-wrapper">
+            <button
+              id="mobile-hamburger-menu-button"
+              class="closed"
+              aria-label="Otevřít mobilní navigaci"
+              aria-controls="header-navigation"
+              aria-expanded="false"
+            >
+              <img
+                src="../assets/images/hamburger-menu/closed.png"
+                aria-hidden="true"
+                alt="Ikona menu"
+              >
+              <span class="hidden">Otevřít mobilní menu</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="menu-layout" id="header-navigation" aria-label="Hlavní navigace">
+          <ul class="menu-primary">
+            <li class="menu-item active">
+              <a class="bold" href="../pricelist">Ceník</a>
+            </li>
+
+            <li class="menu-item">
+              <a class="bold" href="../how-it-works">Jak to funguje</a>
+            </li>
+
+            <li class="menu-item">
+              <a class="bold" href="../faq">Často kladené dotazy</a>
+            </li>
+
+            <li class="menu-item">
+              <a class="bold" href="../contacts">Kontakt</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <noscript>
+      <nav class="noscript-nav container" aria-label="Hlavní navigace bez JavaScriptu">
+        <p class="noscript-title bold">Navigace</p>
+        <ul class="noscript-menu">
+          <li><a href="/">Domů</a></li>
+          <li><a href="pricelist">Ceník</a></li>
+          <li><a href="how-it-works">Jak to funguje</a></li>
+          <li><a href="faq">Často kladené dotazy</a></li>
+          <li><a href="contacts">Kontakt</a></li>
+        </ul>
+      </nav>
+    </noscript>
+
+    <main class="page-content pricelist" id="main">
+      <section class="hero container">
+        <div class="hero-content">
+          <p class="eyebrow">Transparentní ceny bez překvapení</p>
+          <h1 class="main-title">Ceník služeb</h1>
+          <p class="lead">
+            Přehled cen pro nejčastější služby. Pokud potřebujete větší zakázku nebo firemní
+            spolupráci, ozvěte se a připravíme nabídku na míru.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="contacts">Nezávazně poptat</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="price-table container" id="cenik" aria-labelledby="price-title">
+        <div class="section-head">
+          <h2 id="price-title" class="section-title">Orientační ceník</h2>
+          <p class="section-note">
+            Uvedené ceny jsou orientační a mohou se lišit podle typu materiálu a objemu.
+          </p>
+        </div>
+
+        <nav class="price-nav" aria-label="Kategorie ceníku">
+          <a href="#cisteni-odevu">Čištění oděvů</a>
+          <a href="#hromadne-prani">Hromadné praní</a>
+          <a href="#zehleni">Samostatné žehlení</a>
+          <a href="#mandlovani">Mandlování lůžkovin</a>
+          <a href="#bytovy-textil">Čištění bytového textilu</a>
+          <a href="#koberce">Čištění koberců</a>
+          <a href="#doplnek">Doplňkové služby</a>
+        </nav>
+
+        <div class="price-categories">
+          <section class="price-category" id="cisteni-odevu" aria-labelledby="cisteni-odevu-title">
+            <div class="price-category__head">
+              <h3 id="cisteni-odevu-title" class="section-title">Čištění oděvů</h3>
+              <p>Expresní čištění a žehlení do 24 hodin.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Čištění oděvů">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Oblek</div>
+                <div role="cell">Čištění a žehlení</div>
+                <div role="cell">590 Kč</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Sako</div>
+                <div role="cell">Čištění a žehlení</div>
+                <div role="cell">420 Kč</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="hromadne-prani" aria-labelledby="hromadne-prani-title">
+            <div class="price-category__head">
+              <h3 id="hromadne-prani-title" class="section-title">Hromadné praní</h3>
+              <p>Větší objemy prádla pro domácnosti i firmy.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Hromadné praní">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Ložní prádlo</div>
+                <div role="cell">Praní a sušení</div>
+                <div role="cell">180 Kč / kg</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Ručníky</div>
+                <div role="cell">Praní a sušení</div>
+                <div role="cell">150 Kč / kg</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="zehleni" aria-labelledby="zehleni-title">
+            <div class="price-category__head">
+              <h3 id="zehleni-title" class="section-title">Samostatné žehlení</h3>
+              <p>Vyžehlení doneseného prádla bez praní.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Samostatné žehlení">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Košile</div>
+                <div role="cell">Žehlení na ramínko</div>
+                <div role="cell">65 Kč</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Kalhoty</div>
+                <div role="cell">Žehlení s puky</div>
+                <div role="cell">75 Kč</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="mandlovani" aria-labelledby="mandlovani-title">
+            <div class="price-category__head">
+              <h3 id="mandlovani-title" class="section-title">Mandlování lůžkovin</h3>
+              <p>Rychlé vyhlazení velkých kusů prádla.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Mandlování lůžkovin">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Prostěradlo</div>
+                <div role="cell">Mandlování</div>
+                <div role="cell">45 Kč</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Povlečení</div>
+                <div role="cell">Mandlování</div>
+                <div role="cell">65 Kč</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="bytovy-textil" aria-labelledby="bytovy-textil-title">
+            <div class="price-category__head">
+              <h3 id="bytovy-textil-title" class="section-title">Čištění bytového textilu</h3>
+              <p>Šetrná péče o záclony, závěsy i přehozy.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Čištění bytového textilu">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Záclony</div>
+                <div role="cell">Praní a žehlení</div>
+                <div role="cell">140 Kč / kg</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Závěsy</div>
+                <div role="cell">Praní a žehlení</div>
+                <div role="cell">180 Kč / kg</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="koberce" aria-labelledby="koberce-title">
+            <div class="price-category__head">
+              <h3 id="koberce-title" class="section-title">Čištění koberců</h3>
+              <p>Hloubkové čištění s delší dobou zpracování.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Čištění koberců">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Koberec (krátký vlas)</div>
+                <div role="cell">Čištění za m²</div>
+                <div role="cell">240 Kč</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Koberec (dlouhý vlas)</div>
+                <div role="cell">Čištění za m²</div>
+                <div role="cell">290 Kč</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="price-category" id="doplnek" aria-labelledby="doplnek-title">
+            <div class="price-category__head">
+              <h3 id="doplnek-title" class="section-title">Doplňkové služby</h3>
+              <p>Volitelné služby k praní a čištění.</p>
+            </div>
+            <div class="price-grid" role="table" aria-label="Doplňkové služby">
+              <div class="price-row price-row--head" role="row">
+                <div role="columnheader">Služba</div>
+                <div role="columnheader">Popis</div>
+                <div role="columnheader">Cena od</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Dezinfekce</div>
+                <div role="cell">Přídavek k praní</div>
+                <div role="cell">50 Kč</div>
+              </div>
+              <div class="price-row" role="row">
+                <div role="cell">Impregnace</div>
+                <div role="cell">Ochrana materiálu</div>
+                <div role="cell">90 Kč</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="price-cards container" aria-labelledby="cards-title">
+        <h2 id="cards-title" class="section-title">Balíčky služeb</h2>
+        <div class="cards-grid">
+          <article class="price-card">
+            <h3 class="card-title">Rychlý svoz</h3>
+            <p class="card-price">od 149 Kč</p>
+            <p class="card-text">
+              Ideální pro menší zakázky. Vyzvedneme a doručíme do 24 hodin.
+            </p>
+            <ul class="card-list">
+              <li>Svoz v domluveném čase</li>
+              <li>Expresní zpracování</li>
+              <li>Platba při předání</li>
+            </ul>
+          </article>
+
+          <article class="price-card price-card--accent">
+            <h3 class="card-title">Rodinný balíček</h3>
+            <p class="card-price">od 599 Kč</p>
+            <p class="card-text">
+              Pro pravidelné praní a žehlení většího objemu prádla.
+            </p>
+            <ul class="card-list">
+              <li>Opakované vyzvednutí</li>
+              <li>Prioritní termíny</li>
+              <li>Sleva na objem</li>
+            </ul>
+          </article>
+
+          <article class="price-card">
+            <h3 class="card-title">Firemní servis</h3>
+            <p class="card-price">individuálně</p>
+            <p class="card-text">
+              Úklid textilu, uniformy i hotelové prádlo s nastavením SLA.
+            </p>
+            <ul class="card-list">
+              <li>Fakturace a reporting</li>
+              <li>Logistika na míru</li>
+              <li>Osobní kontakt</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cta container" aria-labelledby="cta-title">
+        <div class="cta-card">
+          <h2 id="cta-title" class="section-title">Chcete přesnou kalkulaci?</h2>
+          <p>
+            Pošlete nám typ prádla a preferovaný termín. Ozveme se s konkrétní cenou.
+          </p>
+          <div class="cta-actions">
+            <a class="btn-primary" href="contacts">Kontaktujte nás</a>
+            <a class="btn-secondary" href="faq">Jak účtujeme</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-menu container">
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Rychlé odkazy</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="../pricelist">Ceník služeb</a>
+            </li>
+
+            <li>
+              <a href="../how-it-works">Jak to funguje</a>
+            </li>
+
+            <li>
+              <a href="../faq">Často kladené dotazy</a>
+            </li>
+
+            <li>
+              <a href="../contacts">Kontakt</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Kontakt</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="mailto:info@zehlik.cz">info@zehlik.cz</a>
+            </li>
+
+            <li>
+              <a href="tel:+420777603218">+420 777 603 218</a>
+            </li>
+
+            <li>
+              <p>IČO: 06078281</p>
+            </li>
+
+            <li>
+              <a class="footer-address-link" target="_blank" rel="noopener" href="https://maps.app.goo.gl/h3tBaeCVvMPSYdVe8">
+                Parašutistů 670/20, 16100 Praha
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Může se hodit</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="https://zehlik.cz">Odkaz na reálnou stránku</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-bottom-content container">
+          <p class="company-name">
+            © Žehlík, s. r. o.
+          </p>
+
+          <p>
+            Disclaimer: Stránka slouží jako inspirace a je záměrně neoptimalizovaná pro SEO.
+          </p>
+
+          <div class="opening-hours">
+            <p class="bold">
+              Pondělí - Pátek
+            </p>
+            09:00 - 19:00
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

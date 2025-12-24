@@ -1,0 +1,95 @@
+body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: Georgia, serif;
+    font-size: 12pt;
+    line-height: 1.4;
+}
+
+*,
+*::before,
+*::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #ccc !important;
+    background-color: transparent !important;
+    color: #000 !important;
+    filter: none !important;
+}
+
+.site-header,
+.site-footer,
+.main-nav,
+.hero-card .hero-image,
+.hero-overlay .btn-primary,
+.services,
+.sluzby-header-aside,
+.sluzby-timeline-icon,
+.footer-social,
+.kontakt-form-column,
+.kontakt-form-map iframe,
+.kontakt-info-note {
+    display: none !important;
+}
+
+.page-wrapper,
+.main-wrapper,
+.gallery-wrapper {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.kontakt-grid,
+.sluzby-header,
+.about-layout,
+.about-intro-grid {
+    display: block !important;
+    gap: 0 !important;
+}
+
+a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    font-weight: normal;
+    text-decoration: none;
+    color: #444;
+}
+a {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100% !important;
+    display: block;
+}
+
+h1 { page-break-before: always; }
+h2, h3 { page-break-after: avoid; }
+
+.project-card,
+.sluzby-timeline-item,
+.sluzby-step,
+.about-pill {
+    page-break-inside: avoid;
+}
+
+.projekt-card,
+.sluzby-header-text,
+.sluzby-timeline-content,
+.sluzby-steps,
+.about-how,
+.about-intro-grid,
+.offer-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.sluzby-timeline-list::before {
+    display: none;
+}
+.sluzby-timeline-item {
+    display: block !important;
+    padding: 0.5rem 0;
+}

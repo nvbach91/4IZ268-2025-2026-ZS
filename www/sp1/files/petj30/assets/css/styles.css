@@ -1,0 +1,844 @@
+/* ===== BRAND (sytě modrá) ===== */
+:root {
+  --brand: #0b5bd3;        /* hlavní modrá */
+  --brand-700: #094bb0;
+  --brand-100: #e9f1ff;
+  --ink: #0f172a;
+}
+
+/* ===== Kontakt bar ===== */
+.contactbar {
+  background: var(--brand-700);
+  color: #fff;
+  font-size: .95rem;
+}
+.contactbar a {
+  color: #fff;
+  text-decoration: none;
+}
+.contactbar a:hover {
+  text-decoration: underline;
+}
+.contactbar__inner {
+  padding: .4rem 1rem;
+}
+.contactbar__list {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.contactbar__item {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  opacity: .95;
+}
+.contactbar__separator {
+  opacity: .6;
+}
+
+/* ===== Bílá navigace ===== */
+.mainnav {
+  background: #fff;
+  border-bottom: 1px solid #eef2f7;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.mainnav__inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .75rem 1rem;
+}
+.brand {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+.mainnav__menu {
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+.navlink {
+  position: relative;
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+  padding: .4rem .25rem;
+  font-weight: 600;
+}
+.navlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 3px;
+  background: transparent;
+  border-radius: 3px;
+  transition: .2s;
+}
+.navlink:hover::after {
+  background: var(--brand-100);
+}
+.navlink.active {
+  color: var(--brand-700);
+}
+.navlink.active::after {
+  background: var(--brand);
+}
+
+/* ===== Modrý hero pruh – vycentrovaný s textem lehce vlevo ===== */
+.heroband {
+  background: var(--brand);
+  color: #fff;
+  height: 330px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.heroband .container {
+  max-width: 1100px;
+  padding-left: 3rem;
+}
+.heroband h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  margin: 0 0 1rem;
+  letter-spacing: 0.5px;
+}
+.heroband p {
+  font-size: clamp(1.25rem, 3vw, 2.2rem);
+  margin: 0;
+  font-weight: 400;
+  opacity: .95;
+}
+
+/* Velká fotka pod pruhem obecně */
+.heroimage img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Hero – úprava pro menší displeje */
+@media (max-width: 800px) {
+  .heroband {
+    height: auto;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  .heroband .container {
+    padding-left: 0;
+  }
+}
+
+/* „Nad přehybem“: zkrať hero na nízkých oknech */
+@media (max-width: 800px), (max-height: 700px) {
+  .heroband {
+    padding: 1.25rem 0;
+  }
+}
+
+/* ===== Menší hero pruh pro podstránky ===== */
+.heroband--small {
+  background: var(--brand);
+  color: #fff;
+  text-align: center;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heroband--small h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* ===== Styl pro obrázky v kruhu ===== */
+.circle-img {
+  border-radius: 50%;
+  border: 3px solid #000;
+  width: 100%;
+  max-width: 340px;
+  display: block;
+  margin-inline: auto;
+}
+
+/* Obrácený směr pro druhou sekci */
+.reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 2rem;
+  align-items: center;
+}
+
+.columns {
+  display: flex;
+  gap: 2rem;
+  margin-block: 3rem;
+  flex-wrap: wrap;
+}
+.col {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* ===== UBYTOVÁNÍ – rozložení bloků ===== */
+.ubytovani {
+  padding-block: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.ubytovani-blok {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.ubytovani-blok.reverse {
+  grid-template-columns: 1fr 1fr;
+  direction: rtl;
+}
+.ubytovani-blok.reverse .ubytovani-text {
+  direction: ltr;
+}
+.ubytovani-img img {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+.ubytovani-text h2 {
+  margin-top: 0;
+  color: var(--brand-700);
+  font-size: 1.7rem;
+}
+.ubytovani-text p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: #1e293b;
+}
+
+/* Ubytování – mobilní úpravy */
+@media (max-width: 800px) {
+  .ubytovani-blok,
+  .ubytovani-blok.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+  .ubytovani {
+    gap: 2rem;
+  }
+  .ubytovani-text {
+    text-align: center;
+  }
+}
+
+/* ==== HERO „O nás“ s pozadím stromů ==== */
+.welcome-hero {
+  min-height: 520px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.welcome-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+}
+.welcome-hero .hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* pilulky vlevo */
+.pill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pill {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  background: #ffffffee;
+  color: #111;
+  border-radius: 999px;
+  padding: .9rem 1.1rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,.08);
+}
+.pill__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.pill__text small {
+  display: block;
+  color: #475569;
+  font-size: .9rem;
+}
+
+/* uvítací text vpravo */
+.welcome-text h2 {
+  margin: 0 0 .5rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+.welcome-text p {
+  margin: 0;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  opacity: .95;
+}
+
+/* responsivita hero O nás */
+@media (max-width: 900px) {
+  .welcome-hero .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .welcome-text {
+    text-align: center;
+  }
+  .pill-list {
+    max-width: 520px;
+    margin: auto;
+  }
+}
+
+/* ==== sekce pod hero ==== */
+.about-camp {
+  padding-block: 3rem;
+}
+.center {
+  text-align: center;
+}
+.center .subtitle {
+  display: block;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: #64748b;
+}
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 1100px;
+  margin: 1rem auto 2rem;
+}
+
+/* 4 kulaté fotky s popisky */
+.gallery4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+.gallery4 figure {
+  text-align: center;
+  margin: 0;
+}
+.gallery4 figcaption {
+  margin-top: .75rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+@media (max-width: 1000px) {
+  .gallery4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .gallery4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== O NÁS ===== */
+.onas {
+  padding-block: 3rem;
+}
+
+/* vylepšený text O nás */
+.onas-text {
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.9;
+  color: #0f172a;
+  font-weight: 400;
+}
+.onas-text p + p {
+  margin-top: 1.6rem;
+}
+
+/* fotky O nás */
+.onas-fotky {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  text-align: center;
+}
+.onas-foto img {
+  width: 100%;
+  border-radius: 1rem;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(0,0,0,.1);
+  transition: transform .3s ease;
+}
+.onas-foto img:hover {
+  transform: scale(1.03);
+}
+.onas-foto h3 {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--brand-700);
+}
+.onas-foto p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #1e293b;
+}
+
+/* ===== Nadpisová lišta pro stránky ===== */
+.headingband {
+  background: #f5f6f8;
+  border-top: 12px solid #333;
+  padding: 1.8rem 0;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-weight: 800;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 120px;
+  height: 4px;
+  background: #cdd6ea;
+  border-radius: 3px;
+}
+
+/* ===== Kontakt – dvousloupcový layout ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 2.5rem;
+  align-items: start;
+  padding-block: 2.2rem;
+}
+@media (max-width: 980px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Levý sloupec – údaje */
+.contact-card {
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+.contact-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1rem 0;
+}
+.contact-list dt {
+  font-weight: 700;
+  color: #1e293b;
+}
+.contact-list dd {
+  margin: .25rem 0 0 0;
+}
+.contact-list a {
+  color: var(--brand-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.contact-note {
+  margin-top: 1rem;
+  color: #475569;
+}
+
+/* Pravý sloupec – mapa */
+.contact-map {
+  width: 100%;
+}
+.map-embed {
+  width: 100%;
+  border-radius: .75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+}
+.map-embed iframe {
+  display: block;
+  width: 100%;
+  height: min(70vh, 560px);
+  border: 0;
+}
+.map-link {
+  margin-top: .75rem;
+  font-size: .95rem;
+}
+.map-link a {
+  color: var(--brand-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Fotka mapy */
+.map-embed img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: .75rem;
+  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+  object-fit: cover;
+}
+
+/* Layout sekce Kontakt */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  align-items: start;
+  padding-block: 2rem 3rem;
+}
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Textová část – kontakt */
+.contact-info {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #0f172a;
+}
+.contact-info h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--brand-700);
+}
+.contact-info p {
+  margin-bottom: 1rem;
+}
+.contact-info a {
+  color: var(--brand-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.contact-note {
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+  color: #475569;
+}
+
+/* Mapa (fotka) */
+.mapa-img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.15);
+  border: 3px solid var(--brand-100);
+  transition: transform .3s ease;
+}
+.mapa-img:hover {
+  transform: scale(1.02);
+}
+
+/* ===== Karty míst (O Soběslavi) ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+.card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: .75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 18px rgba(0,0,0,.04);
+  display: flex;
+  flex-direction: column;
+}
+.card__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.card:hover .card__media img {
+  transform: scale(1.04);
+}
+.card__body {
+  padding: .9rem 1rem 1.1rem;
+}
+.card__body h3 {
+  margin: 0 0 .35rem 0;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.card__body p {
+  margin: 0;
+  color: #475569;
+  font-size: .98rem;
+  line-height: 1.5;
+}
+
+/* jemný podtitul v hero pruhu pro O Soběslavi */
+.heroband p {
+  opacity: .95;
+}
+
+/* Úvodní text sekce O Soběslavi */
+.flow {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #0f172a;
+  margin-bottom: 2rem;
+  text-align: center;
+margin-inline: auto;
+;
+}
+.flow p {
+  margin-bottom: 1rem;
+}
+@media (min-width: 900px) {
+  .flow {
+    max-width: 80ch;
+  }
+}
+
+/* Pokud .flow obsahuje .cards-grid, roztáhni ji na plnou šířku */
+@supports selector(:has(*)) {
+  .flow:has(.cards-grid) {
+    max-width: none;
+    padding-inline: 0;
+  }
+}
+
+/* ===== Domů (home) ===== */
+.home-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+  padding-block: 2.5rem;
+}
+.home-intro__text h2 {
+  margin: 0 0 .5rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+.home-intro__text p {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #0f172a;
+}
+.home-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: .5rem 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.home-intro__card img {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+}
+
+/* Velká fotka areálu */
+.home-photo {
+  padding-block: 1rem 0;
+}
+.home-photo__img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  display: block;
+  box-shadow: 0 10px 26px rgba(0,0,0,.12);
+}
+
+/* CTA tlačítka na home */
+.home-cta {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem 0 3rem;
+}
+.btn {
+  display: inline-block;
+  background: var(--brand);
+  color: #fff;
+  padding: .75rem 1.1rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  font-weight: 700;
+}
+.btn:hover {
+  background: var(--brand-700);
+}
+.btn--line {
+  background: transparent;
+  color: var(--brand-700);
+  border: 2px solid var(--brand-700);
+}
+.btn--line:hover {
+  background: var(--brand-100);
+}
+
+/* Responsivita – home */
+@media (max-width: 900px) {
+  .home-intro {
+    grid-template-columns: 1fr;
+  }
+  .home-features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .home-features {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .home-cta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+/* ===== Ceník ubytování ===== */
+.ubytovani-cenik {
+  padding-block: 2.5rem 3rem;
+}
+
+.ubytovani-cenik h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--brand-700);
+}
+
+.cenik-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;               /* zaoblení rohů i pro <tr> */
+  box-shadow: 0 10px 24px rgba(0,0,0,.06);
+}
+
+.cenik-table caption {
+  caption-side: top;
+  padding: 0.75rem 1rem 0;
+  font-size: 0.95rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.cenik-table thead {
+  background: var(--brand-100);
+}
+
+.cenik-table th,
+.cenik-table td {
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.cenik-table th {
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.cenik-table tbody tr:nth-child(even) {
+  background: #f8fafc;            /* jemné zebrování */
+}
+
+.cenik-table tbody tr:hover {
+  background: #eef2ff;            /* jemný hover efekt */
+}
+
+.cenik-table td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* na mobilech zarovnat text pěkně pod sebe */
+@media (max-width: 700px) {
+  .cenik-table th,
+  .cenik-table td {
+    padding: 0.7rem 0.75rem;
+    font-size: 0.95rem;
+  }
+}
+
+.cenik-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.cenik-table th,
+.cenik-table td {
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.cenik-table th {
+  background-color: #f2f5ff;
+  font-weight: 700;
+}
+
+.cenik-table tr:nth-child(even) {
+  background-color: #fafafa;
+}

@@ -1,0 +1,192 @@
+/* ==== header ==== */
+header {
+  position: sticky;
+  top: 0px;
+
+  height: var(--header-h);
+  min-width: 100%;
+  background-color: var(--bg);
+
+  color: var(--text);
+  padding: 0 35px;
+
+  z-index: 3000;
+  transition: box-shadow 0.3s ease;
+}
+
+header.is-scrolled {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.header-wrapper {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.header-actions-wrapper {
+  width: auto;
+  height: 100%;
+
+  min-height: var(--header-h);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 50px;
+  display: block;
+}
+
+.menu-layout {
+  height: 30px;
+  width: 100%;
+  gap: 5px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menu-primary {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.menu-item {
+  padding: 0 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item a {
+  font-size: 20px;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item.active a {
+  color: var(--text-hover);
+}
+
+.mobile-hamburger-menu-button-wrapper {
+  display: none;
+}
+
+/* ==== hamburger menu (mobile and tablet only) ==== */
+@media screen and (max-width: 1000px) {
+  .logo img {
+    height: 30px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+
+  .header-wrapper, .menu-primary {
+    flex-direction: column;
+  }
+
+  .menu-primary {
+    position: static;
+    width: 100%;
+    padding: 30px 0;
+    margin: 0;
+    gap: 10px;
+  }
+
+  .menu-item {
+    width: 100%;
+    height: 30px;
+  }
+
+  .menu-item a {
+    font-size: 24px;
+  }
+
+  .header-actions-wrapper {
+    width: 100%;
+  }
+
+  .menu-layout {
+    /* overlay base (always in DOM, but hidden) */
+    position: fixed;
+    left: 0;
+    top: var(--header-h);
+    width: 100vw;
+    height: calc(100vh - var(--header-h));
+    background: var(--bg);
+    z-index: 1500;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;
+
+    /* animation state */
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+
+    transition: opacity 200ms ease, transform 200ms ease;
+    will-change: opacity, transform;
+  }
+
+  .menu-layout.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .menu-layout.open .menu-primary {
+    box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.12);
+  }
+
+  .mobile-hamburger-menu-button-wrapper {
+    display: block;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .logo img {
+    height: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    height: 80px;
+  }
+}
+
+#mobile-hamburger-menu-button {
+  border: none;
+
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+
+  background-color: var(--bg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

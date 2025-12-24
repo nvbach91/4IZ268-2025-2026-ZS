@@ -1,0 +1,387 @@
+/* Page-only CSS for "Kontakt" */
+
+.contact-section{
+    padding:3.5rem 0;
+  }
+  
+  /* Hero */
+  
+  .contact-hero{
+    position:relative;
+    color:#fff;
+    background:
+      linear-gradient(120deg, rgba(12,74,110,.9) 0%, rgba(30,120,166,.86) 55%, rgba(58,160,216,.78) 100%);
+    overflow:hidden;
+  }
+  
+  .contact-hero-bg{
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(255,255,255,.18), transparent 45%),
+      radial-gradient(circle at 85% 100%, rgba(255,255,255,.18), transparent 45%),
+      url("../img/header-kontakt.png");
+    background-size:cover;
+    background-position:center;
+    mix-blend-mode:overlay;
+    opacity:.45;
+    pointer-events:none;
+  }
+  
+  .contact-hero-inner{
+    position:relative;
+    padding:4.2rem 0 3.2rem;
+    display:grid;
+    gap:1.2rem;
+    max-width:48rem;
+  }
+  
+  .contact-eyebrow{
+    margin:0;
+    font-size:.85rem;
+    letter-spacing:.14em;
+    font-weight:800;
+    text-transform:uppercase;
+    color:rgba(226,232,240,.95);
+  }
+  
+  .contact-hero-inner h1{
+    margin:0;
+    font-size:clamp(2.1rem, 4.6vw, 3rem);
+    line-height:1.18;
+  }
+  
+  .contact-hero-lead{
+    margin:0;
+    font-size:clamp(1rem, 2.3vw, 1.15rem);
+    max-width:40rem;
+    color:rgba(241,245,249,.98);
+  }
+  
+  /* Základní údaje – cards */
+  
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.3rem;
+  }
+  
+  .contact-card{
+    background:#fff;
+    border-radius:16px;
+    border:1px solid #e2e8f0;
+    padding:1.4rem 1.4rem 1.3rem;
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
+    display:flex;
+    flex-direction:column;
+    gap:.55rem;
+  }
+  
+  .contact-card h2{
+    margin:0 0 .35rem;
+    font-size:1.1rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:#0f172a;
+  }
+  
+  .contact-main-line{
+    margin:0;
+    font-weight:600;
+  }
+  
+  .contact-card p{
+    margin:.05rem 0;
+    color:#475569;
+  }
+  
+  .contact-card a{
+    color:var(--blue-700);
+    text-decoration:none;
+  }
+  .contact-card a:hover{
+    text-decoration:underline;
+  }
+  
+  .contact-small{
+    font-size:.9rem;
+    line-height:1.5;
+  }
+  
+  /* Kontaktní osoby */
+  
+  .contact-people-header{
+    text-align:center;
+  }
+  
+  .contact-people-header p{
+    margin:0 auto 1.8rem;   
+    color:var(--gray-600);
+    max-width:60ch;         
+  }
+  
+  .contact-people-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:1.3rem;
+  }
+  
+  .person-card{
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #e2e8f0;
+    padding:1.6rem 1.6rem 1.4rem;
+    box-shadow:0 12px 34px rgba(15,23,42,.07);
+    position:relative;
+    overflow:hidden;
+  }
+  
+  .person-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 10% 0%, rgba(59,130,246,.10), transparent 55%);
+    opacity:.9;
+    pointer-events:none;
+  }
+  
+  .person-card h3{
+    margin:.1rem 0 .25rem;
+    font-size:1.25rem;
+  }
+  
+  .person-role{
+    margin:0 0 .8rem;
+    color:#64748b;
+    font-size:.95rem;
+  }
+  
+  .person-contact-list{
+    margin:0;
+  }
+  
+  .person-contact-list div{
+    margin-bottom:.55rem;
+  }
+  
+  .person-contact-list dt{
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:#94a3b8;
+    margin-bottom:.05rem;
+  }
+  
+  .person-contact-list dd{
+    margin:0;
+  }
+  
+  .person-contact-list a{
+    color:var(--blue-700);
+    text-decoration:none;
+  }
+  .person-contact-list a:hover{
+    text-decoration:underline;
+  }
+  
+  /* Formulář */
+  
+  .contact-form-layout{
+    display:grid;
+    grid-template-columns:1.1fr 1.3fr;
+    gap:1.8rem;
+    align-items:flex-start;
+  }
+  
+  .contact-form-copy h2{
+    margin:0 0 .6rem;
+    font-size:1.5rem;
+  }
+  
+  .contact-form-copy p{
+    margin:0 0 .8rem;
+    color:var(--gray-600);
+  }
+  
+  .contact-form-copy ul{
+    margin:.2rem 0 0;
+    padding-left:1.1rem;
+    color:var(--gray-600);
+  }
+  
+  .contact-form{
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #e2e8f0;
+    padding:1.6rem 1.6rem 1.4rem;
+    box-shadow:0 14px 40px rgba(15,23,42,.08);
+    display:grid;
+    gap:.9rem;
+  }
+  
+  .form-row{
+    display:flex;
+    flex-direction:column;
+    gap:.3rem;
+  }
+  
+  .form-row-inline{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:.9rem;
+  }
+  
+  .contact-form label{
+    font-size:.9rem;
+    font-weight:500;
+    color:#0f172a;
+  }
+  
+  .contact-form input,
+  .contact-form textarea{
+    border-radius:10px;
+    border:1px solid #cbd5e1;
+    padding:.55rem .7rem;
+    font:inherit;
+    color:#0f172a;
+    background:#f8fafc;
+    transition:border-color .16s ease, box-shadow .16s ease, background .16s ease;
+  }
+  
+  .contact-form textarea{
+    resize:vertical;
+    min-height:140px;
+  }
+  
+  .contact-form input:focus,
+  .contact-form textarea:focus{
+    outline:none;
+    border-color:var(--blue-700);
+    box-shadow:0 0 0 1px rgba(30,120,166,.25);
+    background:#fff;
+  }
+  
+  .form-row-consent{
+    margin-top:.2rem;
+  }
+  
+  .checkbox-label{
+    display:flex;
+    align-items:flex-start;
+    gap:.45rem;
+    font-size:.9rem;
+    color:#475569;
+  }
+  
+  .checkbox-label input[type="checkbox"]{
+    margin-top:.15rem;
+  }
+  
+  .form-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.35rem;
+  }
+  
+  .form-message{
+    margin:0;
+    font-size:.9rem;
+    min-height:1.1em;
+  }
+  
+  .form-message--success{
+    color:#16a34a;
+  }
+  
+  .form-message--error{
+    color:#dc2626;
+  }
+  
+  /* Mapa */
+  
+  .contact-map-header{
+    text-align:center;
+  }
+  
+  .contact-map-header p{
+    margin:0 auto 1.6rem;   
+    color:var(--gray-600);
+    max-width:60ch;
+  }
+  
+  .contact-map-wrapper{
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #e2e8f0;
+    box-shadow:0 12px 34px rgba(15,23,42,.08);
+  }
+  
+  .contact-map-wrapper iframe{
+    width:100%;
+    height:360px;
+    border:0;
+  }
+  
+  /* CTA tweak */
+  
+  .contact-cta{
+    margin-top:-.5rem;
+  }
+  
+  /* Reveal animace – progresivní:
+     bez JS je obsah viditelný, s JS se použije animace (.has-js) */
+  
+  .reveal{
+    opacity:1;
+    transform:none;
+  }
+  
+  .has-js .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  
+  .has-js .reveal.is-visible{
+    opacity:1;
+    transform:none;
+  }
+  
+  /* Responsive */
+  
+  @media (max-width: 980px){
+    .contact-grid{
+      grid-template-columns:repeat(2,1fr);
+    }
+  
+    .contact-people-grid{
+      grid-template-columns:1fr;
+    }
+  
+    .contact-form-layout{
+      grid-template-columns:1fr;
+    }
+  }
+  
+  @media (max-width: 720px){
+    .contact-grid{
+      grid-template-columns:1fr;
+    }
+  
+    .contact-hero-inner{
+      padding:3.2rem 0 2.5rem;
+    }
+  
+    .contact-form{
+      padding:1.3rem 1.1rem 1.1rem;
+    }
+  
+    .form-row-inline{
+      grid-template-columns:1fr;
+    }
+  
+    .contact-map-wrapper iframe{
+      height:260px;
+    }
+  }

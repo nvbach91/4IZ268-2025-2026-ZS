@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Černý rytíř - Obchod</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="icon" href="../../assets/img/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="centered">
+        <div class="title">
+            <img src="../../assets/img/logo.png" alt="ČERNÝ RYTÍŘ logo" class="logo">
+            <h1>ČERNÝ RYTÍŘ</h1>
+        </div>
+        <nav>
+            <a href="../../">Domů</a>
+            <a class="active" href="../../obchod">Obchod</a>
+            <a href="../../aktuality/">Aktuality</a>
+            <a href="../../turnaje/">Turnaje</a>
+            <a href="../../kontakty/">Kontakty</a>
+            <a class="cart"><i class="fas fa-shopping-cart"></i> Košík</a>
+        </nav>
+        <nav>
+            <a href="../../obchod/collectibles/">Sběratelské předměty</a>
+            <a href="../../obchod/hobby/">Barvy, štětce a nářadí</a>
+            <a class="active" href="../../obchod/karty/">Karetní hry</a>
+            <a href="../../obchod/komiksy/">Komiksy</a>
+            <a href="../../obchod/kostky/">Kostky</a>
+            <a href="../../obchod/rpg/">Hry na hrdiny</a>
+            <a href="../../obchod/wargaming/">Wargaming</a>
+        </nav>
+    </header>
+    <main class="centered">
+        <!--
+        Stránky pro obchod Černý rytíř
+
+        Černý rytíř je kamenný a webový ochod zabývající se prodejem sběratelských karetních her (TCG) jako je Magic,
+        nebo Pokémon, her na hrdiny (TTRPG) jako je Dungeons&Dragons, stolních válečných her (Wargaming) jako je
+        Warhammer 40,000 a příslušenství k výše zmíněnému, komiksů a sběratelských předmětů. Černý rytíř také funguje
+        jako herna a pořádá vlastní turnaje. Oficiální web lze nalézt na adrese: https://cernyrytir.cz/
+
+        Cílem práce bude navrhnout nové vzezření a rozložení webu.
+
+        Soupis stránek:
+        sp1 - hlavní/uvítací stránka, zobrazuje aktuality a novinky v obchodě
+        sp1/aktuality - umožnuje zobrazení historie aktualit
+        sp1/aktuality/2025/10 ... - aktuality z října 2025
+        sp1/obchod - rozcestník pro kategorie obchodu
+        sp1/obchod/*kategorie* - stránka obchodu s kategorií zboží
+        sp1/turnaje - informace o pravidelných turnajích
+        sp1/kontakty - stránka s kontakty pro obchod
+        -->
+        <div class="content">
+            <div class="search">
+                <i class="fas fa-search"></i>
+                <input>
+                <button>Hledat</button>
+            </div>
+            <div class="flex-row">
+                <div class="flex-col">
+                    <div class="item">
+                        <div class="item-head">
+                            <h2 class="item-title">Edge of Eternities Common Set</h2>
+                            <h2 class="item-cost">Cena: 75 Kč</h2>
+                        </div>
+                        <img src="https://cernyrytir.cz/images/obchod/img2506new02.jpg" alt="Obrázek položky">
+                        <p>Sada všech Common karet ze sady Edge of Eternities.</p>
+                        <div class="stock-eshop">
+                            <label>Skladem na e-shopu</label>
+                            <label>10+</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="stock">
+                            <label>Skladem na prodejně</label>
+                            <label>10+</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="right">
+                            <label>Množství</label>
+                            <input type="number" value="1" min="1" max="10">
+                            <button>Koupit</button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-head">
+                            <h2 class="item-title">Pokémon - Mega Evolution Phantasmal Flames Booster</h2>
+                            <h2 class="item-cost">Cena: 125 Kč</h2>
+                        </div>
+                        <img src="https://cernyrytir.cz/images/obchod/img2510new113.jpg" alt="Obrázek položky">
+                        <p>Phantasmal Flames je druhou edicí mini cyklu s Mega Evolucemi – návratem ikonické éry, kdy se Pokémoni měnili v legendární formy plné síly a efektu.<br>
+                        <br>
+                        Tahle sada přináší karty, které v srdcích trenérů hoří už roky – Mega Charizard, Mega Gengar a další hvězdy, které znovu rozžhaví bojiště.<br>
+                        <br>
+                        Booster obsahuje 10 náhodných karet.<br>
+                        <br>
+                        Phantasmal Flames patří mezi nejmenší edice vůbec, se zhruba 120 kartami, takže ji budeš mít šanci kompletně sesbírat a přitom si užít silnou dávku nostalgie i nové energie.</p>
+                        <div class="stock-eshop">
+                            <label>Skladem na e-shopu</label>
+                            <label>10+</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="stock-red">
+                            <label>Skladem na prodejně</label>
+                            <label>0</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="right">
+                            <label>Množství</label>
+                            <input type="number" value="1" min="1" max="10">
+                            <button>Koupit</button>
+                        </div>
+                    </div>
+                    <div class="item" id="new-item-3">
+                        <div class="item-head">
+                            <h2 class="item-title">LC - Reprezentace 2024/25 Serie 1 Collectors Box</h2>
+                            <h2 class="item-cost">Cena: 2590 Kč</h2>
+                        </div>
+                        <img src="https://cernyrytir.cz/images/obchod/img2506new129.jpg" alt="Obrázek položky">
+                        <p>Sběratelské vydání hokejových karet České reprezentace 2024/25. V tomto produktu můžete najít jak mladé nadějné hráče z reprezentace, tak i legendy, jako je Jaromír Jágr, Dominik Hašek, ale i současné České elitní hráče, David Pastrňák, Lukáš Dostál, Martin Nečas, Radko Gudas. Jelikož se jedná o prémiový produkt, čeká na vás také spoustu vlastnoručně PODEPSANÝCH karet vybraných hráčů a hráček.<br>
+                        <br>
+                        Balení obsahuje:<br>
+                        12x karet v boxu<br>
+                        nízce limitované karty, včetně unikátních limitů 1/1<br>
+                        paralelní karty<br>
+                        podepsané karty - 3 na box </p>
+                        <div class="stock-eshop-red">
+                            <label>Skladem na e-shopu</label>
+                            <label>0</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="stock">
+                            <label>Skladem na prodejně</label>
+                            <label>10+</label>
+                            <label>ks</label>
+                        </div>
+                        <div class="right">
+                            <label>Množství</label>
+                            <input type="number" value="1" min="1" max="10">
+                            <button>Koupit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="flex-row pagenav">
+            <i class="fas fa-arrow-left"></i>
+            <label>1</label>
+            <i class="fas fa-arrow-right"></i>
+        </div>
+        <br>
+</main>
+    <footer class="centered">
+        <a href="../../podminky/" target="_blank">Dodací podmínky</a>
+        <div>Tomáš Zummer, 2025</div>
+    </footer>
+</body>
+
+</html>

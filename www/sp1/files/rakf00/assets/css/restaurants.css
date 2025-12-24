@@ -1,0 +1,95 @@
+.hero {
+    background-image: url('../img/heros/hero-restaurants.jpg');
+    background-position: center bottom;
+    background-size: cover;
+    position: relative;
+}
+
+.overlay {
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+.hero-text {
+    position: absolute;
+}
+
+.content-center {
+    max-width: 1024px;
+}
+
+.it {
+    background: rgba(236, 241, 229, 0.57);
+}
+
+.streetfood {
+    background: rgb(62, 165, 174);
+}
+
+.streetfood h1 {
+    color: #fff600;
+}
+
+.streetfood .container-child-center > p {
+    color: #fff;
+}
+
+.streetfood-cards {
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+}
+
+.streetfood-card {
+    color: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.streetfood-card img {
+    border-radius: 1rem;
+    max-width: 100%;
+}
+
+.streetfood-card h3 {
+    z-index: 2;
+}
+
+@media (max-width: 575px) {
+    .overlay {
+        background: radial-gradient(circle at left bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 70%, rgba(0, 0, 0, 0.05) 100%),
+        radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.05) 70%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .streetfood-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .streetfood p {
+        text-align: center;
+    }
+}
+
+@media (max-width: 1280px) {
+
+}
+
+@media (max-width: 1024px) {
+
+}
+
+@media print {
+    .streetfood h1, .streetfood h3, .streetfood p {
+        color: black !important;
+    }
+
+    .streetfood-card img {
+        display: none
+    }
+
+    .streetfood-card h3 {
+        position: static
+    }
+}

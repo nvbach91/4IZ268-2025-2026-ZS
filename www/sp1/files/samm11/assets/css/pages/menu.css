@@ -1,0 +1,47 @@
+main > section {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+}
+
+main > section > figure > img {
+    width: 500px;
+    transition: transform 0.3s;
+}
+
+figure > figcaption {
+    text-align: center;
+}
+
+main > section img:hover {
+    transform: scale(1.1) translateY(1rem);
+}
+
+@media (max-width: 1200px) {
+    main > section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    main > section > figure > img {
+        width: 100%;
+        max-width: 720px;
+    }
+}
+
+@media (max-width: 800px) {
+    main > section {
+        align-items: center;
+        padding: 0.6rem;
+        gap: 0.6rem;
+    }
+
+    main > section > figure > img {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+    }
+}

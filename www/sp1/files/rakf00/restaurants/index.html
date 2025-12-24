@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang='cs'>
+<head>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
+    <title>Pražský průvodce - Restaurace</title>
+    <link href='../assets/img/favicon.ico' rel='icon'>
+    <link href='../assets/css/default.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com' rel='preconnect'>
+    <link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&display=swap'
+          rel='stylesheet'>
+    <link href='https://cdn.lineicons.com/5.0/lineicons.css' rel='stylesheet'>
+    <link href='../assets/css/restaurants.css' rel='stylesheet'>
+</head>
+<body>
+<header>
+    <div class='navbar'>
+        <a class='logo' href='..'><img alt='prague-city-buildings-logo' height='70'
+                                       src='../assets/img/navbar-logo.svg'></a>
+        <a class='navbar-text' href='..'>PRAŽSKÝ PRŮVODCE</a>
+        <input class='menu-toggle-checkbox' id='menu-toggle' type='checkbox'>
+        <label class='menu-icon' for='menu-toggle'>&#9776;</label>
+        <nav>
+            <label class='close-btn' for='menu-toggle'>&times;</label>
+            <a href='../'>Domů</a>
+            <a href='../monuments/'>Památky</a>
+            <a href='../nature/'>Příroda</a>
+            <a class='active' href='./'>Restaurace</a>
+            <a href='../tips'>Tipy</a>
+        </nav>
+    </div>
+    <div class='hero'>
+        <div class='overlay'></div>
+        <div class='hero-text'>
+            <h1>OKUSTE CHUŤ MĚSTA</h1>
+            <h2>Od tradičních českých specialit po autentické chutě světových kuchyní</h2>
+        </div>
+    </div>
+</header>
+<main>
+    <section class='restaurant-container cz container-layout'>
+        <div class='restaurants content-center container-child-center'>
+            <h2>Lokální kuchyně</h2>
+            <p>Tradiční chuť české kuchyně</p>
+            <div class='restaurant-cards card-container'>
+                <a class='place-card hover-effect'><img alt='restaurace-cafe-savoy'
+                                                        loading='lazy' src='../assets/img/places/restaurants/cafe-savoy.jpg'>
+                    <div><h3>Café Savoy</h3>
+                        <p>Elegantní stolování s výbornou svíčkovou a další českou klasikou v krásném secesním
+                            prostředí.
+                        </p></div>
+                </a>
+                <a class='place-card hover-effect'><img alt='restaurace-lokal-dlouha'
+                                                        loading='lazy' src='../assets/img/places/restaurants/lokal-dlouha.jpg'>
+                    <div><h3>Lokál Dlouhá</h3>
+                        <p>Proslulý svým vydatným gulášem, podávaným v rušné, autentické atmosféře české hospody.
+                        </p></div>
+                </a>
+                <a class='place-card hover-effect'><img alt='restaurace-u-mateje'
+                                                        loading='lazy' src='../assets/img/places/restaurants/umateje.jpg'>
+                    <div><h3>U Matěje</h3>
+                        <p>Autentická česká jídla v vřelé, tradiční atmosféře, podávaná s tankovým pivem přímo z
+                            pivovaru.
+                        </p></div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class='restaurant-container it container-layout'>
+        <div class='restaurants content-center container-child-center'>
+            <h2>Italská kuchyně</h2>
+            <p>Je libo neapolskou pizzu či těstoviny?</p>
+            <div class='restaurant-cards card-container'>
+                <a class='place-card hover-effect'><img alt='restaurace-pizza-nuova'
+                                                        loading='lazy' src='../assets/img/places/restaurants/pizza-nuova.jpg'>
+                    <div><h3>Pizza Nuova</h3>
+                        <p>Pece na dřevo s autentickými italskými ingrediencemi a tradičními recepty z Neapole.
+                        </p></div>
+                </a>
+                <a class='place-card hover-effect'><img alt='restaurace-pasta-fresca'
+                                                        loading='lazy' src='../assets/img/places/restaurants/pasta-fresca.jpg'>
+                    <div><h3>Pasta Fresca</h3>
+                        <p>Moderní italská trattorie, kde se vaří čerstvě, sezónně a podle italské tradice. Vyrábí si
+                            deset druhů těstovin.
+                        </p></div>
+                </a>
+                <a class='place-card hover-effect'><img alt='vinarna-bokovka'
+                                                        loading='lazy' src='../assets/img/places/restaurants/vinarna-bokovka.jpg'>
+                    <div><h3>Vinárna Bokovka</h3>
+                        <p>Italská vinárna s výbornými toskánskými víny a předkrmovými talíři.
+                        </p></div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class='restaurant-container asia container-layout'>
+        <div class='restaurants content-center container-child-center'>
+            <h2>Asijská kuchyně</h2>
+            <p>Toužíte po exotických chutích Vietnamu, Japonska či Thajska?</p>
+            <div class='restaurant-cards card-container'><a class='place-card hover-effect'><img
+                    alt='restaurace-sia' loading='lazy' src='../assets/img/places/restaurants/sia.jpg'>
+                <div><h3>Sia Restaurant</h3>
+                    <p>Špičková asijská restaurace s otevřenou kuchyní v centru Prahy. Nabízí průřez asijskou kuchyní od
+                        pekingské kachny po dim sum. </p></div>
+            </a> <a class='place-card hover-effect'><img alt='restaurace-sasazu'
+                                                         loading='lazy' src='../assets/img/places/restaurants/sasazu.jpg'>
+                <div><h3>SaSaZu</h3>
+                    <p>Fine dining a fusion asijská kuchyně (Thajsko, Indie, Vietnam atd.) v moderním prostředí
+                        Holešovické tržnice. Známé pro princip "sharingu" – jídlo doprostřed stolu. </p></div>
+            </a> <a class='place-card hover-effect'><img alt='bistro-pho-vietnam-tuan-lan'
+                                                         loading='lazy' src='../assets/img/places/restaurants/pho.jpg'>
+                <div><h3>Pho Vietnam Tuan & Lan</h3>
+                    <p>Průkopníci vietnamské kuchyně v Praze, známí pro autentické Pho a čerstvé jarní závitky.
+                        Jednoduchá, poctivá vietnamská gastronomie. </p></div>
+            </a></div>
+        </div>
+    </section>
+    <section class='restaurant-container streetfood container-layout'>
+        <div class='content-center container-child-center'>
+            <h2>Street food</h2>
+            <p>Poctivý český street food i mezinárodní lahůdky do ruky</p>
+            <div class='streetfood-cards'>
+                <div class='streetfood-card relative image-container'><img
+                        alt='manifesto-andel' loading='lazy' src='../assets/img/places/restaurants/manifesto.png'>
+                    <h3 class='absolute'>Manifesto Anděl</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='churros-staromak' loading='lazy' src='../assets/img/places/restaurants/churros.jpg'>
+                    <h3 class='absolute'>Churros Staromák</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='basak-hot-dog' loading='lazy' src='../assets/img/places/restaurants/corndog.jpg'>
+                    <h3 class='absolute'>Basak hot dog</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='gemuse-corner' loading='lazy' src='../assets/img/places/restaurants/gemuse.jpg'>
+                    <h3 class='absolute'>Gemuse Corner</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='dia-india' loading='lazy' src='../assets/img/places/restaurants/india.jpeg'>
+                    <h3 class='absolute'>Dia India</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='trdelnik' loading='lazy' src='../assets/img/places/restaurants/trdlo.jpg'>
+                    <h3 class='absolute'>Si Trdlo?</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='sausage-go' loading='lazy' src='../assets/img/places/restaurants/sausage-go.jpg'>
+                    <h3 class='absolute'>Sausage-GO</h3></div>
+                <div class='streetfood-card relative image-container'><img
+                        alt='jackob&apos;s-burger' loading='lazy' src='../assets/img/places/restaurants/jackobs.jpeg'>
+                    <h3 class='absolute'>Jackob&apos;s Burger</h3></div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+    <div class='footer content-center'>
+        <div class='socials'>
+            <a href='https://www.facebook.com/' target='_blank'><i class='lni lni-facebook'></i></a>
+            <a href='https://www.x.com/' target='_blank'><i class='lni lni-x'></i></a>
+            <a href='https://www.instagram.com/' target='_blank'><i class='lni lni-instagram'></i></a>
+            <a href='https://www.linkedin.com/' target='_blank'><i class='lni lni-linkedin'></i></a>
+        </div>
+        <div class='links'>
+            <a href='..'>Domů</a>
+            <a href='../monuments/'>Památky</a>
+            <a href='../nature/'>Příroda</a>
+            <a href='./'>Restaurace</a>
+            <a href='../tips'>Tipy</a>
+        </div>
+    </div>
+    <div class='copyright-line'>
+        <p>Copyright ©2025, Designed by frITak1312.</p>
+    </div>
+</footer>
+</body>
+</html>

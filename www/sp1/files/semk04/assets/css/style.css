@@ -1,0 +1,541 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #dbe6dc;
+}
+
+/* title + menu (navigation)*/
+h1 {
+    font-family: "'Delius', cursive, sans-serif";
+    margin: 15px 0 10px 0;
+    padding: 5px;
+    font-size: 42px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+/** Characters page **/
+.characters-page, .books-page, .reading-order-page {
+    padding: 0 10px 30px 40px;
+
+    background-color: #dbe6dc;
+}
+
+.other-work-title {
+    text-align: center;
+    margin: 20px;
+    font-size: 32px;
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    justify-content: center;
+}
+
+.character-card {
+    width: 260px;
+    height: 420px;
+    background-color: #9fc1b2;
+
+    border: 2px solid black;
+    border-radius: 5px;
+
+    padding: 15px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.char-img, .book-img, .img-box {
+    width: 200px;
+    height: 220px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/** Character img **/
+.img-celaena {background-image: url("../img/characters/celeana-sardothien-min.jpg");}
+.img-aelin {background-image: url("../img/characters/aelin\ galathynius-min.jpg");}
+.img-rowan {background-image: url("../img/characters/rowen\ whitetorn-min.jpg");}
+.img-chaol {background-image: url("../img/characters/chaol\ westfall-min.jpg");}
+.img-dorian {background-image: url("../img/characters/dorian\ havilliard-min.jpg");}
+.img-manon {background-image: url("../img/characters/manon\ blackbeak-min.jpg");}
+.img-aedion {background-image: url("../img/characters/aedion\ ashryver-min.jpg");}
+.img-lysandra {background-image: url("../img/characters/lysandra-min.jpg");}
+.img-elide {background-image: url("../img/characters/elide\ lochan-min.jpg");}
+.img-lorcan {background-image: url("../img/characters/lorcan\ salvaterre-min.jpg");}
+.img-fenrys {background-image: url("../img/characters/fenrys\ moonbeam-min.jpg");}
+.img-maeve {background-image: url("../img/characters/maeve-min.jpg");}
+
+.char-name {
+    width: 200px;
+    height: 50px;
+
+    display: flex;
+    padding: 5px 0;
+    margin-top: 10px;
+    
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.char-description {
+    width: 200px;
+    min-height: 45px;
+
+    font-size: 15px;
+}
+
+/** Books page **/
+.books-section {
+    height: 300px;
+
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    padding: 30px;
+    margin-bottom: 40px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #9fc1b2;
+}
+
+.book-card {
+    width: 160px;
+    height: 260px;
+    padding-bottom: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/** Books img **/
+.img-prequal {background-image: url("../img/books/the-assassins-blade.jpg");}
+.img-book1 {background-image: url("../img/books/throne-of-glass.jpg");}
+.img-book2 {background-image: url("../img/books/crown-of-midnight.jpg");}
+.img-book3 {background-image: url("../img/books/heir-of-fire.jpg");}
+.img-book4 {background-image: url("../img/books/queen-of-shadows.jpg");}
+.img-book5 {background-image: url("../img/books/empire-of-storms.jpg");}
+.img-book6 {background-image: url("../img/books/tower-of-dawn.jpg");}
+.img-book7 {background-image: url("../img/books/kingdom-of-ash.jpg");}
+
+/** Author's page **/
+.author-page, .books-page-2{
+    padding: 10px 40px;
+    background-color: #dbe6dc;
+}
+
+.author-main {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+
+    padding: 20px;
+    background-color: #9fc1b2;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px 20px;
+}
+
+.author-text {
+    margin: 60px 20px;
+}
+
+.author-img, .other-img {
+    width: 100%;
+    height: 450px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    background-size: cover;
+    background-position: center;
+}
+
+.img-maas {
+    background-image: url("../img/author-page/sarah-j-maas.jpg");
+}
+
+.author-description, .other-description {
+    padding: 20px;
+    
+    border: 20px;
+    border: 1px solid black;
+    background-color: #dbe6dc;
+    border-radius: 5px;
+    
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.other-work-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    margin: 10px 20px;
+    padding: 25px;
+    background-color: #9fc1b2;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.other-row {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 25px;
+}
+
+.acotar-img {background-image: url(../img/author-page/ACOTAR.jpg);}
+.crescent-img{background-image: url(../img/author-page/CC.jpg);}
+
+.other-description-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+ul {
+    margin: 10px
+}
+
+/** Reading Order Page **/
+.reading-description {
+    width: 100%;
+    height: 80px;
+
+    padding: 10px;
+    margin: 0 0 30px 0;
+    background-color: #9fc1b2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.reading-box {
+    background-color: #dbe6dc;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.reading-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+    height: 570px;
+    
+    background-color: #9fc1b2;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.reading-left {
+    flex: 1;
+}
+
+.reading-right {
+    flex: 1.5;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.img-box {
+    width: 450px;
+    height: 550px;
+    margin: 10px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-reading-order {
+    background-image: url(../img/reading-order/reading-order.jpg);
+}
+
+.options-title {
+    margin-bottom: 20px;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    text-align: left;
+}
+
+.text-box {
+    flex: 1;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+}
+
+.tandem-row {
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #9fc1b2;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.tandem-row .tandem-row {
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 270px;
+}
+
+.img-box-2 {
+    height: 250px;
+    flex: 1;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.explanation-box {
+    flex: 2;
+    height: 250px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+}
+
+.img-tandem {
+    background-image: url(../img/reading-order/tandem-read.jpg);
+}
+
+.books-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px;
+}
+
+.books-grid {
+    display: grid;
+    grid-template-rows: 300px 1fr;
+    grid-template-columns: 200px 300px;
+    height: 660px;
+    gap: 20px;
+
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #9fc1b2;
+}
+
+.books-img-1, .books-2-description, 
+.books-img-3, .books-4-box, .books-img-5 {
+    background-color: #dbe6dc;
+    border: 1px solid black;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.books-img-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.books-2-description {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+
+    padding: 15px;
+    font-size: 15px;
+}
+
+.books-2-title {
+    border-bottom: 1px solid black;
+    margin: 10px 0;
+}
+
+.books-img-3 {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.books-4-box {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    
+    font-size: 20px;
+    font-style: italic;
+}
+
+.books-img-5 {
+    grid-column: 3 / 3;
+    grid-row: 2 / 3;
+}
+
+/** images **/
+.img-cover-1 {background-image: url(../img/books/the-assassins-blade.jpg);}
+.img-01 {background-image: url(../img/first-three-books/celaena-and-sam-min.jpg);}
+.img-02 {background-image: url(../img/first-three-books/celaena-and-ansel-min.jpg);}
+.img-cover-2 {background-image: url(../img/books/throne-of-glass.jpg);}
+.img-03 {background-image: url(../img/first-three-books/celaena-and-chaol-min.jpg);}
+.img-04 {background-image: url(../img/first-three-books/endovier-min.jpg);}
+.img-cover-3 {background-image: url(../img/books/crown-of-midnight.jpg);}
+.img-05 {background-image: url(../img/first-three-books/adarlans-assassin-min.jpg);}
+.img-06 {background-image: url(../img/first-three-books/baba-yellowlegs-min.jpg);}
+.img-cover-4 {background-image: url(../img/books/heir-of-fire.jpg);}
+.img-07 {background-image: url(../img/third-fourth-fifth/maeve-min.jpg);}
+.img-08 {background-image: url(../img/third-fourth-fifth/manon-min.jpg);}
+.img-cover-5 {background-image: url(../img/books/queen-of-shadows.jpg);}
+.img-09 {background-image: url(../img/third-fourth-fifth/witch-killer-min.jpg);}
+.img-10 {background-image: url(../img/third-fourth-fifth/manon-vs-aelin-min.jpg);}
+.img-cover-6 {background-image: url(../img/books/empire-of-storms.jpg);}
+.img-11 {background-image: url(../img/third-fourth-fifth/manon-and-abraxos-min.jpg);}
+.img-12 {background-image: url(../img/third-fourth-fifth/the-beach-min.jpg);}
+.img-cover-7 {background-image: url(../img/books/tower-of-dawn.jpg);}
+.img-13 {background-image: url(../img/sixth-seventh/yrene-and-chaol-min.jpg);}
+.img-14 {background-image: url(../img/sixth-seventh/nesryn-min.jpg);}
+.img-cover-8 {background-image: url(../img/books/kingdom-of-ash.jpg);}
+.img-15 {background-image: url(../img/sixth-seventh/dorian-and-aelin-min.jpg);}
+.img-16 {background-image: url(../img/sixth-seventh/mask-min.jpg);}
+
+/** Homepage **/
+.homepage-main {
+    background-color: #9fc1b2;
+}
+
+.container-scenary {
+    position: relative; 
+    text-align: center;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.main-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover; 
+}
+
+.text-scenary {
+    position: absolute;;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    background-color: rgba(0, 0, 0, 0.5);
+   
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.intro-section {
+    text-align: center;
+    padding: 40px 20px;
+    background-color:#dbe6dc;
+    
+    border-radius: 5px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.intro-section h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 40px 60px 40px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background-color: #dbe6dc;
+    border: 1px solid #9fc1b2; 
+    border-radius: 5px;
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.btn {
+    background-color: #9fc1b2;
+    color: black;
+    text-decoration: none;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 1px solid black;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #719383;
+    cursor: pointer;
+}

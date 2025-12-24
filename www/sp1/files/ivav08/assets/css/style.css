@@ -1,0 +1,580 @@
+/* ========================================
+1. Základní styly
+======================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #1a2a47;
+  --secondary-color: #d4af37;
+  --text-color: #f0f0f0;
+  --dark-bg: rgba(10, 25, 47, 0.8);
+}
+
+html,
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 1.6;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.page-content {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.intro {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-bottom: 32px;
+}
+
+/* ========================================
+2. Hlavička a Navigace
+======================================== */
+.main-header {
+  background: var(--dark-bg);
+  border-bottom: 1px solid var(--secondary-color);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.main-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 8px 24px;
+}
+
+.main-nav a {
+  color: #fff;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+/* ========================================
+3. Patička (Footer)
+======================================== */
+.main-footer {
+  text-align: center;
+  padding: 32px 0;
+  margin-top: 32px;
+  border-top: 1px solid #333;
+}
+
+/* ========================================
+4. Mobilní Navigace
+======================================== */
+.burger-toggle {
+  display: none;
+}
+
+.burger-menu {
+  display: none;
+  cursor: pointer;
+  z-index: 1001;
+  position: relative;
+  width: 25px;
+  height: 21px;
+}
+
+.burger-menu span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 0;
+}
+
+.burger-menu span:nth-child(1) {
+  top: 0;
+}
+.burger-menu span:nth-child(2) {
+  top: 8px;
+}
+.burger-menu span:nth-child(3) {
+  top: 16px;
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--dark-bg);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 32px;
+  }
+
+  .main-nav a {
+    font-size: 24px;
+  }
+
+  .burger-toggle:checked ~ .main-nav {
+    transform: translateX(0);
+  }
+
+  .burger-toggle:checked ~ .burger-menu span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 8px;
+  }
+  .burger-toggle:checked ~ .burger-menu span:nth-child(2) {
+    opacity: 0;
+  }
+  .burger-toggle:checked ~ .burger-menu span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 8px;
+  }
+}
+
+/* ========================================
+5. Hlavní Stránka (Hero & Features)
+======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  min-height: 600px;
+  background: url("../img/hogwarts-hero.jpg") no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 32px;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  animation: fadeIn 1.5s ease-out;
+  font-size: 18px;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.cta-button {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 13px 24px;
+  margin-top: 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+}
+
+.features {
+  padding: 64px 0;
+  text-align: center;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+/* Odkaz pro klikatelnou kartu */
+.feature-link {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.feature-item {
+  background: var(--dark-bg);
+  padding: 32px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  height: 100%;
+  text-align: left;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.feature-item h3 {
+  color: var(--secondary-color);
+}
+
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 56px;
+  }
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================================
+6. Content Card (Bytosti, Koleje)
+======================================== */
+.content-card {
+  background-color: var(--dark-bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin-top: 32px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-card .card-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.content-card .card-text {
+  padding: 24px 32px;
+}
+
+.content-card .card-text h2 {
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .content-card {
+    flex-direction: row;
+  }
+  .content-card .card-image {
+    width: 40%;
+    min-width: 250px;
+    border-right: 1px solid #333;
+  }
+  .content-card .card-text {
+    width: 60%;
+    padding: 32px;
+  }
+}
+
+/* ========================================
+7. Postavy
+======================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.gallery-item {
+  background-color: var(--dark-bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #333;
+}
+
+.gallery-item figcaption {
+  padding: 24px;
+}
+
+.gallery-item h3 {
+  color: var(--secondary-color);
+  margin-bottom: 8px;
+}
+
+.gallery-item p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+@media (min-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ========================================
+8. Kouzla
+======================================== */
+.spell-category-box {
+  background-color: var(--dark-bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 24px 32px;
+  margin-top: 32px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.spell-category-box h2 {
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.spell-list {
+  margin-top: 24px;
+}
+
+.spell-list dt {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-top: 24px;
+  position: relative;
+  padding-left: 35px;
+  transition: transform 0.2s ease;
+}
+
+.spell-list dt::before {
+  content: "🪄";
+  position: absolute;
+  left: 0;
+  top: -2px;
+}
+
+.spell-list dd {
+  margin-left: 35px;
+  margin-bottom: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #333;
+  line-height: 1.7;
+}
+
+.spell-list dd:last-of-type {
+  border-bottom: none;
+}
+
+/* ========================================
+9. Kontakt
+======================================== */
+.contact-form {
+  max-width: 700px;
+  margin: 32px auto;
+  padding: 32px;
+  background-color: var(--dark-bg);
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--secondary-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 13px;
+  background-color: #1c2e4a;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.form-group::placeholder {
+  color: #8899b3;
+  opacity: 0.7;
+}
+
+.contact-form .cta-wrapper {
+  margin: 0;
+}
+
+.contact-form button[type="submit"] {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ========================================
+10. Pomocné styly
+======================================== */
+.cta-wrapper {
+  text-align: center;
+  margin: 32px 0;
+}
+
+/* ========================================
+11. Styly pro Tisk (Print)
+======================================== */
+
+@media print {
+  body {
+    font-family: "Times New Roman", Times, serif;
+    color: #000;
+    background-color: #fff;
+  }
+
+  .main-header,
+  .main-footer,
+  .hero,
+  .cta-button,
+  .cta-wrapper,
+  .contact-form,
+  .burger-toggle,
+  .burger-menu {
+    display: none;
+  }
+
+  .page-content,
+  .container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+  }
+
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  .spell-category-box,
+  .gallery-item,
+  .content-card,
+  .feature-item {
+    background: none;
+    border: none;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}

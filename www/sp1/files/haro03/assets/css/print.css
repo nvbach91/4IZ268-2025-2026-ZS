@@ -1,0 +1,58 @@
+@media print {
+    * {
+        box-shadow: none !important;
+        background: transparent !important;
+        text-shadow: none !important;
+        color: black !important;
+    }
+
+    .topbar {
+        background: none;
+        padding: 0 0 10px 0;
+        display: block;
+    }
+
+    .topbar nav {
+        display: none;
+    }
+
+    header a {
+        display: block;
+        font-size: 20pt;
+        font-weight: bold;
+    }
+
+    main {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    aside,
+    footer {
+        display: none;
+    }
+
+    h1,
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
+
+    p,
+    li {
+        font-size: 12pt;
+        text-align: justify;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+    }
+
+    @page {
+        margin: 20mm;
+    }
+}

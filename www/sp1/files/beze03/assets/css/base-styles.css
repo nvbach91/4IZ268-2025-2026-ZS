@@ -1,0 +1,469 @@
+* {
+    box-sizing: border-box;
+}
+
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    position: sticky;
+    top: 0;
+}
+
+.site-header .logo img {
+    height: 60px;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0A2233;
+    margin: 0px 50px;
+    text-align: left;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 10px 15px;
+    color: #222;
+    border: 1px solid #002234;
+    transition: 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #fff;
+    background-color: #002234;
+    background-color: #002234;
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 8px;
+    padding: 10px 0;
+    top: 100%;
+    /* Position below the parent */
+    left: 0;
+    margin-top: 15px;
+    /* Move it down a bit */
+}
+
+.dropdown-content::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
+}
+
+.dropdown-content span {
+    display: block;
+    padding: 10px 20px 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dropdown-content a {
+    color: #002234;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    border-radius: 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #002234;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.main-nav a[href="./"] {
+    color: #fff;
+    background-color: #002234;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.site-footer {
+    background-color: #002234;
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: space-between;
+}
+
+@media (min-width: 600px) {
+    .footer-content {
+        flex-direction: row;
+    }
+}
+
+.footer-logo img {
+    height: 40px;
+    display: block;
+}
+
+.footer-social a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 0;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-social img {
+    height: 20px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.footer-social a:hover {
+    opacity: 0.8;
+}
+
+.footer-copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.footer-copyright p {
+    margin: 0;
+}
+
+.text-div {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #111;
+}
+
+.text-div-button {
+    padding: 10px 30px;
+    background: transparent;
+    border: 1px solid #002234;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #002234;
+    transition: 0.4s ease;
+    text-decoration: none;
+}
+
+
+.text-div-button:hover {
+    background: #002234;
+    color: #fff;
+}
+
+/* Product Cards Styles */
+.product-cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    padding: 20px 20px 5px;
+    margin: 0;
+    font-size: 1.4rem;
+    color: #0A2233;
+    font-weight: 700;
+}
+
+.product-card p {
+    padding: 0 20px 20px;
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+.product-button {
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: #002234;
+    text-decoration: none;
+    padding: 12px;
+    margin: 0 20px 20px;
+    border-radius: 20px;
+    border: 1px solid #002234;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.product-button:hover {
+    background-color: #002234;
+    color: #fff;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    padding: 10px 40px;
+    list-style: none;
+    margin: 0;
+    background-color: transparent;
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb li+li:before {
+    padding: 8px;
+    color: #002234;
+    content: "/\00a0";
+}
+
+.breadcrumb a {
+    color: #002234;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.breadcrumb a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1250px) {
+    .page-title {
+        font-size: 2rem;
+        margin: 0 30px;
+    }
+
+    .main-nav ul {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .site-header {
+        flex-direction: column;
+        padding: 1rem 0;
+        /* Reduce side padding to allow full width */
+        position: relative;
+        /* Disable sticky positioning */
+    }
+
+    .site-header .logo {
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+    }
+
+    .main-nav {
+        width: 100%;
+        /* Ensure nav container is full width */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    .main-nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .page-title {
+        margin: 20px 20px;
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .product-cards-row {
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .product-card {
+        width: 90%;
+        /* Fluid width on smaller screens */
+        max-width: 350px;
+        /* But don't get too big */
+    }
+
+    .text-div {
+        width: 90%;
+        /* More width for text on mobile */
+        font-size: 1rem;
+    }
+
+    /* Mobile Dropdown Fixes */
+    .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dropdown-content {
+        display: block;
+        /* Always show on mobile */
+        position: static;
+        /* Flow with the document */
+        box-shadow: none;
+        width: 100%;
+        background-color: #f9f9f9;
+    }
+
+    .dropdown-content a {
+        padding-left: 0;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-content span {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .site-footer {
+        height: auto;
+        padding: 30px 20px;
+        text-align: center;
+    }
+}
+
+/* Mobile Specific Optimizations (< 480px) */
+@media (max-width: 480px) {
+    .site-header {
+        padding: 1rem 0;
+        /* Remove side padding for full width menu */
+        position: relative;
+        /* Disable sticky positioning */
+    }
+
+    .site-header .logo {
+        padding: 0 1rem;
+        /* Add padding to logo so it doesn't touch edge */
+        margin-bottom: 1rem;
+    }
+
+    .main-nav {
+        width: 100%;
+        /* Force nav container to full width */
+    }
+
+    /* Explanation: Stack navigation items vertically for better touch targets on small screens. */
+    .main-nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        /* Remove gap, handle spacing with padding */
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    /* Explanation: Make buttons full width to be easily clickable with a thumb. */
+    .main-nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0;
+        border-radius: 0;
+        /* Square edges for full width look */
+        border: none;
+        box-sizing: border-box;
+        /* Ensure padding doesn't overflow width */
+    }
+}

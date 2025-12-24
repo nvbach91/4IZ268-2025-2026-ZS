@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Černý rytíř - Aktuality</title>
+    <link rel="stylesheet" href="../../../assets/css/styles.css">
+    <link rel="icon" href="../../../assets/img/icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="centered">
+        <div class="title">
+            <img src="../../../assets/img/logo.png" alt="ČERNÝ RYTÍŘ logo" class="logo">
+            <h1>ČERNÝ RYTÍŘ</h1>
+        </div>
+        <nav>
+            <a href="../../../">Domů</a>
+            <a href="../../../obchod">Obchod</a>
+            <a class="active" href="../../../aktuality/">Aktuality</a>
+            <a href="../../../turnaje/">Turnaje</a>
+            <a href="../../../kontakty/">Kontakty</a>
+            <a class="cart"><i class="fas fa-shopping-cart"></i> Košík</a>
+        </nav>
+        <nav>
+            <a class="active" href="../../2025/">2025</a>
+        </nav>
+        <nav>
+            <a class="active" href="../10/">10</a>
+            <a href="../11/">11</a>
+        </nav>
+    </header>
+    <main class="centered">
+        <!--
+        Stránky pro obchod Černý rytíř
+
+        Černý rytíř je kamenný a webový ochod zabývající se prodejem sběratelských karetních her (TCG) jako je Magic,
+        nebo Pokémon, her na hrdiny (TTRPG) jako je Dungeons&Dragons, stolních válečných her (Wargaming) jako je
+        Warhammer 40,000 a příslušenství k výše zmíněnému, komiksů a sběratelských předmětů. Černý rytíř také funguje
+        jako herna a pořádá vlastní turnaje. Oficiální web lze nalézt na adrese: https://cernyrytir.cz/
+
+        Cílem práce bude navrhnout nové vzezření a rozložení webu.
+
+        Soupis stránek:
+        sp1 - hlavní/uvítací stránka, zobrazuje aktuality a novinky v obchodě
+        sp1/aktuality - umožnuje zobrazení historie aktualit
+        sp1/aktuality/2025/10 ... - aktuality z října 2025
+        sp1/obchod - rozcestník pro kategorie obchodu
+        sp1/obchod/*kategorie* - stránka obchodu s kategorií zboží
+        sp1/turnaje - informace o pravidelných turnajích
+        sp1/kontakty - stránka s kontakty pro obchod
+        -->
+        <div class="content">
+            <div class="search">
+                <i class="fas fa-search"></i>
+                <input>
+                <button>Hledat</button>
+            </div>
+            <div class="flex-row">
+                <div class="flex-col news">
+                    <div id="article-1">
+                        <h2>CHARITATIVNÍ TURNAJ ČERNÉHO RYTÍŘE 2025</h2>
+                        <img src="https://cernyrytir.cz/images/news/charitativn%C3%AD_turnaj.jpg" alt="Logo charitativního turnaje">
+                        <p>13. prosince hrajeme pro dobrou věc! Přijď si zahrát na náš charitativní turnaj. Vstupné je
+                            dobrovolné a vše, co vybereme, předáme spolku Kamarádi – Stochov.<br>
+                            <br>
+                            <strong>O spolku Kamarádi Stochov</strong><br>
+                            <br>
+                            Kamarádi Stochov jsou parta lidí, kteří už roky rozdávají radost tam, kde jí bývá málo.
+                            Tvoří místo, kde se děti i dospělí cítí jako doma – ať už přicházejí z rodin, dětského
+                            domova nebo školy se speciálními potřebami.
+                            Pomáhají dětem z Dětského domova Kladno – Stochov, propojují generace v Home Tuchlovice a
+                            přinášejí smích i do školy Slunce.
+                            Díky nim má každé dítě šanci zažít radost z hry, výletu nebo prostého pocitu, že někam
+                            patří.
+                            Rádi bychom pomohli. Proto pořádáme charitativní turnaj, který Kamarádům pomůže udělat
+                            dětský svět o něco hezčí.<br>
+                            Více o spolku najdeš na <a href="http://www.kamaradistochov.cz/">Kamarádi Stochov</a><br>
+                            <br>
+                            O formátu, odměnách a místech hraní ti dáme vědět brzy… Nejpozději 25.11. budeme mít všechny
+                            informace pohromadě.<br>
+                            Kdy: 13. 12. (vyjímky 12.12.)<br>
+                            Kde: místa jsou v <a href="https://bit.ly/mapaskupin">mapě herních skupin - Charitativní
+                                turnaj</a><br>
+                            Pro koho hrajeme: spolek Kamarádi Stochov
+                        </p>
+                    </div>
+                    <div id="article-2">
+                        <h2>POKÉMON PHANTASMAL FLAME - RELEASE INFO</h2>
+                        <img src="https://cernyrytir.cz/images/news/phantasmal.jpg" alt="Logo Phantasmal">
+                        <p> Nová edice Phantasmal Flame je za rohem a chceme, aby se k ní dostali hlavně hráči, ne
+                            scalpeři. Proto na to tentokrát půjdeme trochu jinak – po Japonsku. Co to znamená? Stručně
+                            shrnuto:<br>
+                            <br>
+                            <strong>Na prodejně:</strong><br>
+                            ETB za doporučenou cenu, limit 1 ks / osoba,<br>
+                            (balení bude otevřeno na místě – lehké natržení fólie, ať je jistota, že se pak hraje)<br>
+                            Boostery po 18 kusech na zákazníka v den release<br>
+                            Další dny budeme doplňovat vždy 108 boosterů s limitem 3 kusy na zákazníka<br>
+                            <br>
+                            <strong>Na e-shopu:</strong><br>
+                            Produkty budou dostupné za tržní cenu,<br>
+                            (bez limitu, pro sběratele i ty, co chtějí sealed)<br>
+                            Samostatné Boostery budou za pěknou cenu i na našem Rip & Ship<br>
+                            <br>
+                            V poslední době to s Pokémony nebyl žádný easy quest, tak jsme se inspirovali tím, co už
+                            roky funguje v Japonsku. Snad to i u nás pomůže v boji proti scalperům. Díky, že chápete,
+                            proč to děláme.
+                        </p>
+                    </div>
+                    <div id="article-3">
+                        <h2>PŘEDPRODEJ SPUŠTĚN! RIFTBOUND TCG JE TADY</h2>
+                        <img src="https://cernyrytir.cz/images/news/p%C5%99edprodej_rift.jpg" alt="Logo Riftbound">
+                        <p>Čekali jste, psali jste nám – a teď je to oficiální. Otevíráme předobjednávky na novou
+                            karetní hru Riftbound - League of Legends TCG!<br>
+                            <br>
+                            Kvůli situaci na trhu a omezenému množství budeme prodávat za běžnou tržní cenu. Zároveň ale
+                            chceme vyjít vstříc lidem, kteří hru opravdu hrají: během ligy a hraní v naší herně si můžeš
+                            na prodejně koupit až 6 boosterů za doporučenou cenu (limit na osobu).<br>
+                            <strong>Zajistěte si své balíčky včas! Sada vychází 31.10. a zájem je obrovský.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="centered">
+        <a href="../../../podminky/" target="_blank">Dodací podmínky</a>
+        <div>Tomáš Zummer, 2025</div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="cs" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Často kladené dotazy | Žehlík</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/page-styles/faq.css">
+    <link rel="icon" href="../assets/images/ico/favicon.ico">
+    <script type="module" src="../assets/scripts/main.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Přeskočit na obsah</a>
+
+    <header>
+      <div class="header-wrapper">
+        <div class="header-actions-wrapper">
+          <a href="../" aria-label="Domů">
+            <div class="logo">
+              <img src="../assets/images/svg/logo.svg" alt="Logo Žehlík">
+            </div>
+          </a>
+
+          <div class="mobile-hamburger-menu-button-wrapper">
+            <button
+              id="mobile-hamburger-menu-button"
+              class="closed"
+              aria-label="Otevřít mobilní navigaci"
+              aria-controls="header-navigation"
+              aria-expanded="false"
+            >
+              <img
+                src="../assets/images/hamburger-menu/closed.png"
+                aria-hidden="true"
+                alt="Ikona menu"
+              >
+              <span class="hidden">Otevřít mobilní menu</span>
+            </button>
+          </div>
+        </div>
+
+        <nav class="menu-layout" id="header-navigation" aria-label="Hlavní navigace">
+          <ul class="menu-primary">
+            <li class="menu-item">
+              <a class="bold" href="../pricelist">Ceník</a>
+            </li>
+
+            <li class="menu-item">
+              <a class="bold" href="../how-it-works">Jak to funguje</a>
+            </li>
+
+            <li class="menu-item active">
+              <a class="bold" href="../faq">Často kladené dotazy</a>
+            </li>
+
+            <li class="menu-item">
+              <a class="bold" href="../contacts">Kontakt</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <noscript>
+      <nav class="noscript-nav container" aria-label="Hlavní navigace bez JavaScriptu">
+        <p class="noscript-title bold">Navigace</p>
+        <ul class="noscript-menu">
+          <li><a href="/">Domů</a></li>
+          <li><a href="pricelist">Ceník</a></li>
+          <li><a href="how-it-works">Jak to funguje</a></li>
+          <li><a href="faq">Často kladené dotazy</a></li>
+          <li><a href="contacts">Kontakt</a></li>
+        </ul>
+      </nav>
+    </noscript>
+
+    <main class="page-content faq" id="main">
+      <section class="hero container">
+        <div class="hero-content">
+          <p class="eyebrow">Pomáháme vám rychle a přehledně</p>
+          <h1 class="main-title">Často kladené dotazy</h1>
+          <p class="lead">
+            Zde najdete odpovědi na otázky ohledně objednávek, svozu i péče o prádlo.
+            Pokud potřebujete něco upřesnit, ozvěte se nám.
+          </p>
+        </div>
+      </section>
+
+      <section class="faq-section container" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="section-title">Nejčastější dotazy</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-question">Jak rychle dokážete prádlo doručit?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Běžné zakázky zvládáme do 24 hodin. Přesný termín potvrdíme při objednávce.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Kde všude prádlo vyzvedáváte?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Primárně působíme v Praze a okolí. Pokud si nejste jistí, zavolejte nám a ověříme dostupnost.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Musím mít připravené vlastní obaly?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Ne, prádlo balíme do ochranných obalů. Vše vám předáme čisté a připravené k uložení.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Jaké způsoby platby přijímáte?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Platit můžete hotově, kartou nebo QR kódem. Preferovaný způsob si domluvíme při předání.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Co když potřebuji speciální péči o materiál?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Dejte nám vědět při objednávce. Máme zkušenosti s citlivými materiály a nastavíme vhodný postup.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Jak můžu změnit nebo zrušit termín?</summary>
+            <div class="faq-answer-wrap">
+              <p class="faq-answer">
+                Stačí nám zavolat nebo napsat e-mail. Většinu změn zvládneme vyřešit ještě tentýž den.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="cta container" aria-labelledby="cta-title">
+        <div class="cta-card">
+          <h2 id="cta-title" class="section-title">Máte další otázky?</h2>
+          <p>
+            Ozvěte se nám a vše společně projdeme. Rádi poradíme s objednávkou i péčí o prádlo.
+          </p>
+          <div class="cta-actions">
+            <a class="btn-primary" href="contacts">Kontaktujte nás</a>
+            <a class="btn-secondary" href="how-it-works">Jak to funguje</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-menu container">
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Rychlé odkazy</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="../pricelist">Ceník služeb</a>
+            </li>
+
+            <li>
+              <a href="../how-it-works">Jak to funguje</a>
+            </li>
+
+            <li>
+              <a href="../faq">Často kladené dotazy</a>
+            </li>
+
+            <li>
+              <a href="../contacts">Kontakt</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Kontakt</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="mailto:info@zehlik.cz">info@zehlik.cz</a>
+            </li>
+
+            <li>
+              <a href="tel:+420777603218">+420 777 603 218</a>
+            </li>
+
+            <li>
+              <p>IČO: 06078281</p>
+            </li>
+
+            <li>
+              <a class="footer-address-link" target="_blank" rel="noopener"
+                 href="https://maps.app.goo.gl/h3tBaeCVvMPSYdVe8">
+                Parašutistů 670/20, 16100 Praha
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-menu-box">
+          <h2 class="footer-menu-box-title bold">Může se hodit</h2>
+          <ul class="footer-menu-box-list">
+            <li>
+              <a href="https://zehlik.cz">Odkaz na reálnou stránku</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-bottom-content container">
+          <p class="company-name">
+            © Žehlík, s. r. o.
+          </p>
+
+          <p>
+            Disclaimer: Stránka slouží jako inspirace a je záměrně neoptimalizovaná pro SEO.
+          </p>
+
+          <div class="opening-hours">
+            <p class="bold">
+              Pondělí - Pátek
+            </p>
+            09:00 - 19:00
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+@import 'theme.css';
+@import 'reset.css';
+@import 'header.css';
+@import 'footer.css';
+
+/* ==== base styles ==== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: auto;
+}
+html.no-scroll,
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+body.no-scroll {
+  position: fixed;
+  width: 100%;
+}
+
+body.no-scroll header {
+  position: fixed;   /* not sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+}
+
+body {
+  font-family: "Baloo 2", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  overflow-x: hidden;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  color: var(--text);
+  text-decoration: solid;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--text-hover);
+}
+
+.container {
+  max-width: var(--container);
+  width: min(var(--container), 80%);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.hidden {
+  display: none;
+}
+
+.stretched-link:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  content: "";
+  z-index: 2;
+}

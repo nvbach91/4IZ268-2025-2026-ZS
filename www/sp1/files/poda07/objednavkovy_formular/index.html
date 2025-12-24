@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objednávkový formulář</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.jpg">
+</head>
+
+<body id="top" class="final">
+    <header class="header">
+        <div class="container header_container">
+            <a href="../" class="logo">LUMI<br>LIGHTS</a>
+            <nav class="main_navigation">
+                <ul class="nav_list">
+                    <li><a href="../" class="nav_unit">Domů</a></li>
+                    <li><a href="../katalog_produktu/" class="nav_unit">Katalog</a></li>
+                    <li><a href="../kontakty/" class="nav_unit">Kontakt</a></li>
+                    <li><a href="../pribeh/" class="nav_unit">O nás</a></li>
+                    <li><a href="../kosik/" class="nav_unit">Košík</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container hero_container">
+                <div class="hero_content">
+                    <h1 class="title_h1">LumiLights</h1>
+                    <h2 class="text_h2">Ta správná volba pro váš domov.</h2>
+                </div>
+            </div>
+        </section>
+        <section class="order_section">
+            <div class="container">
+                <div class="product_card">
+                    <div class="contact_content">
+                        <h2 class="contact_title">Doručovací údaje</h2>
+                        <form class="order_form" action="#" method="post">
+
+                            <div class="order_form_grid">
+                                <div class="field">
+                                    <label>Jméno a Příjmení</label>
+                                    <input type="text" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>E-mail</label>
+                                    <input type="email" required>
+                                </div>
+                                <div class="field">
+                                    <label>Telefon</label>
+                                    <input type="text" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>Město</label>
+                                    <input type="text" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>Ulice a číslo popisné</label>
+                                    <input type="text" required>
+                                </div>
+
+                                <div class="field">
+                                    <label>PSČ</label>
+                                    <input type="text" required>
+                                </div>
+                                <div>
+                                    <h2 class="contact_title">Způsob dopravy</h2>
+
+                                    <div class="radio_group">
+                                        <label><input type="radio" name="doprava" value="kuryr" checked> Kurýr na
+                                            adresu</label>
+                                        <label><input type="radio" name="doprava" value="zasilkovna"> Výdejní místo
+                                            (Zásilkovna)</label>
+                                        <label><input type="radio" name="doprava" value="osobni"> Osobní odběr v
+                                            Praze</label>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <h2 class="contact_title">Způsob platby</h2>
+
+                                    <div class="radio_group">
+                                        <label><input type="radio" name="platba" value="karta" checked> Online
+                                            kartou</label>
+                                        <label><input type="radio" name="platba" value="prevod"> Bankovní převod</label>
+                                        <label><input type="radio" name="platba" value="dobirka"> Dobírka</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <a href="../" class="buy_button">Dokončit objednávku</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer_container">
+            <div class="footer_contact_block">
+                <h2 class="footer_heading">Kontakt</h2>
+                <p class="footer_text">
+                    LumiLights s.r.o.<br>
+                    Světelná 123, 110 00 Praha<br>
+                    IČO 12345678<br>
+                    <a href="mailto:info@lumilights.cz" class="footer_link">info@lumilights.cz</a>
+                </p>
+            </div>
+        </div>
+        <div class="container footer_bottom">
+            <p class="footer_bottom_text">© 2025 LumiLights. Všechna práva vyhrazena.</p>
+            <a href="#top" class="footer_bottom_link">Zpět nahoru ↑</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
