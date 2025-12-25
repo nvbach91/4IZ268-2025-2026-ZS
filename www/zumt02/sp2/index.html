@@ -26,8 +26,20 @@
             </div>
             <div class="filters">
                 <div>
-                    <input type="checkbox">
-                    <label>option</label>
+                    <div>
+                        <h2>Categories</h2>
+                        <div class="categories" id="categories">
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Order by</h2>
+                        <div>
+                            <button id="button-order-relevance" class="order-selected">Relevance</button>
+                            <button id="button-order-newest">Newest</button>
+                            <button id="button-order-rating">Rating</button>
+                            <button id="button-order-popularity">Popularity</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -42,7 +54,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
 </body>
 
 </html>

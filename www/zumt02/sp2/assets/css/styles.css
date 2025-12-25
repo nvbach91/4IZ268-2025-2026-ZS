@@ -74,3 +74,14 @@ footer {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 156px;
+}
+
+.order-selected {
+    background-color: red;
+}
