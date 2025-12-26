@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Scuffed Anime List</title>
+    <link href="./assets/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content flex-col">
+        <header>
+            <h1>My Scuffed Anime List</h1>
+            <div class="flex-row">
+                <form id="form-search">
+                    <div>
+                        <input name="searchField">
+                        <button id="button-search">Search</button>
+                    </div>
+                </form>
+                <div class="buttons-right">
+                    <button id="button-2watch">To Watch</button>
+                    <button id="button-seen">Seen</button>
+                </div>
+            </div>
+            <div class="filters">
+                <div>
+                    <div>
+                        <h2>Categories</h2>
+                        <div class="categories" id="categories">
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Order by</h2>
+                        <div>
+                            <button id="button-order-relevance" class="order-selected">Relevance</button>
+                            <button id="button-order-newest">Newest</button>
+                            <button id="button-order-rating">Rating</button>
+                            <button id="button-order-popularity">Popularity</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="app" id="app">
+            </div>
+        </main>
+        <footer>
+            <div>Tomáš Zummer</div>
+            <div>2025</div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+
+</html>
