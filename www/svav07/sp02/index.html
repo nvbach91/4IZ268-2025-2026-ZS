@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Discover & Collect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Root -->
+        <nav class="navbar glass">
+            <div class="nav-brand">
+                <span class="logo-icon">🎮</span>
+                <span class="logo-text">GameHub</span>
+            </div>
+
+            <div class="nav-search">
+                <input type="text" id="global-search" placeholder="Search games...">
+                <button id="search-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-item active" data-route="dashboard">Dashboard</a>
+                <a href="#discover" class="nav-item" data-route="discover">Discover</a>
+                <a href="#library" class="nav-item" data-route="library">Library</a>
+            </div>
+        </nav>
+
+        <main id="main-content" class="container">
+            <!-- Dynamic Content Will Be Here -->
+            <div class="loading-spinner"></div>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
