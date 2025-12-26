@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="button-test">test button fetch</button>
+    <div id="test-result"></div>
+
+
+<header>
+    <h1>Wordle - cz</h1>
+    <p>Uhodni tajné slovo na 6 pokusů</p>
+</header>
+
+<main>
+
+    <section id="new-word-input">
+        <h2>Přidej vlastní slovo!</h2>
+        <input id="word-input" type="text">
+        <button id="add-button">přidat</button>
+        <div calss="word-info"></div>
+    </section>
+
+    <section id="stats">
+        <h2>Statistiky</h2>
+        <p>Odehráno: <span id="played">0</span></p>
+        <p>Výhry: <span id="wins">0</span></p>
+        <p>Série: <span id="streak">0</span></p>
+    </section>
+
+
+
+    <section id="game-board">
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+        <div class="row">
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+    </section>
+
+    <section id="keyboard">
+		<div class="key-row">
+            <button class="key">Ě</button>
+            <button class="key">Š</button>
+            <button class="key">Č</button>
+            <button class="key">Ř</button>
+            <button class="key">Ť</button>
+            <button class="key">Ž</button>
+            <button class="key">Ý</button>
+            <button class="key">Á</button>
+            <button class="key">Í</button>
+            <button class="key">É</button>
+            <button class="key">Ó</button>
+            <button class="key">Ď</button>
+        </div>
+        <div class="key-row">
+            <button class="key">Q</button>
+            <button class="key">W</button>
+            <button class="key">E</button>
+            <button class="key">R</button>
+            <button class="key">T</button>
+            <button class="key">Z</button>
+            <button class="key">U</button>
+            <button class="key">I</button>
+            <button class="key">O</button>
+            <button class="key">P</button>
+            <button class="key">Ú</button>
+        </div>
+
+        <div class="key-row">
+            <button class="key">A</button>
+            <button class="key">S</button>
+            <button class="key">D</button>
+            <button class="key">F</button>
+            <button class="key">G</button>
+            <button class="key">H</button>
+            <button class="key">J</button>
+            <button class="key">K</button>
+            <button class="key">L</button>
+            <button class="key">Ů</button>
+            <button class="key">Ň</button>
+        </div>
+
+        <div class="key-row">
+            <button class="key wide">ENTER</button>
+            <button class="key">Y</button>
+            <button class="key">X</button>
+            <button class="key">C</button>
+            <button class="key">V</button>
+            <button class="key">B</button>
+            <button class="key">N</button>
+            <button class="key">M</button>
+            <button class="key wide">⌫</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Wordle - cz</p>
+</footer>
+
+
+
+
+<script src="assetes/js/app.js"></script>
+</body>
+</html>
