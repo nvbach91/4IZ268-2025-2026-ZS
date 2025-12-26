@@ -1,0 +1,32 @@
+:root {
+    /* Spotify Color Palette */
+    --spotify-green: #1DB954;
+    --spotify-black: #121212;
+    --spotify-dark-gray: #181818;
+    --spotify-gray: #282828;
+    --spotify-light-gray: #404040;
+    --spotify-white: #FFFFFF;
+    --spotify-text-gray: #B3B3B3;
+    
+    /* Additional Colors */
+    --success: #1DB954;
+    --error: #E22134;
+    --warning: #FFA500;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+/*
+.hidden {
+    display: none !important;
+}
+*/
