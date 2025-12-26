@@ -1,0 +1,105 @@
+{
+  "studentId": "haro03",
+  "score": 115,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"body\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"main\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"aside\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"aside\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"aside p\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"aside li\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"h1\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"h2\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \"ul\" found in assets\\css\\main.css.",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"body\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"main\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"aside\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"aside\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"aside p\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"aside li\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"h1\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"h2\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \"ul\" found in assets\\css\\main.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

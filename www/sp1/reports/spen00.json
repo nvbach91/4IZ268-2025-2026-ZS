@@ -1,0 +1,106 @@
+{
+  "studentId": "spen00",
+  "score": 114,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".aside\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".content\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".article-card\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".panel\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".news-card\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".section-nav\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".notice-card\" found in Assets\\css\\main.css.",
+    "Duplicate CSS selector \".admin-box\" found in Assets\\css\\main.css.",
+    "Navy\\index.html: Avoid including index.html in URLs (../STC/index.html).",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".aside\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".content\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".article-card\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".panel\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".news-card\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".section-nav\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".notice-card\" found in Assets\\css\\main.css.",
+        "Duplicate CSS selector \".admin-box\" found in Assets\\css\\main.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "Navy\\index.html: Avoid including index.html in URLs (../STC/index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

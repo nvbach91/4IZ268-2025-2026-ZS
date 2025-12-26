@@ -1,0 +1,118 @@
+{
+  "studentId": "beze03",
+  "score": 108,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".page-title\" found in assets\\css\\base-styles.css.",
+    "products\\index.html: Avoid including index.html in URLs (jda/hydratante/index.html).",
+    "products\\index.html: Avoid including index.html in URLs (jda/arcelmed/index.html).",
+    "products\\index.html: Avoid including index.html in URLs (klapp/cleansing/index.html).",
+    "products\\index.html: Avoid including index.html in URLs (klapp/retinol/index.html).",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: Missing meta description.",
+    "products\\index.html: Missing meta description.",
+    "products\\klapp\\retinol\\index.html: Missing meta description.",
+    "products\\klapp\\cleansing\\index.html: Missing meta description.",
+    "products\\jda\\hydratante\\index.html: Missing meta description.",
+    "products\\jda\\arcelmed\\index.html: Missing meta description.",
+    "gallery\\index.html: Missing meta description.",
+    "contact\\index.html: Missing meta description.",
+    "products\\klapp\\retinol\\index.html: Unescaped \"&\" detected in text: \"A CLASSIC NECK & DÉCOLLETÉ CREAM\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 13,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".page-title\" found in assets\\css\\base-styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 6,
+      "maxScore": 10,
+      "feedback": [
+        "products\\index.html: Avoid including index.html in URLs (jda/hydratante/index.html).",
+        "products\\index.html: Avoid including index.html in URLs (jda/arcelmed/index.html).",
+        "products\\index.html: Avoid including index.html in URLs (klapp/cleansing/index.html).",
+        "products\\index.html: Avoid including index.html in URLs (klapp/retinol/index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "products\\index.html: Missing meta description.",
+        "products\\klapp\\retinol\\index.html: Missing meta description.",
+        "products\\klapp\\cleansing\\index.html: Missing meta description.",
+        "products\\jda\\hydratante\\index.html: Missing meta description.",
+        "products\\jda\\arcelmed\\index.html: Missing meta description.",
+        "gallery\\index.html: Missing meta description.",
+        "contact\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "products\\klapp\\retinol\\index.html: Unescaped \"&\" detected in text: \"A CLASSIC NECK & DÉCOLLETÉ CREAM\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

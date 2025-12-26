@@ -1,0 +1,102 @@
+{
+  "studentId": "semk04",
+  "score": 117,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".img-box\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".books-img-1\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".books-2-description\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".books-img-3\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".books-4-box\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".books-img-5\" found in assets\\css\\style.css.",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "author\\index.html: Unescaped \"&\" detected in text: \"A Court of Thorns & Roses\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 3,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".img-box\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".books-img-1\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".books-2-description\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".books-img-3\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".books-4-box\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".books-img-5\" found in assets\\css\\style.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "author\\index.html: Unescaped \"&\" detected in text: \"A Court of Thorns & Roses\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

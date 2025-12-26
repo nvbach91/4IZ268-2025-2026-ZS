@@ -1,0 +1,127 @@
+{
+  "studentId": "malj23",
+  "score": 115,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".dropdown-item\" found in css\\styles.css.",
+    "Duplicate CSS selector \"h1\" found in css\\styles.css.",
+    "Duplicate CSS selector \"h2\" found in css\\styles.css.",
+    "Duplicate CSS selector \"h3\" found in css\\styles.css.",
+    "Duplicate CSS selector \".product-card\" found in css\\styles.css.",
+    "Duplicate CSS selector \".product-tile\" found in css\\styles.css.",
+    "Duplicate CSS selector \".product-tile\" found in css\\styles.css.",
+    "Duplicate CSS selector \".content-card\" found in css\\styles.css.",
+    "Duplicate CSS selector \".contact-card\" found in css\\styles.css.",
+    "Duplicate CSS selector \".product-content p\" found in css\\styles.css.",
+    "index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "zpracovani-dat-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "vizualizace-reporting-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "vizualizace-reporting-page\\index.html: Unescaped \"&\" detected in text: \"VIZUALIZACE & REPORTING\"",
+    "technologie-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "skoleni-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "produkty-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "partneri-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "kontakt-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "architektura-bi-dwh-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+    "ai-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".dropdown-item\" found in css\\styles.css.",
+        "Duplicate CSS selector \"h1\" found in css\\styles.css.",
+        "Duplicate CSS selector \"h2\" found in css\\styles.css.",
+        "Duplicate CSS selector \"h3\" found in css\\styles.css.",
+        "Duplicate CSS selector \".product-card\" found in css\\styles.css.",
+        "Duplicate CSS selector \".product-tile\" found in css\\styles.css.",
+        "Duplicate CSS selector \".product-tile\" found in css\\styles.css.",
+        "Duplicate CSS selector \".content-card\" found in css\\styles.css.",
+        "Duplicate CSS selector \".contact-card\" found in css\\styles.css.",
+        "Duplicate CSS selector \".product-content p\" found in css\\styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "zpracovani-dat-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "vizualizace-reporting-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "vizualizace-reporting-page\\index.html: Unescaped \"&\" detected in text: \"VIZUALIZACE & REPORTING\"",
+        "technologie-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "skoleni-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "produkty-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "partneri-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "kontakt-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "architektura-bi-dwh-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\"",
+        "ai-page\\index.html: Unescaped \"&\" detected in text: \"Vizualizace & Reporting\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

@@ -10,7 +10,7 @@ const ensureDirectoryExistence = (filePath) => {
     fs.mkdirSync(dirname);
 };
 
-const urls = fs.readFileSync('./links.txt', 'utf-8').split(/[\r\n]+/);
+const urls = fs.readFileSync('./download-links.txt', 'utf-8').split(/[\r\n]+/);
 
 (async () => {
     for (const url of urls) {
@@ -19,7 +19,7 @@ const urls = fs.readFileSync('./links.txt', 'utf-8').split(/[\r\n]+/);
             const parts = url.split('/');
             const xname = parts[3].replace('~', '');
             const file = parts.slice(5).join('/');
-            const filePath = `./files/${xname}/${file.includes('.') ? file : `${file}/index.html`}`;
+            const filePath = `./submissions/${xname}/${file.includes('.') ? file : `${file}/index.html`}`;
             // console.log(filePath);
             ensureDirectoryExistence(filePath);
             fs.writeFileSync(filePath, resp.data);

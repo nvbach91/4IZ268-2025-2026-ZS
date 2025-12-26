@@ -1,0 +1,147 @@
+{
+  "studentId": "rakf00",
+  "score": 102,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".hero\" found in assets\\css\\restaurants.css.",
+    "Duplicate CSS selector \".overlay\" found in assets\\css\\restaurants.css.",
+    "Duplicate CSS selector \".hero\" found in assets\\css\\nature.css.",
+    "Duplicate CSS selector \".slider img\" found in assets\\css\\nature.css.",
+    "Duplicate CSS selector \".hero\" found in assets\\css\\monuments.css.",
+    "Duplicate CSS selector \".left\" found in assets\\css\\monuments.css.",
+    "Duplicate CSS selector \".right\" found in assets\\css\\monuments.css.",
+    "Duplicate CSS selector \".hero\" found in assets\\css\\home.css.",
+    "Duplicate CSS selector \"html\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \"input\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \"button\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \"body\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".hero\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".overlay\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \"footer\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \"section h1\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".section-image\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".section-image img\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".content-center\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".section-icons h3\" found in assets\\css\\default.css.",
+    "Duplicate CSS selector \".section-icons p i\" found in assets\\css\\default.css.",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: Missing meta description.",
+    "tips\\index.html: Missing meta description.",
+    "restaurants\\index.html: Missing meta description.",
+    "nature\\index.html: Missing meta description.",
+    "monuments\\index.html: Missing meta description.",
+    "restaurants\\index.html: Unescaped \"&\" detected in text: \"Pho Vietnam Tuan & Lan\"",
+    "nature\\index.html: Unescaped \"&\" detected in text: \"Lesy & přírodní parky\"",
+    "nature\\index.html: Unescaped \"&\" detected in text: \"Řeky & potoky\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".hero\" found in assets\\css\\restaurants.css.",
+        "Duplicate CSS selector \".overlay\" found in assets\\css\\restaurants.css.",
+        "Duplicate CSS selector \".hero\" found in assets\\css\\nature.css.",
+        "Duplicate CSS selector \".slider img\" found in assets\\css\\nature.css.",
+        "Duplicate CSS selector \".hero\" found in assets\\css\\monuments.css.",
+        "Duplicate CSS selector \".left\" found in assets\\css\\monuments.css.",
+        "Duplicate CSS selector \".right\" found in assets\\css\\monuments.css.",
+        "Duplicate CSS selector \".hero\" found in assets\\css\\home.css.",
+        "Duplicate CSS selector \"html\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \"input\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \"button\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \"body\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".hero\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".overlay\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \"footer\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \"section h1\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".section-image\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".section-image img\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".content-center\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".section-icons h3\" found in assets\\css\\default.css.",
+        "Duplicate CSS selector \".section-icons p i\" found in assets\\css\\default.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 5,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "tips\\index.html: Missing meta description.",
+        "restaurants\\index.html: Missing meta description.",
+        "nature\\index.html: Missing meta description.",
+        "monuments\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 7,
+      "maxScore": 10,
+      "feedback": [
+        "restaurants\\index.html: Unescaped \"&\" detected in text: \"Pho Vietnam Tuan & Lan\"",
+        "nature\\index.html: Unescaped \"&\" detected in text: \"Lesy & přírodní parky\"",
+        "nature\\index.html: Unescaped \"&\" detected in text: \"Řeky & potoky\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

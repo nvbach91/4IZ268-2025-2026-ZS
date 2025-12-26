@@ -1,0 +1,110 @@
+{
+  "studentId": "barv34",
+  "score": 113,
+  "maxScore": 140,
+  "feedback": [
+    "Website contains 2 HTML pages. Minimum required is 5.",
+    "Duplicate CSS selector \".hero-title\" found in assets\\styles\\styles.css.",
+    "Duplicate CSS selector \".hero-subtitle\" found in assets\\styles\\styles.css.",
+    "Duplicate CSS selector \".section-split-content\" found in assets\\styles\\styles.css.",
+    "Duplicate CSS selector \".cta\" found in assets\\styles\\styles.css.",
+    "Duplicate CSS selector \".partners\" found in assets\\styles\\styles.css.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: Internal links should open in same tab.",
+    "index.html: External link should open in new tab."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Website contains 2 HTML pages. Minimum required is 5."
+      ]
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 5,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".hero-title\" found in assets\\styles\\styles.css.",
+        "Duplicate CSS selector \".hero-subtitle\" found in assets\\styles\\styles.css.",
+        "Duplicate CSS selector \".section-split-content\" found in assets\\styles\\styles.css.",
+        "Duplicate CSS selector \".cta\" found in assets\\styles\\styles.css.",
+        "Duplicate CSS selector \".partners\" found in assets\\styles\\styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 3,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Internal links should open in same tab.",
+        "index.html: Internal links should open in same tab.",
+        "index.html: Internal links should open in same tab.",
+        "index.html: Internal links should open in same tab.",
+        "index.html: Internal links should open in same tab.",
+        "index.html: Internal links should open in same tab.",
+        "index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

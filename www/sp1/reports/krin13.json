@@ -1,0 +1,100 @@
+{
+  "studentId": "krin13",
+  "score": 128,
+  "maxScore": 140,
+  "feedback": [
+    "index.html: Avoid including index.html in URLs (index.html).",
+    "index.html: Avoid including index.html in URLs (comparison/index.html).",
+    "wiki\\index.html: Avoid including index.html in URLs (../index.html).",
+    "news\\index.html: Avoid including index.html in URLs (../index.html).",
+    "dupes\\index.html: Avoid including index.html in URLs (../index.html).",
+    "comparison\\index.html: Avoid including index.html in URLs (../index.html).",
+    "Include at least one phone link using tel:.",
+    "comparison\\index.html: Unescaped \"&\" detected in text: \"Dolce & Gabbana – Light Bl\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 4,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Avoid including index.html in URLs (index.html).",
+        "index.html: Avoid including index.html in URLs (comparison/index.html).",
+        "wiki\\index.html: Avoid including index.html in URLs (../index.html).",
+        "news\\index.html: Avoid including index.html in URLs (../index.html).",
+        "dupes\\index.html: Avoid including index.html in URLs (../index.html).",
+        "comparison\\index.html: Avoid including index.html in URLs (../index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 5,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "comparison\\index.html: Unescaped \"&\" detected in text: \"Dolce & Gabbana – Light Bl\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

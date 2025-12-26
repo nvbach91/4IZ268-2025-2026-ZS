@@ -1,0 +1,112 @@
+{
+  "studentId": "mase02",
+  "score": 106,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".cover\" found in assets\\css\\styles_music.css.",
+    "Duplicate CSS selector \".cover img\" found in assets\\css\\styles_music.css.",
+    "Duplicate CSS selector \".concert-date\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".concert-city\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".concert-date\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".concert-city\" found in assets\\css\\styles.css.",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: Missing meta description.",
+    "videos\\index.html: Missing meta description.",
+    "tour\\index.html: Missing meta description.",
+    "music\\index.html: Missing meta description.",
+    "contacts\\index.html: Missing meta description.",
+    "about\\index.html: Missing meta description."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 3,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".cover\" found in assets\\css\\styles_music.css.",
+        "Duplicate CSS selector \".cover img\" found in assets\\css\\styles_music.css.",
+        "Duplicate CSS selector \".concert-date\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".concert-city\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".concert-date\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".concert-city\" found in assets\\css\\styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 3,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "videos\\index.html: Missing meta description.",
+        "tour\\index.html: Missing meta description.",
+        "music\\index.html: Missing meta description.",
+        "contacts\\index.html: Missing meta description.",
+        "about\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

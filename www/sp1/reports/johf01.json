@@ -1,0 +1,112 @@
+{
+  "studentId": "johf01",
+  "score": 118,
+  "maxScore": 140,
+  "feedback": [
+    "Website contains 4 HTML pages. Minimum required is 5.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "Menu\\index.html: External link should open in new tab.",
+    "Menu\\index.html: External link should open in new tab.",
+    "Kontakt\\index.html: External link should open in new tab.",
+    "Kontakt\\index.html: External link should open in new tab.",
+    "Kontakt\\index.html: External link should open in new tab.",
+    "Galerie\\index.html: External link should open in new tab.",
+    "Galerie\\index.html: External link should open in new tab.",
+    "Menu\\index.html: Unescaped \"&\" detected in text: \"Káva & Nápoje\"",
+    "Menu\\index.html: Unescaped \"&\" detected in text: \"Pečivo & Sladké\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Website contains 4 HTML pages. Minimum required is 5."
+      ]
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "Menu\\index.html: External link should open in new tab.",
+        "Menu\\index.html: External link should open in new tab.",
+        "Kontakt\\index.html: External link should open in new tab.",
+        "Kontakt\\index.html: External link should open in new tab.",
+        "Kontakt\\index.html: External link should open in new tab.",
+        "Galerie\\index.html: External link should open in new tab.",
+        "Galerie\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 8,
+      "maxScore": 10,
+      "feedback": [
+        "Menu\\index.html: Unescaped \"&\" detected in text: \"Káva & Nápoje\"",
+        "Menu\\index.html: Unescaped \"&\" detected in text: \"Pečivo & Sladké\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "studentId": "bare19",
+  "score": 115,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"body\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \"*\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \"*::before\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \"*::after\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".site-header\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".site-footer\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".services\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-header-aside\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-timeline-icon\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".kontakt-info-note\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".page-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".main-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".gallery-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".kontakt-grid\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-header\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".about-layout\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".about-intro-grid\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \"a\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \"img\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".project-card\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-timeline-item\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-step\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".about-pill\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-header-text\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-timeline-content\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-steps\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".about-how\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".about-intro-grid\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".offer-item\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-timeline-list::before\" found in BargelStav\\assets\\css\\print.css.",
+    "Duplicate CSS selector \".sluzby-timeline-item\" found in BargelStav\\assets\\css\\print.css.",
+    "BargelStav\\sluzby.html: External link should open in new tab.",
+    "BargelStav\\sluzby.html: External link should open in new tab.",
+    "BargelStav\\reference.html: External link should open in new tab.",
+    "BargelStav\\reference.html: External link should open in new tab.",
+    "BargelStav\\o-nas.html: External link should open in new tab.",
+    "BargelStav\\o-nas.html: External link should open in new tab.",
+    "BargelStav\\kontakt.html: External link should open in new tab.",
+    "BargelStav\\kontakt.html: External link should open in new tab.",
+    "BargelStav\\home-page.html: External link should open in new tab.",
+    "BargelStav\\home-page.html: External link should open in new tab.",
+    "BargelStav\\fotokolekce.html: External link should open in new tab.",
+    "BargelStav\\fotokolekce.html: External link should open in new tab."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"body\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \"*\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \"*::before\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \"*::after\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".site-header\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".site-footer\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".services\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-header-aside\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-timeline-icon\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".kontakt-info-note\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".page-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".main-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".gallery-wrapper\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".kontakt-grid\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-header\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".about-layout\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".about-intro-grid\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \"a\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \"img\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".project-card\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-timeline-item\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-step\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".about-pill\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-header-text\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-timeline-content\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-steps\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".about-how\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".about-intro-grid\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".offer-item\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-timeline-list::before\" found in BargelStav\\assets\\css\\print.css.",
+        "Duplicate CSS selector \".sluzby-timeline-item\" found in BargelStav\\assets\\css\\print.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "BargelStav\\sluzby.html: External link should open in new tab.",
+        "BargelStav\\sluzby.html: External link should open in new tab.",
+        "BargelStav\\reference.html: External link should open in new tab.",
+        "BargelStav\\reference.html: External link should open in new tab.",
+        "BargelStav\\o-nas.html: External link should open in new tab.",
+        "BargelStav\\o-nas.html: External link should open in new tab.",
+        "BargelStav\\kontakt.html: External link should open in new tab.",
+        "BargelStav\\kontakt.html: External link should open in new tab.",
+        "BargelStav\\home-page.html: External link should open in new tab.",
+        "BargelStav\\home-page.html: External link should open in new tab.",
+        "BargelStav\\fotokolekce.html: External link should open in new tab.",
+        "BargelStav\\fotokolekce.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "studentId": "slaj33",
+  "score": 110,
+  "maxScore": 140,
+  "feedback": [
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "product-page\\index.html: External link should open in new tab.",
+    "product-page\\index.html: External link should open in new tab.",
+    "contact-page\\index.html: External link should open in new tab.",
+    "contact-page\\index.html: External link should open in new tab.",
+    "blog-page\\index.html: External link should open in new tab.",
+    "blog-page\\index.html: External link should open in new tab.",
+    "about-page\\index.html: External link should open in new tab.",
+    "about-page\\index.html: External link should open in new tab.",
+    "index.html: Missing meta description.",
+    "product-page\\index.html: Missing meta description.",
+    "contact-page\\index.html: Missing meta description.",
+    "blog-page\\index.html: Missing meta description.",
+    "about-page\\index.html: Missing meta description."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "product-page\\index.html: External link should open in new tab.",
+        "product-page\\index.html: External link should open in new tab.",
+        "contact-page\\index.html: External link should open in new tab.",
+        "contact-page\\index.html: External link should open in new tab.",
+        "blog-page\\index.html: External link should open in new tab.",
+        "blog-page\\index.html: External link should open in new tab.",
+        "about-page\\index.html: External link should open in new tab.",
+        "about-page\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 5,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "product-page\\index.html: Missing meta description.",
+        "contact-page\\index.html: Missing meta description.",
+        "blog-page\\index.html: Missing meta description.",
+        "about-page\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "studentId": "puzo00",
+  "score": 130,
+  "maxScore": 140,
+  "feedback": [
+    "index.html: Unescaped \"&\" detected in text: \"oke — Shisha Lounge & Bar\"",
+    "index.html: Unescaped \"&\" detected in text: \"Drinky & nealko\"",
+    "index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+    "news\\index.html: Unescaped \"&\" detected in text: \"Zimní speciály & vánoční punč\"",
+    "news\\index.html: Unescaped \"&\" detected in text: \"Black Magic Gin&Tonic 139 Kč\"",
+    "news\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+    "menu\\index.html: Unescaped \"&\" detected in text: \"Special Gin & Tonic\"",
+    "menu\\index.html: Unescaped \"&\" detected in text: \"Birell Pomelo & Grep\"",
+    "menu\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+    "gallery\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+    "contact\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"oke — Shisha Lounge & Bar\"",
+        "index.html: Unescaped \"&\" detected in text: \"Drinky & nealko\"",
+        "index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+        "news\\index.html: Unescaped \"&\" detected in text: \"Zimní speciály & vánoční punč\"",
+        "news\\index.html: Unescaped \"&\" detected in text: \"Black Magic Gin&Tonic 139 Kč\"",
+        "news\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+        "menu\\index.html: Unescaped \"&\" detected in text: \"Special Gin & Tonic\"",
+        "menu\\index.html: Unescaped \"&\" detected in text: \"Birell Pomelo & Grep\"",
+        "menu\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+        "gallery\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\"",
+        "contact\\index.html: Unescaped \"&\" detected in text: \"oke • Shisha Lounge & Bar\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

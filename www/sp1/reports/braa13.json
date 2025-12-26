@@ -1,0 +1,196 @@
+{
+  "studentId": "braa13",
+  "score": 89,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".char-card\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".room-card\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".item-card\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".char-card\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".room-card\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".nav a\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".help-content h1\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".story-content h1\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".room-page-layout h1\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".npc-content h1\" found in assets\\css\\main.css.",
+    "Duplicate CSS selector \".item-card\" found in assets\\css\\items.css.",
+    "index.html: Avoid including index.html in URLs (index.html).",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: Missing meta description.",
+    "world\\index.html: Missing meta description.",
+    "world\\zaval\\index.html: Missing meta description.",
+    "world\\zaplavena-sien\\index.html: Missing meta description.",
+    "world\\vstupna-jaskyna\\index.html: Missing meta description.",
+    "world\\velka-hala\\index.html: Missing meta description.",
+    "world\\skrz-portal\\index.html: Missing meta description.",
+    "world\\portalova-komnata\\index.html: Missing meta description.",
+    "world\\podvodna-pasaz\\index.html: Missing meta description.",
+    "world\\jaskyna-pokladov\\index.html: Missing meta description.",
+    "world\\hlavna-chodba\\index.html: Missing meta description.",
+    "world\\chramova-sien\\index.html: Missing meta description.",
+    "world\\bocna-ulicka\\index.html: Missing meta description.",
+    "story\\index.html: Missing meta description.",
+    "npc\\index.html: Missing meta description.",
+    "napoveda\\index.html: Missing meta description.",
+    "items\\index.html: Missing meta description.",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"jdi <miestnosť>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"jdi <miestnosť>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"vezmi <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"vezmi <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"daj <postava> <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"daj <postava> <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"daj <postava> <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"j <postava> <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"nasadit <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"nasadit <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"otvor <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"otvor <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"pozri <predmet/studna>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"ozri <predmet/studna>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"z <postava> <odpoveď>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"pokecajS <postava>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"pokecajS <postava>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"zapalit <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"zapalit <predmet>\"",
+    "napoveda\\index.html: Unescaped \"<\" detected in text: \"vyhod <predmet>\"",
+    "napoveda\\index.html: Unescaped \">\" detected in text: \"vyhod <predmet>\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".char-card\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".room-card\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".item-card\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".char-card\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".room-card\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".nav a\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".help-content h1\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".story-content h1\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".room-page-layout h1\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".npc-content h1\" found in assets\\css\\main.css.",
+        "Duplicate CSS selector \".item-card\" found in assets\\css\\items.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Avoid including index.html in URLs (index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "world\\index.html: Missing meta description.",
+        "world\\zaval\\index.html: Missing meta description.",
+        "world\\zaplavena-sien\\index.html: Missing meta description.",
+        "world\\vstupna-jaskyna\\index.html: Missing meta description.",
+        "world\\velka-hala\\index.html: Missing meta description.",
+        "world\\skrz-portal\\index.html: Missing meta description.",
+        "world\\portalova-komnata\\index.html: Missing meta description.",
+        "world\\podvodna-pasaz\\index.html: Missing meta description.",
+        "world\\jaskyna-pokladov\\index.html: Missing meta description.",
+        "world\\hlavna-chodba\\index.html: Missing meta description.",
+        "world\\chramova-sien\\index.html: Missing meta description.",
+        "world\\bocna-ulicka\\index.html: Missing meta description.",
+        "story\\index.html: Missing meta description.",
+        "npc\\index.html: Missing meta description.",
+        "napoveda\\index.html: Missing meta description.",
+        "items\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"jdi <miestnosť>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"jdi <miestnosť>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"vezmi <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"vezmi <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"daj <postava> <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"daj <postava> <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"daj <postava> <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"j <postava> <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"nasadit <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"nasadit <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"otvor <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"otvor <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"pozri <predmet/studna>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"ozri <predmet/studna>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"odpovedz <postava> <odpoveď>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"z <postava> <odpoveď>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"pokecajS <postava>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"pokecajS <postava>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"zapalit <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"zapalit <predmet>\"",
+        "napoveda\\index.html: Unescaped \"<\" detected in text: \"vyhod <predmet>\"",
+        "napoveda\\index.html: Unescaped \">\" detected in text: \"vyhod <predmet>\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

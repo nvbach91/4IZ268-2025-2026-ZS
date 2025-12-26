@@ -1,0 +1,158 @@
+{
+  "studentId": "daoq00",
+  "score": 104,
+  "maxScore": 140,
+  "feedback": [
+    "prace\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+    "prace\\index.html: Avoid including index.html in URLs (../produkty/index.html).",
+    "prace\\index.html: Avoid including index.html in URLs (../dorty/index.html).",
+    "prace\\index.html: Avoid including index.html in URLs (../prace/index.html).",
+    "prace\\index.html: Avoid including index.html in URLs (../kontakty/index.html).",
+    "Include at least one email link using mailto:.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "uvod\\index.html: External link should open in new tab.",
+    "uvod\\index.html: External link should open in new tab.",
+    "produkty\\index.html: External link should open in new tab.",
+    "produkty\\index.html: External link should open in new tab.",
+    "prace\\index.html: External link should open in new tab.",
+    "prace\\index.html: External link should open in new tab.",
+    "o-nas\\index.html: External link should open in new tab.",
+    "o-nas\\index.html: External link should open in new tab.",
+    "muzeum\\index.html: External link should open in new tab.",
+    "muzeum\\index.html: External link should open in new tab.",
+    "kontakty\\index.html: External link should open in new tab.",
+    "kontakty\\index.html: External link should open in new tab.",
+    "klubovna\\index.html: External link should open in new tab.",
+    "klubovna\\index.html: External link should open in new tab.",
+    "klubovna\\index.html: External link should open in new tab.",
+    "klubovna\\index.html: External link should open in new tab.",
+    "dorty\\index.html: External link should open in new tab.",
+    "dorty\\index.html: External link should open in new tab.",
+    "index.html: Missing meta description.",
+    "uvod\\index.html: Missing meta description.",
+    "produkty\\index.html: Missing meta description.",
+    "prace\\index.html: Missing meta description.",
+    "o-nas\\index.html: Missing meta description.",
+    "muzeum\\index.html: Missing meta description.",
+    "kontakty\\index.html: Missing meta description.",
+    "klubovna\\index.html: Missing meta description.",
+    "dorty\\index.html: Missing meta description.",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"ovali podniky Cream & Dream a Cremeria M\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 5,
+      "maxScore": 10,
+      "feedback": [
+        "prace\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+        "prace\\index.html: Avoid including index.html in URLs (../produkty/index.html).",
+        "prace\\index.html: Avoid including index.html in URLs (../dorty/index.html).",
+        "prace\\index.html: Avoid including index.html in URLs (../prace/index.html).",
+        "prace\\index.html: Avoid including index.html in URLs (../kontakty/index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 5,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "uvod\\index.html: External link should open in new tab.",
+        "uvod\\index.html: External link should open in new tab.",
+        "produkty\\index.html: External link should open in new tab.",
+        "produkty\\index.html: External link should open in new tab.",
+        "prace\\index.html: External link should open in new tab.",
+        "prace\\index.html: External link should open in new tab.",
+        "o-nas\\index.html: External link should open in new tab.",
+        "o-nas\\index.html: External link should open in new tab.",
+        "muzeum\\index.html: External link should open in new tab.",
+        "muzeum\\index.html: External link should open in new tab.",
+        "kontakty\\index.html: External link should open in new tab.",
+        "kontakty\\index.html: External link should open in new tab.",
+        "klubovna\\index.html: External link should open in new tab.",
+        "klubovna\\index.html: External link should open in new tab.",
+        "klubovna\\index.html: External link should open in new tab.",
+        "klubovna\\index.html: External link should open in new tab.",
+        "dorty\\index.html: External link should open in new tab.",
+        "dorty\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "uvod\\index.html: Missing meta description.",
+        "produkty\\index.html: Missing meta description.",
+        "prace\\index.html: Missing meta description.",
+        "o-nas\\index.html: Missing meta description.",
+        "muzeum\\index.html: Missing meta description.",
+        "kontakty\\index.html: Missing meta description.",
+        "klubovna\\index.html: Missing meta description.",
+        "dorty\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"ovali podniky Cream & Dream a Cremeria M\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

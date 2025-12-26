@@ -1,0 +1,173 @@
+{
+  "studentId": "novl43",
+  "score": 115,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"body\" found in assets\\css\\gallery.css.",
+    "Duplicate CSS selector \"body\" found in assets\\css\\contact.css.",
+    "Duplicate CSS selector \"body\" found in assets\\css\\components.css.",
+    "Duplicate CSS selector \"body\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".section-about\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-inner\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-highlight\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-highlight-bg\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-stats\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-stat-card\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-stat-number\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-stat-text\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-text\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-heading\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-lead\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-body\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".about-features\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-card\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-icon\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-icon-bg\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-icon-image\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-content\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-title\" found in assets\\css\\about.css.",
+    "Duplicate CSS selector \".feature-text\" found in assets\\css\\about.css.",
+    "index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+    "index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+    "sluzby\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "sluzby\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+    "sluzby\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "sluzby\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Pohodlí & relax\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Kosmetička & skincare specialis\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Make-up artist & vizážistka\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Kadeřnice & vlasová stylistka\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+    "o-nas\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+    "kontakt\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "kontakt\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+    "kontakt\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+    "galerie\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+    "galerie\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+    "galerie\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"body\" found in assets\\css\\gallery.css.",
+        "Duplicate CSS selector \"body\" found in assets\\css\\contact.css.",
+        "Duplicate CSS selector \"body\" found in assets\\css\\components.css.",
+        "Duplicate CSS selector \"body\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".section-about\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-inner\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-highlight\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-highlight-bg\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-stats\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-stat-card\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-stat-number\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-stat-text\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-text\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-heading\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-lead\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-body\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".about-features\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-card\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-icon\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-icon-bg\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-icon-image\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-content\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-title\" found in assets\\css\\about.css.",
+        "Duplicate CSS selector \".feature-text\" found in assets\\css\\about.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+        "index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+        "sluzby\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "sluzby\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+        "sluzby\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "sluzby\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Pohodlí & relax\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Kosmetička & skincare specialis\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Make-up artist & vizážistka\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Kadeřnice & vlasová stylistka\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+        "o-nas\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+        "kontakt\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "kontakt\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+        "kontakt\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\"",
+        "galerie\\index.html: Unescaped \"&\" detected in text: \"Hydratace & rozjasnění\"",
+        "galerie\\index.html: Unescaped \"&\" detected in text: \"Úprava obočí & řas\"",
+        "galerie\\index.html: Unescaped \"&\" detected in text: \"Manikúra & pedikúra\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

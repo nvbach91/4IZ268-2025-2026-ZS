@@ -1,4 +1,4 @@
-body {
+
   body {
     font-family: var(--font-base);
   }
@@ -430,6 +430,4 @@ body {
   border-radius: 25px;
   font-size: clamp(16px, 1.8vw, 20px);
   width: fit-content;
-}
-
 }

@@ -1,0 +1,118 @@
+{
+  "studentId": "pild03",
+  "score": 107,
+  "maxScore": 140,
+  "feedback": [
+    "reference\\index.html: Avoid base64 images — use image files instead.",
+    "Duplicate CSS selector \".mail\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".phone-numbers\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".opening-hours th\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".price-table th\" found in assets\\css\\style.css.",
+    "Duplicate CSS selector \".lightbox-content\" found in assets\\css\\style.css.",
+    "sluzby\\tapetovani\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+    "sluzby\\sterka\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+    "sluzby\\omitky\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+    "sluzby\\malovani\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../reference/index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+    "cenik\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+    "Include at least one email link using mailto:.",
+    "Include at least one phone link using tel:.",
+    "index.html: Unescaped \"&\" detected in text: \"ální malířské práce & dekorativní omítky\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 5,
+      "maxScore": 10,
+      "feedback": [
+        "reference\\index.html: Avoid base64 images — use image files instead."
+      ]
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 5,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".mail\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".phone-numbers\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".opening-hours th\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".price-table th\" found in assets\\css\\style.css.",
+        "Duplicate CSS selector \".lightbox-content\" found in assets\\css\\style.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 3,
+      "maxScore": 10,
+      "feedback": [
+        "sluzby\\tapetovani\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+        "sluzby\\sterka\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+        "sluzby\\omitky\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+        "sluzby\\malovani\\index.html: Avoid including index.html in URLs (../../kontakt/index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../reference/index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+        "cenik\\index.html: Avoid including index.html in URLs (../kontakt/index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one email link using mailto:.",
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"ální malířské práce & dekorativní omítky\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "studentId": "petj30",
+  "score": 115,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".contact-note\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".heroband p\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table td\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table td\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css.",
+    "index.html: Avoid including index.html in URLs (./index.html).",
+    "index.html: Avoid including index.html in URLs (./index.html).",
+    "index.html: Avoid including index.html in URLs (./o-nas/index.html).",
+    "index.html: Avoid including index.html in URLs (./ubytovani/index.html).",
+    "index.html: Avoid including index.html in URLs (./o-sobeslavi/index.html).",
+    "index.html: Avoid including index.html in URLs (./kontakt/index.html).",
+    "index.html: Avoid including index.html in URLs (./ubytovani/index.html).",
+    "index.html: Avoid including index.html in URLs (./kontakt/index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (../index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (../index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (./index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+    "ubytovani\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (../index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (../index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (./index.html).",
+    "o-sobeslavi\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (./index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+    "o-nas\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (../index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (../index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+    "kontakt\\index.html: Avoid including index.html in URLs (./index.html)."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".contact-note\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".heroband p\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table td\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table td\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \".cenik-table th\" found in assets\\css\\styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Avoid including index.html in URLs (./index.html).",
+        "index.html: Avoid including index.html in URLs (./index.html).",
+        "index.html: Avoid including index.html in URLs (./o-nas/index.html).",
+        "index.html: Avoid including index.html in URLs (./ubytovani/index.html).",
+        "index.html: Avoid including index.html in URLs (./o-sobeslavi/index.html).",
+        "index.html: Avoid including index.html in URLs (./kontakt/index.html).",
+        "index.html: Avoid including index.html in URLs (./ubytovani/index.html).",
+        "index.html: Avoid including index.html in URLs (./kontakt/index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (../index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (../index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (./index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+        "ubytovani\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (../index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (../index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (./index.html).",
+        "o-sobeslavi\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (./index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+        "o-nas\\index.html: Avoid including index.html in URLs (../kontakt/index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (../index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (../index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (../o-nas/index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (../ubytovani/index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (../o-sobeslavi/index.html).",
+        "kontakt\\index.html: Avoid including index.html in URLs (./index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

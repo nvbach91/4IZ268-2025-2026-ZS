@@ -1,0 +1,167 @@
+{
+  "studentId": "svaa09",
+  "score": 118,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"h1\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \"h2\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \"h3\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \"h4\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \"h5\" found in assets\\css\\styles.css.",
+    "Duplicate CSS selector \"h6\" found in assets\\css\\styles.css.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "index.html: External link should open in new tab.",
+    "sluzby\\index.html: External link should open in new tab.",
+    "sluzby\\index.html: External link should open in new tab.",
+    "sluzby\\index.html: External link should open in new tab.",
+    "sluzby\\index.html: External link should open in new tab.",
+    "portfolio\\index.html: External link should open in new tab.",
+    "portfolio\\index.html: External link should open in new tab.",
+    "portfolio\\index.html: External link should open in new tab.",
+    "portfolio\\index.html: External link should open in new tab.",
+    "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+    "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+    "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+    "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+    "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+    "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+    "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+    "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+    "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+    "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+    "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+    "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+    "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+    "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+    "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+    "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+    "o-mne\\index.html: External link should open in new tab.",
+    "o-mne\\index.html: External link should open in new tab.",
+    "o-mne\\index.html: External link should open in new tab.",
+    "o-mne\\index.html: External link should open in new tab.",
+    "kontakt\\index.html: External link should open in new tab.",
+    "kontakt\\index.html: External link should open in new tab.",
+    "kontakt\\index.html: External link should open in new tab.",
+    "kontakt\\index.html: External link should open in new tab."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 3,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"h1\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \"h2\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \"h3\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \"h4\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \"h5\" found in assets\\css\\styles.css.",
+        "Duplicate CSS selector \"h6\" found in assets\\css\\styles.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "index.html: External link should open in new tab.",
+        "sluzby\\index.html: External link should open in new tab.",
+        "sluzby\\index.html: External link should open in new tab.",
+        "sluzby\\index.html: External link should open in new tab.",
+        "sluzby\\index.html: External link should open in new tab.",
+        "portfolio\\index.html: External link should open in new tab.",
+        "portfolio\\index.html: External link should open in new tab.",
+        "portfolio\\index.html: External link should open in new tab.",
+        "portfolio\\index.html: External link should open in new tab.",
+        "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+        "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+        "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+        "portfolio\\scormium-lms\\index.html: External link should open in new tab.",
+        "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+        "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+        "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+        "portfolio\\dobry-pritel\\index.html: External link should open in new tab.",
+        "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+        "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+        "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+        "portfolio\\crm-conmix\\index.html: External link should open in new tab.",
+        "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+        "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+        "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+        "portfolio\\akademie-podnikani\\index.html: External link should open in new tab.",
+        "o-mne\\index.html: External link should open in new tab.",
+        "o-mne\\index.html: External link should open in new tab.",
+        "o-mne\\index.html: External link should open in new tab.",
+        "o-mne\\index.html: External link should open in new tab.",
+        "kontakt\\index.html: External link should open in new tab.",
+        "kontakt\\index.html: External link should open in new tab.",
+        "kontakt\\index.html: External link should open in new tab.",
+        "kontakt\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 15,
+      "maxScore": 15,
+      "feedback": []
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

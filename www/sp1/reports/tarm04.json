@@ -1,0 +1,145 @@
+{
+  "studentId": "tarm04",
+  "score": 108,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \".first-content\" found in assets\\style.css.",
+    "Duplicate CSS selector \".second-content\" found in assets\\style.css.",
+    "index.html: External link should open in new tab.",
+    "students\\private\\index.html: External link should open in new tab.",
+    "students\\group\\index.html: External link should open in new tab.",
+    "faq\\index.html: External link should open in new tab.",
+    "contacts\\index.html: External link should open in new tab.",
+    "about\\index.html: External link should open in new tab.",
+    "index.html: Missing meta description.",
+    "students\\private\\index.html: Missing meta description.",
+    "students\\group\\index.html: Missing meta description.",
+    "faq\\index.html: Missing meta description.",
+    "contacts\\index.html: Missing meta description.",
+    "about\\index.html: Missing meta description.",
+    "index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+    "index.html: Unescaped \"&\" detected in text: \"Online & in-person, designe\"",
+    "index.html: Unescaped \"&\" detected in text: \"Clear & Patient Teaching\"",
+    "index.html: Unescaped \"&\" detected in text: \"Motivation & Support\"",
+    "students\\private\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "students\\private\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+    "students\\group\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "students\\group\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+    "faq\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "faq\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+    "faq\\index.html: Unescaped \"&\" detected in text: \"& Rules\"",
+    "contacts\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "contacts\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+    "about\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+    "about\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 11,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \".first-content\" found in assets\\style.css.",
+        "Duplicate CSS selector \".second-content\" found in assets\\style.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 4,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: External link should open in new tab.",
+        "students\\private\\index.html: External link should open in new tab.",
+        "students\\group\\index.html: External link should open in new tab.",
+        "faq\\index.html: External link should open in new tab.",
+        "contacts\\index.html: External link should open in new tab.",
+        "about\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 3,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta description.",
+        "students\\private\\index.html: Missing meta description.",
+        "students\\group\\index.html: Missing meta description.",
+        "faq\\index.html: Missing meta description.",
+        "contacts\\index.html: Missing meta description.",
+        "about\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+        "index.html: Unescaped \"&\" detected in text: \"Online & in-person, designe\"",
+        "index.html: Unescaped \"&\" detected in text: \"Clear & Patient Teaching\"",
+        "index.html: Unescaped \"&\" detected in text: \"Motivation & Support\"",
+        "students\\private\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "students\\private\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+        "students\\group\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "students\\group\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+        "faq\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "faq\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+        "faq\\index.html: Unescaped \"&\" detected in text: \"& Rules\"",
+        "contacts\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "contacts\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\"",
+        "about\\index.html: Unescaped \"&\" detected in text: \"Private & group lessons • On\"",
+        "about\\index.html: Unescaped \"&\" detected in text: \"up lessons • Online & in-person\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

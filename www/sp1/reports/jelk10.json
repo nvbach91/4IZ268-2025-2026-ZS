@@ -1,0 +1,94 @@
+{
+  "studentId": "jelk10",
+  "score": 131,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"footer\" found in assets\\styles\\style.css.",
+    "contacts\\index.html: External link should open in new tab.",
+    "services\\index.html: Missing meta description.",
+    "contacts\\index.html: Missing meta description.",
+    "branch\\index.html: Missing meta description."
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 13,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"footer\" found in assets\\styles\\style.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 9,
+      "maxScore": 10,
+      "feedback": [
+        "contacts\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 9,
+      "maxScore": 15,
+      "feedback": [
+        "services\\index.html: Missing meta description.",
+        "contacts\\index.html: Missing meta description.",
+        "branch\\index.html: Missing meta description."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}
