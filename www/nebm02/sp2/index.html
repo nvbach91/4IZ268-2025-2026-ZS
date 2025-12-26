@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Můj Herní Deníček</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-gamepad"></i>Můj Herní Deníček
+            </div>
+
+            <nav class="sidebar-nav">
+                <button id="nav-search" class="nav-item active">
+                    <span class="icon-wrapper"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <span class="nav-text">Vyhledávání</span>
+                </button>
+
+                <button id="nav-library" class="nav-item">
+                    <span class="icon-wrapper"><i class="fa-solid fa-layer-group"></i></span>
+                    <span class="nav-text">Knihovna</span>
+                </button>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fa-solid fa-circle-user"></i>
+                </div>
+                <span>Uživatel</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section id="section-search" class="content-module">
+                <header class="module-header">
+                    <h1>Vyhledávání</h1>
+                    <p>Prohledej databázi a přidej si hru do seznamu.</p>
+                </header>
+
+                <div class="search-box-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon-input"></i>
+                    <input type="text" id="search-input" placeholder="Zadejte název hry...">
+                    <button id="search-btn">Hledat</button>
+                </div>
+
+                <div id="loading-spinner" class="loader"></div>
+
+                <div id="search-results" class="game-grid">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-ghost"></i><br>
+                        Zatim jste nic nevyhledali.
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-library" class="content-module hidden">
+                <header class="module-header">
+                    <h1>Moje knihovna</h1>
+                    <p>Přehled vašich her</p>
+                </header>
+
+                <div id="library-list" class="game-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
