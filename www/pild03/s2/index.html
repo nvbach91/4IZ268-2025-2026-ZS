@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Týdenní Plánovač Jídel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Týdenní Plánovač Jídel 📅</h1>
+        <p>Naplánujte si jídla a nechte si vygenerovat chytrý nákupní seznam.</p>
+    </header>
+
+    <main>
+        <section id="search-section">
+            <h2>Vyhledat recepty 🔍</h2>
+            <input type="text" id="recipe-search-input" placeholder="Zadejte ingredienci nebo název">
+            <button id="search-button">Hledat</button>
+            <div id="search-results">
+                </div>
+        </section>
+
+        <section id="planner-section">
+            <h2>Váš Týdenní Plán 🗓️</h2>
+            <button id="generate-list-button">Generovat Nákupní Seznam</button>
+            <div id="meal-planner-grid">
+                </div>
+        </section>
+
+        <section id="shopping-list-section" style="display:none;">
+    <h2>Váš Nákupní Seznam 🛒</h2>
+    <div id="shopping-list-content">
+        </div>
+    
+    <button id="clear-list-display-button" class="btn-secondary">Skrýt ZOBRAZENÝ Seznam (Plán ZŮSTÁVÁ)</button>
+    <button id="clear-full-plan-button" class="btn-danger">Vymazat CELÝ Týdenní Plán (Vše)</button>
+</section>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
