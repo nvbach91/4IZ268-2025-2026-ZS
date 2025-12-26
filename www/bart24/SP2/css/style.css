@@ -1,0 +1,77 @@
+/* Základní reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif; /* Nebo jiný font, co máš rád */
+}
+
+body {
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+header, footer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Hlavní rozložení do 3 sloupců */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Tři stejně široké sloupce */
+    gap: 20px; /* Mezera mezi sloupci */
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 80vh; /* Aby to bylo přes většinu obrazovky */
+}
+
+/* Vzhled jednotlivých sloupců (podle nákresu rámečky) */
+.column {
+    background: white;
+    border: 2px solid #333; /* Tmavý rámeček jako na nákresu */
+    padding: 15px;
+    border-radius: 8px;
+    overflow-y: auto; /* Aby se dalo scrollovat uvnitř sloupce */
+}
+
+h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Styl pro položky v seznamu zápasů */
+.match-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.match-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Tlačítka pro tipování */
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.btn-tip {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Graf */
+.chart-container {
+    margin-top: 20px;
+    border: 1px solid #ccc; /* Rámeček pro graf jako na obrázku */
+    padding: 10px;
+}
