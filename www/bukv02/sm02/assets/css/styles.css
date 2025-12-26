@@ -1,0 +1,264 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-fluid {
+    flex: 1;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 3px solid #333;
+    border-radius: 8px;
+}
+
+.add-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #fff;
+    border: 3px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.ingredients-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    min-height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.ingredient-bubble {
+    padding: 12px 25px;
+    background-color: #fff;
+    border: 3px solid #333;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.ingredient-bubble:hover {
+    background-color: #333;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.lookup-btn {
+    display: block;
+    margin: 40px auto;
+    padding: 20px 50px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    background-color: #fff;
+    border: 3px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lookup-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.lookup-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.recipes-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.recipe-card {
+    background: #fff;
+    border: 3px solid #333;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: transform 0.2s;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.recipe-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.recipe-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.recipe-stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.matched-ingredients {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.matched-count {
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    background-color: #fff;
+    border: 3px solid #333;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.loading {
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 40px;
+}
+
+.error-message {
+    background-color: #fff;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.info-text {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.site-footer {
+    background-color: #fff;
+    margin-top: auto;
+    padding: 30px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-info {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.footer-link:hover {
+    color: #666;
+}
+
+.footer-divider {
+    color: #333;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-left {
+        align-items: center;
+    }
+}
