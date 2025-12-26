@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git The Hub</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Git The Hub Viewer</h1>
+    </header>
+
+    <main>
+        <section id="search-section">
+            <h2>Vyhľadaj GitHub Používateľa</h2>
+            <form id="user-search-form">
+                <input type="text" id="username-input" placeholder="Zadaj GitHub užívateľské meno" required>
+                <button type="submit">Hľadať</button>
+            </form>
+        </section>
+
+        <section id="user-profile">
+            <p class="initial-message">Zadajte používateľské meno a stlačte Hľadať.</p>
+        </section>
+
+        <section id="repositories-list" style="display: none;">
+            <h2>Repozitáre</h2>
+            <ul id="repo-ul">
+                </ul>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
