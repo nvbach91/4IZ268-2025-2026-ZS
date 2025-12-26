@@ -1,0 +1,74 @@
+body {
+    background-color: #f8f9fa;
+    font-family: monospace;
+}
+
+.game-window {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.passport-card {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.border-field {
+    width: 18% !important;
+}
+
+.allowed-list-area {
+    background-color: #e9ecef;
+    min-height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deny-btn {
+    background-color: #e81b8a;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    border: 2px solid #c21575;
+}
+
+.deny-btn:hover {
+    background-color: #c21575;
+    color: white;
+}
+
+.allow-btn {
+    background-color: #72b814;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    border: 2px solid #5d9710;
+}
+
+.allow-btn:hover {
+    background-color: #5d9710;
+    color: white;
+}
+
+.hidden-view {
+    display: none !important;
+    opacity: 0;
+}
+
+.active-view {
+    display: block !important;
+    opacity: 1;
+}
+
+.app-view {
+    transition: opacity 0.3s ease-in-out;
+}
