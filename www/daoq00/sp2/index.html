@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Movie Explorer</title>
+</head>
+
+<body>
+    <header>
+        <h1>Movie Explorer</h1>
+        <nav>
+            <a href="./movies/">Filmy</a>
+            <a href="./series/">Seriály</a>
+        </nav>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Zadejte název filmu nebo seriálu..." required>
+            <button type="submit">Hledat</button>
+        </form>
+    </header>
+
+    <main>
+        <section id="results-container">
+            <h2>Výsledky vyhledávání</h2>
+        </section>
+
+        <section id="detail-container" style="display: none;">
+        </section>
+
+        <aside id="folders-sidebar">
+            <h2>Mé složky</h2>
+            <div id="folders-list">
+            </div>
+            <button id="add-folder-btn">Přidat novou složku</button>
+        </aside>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
