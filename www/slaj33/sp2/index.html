@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRC Finder</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">ISRC Finder</div>
+
+    </header>
+
+    <main id="app">
+        <section id="login-view" class="view">
+            <div class="login-container">
+                <h1>Vítejte v ISRC Finder</h1>
+                <p>Přihlaste se pro vyhledávání metadat skladeb.</p>
+                <button id="login-button" class="button-spotify">Přihlásit se přes Spotify</button>
+            </div>
+        </section>
+
+        <section id="search-view" class="view hidden">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Zadejte název skladby nebo interpreta...">
+                <button id="search-button"></i></button>
+            </div>
+            <div id="results-container" class="grid-container"></div>
+        </section>
+
+      
+
+        <section id="saved-view" class="view hidden">
+            <h2>Uložené položky</h2>
+            <div id="saved-container" class="list-container"></div>
+        </section>
+    </main>
+
+    
+
+    <script src="app.js"></script>
+</body>
+</html>
