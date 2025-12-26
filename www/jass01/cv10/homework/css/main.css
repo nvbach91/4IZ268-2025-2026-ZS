@@ -1,0 +1,186 @@
+/* Reset & base */
+* { box-sizing: border-box; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  background: linear-gradient(180deg,#eef6ff,#ffffff);
+  color: #0f1724;
+  -webkit-font-smoothing:antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* App layout */
+#app {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(10,40,80,0.06);
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+header h1 {
+  margin: 0;
+  font-weight: 700;
+  color: #0b66c3; /* blue-ish */
+  letter-spacing: -0.5px;
+}
+header p {
+  margin: 6px 0 0 0;
+  color: #355b7a;
+  font-weight: 300;
+}
+
+/* Search form */
+#search-form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 18px 0 24px;
+}
+#search-form input[name="username"] {
+  flex: 1 1 320px;
+  padding: 10px 12px;
+  border: 1px solid #dceefb;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease;
+}
+#search-form input[name="username"]:focus {
+  border-color: #0b66c3;
+  box-shadow: 0 4px 18px rgba(11,102,195,0.12);
+}
+#search-form button {
+  background: #0b66c3;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .12s ease, transform .06s ease;
+}
+#search-form button:hover { background: #0955a8; transform: translateY(-1px); }
+
+/* User profile */
+#user-profile { margin: 8px 0 20px; min-height: 80px; }
+.profile {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e6f3ff;
+  background: linear-gradient(180deg, #ffffff, #f6fbff);
+}
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #d7ecff;
+  box-shadow: 0 6px 18px rgba(10,40,80,0.06);
+}
+.meta h2 {
+  margin: 0 0 6px 0;
+  font-size: 20px;
+}
+.meta h2 a {
+  color: #084a8a;
+  text-decoration: none;
+}
+.meta .bio {
+  margin: 6px 0;
+  color: #274b62;
+}
+.meta p { margin: 4px 0; color: #355b7a; font-size: 14px; }
+
+/* Repo list */
+/* removed grid — make repos span full width */
+h2 { margin-top: 18px; color: #0b66c3; }
+#repositories {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 30px;
+  display: block;
+}
+.repo {
+  text-align: left;
+  border: 1px solid #e6f3ff;
+  padding: 12px;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: transform .08s ease, box-shadow .08s ease;
+  width: 100%;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(11,102,195,0.03);
+}
+.repo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(11,102,195,0.06);
+}
+.repo-name {
+  font-weight: 700;
+  color: #0b66c3;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.repo-desc {
+  margin: 6px 0 8px 0;
+  color: #274b62;
+  font-size: 14px;
+}
+.repo-stats {
+  color: #5b7b9a;
+  font-size: 13px;
+}
+
+/* Messages */
+.error {
+  color: #8b1d1d;
+  background: #fff6f6;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid #f1c6c6;
+}
+#repositories li { list-style: none; }
+
+/* Loader */
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.loader {
+  border: 5px solid #0b66c3;
+  border-top: 5px solid #cfe8ff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 12px auto;
+}
+
+/* Footer */
+/* increased padding and blue-ish background */
+footer {
+  background-color: #063b73;
+  padding: 24px 16px;
+  color: white;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 560px) {
+  .profile { flex-direction: column; text-align: center; }
+  .meta h2 { font-size: 18px; }
+  #search-form { padding: 0 12px; flex-direction: column; gap: 10px; }
+  #search-form button { width: 100%; }
+}
