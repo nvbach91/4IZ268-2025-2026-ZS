@@ -1,2 +1,8 @@
-# 4IZ268-2024-2025-ZS
-A repository for laboratories of subject 4IZ268, Fall Semester 2024-2025
+# CoinDash - Krypto Tracker
+
+Webová aplikace v čistém JavaScriptu pro sledování kryptoměn a správu portfolia.
+
+## Technologie
+- HTML5, CSS3, JavaScript
+- API: CoinGecko
+- Knihovny: Chart.js, Day.js
