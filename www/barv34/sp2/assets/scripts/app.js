@@ -1,80 +1,100 @@
 const App = {
-    // --- KONFIGURACE A STAV ---
     apiURL: 'https://api.coingecko.com/api/v3',
     state: {
-        coins: [],           // Data z API
-        portfolio: [],       // Data uživatele [{id, coinId, symbol, amount, buyPrice}]
-        currentCoinId: null, // Právě vybraná mince
-        chartInstance: null  // Odkaz na graf pro jeho přemazání
+        coins: [],
+        portfolio: [],
+        currentCoinId: null,
+        chartInstance: null
     },
+    ui: {},
 
     // --- 1. INICIALIZACE ---
     init: async () => {
         console.log('🚀 Aplikace startuje...');
-
-        // Načteme portfolio z disku
+        App.cacheDOM();
         App.loadPortfolio();
-
-        // Stáhneme data z trhu
         await App.fetchMarketData();
-
-        // Nastavíme posluchače událostí
         App.bindEvents();
-
-        // Zkontrolujeme URL (pokud uživatel dal refresh)
         App.handleUrlRouting();
-
-        // Spustíme automatický update cen každých 60 vteřin
         setInterval(App.fetchMarketData, 60000);
+    },
+
+    cacheDOM: () => {
+        App.ui = {
+            coinList: document.getElementById('coin-list'),
+            searchInput: document.getElementById('search-input'),
+            welcomeScreen: document.getElementById('welcome-screen'),
+            detailContent: document.getElementById('coin-detail-content'),
+            viewDetail: document.getElementById('view-detail'),
+            viewPortfolio: document.getElementById('view-portfolio-dashboard'),
+            navMarket: document.getElementById('nav-market'),
+            navPortfolio: document.getElementById('nav-portfolio'),
+            detailTitle: document.getElementById('detail-title'),
+            detailPrice: document.getElementById('detail-price'),
+            priceChart: document.getElementById('price-chart'),
+            tradeForm: document.getElementById('trade-form'),
+            amountInput: document.getElementById('amount-input'),
+            priceInput: document.getElementById('price-input'),
+            portfolioList: document.getElementById('portfolio-list'),
+            portfolioTotal: document.getElementById('portfolio-total'),
+            portfolioProfit: document.getElementById('portfolio-profit'),
+            emptyMsg: document.getElementById('empty-portfolio-msg'),
+            toast: document.getElementById('toast')
+        };
     },
 
     // --- 2. PRÁCE S API ---
     fetchMarketData: async () => {
         try {
-            // Stahujeme top 50 mincí v CZK
+            if (App.state.coins.length === 0) {
+                App.ui.coinList.innerHTML = '<div class="spinner"></div>';
+            }
+
             const res = await fetch(`${App.apiURL}/coins/markets?vs_currency=czk&order=market_cap_desc&per_page=50&page=1&sparkline=false`);
             if (!res.ok) throw new Error('API Error');
 
             App.state.coins = await res.json();
 
-            // Překreslíme seznam vlevo
             App.renderCoinList();
-
-            // Pokud jsme v sekci portfolio, aktualizujeme i tabulku (kvůli novým cenám)
             App.renderPortfolio();
 
         } catch (err) {
-            console.error('Chyba stahování:', err);
-            document.getElementById('coin-list').innerHTML = '<div class="loading text-red">Chyba připojení k API</div>';
+            console.error(err);
+            App.ui.coinList.innerHTML = '<div class="loading text-red">Chyba připojení k API</div>';
+            App.showToast('Nepodařilo se načíst data', 'error');
         }
     },
 
     fetchCoinHistory: async (coinId) => {
-        // Stáhneme historii za 14 dní
-        const res = await fetch(`${App.apiURL}/coins/${coinId}/market_chart?vs_currency=czk&days=14`);
-        const data = await res.json();
-        return data.prices; // Vrací pole poli [[timestamp, price], ...]
+        try {
+            const res = await fetch(`${App.apiURL}/coins/${coinId}/market_chart?vs_currency=czk&days=14`);
+            if (!res.ok) throw new Error('History Error');
+            const data = await res.json();
+            return data.prices;
+        } catch (error) {
+            App.showToast('Chyba načítání grafu', 'error');
+            return [];
+        }
     },
 
     // --- 3. RENDEROVÁNÍ (UI) ---
     renderCoinList: () => {
-        const list = document.getElementById('coin-list');
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const searchTerm = App.ui.searchInput.value.trim().toLowerCase();
 
-        list.innerHTML = '';
+        App.ui.coinList.innerHTML = '';
 
-        // Filtrujeme podle hledání
         const filtered = App.state.coins.filter(c =>
             c.name.toLowerCase().includes(searchTerm) ||
             c.symbol.toLowerCase().includes(searchTerm)
         );
+
+        const fragment = document.createDocumentFragment();
 
         filtered.forEach(coin => {
             const el = document.createElement('div');
             el.className = `coin-item ${App.state.currentCoinId === coin.id ? 'active' : ''}`;
             el.dataset.id = coin.id;
 
-            // Barva změny ceny
             const colorClass = coin.price_change_percentage_24h >= 0 ? 'text-green' : 'text-red';
 
             el.innerHTML = `
@@ -87,36 +107,32 @@ const App = {
                 </div>
             `;
 
-            // Kliknutí na minci -> Zobraz detail
             el.addEventListener('click', () => App.showCoinDetail(coin.id));
-            list.appendChild(el);
+            fragment.appendChild(el);
         });
+
+        App.ui.coinList.appendChild(fragment);
     },
 
     renderPortfolio: () => {
-        const tbody = document.getElementById('portfolio-list');
-        const totalValEl = document.getElementById('portfolio-total');
-        const profitEl = document.getElementById('portfolio-profit');
-        const emptyMsg = document.getElementById('empty-portfolio-msg');
-
-        tbody.innerHTML = '';
+        App.ui.portfolioList.innerHTML = '';
 
         if (App.state.portfolio.length === 0) {
-            emptyMsg.classList.remove('hidden');
-            totalValEl.innerText = App.formatCurrency(0);
-            profitEl.innerText = App.formatCurrency(0);
+            App.ui.emptyMsg.classList.remove('hidden');
+            App.ui.portfolioTotal.innerText = App.formatCurrency(0);
+            App.ui.portfolioProfit.innerText = App.formatCurrency(0);
             return;
         }
 
-        emptyMsg.classList.add('hidden');
+        App.ui.emptyMsg.classList.add('hidden');
 
         let totalValue = 0;
         let totalCost = 0;
+        const fragment = document.createDocumentFragment();
 
         App.state.portfolio.forEach(item => {
-            // Najdeme aktuální cenu mince z API dat
             const liveCoin = App.state.coins.find(c => c.id === item.coinId);
-            const currentPrice = liveCoin ? liveCoin.current_price : item.buyPrice; // Fallback
+            const currentPrice = liveCoin ? liveCoin.current_price : item.buyPrice;
 
             const currentValue = item.amount * currentPrice;
             const costBasis = item.amount * item.buyPrice;
@@ -135,16 +151,16 @@ const App = {
                 <td class="${profitClass}">${App.formatCurrency(profit)}</td>
                 <td><button class="btn-delete" data-id="${item.id}">Smazat</button></td>
             `;
-            tbody.appendChild(tr);
+            fragment.appendChild(tr);
         });
 
-        // Celkové součty
-        const totalProfit = totalValue - totalCost;
-        totalValEl.innerText = App.formatCurrency(totalValue);
-        profitEl.innerText = App.formatCurrency(totalProfit);
-        profitEl.className = `card-value ${totalProfit >= 0 ? 'text-green' : 'text-red'}`;
+        App.ui.portfolioList.appendChild(fragment);
 
-        // Bindování delete tlačítek
+        const totalProfit = totalValue - totalCost;
+        App.ui.portfolioTotal.innerText = App.formatCurrency(totalValue);
+        App.ui.portfolioProfit.innerText = App.formatCurrency(totalProfit);
+        App.ui.portfolioProfit.className = `card-value ${totalProfit >= 0 ? 'text-green' : 'text-red'}`;
+
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 App.removeFromPortfolio(parseInt(e.target.dataset.id));
@@ -158,36 +174,28 @@ const App = {
         const coin = App.state.coins.find(c => c.id === coinId);
         if (!coin) return;
 
-        // UI Změny
-        document.getElementById('welcome-screen').classList.add('hidden');
-        document.getElementById('coin-detail-content').classList.remove('hidden');
-        document.getElementById('view-detail').classList.remove('hidden');
-        document.getElementById('view-portfolio-dashboard').classList.add('hidden');
+        App.ui.welcomeScreen.classList.add('hidden');
+        App.ui.detailContent.classList.remove('hidden');
+        App.ui.viewDetail.classList.remove('hidden');
+        App.ui.viewPortfolio.classList.add('hidden');
 
-        // Active class v sidebaru
-        App.renderCoinList(); // Překreslí seznam, aby se zvýraznila vybraná
+        App.renderCoinList();
 
-        // Naplnění dat
-        document.getElementById('detail-title').innerText = `${coin.name} (${coin.symbol.toUpperCase()})`;
-        document.getElementById('detail-price').innerText = App.formatCurrency(coin.current_price);
+        App.ui.detailTitle.innerText = `${coin.name} (${coin.symbol.toUpperCase()})`;
+        App.ui.detailPrice.innerText = App.formatCurrency(coin.current_price);
+        App.ui.priceInput.value = coin.current_price;
+        App.ui.amountInput.value = '';
 
-        // Předvyplnění formuláře
-        document.getElementById('price-input').value = coin.current_price;
-        document.getElementById('amount-input').value = '';
-
-        // URL
         const url = new URL(window.location);
         url.searchParams.set('coin', coinId);
         window.history.pushState({}, '', url);
 
-        // Vykreslení grafu
         const history = await App.fetchCoinHistory(coinId);
         App.renderChart(history, coin.name);
     },
 
     renderChart: (prices, label) => {
-        const ctx = document.getElementById('price-chart').getContext('2d');
-
+        const ctx = App.ui.priceChart.getContext('2d');
         if (App.state.chartInstance) App.state.chartInstance.destroy();
 
         App.state.chartInstance = new Chart(ctx, {
@@ -195,10 +203,10 @@ const App = {
             data: {
                 labels: prices.map(p => dayjs(p[0]).format('DD.MM HH:mm')),
                 datasets: [{
-                    label: `Cena ${label}`,
+                    label: label,
                     data: prices.map(p => p[1]),
-                    borderColor: '#2563eb',
-                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
                     fill: true,
                     tension: 0.3,
                     pointRadius: 0
@@ -208,7 +216,8 @@ const App = {
                 responsive: true,
                 maintainAspectRatio: false,
                 interaction: { intersect: false, mode: 'index' },
-                plugins: { legend: { display: false } }
+                plugins: { legend: { display: false } },
+                scales: { x: { display: false } }
             }
         });
     },
@@ -218,7 +227,7 @@ const App = {
         if (!coin) return;
 
         const transaction = {
-            id: Date.now(), // Unikátní ID
+            id: Date.now(),
             coinId: coin.id,
             symbol: coin.symbol.toUpperCase(),
             amount: parseFloat(amount),
@@ -227,80 +236,80 @@ const App = {
 
         App.state.portfolio.push(transaction);
         App.savePortfolio();
-        alert(`Úspěšně nakoupeno: ${coin.name}`);
-
-        // Přepnutí na portfolio? Volitelné. Zatím jen reset formuláře.
-        document.getElementById('amount-input').value = '';
+        App.showToast(`${coin.symbol} přidáno do portfolia`);
+        App.ui.amountInput.value = '';
     },
 
     removeFromPortfolio: (id) => {
-        if(confirm('Opravdu smazat tuto transakci?')) {
-            App.state.portfolio = App.state.portfolio.filter(item => item.id !== id);
-            App.savePortfolio();
-            App.renderPortfolio();
-        }
+        const item = App.state.portfolio.find(i => i.id === id);
+        App.state.portfolio = App.state.portfolio.filter(i => i.id !== id);
+        App.savePortfolio();
+        App.renderPortfolio();
+        if (item) App.showToast(`${item.symbol} smazáno`, 'error');
     },
 
     // --- 5. POMOCNÉ FUNKCE ---
-    formatCurrency: (num) => {
-        return new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK' }).format(num);
-    },
+    formatCurrency: (num) => new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK' }).format(num),
 
-    savePortfolio: () => {
-        localStorage.setItem('coinDashPortfolio', JSON.stringify(App.state.portfolio));
-    },
+    savePortfolio: () => localStorage.setItem('coinDashPortfolio', JSON.stringify(App.state.portfolio)),
 
     loadPortfolio: () => {
         const stored = localStorage.getItem('coinDashPortfolio');
         if (stored) App.state.portfolio = JSON.parse(stored);
     },
 
+    showToast: (message, type = 'success') => {
+        const toast = App.ui.toast;
+        toast.innerHTML = message;
+        toast.className = `toast visible ${type}`;
+        setTimeout(() => toast.classList.remove('visible'), 3000);
+    },
+
     handleUrlRouting: () => {
         const params = new URLSearchParams(window.location.search);
         const coinId = params.get('coin');
         if (coinId) {
-            // Počkáme chvilku, než se stáhnou data, pokud nejsou
-            if (App.state.coins.length > 0) {
-                App.showCoinDetail(coinId);
-            } else {
-                // Pokud data ještě nejsou, interval to zkusí znovu nebo fetchMarketData to zavolá
-                setTimeout(() => App.handleUrlRouting(), 500);
-            }
+            const checkData = setInterval(() => {
+                if (App.state.coins.length > 0) {
+                    App.showCoinDetail(coinId);
+                    clearInterval(checkData);
+                }
+            }, 100);
         }
     },
 
-    // --- 6. EVENT LISTENERS ---
+    // --- 6. EVENTY ---
     bindEvents: () => {
-        // Vyhledávání
-        document.getElementById('search-input').addEventListener('input', App.renderCoinList);
+        App.ui.searchInput.addEventListener('input', App.renderCoinList);
 
-        // Navigace (Taby)
-        document.getElementById('nav-market').addEventListener('click', (e) => {
-            document.getElementById('view-detail').classList.remove('hidden');
-            document.getElementById('view-portfolio-dashboard').classList.add('hidden');
+        App.ui.navMarket.addEventListener('click', (e) => {
+            App.ui.viewDetail.classList.remove('hidden');
+            App.ui.viewPortfolio.classList.add('hidden');
             e.target.classList.add('active');
-            document.getElementById('nav-portfolio').classList.remove('active');
+            App.ui.navPortfolio.classList.remove('active');
         });
 
-        document.getElementById('nav-portfolio').addEventListener('click', (e) => {
-            document.getElementById('view-detail').classList.add('hidden');
-            document.getElementById('view-portfolio-dashboard').classList.remove('hidden');
+        App.ui.navPortfolio.addEventListener('click', (e) => {
+            App.ui.viewDetail.classList.add('hidden');
+            App.ui.viewPortfolio.classList.remove('hidden');
             e.target.classList.add('active');
-            document.getElementById('nav-market').classList.remove('active');
-            App.renderPortfolio(); // Přepočítat při zobrazení
+            App.ui.navMarket.classList.remove('active');
+            App.renderPortfolio();
         });
 
-        // Formulář Nákupu
-        document.getElementById('trade-form').addEventListener('submit', (e) => {
+        App.ui.tradeForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const amount = document.getElementById('amount-input').value;
-            const price = document.getElementById('price-input').value;
+            const amount = App.ui.amountInput.value;
+            const price = App.ui.priceInput.value;
             if (amount > 0 && price > 0) {
                 App.addToPortfolio(amount, price);
+            } else {
+                App.showToast('Zadejte platné množství', 'error');
             }
         });
+
+        window.addEventListener('popstate', App.handleUrlRouting);
     }
 };
 
-// Start
 document.addEventListener('DOMContentLoaded', App.init);
