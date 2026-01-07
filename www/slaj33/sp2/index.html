@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISRC Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo" id="logo-button">ISRC Finder</div>
+        <div class="top-right">
+            <nav class="navbar">
+                <div id="profile" class="container">
+                    <a class="navbar-brand">
+                        <img src="https://placehold.co/100x100?text=No+Img" alt="Profile" id="profile-picture"
+                            referrerpolicy="no-referrer">
+                    </a>
+                    <p id="profile-name" class="m-0"></p>
+                </div>
+            </nav>
+            <button id="logout-button" class="btn btn-dark">Odhlásit se</button>
+        </div>
+    </header>
+
+    <main id="app">
+        <section id="login-view" class="view">
+            <div class="login-container">
+                <h1>Vítejte v ISRC Finder</h1>
+                <p>Přihlaste se pro vyhledávání metadat skladeb.</p>
+                <button id="login-button" class="btn btn-warning">Přihlásit se přes Spotify</button>
+            </div>
+        </section>
+
+        <section id="search-view" class="view hidden">
+            <div class="search-bar">
+                <input type="text" class="form-control" id="search-input" placeholder="Zadejte název...">
+                <select id="dropdown-menu" class="form-select form-select-lg form-select-narrow"
+                    aria-label="Large select example">
+                    <option selected>Vybrat</option>
+                    <option value="track">Skladba</option>
+                    <option value="album">Album</option>
+                    <option value="artist">Interpret</option>
+                    <option value="playlist">Playlist</option>
+                </select>
+                <button id="search-button" class="btn btn-warning">Hledat</button>
+            </div>
+
+            <div id="results-container" class="flex-container">
+
+            </div>
+
+        </section>
+
+
+
+        <section id="saved-view" class="view hidden">
+            <h2>Uložené položky</h2>
+            <div id="saved-container" class="flex-container"></div>
+        </section>
+
+
+        <section id="detail-view" class="view hidden container mt-4">
+            <div class="d-flex align-items-end gap-4 mb-5 flex-wrap">
+                <img id="detail-image" src="https://placehold.co/100x100?text=No+Img" alt="Cover" class="img-detail">
+
+                <div class="text-white">
+                    <h1 id="detail-title" class="display-3 text-dark fw-bold m-0">Název</h1>
+                    <h2 id="detail-subtitle" class="fs-4 text-dark mb-1">Autor</h2>
+                    <h2 id="detail-type" class="text-uppercase medium fw-bold text-warning">Album</h2>
+                    <p id="detail-meta" class="medium text-dark">0 skladeb</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-dark mb-3">Seznam skladeb</h3>
+                    <div id="playlist-tracks-container" class="list-group list-group-flush">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="track-detail-view" class="view hidden">
+            <div id="track-detail-container" class="d-flex align-items-end gap-4 mb-5 flex-wrap">
+                <img id="track-cover-image" src="https://placehold.co/100x100?text=No+Img" alt="Cover"
+                    class="img-detail">
+                <div class="text-white">
+                    <h2 class="text-uppercase medium fw-bold text-warning">Skladba</h2>
+                    <h1 id="track-title" class="display-3 text-dark fw-bold m-0">Název</h1>
+                    <h2 id="track-artist" class="fs-4 text-dark mb-1">Autor</h2>
+                    <h2 id="track-isrc" class="fs-4 text-dark mb-1">ISRC</h2>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="loading-spinner"
+        class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-75"
+        style="z-index: 2000;">
+        <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Načítám...</span>
+        </div>
+    </div>
+
+    <script type="module" src="./assets/js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+/* === ZÁKLADNÍ PROMĚNNÉ (Barvy a styl) === */
+:root {
+    --primary-color: #FFC107;
+    --dark-bg: #121212;
+    --card-bg: #181818;
+    --card-hover: #282828;
+    --light-text: #FFFFFF;
+    --gray-text: #B3B3B3;
+    --border-radius: 4px;
+}
+
+/* === RESET A ZÁKLADNÍ NASTAVENÍ === */
+* {
+    box-sizing: border-box;
+}
+
+
+/* === HEADER === */
+header {
+    background-color: #000000;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    color: var(--light-text);
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.top-right {
+    display: flex;
+}
+
+#profile {
+    margin-right: 20px;
+    color: #FFFFFF;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+#profile:hover {
+    background-color: var(--card-hover);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.navbar {
+    padding: 0px
+}
+
+#profile-picture {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* === HLAVNÍ OBSAH (Layout) === */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* === UTILITY TŘÍDY === */
+.hidden {
+    display: none !important;
+}
+
+/* === LOGIN VIEW === */
+.login-container {
+    text-align: center;
+    margin-top: 15vh; /* Vertikální odsazení */
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-container p {
+    color: var(--gray-text);
+    margin-bottom: 2rem;
+}
+
+
+
+
+/* === SEARCH VIEW === */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+}
+
+
+.form-select-narrow {
+    width: auto;
+    max-width: 200px;
+}
+
+/* === VÝSLEDKY (FLEX) === */
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: start;
+}
+
+.result-card {
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.result-image {
+    width: 250px;
+    padding-right: 20px;
+}
+
+.detail-button {
+    margin-bottom: 5px;
+}
+
+
+
+/* === ULOŽENÉ POLOŽKY (List view) === */
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.list-item {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* playlist */
+.img-detail {
+    max-width: 200px;
+}
