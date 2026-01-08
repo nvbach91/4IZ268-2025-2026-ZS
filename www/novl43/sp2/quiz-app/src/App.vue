@@ -44,6 +44,13 @@ onMounted(() => {
   quiz.loadAnsweredFromStorage();
 });
 
+const difficulties = ["Easy", "Medium", "Hard"];
+
+const onDifficultyChange = (event) => {
+  const level = event.target.value;
+  quiz.setDifficulty(level);
+};
+
 /**
  * UI handlers
  */
@@ -55,6 +62,34 @@ const onSetChange = (event) => {
 const onSelectQuestion = (index) => {
   quiz.selectQuestion(index);
 };
+//hanler for answer classes
+const getAnswerClass = (index) => {
+  const question = quiz.currentQuestion;
+  if (!question) return "";
+
+  const selected = quiz.lastSelectedAnswerIndex;
+
+  // ještě nic nebylo zodpovězeno
+  if (selected === null) return "";
+
+  const isCorrectIndex = index === question.correctIndex;
+  const isSelected = index === selected;
+
+  // správná odpověď vždy zelená, když už se odpovědělo
+  if (isCorrectIndex) {
+    return "answer--correct";
+  }
+
+  // špatně zvolená odpověď označit červeně
+  if (isSelected && !quiz.lastAnswerCorrect) {
+    return "answer--wrong";
+  }
+
+  // ostatní jen lehce „utlumit“
+  return "answer--neutral";
+};
+
+
 </script>
 
 <template>
@@ -63,31 +98,34 @@ const onSelectQuestion = (index) => {
 
     <!-- Set selector -->
     <section>
-      <label for="set-select">Vyber kategorii:</label>
-      <select id="set-select" @change="onSetChange">
-        <option value="">-- vyber --</option>
-        <option v-for="set in quiz.sets" :key="set.id" :value="set.id">
-          {{ set.name }}
-        </option>
-      </select>
+      <div class="field">
+        <label for="set-select">Vyber kategorii:</label>
+        <select id="set-select" @change="onSetChange">
+          <option value="">-- vyber --</option>
+          <option v-for="set in quiz.sets" :key="set.id" :value="set.id">
+            {{ set.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="difficulty-select">Obtížnost:</label>
+        <select id="difficulty-select" :value="quiz.currentDifficulty" @change="onDifficultyChange">
+          <option v-for="d in difficulties" :key="d" :value="d">
+            {{ d }}
+          </option>
+        </select>
+      </div>
     </section>
 
     <section v-if="quiz.currentSetId">
       <!-- Modes + actions -->
       <div class="modes">
-        <button
-          :class="{ active: quiz.mode === 'all' }"
-          @click="quiz.setMode('all')"
-          :disabled="quiz.loading"
-        >
+        <button :class="{ active: quiz.mode === 'all' }" @click="quiz.setMode('all')" :disabled="quiz.loading">
           Všechny otázky
         </button>
 
-        <button
-          :class="{ active: quiz.mode === 'wrong' }"
-          @click="quiz.setMode('wrong')"
-          :disabled="quiz.loading"
-        >
+        <button :class="{ active: quiz.mode === 'wrong' }" @click="quiz.setMode('wrong')" :disabled="quiz.loading">
           Jen chybné
         </button>
 
@@ -106,14 +144,13 @@ const onSelectQuestion = (index) => {
         <strong>{{ quiz.currentStats.answered }}</strong>
         ({{ quiz.currentAccuracy }} %)
       </p>
+      <p class="difficulty-pill">
+        Obtížnost otázek: <strong>{{ quiz.currentDifficulty }}</strong>
+      </p>
 
       <!-- Map of questions (click to navigate) -->
-      <QuestionsMap
-        :questions="quiz.filteredQuestions"
-        :selectedQuestion="quiz.currentQuestion"
-        :wrongIds="quiz.wrongBySet[quiz.currentSetId] || []"
-        @select="onSelectQuestion"
-      />
+      <QuestionsMap :questions="quiz.filteredQuestions" :selectedQuestion="quiz.currentQuestion"
+        :wrongIds="quiz.currentWrongIds" :answeredIds="quiz.currentAnsweredIds" @select="onSelectQuestion" />
 
       <!-- Loading / error states -->
       <div v-if="quiz.loading" class="loading">
@@ -128,11 +165,11 @@ const onSelectQuestion = (index) => {
       <!-- Main quiz -->
       <div v-else>
         <div v-if="quiz.currentQuestion">
-          <p class="question">{{ quiz.currentQuestion.question }}</p>
+          <div class="question" v-html="quiz.currentQuestion.question"></div>
 
           <ul class="answers">
             <li v-for="(ans, i) in quiz.currentQuestion.answers" :key="i">
-              <button @click="quiz.answerQuestion(i)">
+              <button @click="quiz.answerQuestion(i)" :class="getAnswerClass(i)">
                 {{ ans }}
               </button>
             </li>
@@ -158,11 +195,7 @@ const onSelectQuestion = (index) => {
     </section>
 
     <!-- Reset modal (teleported to body inside component) -->
-    <ResetDataModal
-      :open="resetModalOpen"
-      @close="closeResetModal"
-      @reset-all="onResetAll"
-      @reset-progress="onResetProgress"
-    />
+    <ResetDataModal :open="resetModalOpen" @close="closeResetModal" @reset-all="onResetAll"
+      @reset-progress="onResetProgress" />
   </main>
 </template>

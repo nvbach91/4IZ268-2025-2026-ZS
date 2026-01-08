@@ -1,6 +1,12 @@
 // src/stores/quizStore.js
 import { defineStore } from "pinia";
 
+import MarkdownIt from "markdown-it";
+const md = new MarkdownIt();
+function formatQuestion(text) {
+  return md.render(text);
+}
+
 /**
  * =========================================================
  * CONFIG (API + localStorage keys)
@@ -12,8 +18,11 @@ const LS_ANSWERED_KEY = "quiz_answered_questions";
 
 const CACHE_PREFIX = "quiz_cache_v1";
 
-const DIFFICULTY = "Medium";
 const QUESTIONS_LIMIT = 20; // QuizAPI allows max 20
+const DEFAULT_DIFFICULTY = "Medium";
+
+// pomocná funkce - klíč pro per-set+difficulty struktury
+const progressKey = (setId, difficulty) => `${setId}__${difficulty}`;
 
 export const useQuizStore = defineStore("quiz", {
   /**
@@ -31,19 +40,23 @@ export const useQuizStore = defineStore("quiz", {
 
     // Current selection / navigation
     currentSetId: null,
+    currentDifficulty: DEFAULT_DIFFICULTY,
     questions: [],
     currentIndex: 0,
     mode: "all", // "all" | "wrong"
     lastAnswerCorrect: null,
 
-    // User progress
-    wrongBySet: {}, // { [setId]: questionId[] }
-    answeredQuestionIdsBySet: {}, // { [setId]: questionId[] } => "count answered only once"
-    statsBySet: {}, // { [setId]: { answered: number, correct: number } }
+    // User progress (per set + difficulty)
+    wrongBySet: {}, // { [setId__difficulty]: questionId[] }
+    answeredQuestionIdsBySet: {}, // { [setId__difficulty]: questionId[] }
+    statsBySet: {}, // { [setId__difficulty]: { answered: number, correct: number } }
 
     // Async state (used by UI)
     loading: false,
     error: null,
+
+    lastAnswerCorrect: null,
+lastSelectedAnswerIndex: null,
   }),
 
   /**
@@ -52,10 +65,22 @@ export const useQuizStore = defineStore("quiz", {
    * =========================================================
    */
   getters: {
+    // wrong ids pro aktuální kombinaci set+difficulty
+    currentWrongIds(state) {
+      const key = progressKey(state.currentSetId, state.currentDifficulty);
+      return state.wrongBySet[key] || [];
+    },
+
+    // answered ids pro aktuální kombinaci set+difficulty
+    currentAnsweredIds(state) {
+      const key = progressKey(state.currentSetId, state.currentDifficulty);
+      return state.answeredQuestionIdsBySet[key] || [];
+    },
+
     filteredQuestions(state) {
       if (state.mode === "all") return state.questions;
 
-      const wrongIds = state.wrongBySet[state.currentSetId] || [];
+      const wrongIds = this.currentWrongIds;
       return state.questions.filter((q) => wrongIds.includes(q.id));
     },
 
@@ -66,10 +91,8 @@ export const useQuizStore = defineStore("quiz", {
     },
 
     currentStats(state) {
-      const setId = state.currentSetId;
-      return setId && state.statsBySet[setId]
-        ? state.statsBySet[setId]
-        : { answered: 0, correct: 0 };
+      const key = progressKey(state.currentSetId, state.currentDifficulty);
+      return state.statsBySet[key] || { answered: 0, correct: 0 };
     },
 
     currentAccuracy() {
@@ -147,7 +170,7 @@ export const useQuizStore = defineStore("quiz", {
      * ---------------------------
      */
     getCacheKey(setId) {
-      return `${CACHE_PREFIX}_${setId}_${DIFFICULTY}_${QUESTIONS_LIMIT}`;
+      return `${CACHE_PREFIX}_${setId}_${this.currentDifficulty}_${QUESTIONS_LIMIT}`;
     },
 
     loadQuestionsFromCache(setId) {
@@ -182,18 +205,23 @@ export const useQuizStore = defineStore("quiz", {
       this.lastAnswerCorrect = null;
       this.error = null;
 
-      // Ensure per-set progress containers exist
-      if (!this.statsBySet[setId]) {
-        this.statsBySet[setId] = { answered: 0, correct: 0 };
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;  
+
+      const key = progressKey(setId, this.currentDifficulty);
+
+      // Ensure per-set+difficulty progress containers exist
+      if (!this.statsBySet[key]) {
+        this.statsBySet[key] = { answered: 0, correct: 0 };
         this.saveStatsToStorage();
       }
-      if (!this.answeredQuestionIdsBySet[setId]) {
-        this.answeredQuestionIdsBySet[setId] = [];
+      if (!this.answeredQuestionIdsBySet[key]) {
+        this.answeredQuestionIdsBySet[key] = [];
         this.saveAnsweredToStorage();
       }
-      if (!this.wrongBySet[setId]) {
-        // optional: keep structure consistent
-        this.wrongBySet[setId] = [];
+      if (!this.wrongBySet[key]) {
+        this.wrongBySet[key] = [];
+        this.saveWrongToStorage();
       }
 
       // 1) Cache first (prevents "different questions" after switching sets)
@@ -215,7 +243,7 @@ export const useQuizStore = defineStore("quiz", {
       try {
         const url = `https://quizapi.io/api/v1/questions?limit=${QUESTIONS_LIMIT}&category=${encodeURIComponent(
           setId
-        )}&difficulty=${DIFFICULTY}`;
+        )}&difficulty=${this.currentDifficulty}`;
 
         const res = await fetch(url, { headers: { "X-Api-Key": apiKey } });
         if (!res.ok) throw new Error("HTTP " + res.status);
@@ -238,13 +266,13 @@ export const useQuizStore = defineStore("quiz", {
           return {
             // Prefer stable API question id; fallback just in case
             id: q.id ?? `${setId}-${index}`,
-            question: q.question,
+            question: formatQuestion(q.question ?? ""),
             answers,
             correctIndex: correctIndex === -1 ? 0 : correctIndex,
           };
         });
 
-        // Save to cache so "Linux" stays the same until user refreshes
+        // Save to cache so "Linux" + konkrétní obtížnost zůstane stejné
         this.saveQuestionsToCache(setId, this.questions);
       } catch (e) {
         console.error(e);
@@ -255,58 +283,97 @@ export const useQuizStore = defineStore("quiz", {
       }
     },
 
+    // clear only progress data for current set + difficulty
+    clearCurrentSetProgress() {
+      const setId = this.currentSetId;
+      if (!setId) return;
+
+      const key = progressKey(setId, this.currentDifficulty);
+
+      delete this.wrongBySet[key];
+      delete this.statsBySet[key];
+      delete this.answeredQuestionIdsBySet[key];
+
+      this.saveWrongToStorage();
+      this.saveStatsToStorage();
+      this.saveAnsweredToStorage();
+
+      this.lastAnswerCorrect = null;
+
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;  
+    },
+
     async refreshQuestions() {
       if (!this.currentSetId) return;
       this.clearQuestionsCache(this.currentSetId);
+      this.clearCurrentSetProgress();
       await this.selectSet(this.currentSetId);
+    },
+
+    /**
+     * Změna obtížnosti z UI
+     */
+    setDifficulty(difficulty) {
+      if (this.currentDifficulty === difficulty) return;
+
+      this.currentDifficulty = difficulty;
+
+      // pokud už je vybraný set, načti otázky pro novou obtížnost
+      if (this.currentSetId) {
+        this.clearQuestionsCache(this.currentSetId);
+        this.clearCurrentSetProgress();
+        this.selectSet(this.currentSetId);
+      }
     },
 
     /**
      * ---------------------------
      * QUIZ: Answer + progress
-     * - wrongBySet: keeps current "wrong" list
-     * - statsBySet + answeredQuestionIdsBySet: counts each question only once
      * ---------------------------
      */
     answerQuestion(answerIndex) {
       const q = this.currentQuestion;
       if (!q) return;
 
+      this.lastSelectedAnswerIndex = answerIndex;
+
       const correct = q.correctIndex === answerIndex;
       this.lastAnswerCorrect = correct;
 
       const setId = this.currentSetId;
+      const key = progressKey(setId, this.currentDifficulty);
 
       // WRONG tracking (for "wrong mode" filtering)
-      if (!this.wrongBySet[setId]) this.wrongBySet[setId] = [];
+      if (!this.wrongBySet[key]) this.wrongBySet[key] = [];
 
       if (!correct) {
-        if (!this.wrongBySet[setId].includes(q.id)) {
-          this.wrongBySet[setId].push(q.id);
+        if (!this.wrongBySet[key].includes(q.id)) {
+          this.wrongBySet[key].push(q.id);
         }
       } else {
-        this.wrongBySet[setId] = this.wrongBySet[setId].filter(
+        this.wrongBySet[key] = this.wrongBySet[key].filter(
           (id) => id !== q.id
         );
       }
       this.saveWrongToStorage();
 
       // STATS: count only once per question id
-      if (!this.answeredQuestionIdsBySet[setId]) {
-        this.answeredQuestionIdsBySet[setId] = [];
+      if (!this.answeredQuestionIdsBySet[key]) {
+        this.answeredQuestionIdsBySet[key] = [];
       }
 
-      const alreadyCounted = this.answeredQuestionIdsBySet[setId].includes(q.id);
+      const alreadyCounted = this.answeredQuestionIdsBySet[key].includes(q.id);
       if (!alreadyCounted) {
-        this.answeredQuestionIdsBySet[setId].push(q.id);
+        this.answeredQuestionIdsBySet[key].push(q.id);
         this.saveAnsweredToStorage();
 
-        if (!this.statsBySet[setId]) {
-          this.statsBySet[setId] = { answered: 0, correct: 0 };
+        if (!this.statsBySet[key]) {
+          this.statsBySet[key] = { answered: 0, correct: 0 };
         }
 
-        this.statsBySet[setId].answered += 1;
-        if (correct) this.statsBySet[setId].correct += 1;
+        this.statsBySet[key].answered += 1;
+        if (correct) this.statsBySet[key].correct += 1;
 
         this.saveStatsToStorage();
       }
@@ -325,6 +392,10 @@ export const useQuizStore = defineStore("quiz", {
         this.currentIndex = index;
         this.lastAnswerCorrect = null;
       }
+
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;
+      
     },
 
     nextQuestion() {
@@ -335,6 +406,9 @@ export const useQuizStore = defineStore("quiz", {
         this.currentIndex += 1;
         this.lastAnswerCorrect = null;
       }
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;
+
     },
 
     prevQuestion() {
@@ -342,12 +416,15 @@ export const useQuizStore = defineStore("quiz", {
         this.currentIndex -= 1;
         this.lastAnswerCorrect = null;
       }
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;
     },
 
     setMode(mode) {
       this.mode = mode;
       this.currentIndex = 0;
       this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;
     },
 
     /**
@@ -362,6 +439,9 @@ export const useQuizStore = defineStore("quiz", {
       localStorage.removeItem(LS_STATS_KEY);
       localStorage.removeItem(LS_ANSWERED_KEY);
 
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;  
+
       this.wrongBySet = {};
       this.statsBySet = {};
       this.answeredQuestionIdsBySet = {};
@@ -374,6 +454,9 @@ export const useQuizStore = defineStore("quiz", {
       localStorage.removeItem(LS_WRONG_KEY);
       localStorage.removeItem(LS_STATS_KEY);
       localStorage.removeItem(LS_ANSWERED_KEY);
+
+      this.lastAnswerCorrect = null;
+      this.lastSelectedAnswerIndex = null;  
 
       // cache (only our keys)
       Object.keys(localStorage)
@@ -393,6 +476,7 @@ export const useQuizStore = defineStore("quiz", {
 
       this.loading = false;
       this.error = null;
+      this.currentDifficulty = DEFAULT_DIFFICULTY;
     },
   },
 });

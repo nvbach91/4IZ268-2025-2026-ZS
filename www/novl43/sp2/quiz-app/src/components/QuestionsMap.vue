@@ -7,8 +7,6 @@
         class="question-dot"
         :class="getDotClass(index)"
         :title="`Otázka ${index + 1}`"
-        :aria-label="`Otázka ${index + 1}`"
-
         @click="onSelect(index)"
       />
     </div>
@@ -23,11 +21,13 @@ import { computed } from "vue";
  * - questions: list currently displayed (all / wrong filtered)
  * - selectedQuestion: currently opened question
  * - wrongIds: ids marked as wrong for current set
+ * - answeredIds: ids, které už uživatel aspoň jednou zodpověděl
  */
 const props = defineProps({
   questions: { type: Array, required: true },
   selectedQuestion: { type: Object, default: null },
   wrongIds: { type: Array, default: () => [] },
+  answeredIds: { type: Array, default: () => [] },
 });
 
 const emit = defineEmits(["select"]);
@@ -41,9 +41,10 @@ const selectedIndex = computed(() =>
 
 /**
  * Dot class by state:
- * - selected: currently opened question
- * - incorrect: question marked as wrong
- * - correct: question not marked as wrong
+ * - selected: current
+ * - incorrect: answered & in wrongIds
+ * - correct: answered & NOT in wrongIds
+ * - unanswered: not answered yet
  */
 const getDotClass = (index) => {
   if (index === selectedIndex.value) return "selected";
@@ -51,12 +52,12 @@ const getDotClass = (index) => {
   const q = props.questions[index];
   if (!q) return "unanswered";
 
+  const isAnswered = props.answeredIds.includes(q.id);
+  if (!isAnswered) return "unanswered";
+
   return props.wrongIds.includes(q.id) ? "incorrect" : "correct";
 };
 
-/**
- * Emit selection to parent (App.vue)
- */
 const onSelect = (index) => {
   emit("select", index);
 };
@@ -82,7 +83,6 @@ const onSelect = (index) => {
 
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 
-  /* not used visually (no text), but harmless */
   font-size: 12px;
   font-weight: bold;
   color: white;
@@ -95,17 +95,17 @@ const onSelect = (index) => {
   box-shadow: 0 0 10px rgba(0, 123, 255, 0.65);
 }
 
-/* Not wrong = green */
+/* Answered & correct = green */
 .question-dot.correct {
   background-color: #28a745;
 }
 
-/* Wrong = red */
+/* Answered & wrong = red */
 .question-dot.incorrect {
   background-color: #dc3545;
 }
 
-/* Fallback state */
+/* Not answered yet = grey */
 .question-dot.unanswered {
   background-color: #6c757d;
 }
