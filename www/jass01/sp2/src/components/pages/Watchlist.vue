@@ -9,7 +9,9 @@ import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { useHomeStore } from '../../stores/home.js';
 import NotificationModal from '../common/NotificationModal.vue';
+import { useConfirm } from 'primevue/useconfirm';
 
+const confirm = useConfirm();
 const router = useRouter();
 const watchlistStore = useWatchlistStore();
 const coinsStore = useCoinsStore();
@@ -28,29 +30,41 @@ const { lastFetchedIds, storedWatchlist } = storeToRefs(watchlistStore);
 async function fetchCoinsData(ids) {
   if (!ids || ids.length === 0) {
     storedWatchlist.value = [];
+    lastFetchedIds.value = '';
     return;
   }
+
   const idsString = ids.join(',');
+
+  // Prevent duplicate fetches
   if (idsString === lastFetchedIds.value) return;
   lastFetchedIds.value = idsString;
+
   loading.value = true;
+
   try {
-    const key = import.meta.env.VITE_COINGECKO_API_KEY;
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${encodeURIComponent(idsString)}`;
-    const headers = key ? { 'x-cg-api-key': key } : {};
-    const res = await fetch(url, { headers });
+    const res = await fetch(
+      `https://crypto-proxy-ivory.vercel.app/api/coins?ids=${encodeURIComponent(idsString)}`
+    );
+
     if (!res.ok) {
-      storedWatchlist.value = [];
-      return;
+      throw new Error(`Backend error: ${res.status}`);
     }
+
     storedWatchlist.value = await res.json();
   } catch (err) {
     storedWatchlist.value = [];
-    toast.add({ life: 3000, severity: 'error', summary: 'Fetch Error', detail: 'Failed to fetch watchlist data.' });
+    toast.add({
+      life: 3000,
+      severity: 'error',
+      summary: 'Fetch Error',
+      detail: 'Failed to fetch watchlist data. Please try again later.'
+    });
   } finally {
     loading.value = false;
   }
 }
+
 
 function handleRemove(coinId) {
   coinsStore.toggleWatchlist(coinId);
@@ -71,12 +85,33 @@ watch(watchlistIds, (ids) => {
   fetchCoinsData(ids);
 }, { immediate: true });
 
-onMounted(() => {
-  fetchCoinsData(watchlistIds.value);
-});
 
 function getNote(coinId) {
   return coinsStore.getNote(coinId) || '';
+}
+
+function confirmRemove(event, data) {
+  confirm.require({
+    target: event.currentTarget,
+    message: `Are you sure you want to remove this currency from your watchlist?`,
+    icon: 'pi pi-exclamation-triangle',
+    acceptProps: {
+      severity: 'danger',
+      label: 'Remove'
+    },
+    rejectProps: {
+      severity: 'secondary',
+      label: 'Cancel',
+      class: 'p-button-text'
+    },
+    accept: () => {
+      handleRemove(data.id);
+
+    },
+    reject: () => {
+      // Do nothing on reject
+    }
+  });
 }
 
 </script>
@@ -128,7 +163,7 @@ function getNote(coinId) {
       <Column header="Actions" class="flex" style="text-align: right; min-width: 180px;">
         <template #body="{ data }">
           <div class="flex gap-2 justify-end">
-            <Button @click="() => handleRemove(data.id)" label="Remove" icon="pi pi-trash" severity="danger" size="small" outlined />
+            <Button @click="confirmRemove($event, data)" label="Remove" icon="pi pi-trash" severity="danger" size="small" outlined />
             <Button @click="() => {showNotifModal = true; notifCoinData = data}" label="Notify" icon="pi pi-bell" severity="secondary" size="small" outlined />
             <Button @click="() => handleDetails(data.id)" label="Details" icon="pi pi-external-link" severity="primary" size="small" outlined />
           </div>

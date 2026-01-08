@@ -4,6 +4,8 @@ import { useNotificationsStore } from './stores/notifications';
 import { onMounted, ref } from 'vue';
 import { convertToCurrency } from './helpers/currency.js';
 import { event } from '@primeuix/themes/aura/timeline';
+import ConfirmPopup from "primevue/confirmpopup";
+
 const notificationsStore = useNotificationsStore();
 
 onMounted(() => {
@@ -84,6 +86,7 @@ const toggle = (event) => {
   </div>
 
   <Toast class="max-w-[80vw]" />
+  <ConfirmPopup />
 </template>
 
 <style>

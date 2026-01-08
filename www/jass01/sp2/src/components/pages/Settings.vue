@@ -62,8 +62,8 @@
                       <p><strong>Current Price:</strong> {{ convertToCurrency(notif.latestPrice) }}</p>
                     </div>
                   </div>
-  
-                  <Button outlined severity="danger" class="w-full mt-4" @click="notificationsStore.removeNotification(notif.id)" label="Delete notification" icon="pi pi-trash" />
+
+                  <Button outlined severity="danger" class="w-full mt-4" @click="confirmDeleteNotif($event, notif.id)" label="Delete notification" icon="pi pi-trash" />
             </Panel>
             <p v-else>No Notifications.</p>
           </div>
@@ -89,9 +89,10 @@
   import { ref } from 'vue';
 
   import { useNotificationsStore } from '../../stores/notifications';
-  import { useHomeStore } from '../../stores/home';
   import { useCoinsStore } from '../../stores/coins';
-  import { useWatchlistStore } from '../../stores/watchlist';
+  import { useConfirm } from 'primevue/useconfirm';
+
+
 
   import { useToast } from 'primevue';
 
@@ -102,7 +103,31 @@
 
   import { convertToCurrency } from '../../helpers/currency';
 
+  const confirm = useConfirm();
   const showDeleteModal = ref(false);
+
+  function confirmDeleteNotif(event, id) {
+    confirm.require({
+      target: event.currentTarget,
+      message: `Are you sure you want to delete this notification?`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptProps: {
+        severity: 'danger',
+        label: 'Delete'
+      },
+      rejectProps: {
+        severity: 'secondary',
+        label: 'Cancel',
+        class: 'p-button-text'
+      },
+      accept: () => {
+        notificationsStore.removeNotification(id);
+      },
+      reject: () => {
+        // Do nothing on reject
+      }
+    });
+  }
 
   function handleDeleteUser() {
     // Clear all user data from localStorage

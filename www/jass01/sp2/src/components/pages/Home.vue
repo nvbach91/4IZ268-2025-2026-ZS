@@ -5,9 +5,10 @@ import { useToast } from 'primevue/usetoast';
 import CoinView from '../common/CoinView.vue';
 import { storeToRefs } from 'pinia';
 import { useHomeStore } from '../../stores/home.js';
+import { onBeforeMount } from 'vue';
 
 const homeStore = useHomeStore();
-const { cryptoName, coinData, error } = storeToRefs(homeStore);
+const { cryptoName, coinData, error, searchHistory } = storeToRefs(homeStore);
 const loading = ref(false);
 const lastId = ref('');
 
@@ -38,6 +39,7 @@ function stopRefreshTimer() {
   }
 }
 onMounted(() => {
+  homeStore.loadSearchHistory();
   if(coinData.value && coinData.value.length > 0) {
     startRefreshTimer();
   }
@@ -84,21 +86,29 @@ async function updateCrypto(symbol) {
   nextRefresh.value = REFRESH_INTERVAL_SECONDS;
   loading.value = true;
   try {
-    const key = import.meta.env.VITE_COINGECKO_API_KEY;
     const query = symbol.toLowerCase();
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${encodeURIComponent(query)}`;
-    const headers = key ? { 'x-cg-demo-api-key': key } : {};
-    const res = await fetch(url, { headers });
+
+    const res = await fetch(
+      `https://crypto-proxy-ivory.vercel.app/api/coins?ids=${encodeURIComponent(query)}`
+    );
+
     if (!res.ok) {
       coinData.value = null;
-      return;
+      return false;
     }
     const data = await res.json();
     coinData.value = data;
+    // Add to search history on successful fetch
+    if (data && data.length > 0) {
+      homeStore.addToSearchHistory(data[0].id, data[0].name, data[0].image);
+    }
+    return true;
   } catch (err) {
     console.error('Error fetching CoinGecko:', err);
-    toast.add({ life: 3000, severity: 'error', summary: 'Fetch Error', detail: 'An error occurred while fetching data. Too many requests.' });
+    toast.add({ life: 3000, severity: 'error', summary: 'Fetch Error', detail: 'An error occurred while fetching data. Too many requests. Please wait a little bit' });
     coinData.value = null;
+
+    return false;
   } finally {
     loading.value = false;
     lastId.value = symbol;
@@ -116,23 +126,20 @@ async function fetchCrypto() {
       return;
     }
 
-    // Vite exposes env vars prefixed with VITE_ to the client.
-    const key = import.meta.env.VITE_COINGECKO_API_KEY;
-    if (!key) {
-      console.warn('COINGECKO API key not found on client. Add VITE_COINGECKO_API_KEY to .env if needed.');
-      toast.add({ life: 3000, severity: 'warn', summary: 'API Key Missing', detail: 'Proceeding without API key.' });
-    }
-
     if(validated === lastId.value && coinData.value && coinData.value.length > 0) {
       toast.add({ life: 3000, severity: 'info', summary: 'No Change', detail: 'Cryptocurrency data is already loaded.' });
       loading.value = false;
       return;
     }
 
-    await updateCrypto(validated);
+    const valid = await updateCrypto(validated);
+    console.log(valid)
     nextRefresh.value = REFRESH_INTERVAL_SECONDS;
 
-    if(!coinData.value || coinData.value.length === 0) {
+    if(!valid) {
+      return;
+    }
+    if((!coinData.value || coinData.value.length === 0)) {
       toast.add({ life: 3000, severity: 'info', summary: 'No Data', detail: 'No cryptocurrency found with that name.' });
       coinData.value = null;
       return;
@@ -151,6 +158,34 @@ async function fetchCrypto() {
   }
 }
 
+/**
+ * Load a cryptocurrency from search history
+ */
+async function loadFromHistory(fetchName) {
+  cryptoName.value = fetchName;
+
+  if(fetchName === lastId.value && coinData.value && coinData.value.length > 0) {
+    toast.add({ life: 3000, severity: 'info', summary: 'No Change', detail: 'Cryptocurrency data is already loaded.' });
+    loading.value = false;
+    return;
+  }
+  const valid = await updateCrypto(fetchName);
+  nextRefresh.value = REFRESH_INTERVAL_SECONDS;
+  
+  if(!valid) {
+    return;
+  }
+  if(!coinData.value || coinData.value.length === 0) {
+    toast.add({ life: 3000, severity: 'info', summary: 'No Data', detail: 'No cryptocurrency found with that name.' });
+    coinData.value = null;
+  } else {
+    toast.add({ life: 3000, severity: 'success', summary: 'Success', detail: 'Cryptocurrency data loaded.' });
+    if (!intervalId) {
+      startRefreshTimer();
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -166,6 +201,31 @@ async function fetchCrypto() {
       <Button :loading="loading" class="w-[50%] mx-auto" type="submit" severity="primary" label="Load cryptocurrency" />
 
     </form>
+
+    <!-- Search History Section -->
+    <div v-if="searchHistory && searchHistory.length > 0" class="flex flex-col gap-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold">Recent Searches</h3>
+        <Button
+          severity="secondary"
+          size="small"
+          label="Clear History"
+          @click="homeStore.clearSearchHistory"
+        />
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button
+          v-for="item in searchHistory"
+          :key="item.fetchName"
+          @click="loadFromHistory(item.fetchName)"
+          class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors dark:bg-slate-700 dark:hover:bg-slate-600"
+        >
+          <img :src="item.image" :alt="item.displayName" class="w-6 h-6" />
+          <span class="text-sm font-medium">{{ item.displayName }}</span>
+        </button>
+      </div>
+    </div>
+
     <CoinView v-if="coinData && coinData.length > 0"
       :nextRefresh="nextRefresh"
       :refresh="updateCrypto"

@@ -23,6 +23,7 @@ import InputNumber from "primevue/inputnumber";
 import ColumnGroup from "primevue/columngroup"; // optional
 import Row from "primevue/row";
 import Popover from "primevue/popover";
+import ConfirmationService from "primevue/confirmationservice";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -38,6 +39,7 @@ app.use(PrimeVue, {
 });
 app.use(router);
 app.use(ToastService);
+app.use(ConfirmationService);
 app.component("Button", Button);
 app.component("InputText", InputText);
 app.component("InputNumber", InputNumber);

@@ -4,6 +4,7 @@ import ListItem from './ListItem.vue';
 import { convertToCurrency } from '../../helpers/currency.js';
 import { useCoinsStore } from '../../stores/coins.js';
 import NotificationModal from './NotificationModal.vue';
+import { useConfirm } from 'primevue/useconfirm';
 const { coinData, id, name, symbol, image, currentPrice, marketCap, marketCapRank, dayHigh, dayLow, nextRefresh } = defineProps({
   coinData: Object,
   refresh: Function,
@@ -19,6 +20,7 @@ const { coinData, id, name, symbol, image, currentPrice, marketCap, marketCapRan
   dayLow: Number
 });
 
+const confirm = useConfirm();
 const coinsStore = useCoinsStore();
 const showNotifModal = ref(false);
 const showEditNoteDialog = ref(false);
@@ -125,6 +127,31 @@ watch(showEditNoteDialog, (visible) => {
 onBeforeUnmount(() => {
   clearTvContainer();
 });
+
+function confirmDeleteNote(event) {
+  confirm.require({
+    target: event.currentTarget,
+    message: `Are you sure you want to delete the note for ${name}?`,
+    icon: 'pi pi-exclamation-triangle',
+    acceptProps: {
+      severity: 'danger',
+      label: 'Delete'
+    },
+    rejectProps: {
+      severity: 'secondary',
+      label: 'Cancel',
+      class: 'p-button-text'
+    },
+    accept: () => {
+      coinsStore.clearNote(id);
+      showEditNoteDialog.value = false;
+
+    },
+    reject: () => {
+      // Do nothing on reject
+    }
+  });
+}
 </script>
 
 <template>
@@ -190,7 +217,7 @@ onBeforeUnmount(() => {
     <div class="flex flex-col gap-4">
       <Textarea id="noteTextarea" v-model="note" rows="5" autoResize class="w-full" />
       <div class="flex sm:flex-row flex-col-reverse justify-between gap-4">
-        <Button label="Delete Note" icon="pi pi-trash" severity="danger" outlined @click="coinsStore.clearNote(id); showEditNoteDialog = false;" :disabled="!hasNote" />
+        <Button label="Delete Note" icon="pi pi-trash" severity="danger" outlined @click="confirmDeleteNote($event)" :disabled="!hasNote" />
         <div class="flex gap-4 sm:justity-start justify-end">
           <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="showEditNoteDialog = false" />
           <Button label="Save" icon="pi pi-check" severity="primary" @click="() => handleSaveNote()" />

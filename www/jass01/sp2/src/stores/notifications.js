@@ -106,27 +106,23 @@ export const useNotificationsStore = defineStore("notifications", {
       if (this.notifications.length === 0) return;
 
       // Collect unique coin IDs
-      const ids = [...new Set(this.notifications.map((n) => n.coinId))];
-
-      const idsString = ids.join(",");
-      const key = import.meta.env.VITE_COINGECKO_API_KEY;
-
-      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${encodeURIComponent(
-        idsString
-      )}`;
-      const headers = key ? { "x-cg-api-key": key } : {};
+      const ids = [...new Set(this.notifications.map(n => n.coinId))];
+      const idsString = ids.join(',');
 
       try {
-        const res = await fetch(url, { headers });
+        const res = await fetch(
+          `https://crypto-proxy-ivory.vercel.app/api/coins?ids=${encodeURIComponent(idsString)}`
+        );
+
         if (!res.ok) return;
 
         const data = await res.json(); // array of coin objects
 
-        // Create a lookup: coinId => current_price
+        // Create lookup: coinId -> current_price
         const priceMap = {};
-        data.forEach((coin) => {
+        for (const coin of data) {
           priceMap[coin.id] = coin.current_price;
-        });
+        }
 
         // Evaluate each notification
         for (const notif of this.notifications) {
@@ -136,18 +132,12 @@ export const useNotificationsStore = defineStore("notifications", {
           const target = notif.priceTarget;
           const original = notif.currentPrice;
 
-          // Price increase case
-          if (target > original) {
-            if (current >= target) {
-              notif.active = true;
-            }
-          }
-
-          // Price decrease case
-          if (target < original) {
-            if (current <= target) {
-              notif.active = true;
-            }
+          // Target reached (up or down)
+          if (
+            (target > original && current >= target) ||
+            (target < original && current <= target)
+          ) {
+            notif.active = true;
           }
 
           notif.latestPrice = current;
@@ -155,7 +145,7 @@ export const useNotificationsStore = defineStore("notifications", {
 
         saveState(this.notifications);
       } catch (err) {
-        console.error("Price checking failed:", err);
+        console.error('Price checking failed:', err);
       }
     },
 
