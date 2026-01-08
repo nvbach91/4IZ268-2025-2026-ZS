@@ -3,9 +3,7 @@ module.exports = async (req, res) => {
 
     authUrl.searchParams.append('client_id', process.env.STRAVA_CLIENT_ID);
     authUrl.searchParams.append('response_type', 'code');
-    const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const redirectUri = `${protocol}://${req.headers.host}/api/auth-callback`;
-    authUrl.searchParams.append('redirect_uri', redirectUri);
+    authUrl.searchParams.append('redirect_uri', `${process.env.FRONTEND_URL}/api/auth-callback`);
     authUrl.searchParams.append('approval_prompt', 'force');
     authUrl.searchParams.append('scope', 'read,activity:read_all');
 

@@ -1,8 +1,6 @@
 module.exports = async (req, res) => {
     const {code, error} = req.query;
-
-    if (error) {
-        return res.send(`
+    const $error = `
             <html>
                 <body>
                     <h1>Login cancelled</h1>
@@ -10,11 +8,11 @@ module.exports = async (req, res) => {
                     <a href="${process.env.FRONTEND_URL}">Back</a>
                 </body>
             </html>
-        `);
-    }
+        `;
 
-    if (!code) {
-        return res.status(400).send('Missing authorization code');
+    if (!code || error) {
+        console.log(error);
+        return res.send($error);
     }
 
     try {
@@ -37,27 +35,28 @@ module.exports = async (req, res) => {
             throw new Error(data.message || 'Token exchange failed');
         }
 
+        const tokenData = {
+            access_token: data.access_token,
+            refresh_token: data.refresh_token,
+            expires_at: data.expires_at,
+            athlete: data.athlete
+        };
+
         return res.send(`
             <!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">
-                <title>Prihlasovanie... </title>
+                <title>Logging in to Strava</title>
             </head>
             <body>
-                <p>Prihlasovanie úspešné, presmerovávam... </p>
                 <script>
-                    const tokenData = ${JSON.stringify({
-            access_token: data.access_token,
-            refresh_token: data.refresh_token,
-            expires_at: data.expires_at,
-            athlete: data.athlete
-        })};
-                    
-                    localStorage.setItem('strava_token', tokenData. access_token);
+                    const tokenData = ${JSON.stringify(tokenData)};
+                    localStorage.setItem('strava_token', tokenData.access_token);
+                    localStorage.setItem('strava_refresh_token', tokenData.refresh_token);
+                    localStorage.setItem('strava_expires_at', tokenData.expires_at);
                     localStorage.setItem('strava_athlete', JSON.stringify(tokenData.athlete));
                     
-                    // Presmeruj na hlavnú stránku
                     window.location.href = '${process.env.FRONTEND_URL}';
                 </script>
             </body>
@@ -66,14 +65,6 @@ module.exports = async (req, res) => {
 
     } catch (error) {
         console.error('OAuth error:', error);
-        return res.status(500).send(`
-            <html>
-                <body>
-                    <h1>Login error</h1>
-                    <p>${error.message}</p>
-                    <a href="${process.env.FRONTEND_URL}">Try again</a>
-                </body>
-            </html>
-        `);
+        return res.send($error);
     }
 };

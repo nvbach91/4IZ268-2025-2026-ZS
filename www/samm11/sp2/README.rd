@@ -14,4 +14,5 @@ By grouping and visualizing activities, the app generates a personalized heatmap
 - Vercel Serverless Functions for OAuth
 - Strava API
 - Bootstrap
-- Leaflet, Leaflet.heat
+- Leaflet
+- mapbox polyline
