@@ -24,15 +24,25 @@ export default function ProfileModal({closeModal}) {
     });
 
     const onSubmit = (data) => {
-        updateSettings({...settings,preferences:{...data}});
+        const newSettings = {...settings, preferences: {...data}};
+        updateSettings(newSettings);
+        // useEf v useProfileModal zavře modal, když jsou preferences valid
+    };
+
+    // blokuju kliknutí na backdrop, pokud nejsou preferences
+    const handleBackdropClick = (e) => {
+        if (!settings.preferences) {
+            e.stopPropagation();
+            return;
+        }
         closeModal();
     };
 
     return (
         <div
         id='modal-backdrop'
-        onClick={closeModal}
-        className='cursor-pointer z-30 fixed inset-0 flex items-center justify-center backdrop-blur-md'
+        onClick={handleBackdropClick}
+        className={settings.preferences ? 'cursor-pointer z-100 fixed inset-0 flex items-center justify-center backdrop-blur-md' : 'z-100 fixed inset-0 flex items-center justify-center backdrop-blur-md'}
     >
         <div
             role='dialog'
