@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CoinDash - Krypto Manager</title>
+
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="assets/scripts/app.js" defer></script>
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <div class="header-left">
+            <div class="logo">🚀 CoinDash</div>
+        </div>
+
+        <div class="header-right">
+            <button id="theme-toggle" class="header-control" title="Přepnout vzhled">
+                🌙
+            </button>
+
+            <nav class="main-nav">
+                <button id="nav-market" class="nav-btn active">Trh</button>
+                <button id="nav-portfolio" class="nav-btn">Portfolio</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Hledat (např. BTC)...">
+            </div>
+            <div id="coin-list" class="coin-list">
+                <div class="loading">Načítám trh...</div>
+            </div>
+        </aside>
+
+        <main class="content">
+
+            <section id="view-detail" class="view-section">
+                <div id="welcome-screen">
+                    <div class="welcome-box">
+                        <h2>Vyber kryptoměnu ze seznamu</h2>
+                        <p>Podívej se na grafy a nakup si do portfolia.</p>
+                    </div>
+                </div>
+
+                <div id="coin-detail-content" class="hidden">
+                    <div class="detail-header">
+                        <h2 id="detail-title">Bitcoin (BTC)</h2>
+                        <div id="detail-price" class="current-price">---</div>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <div class="chart-header">
+                            <h3>Vývoj ceny</h3>
+                            <div class="chart-controls">
+                                <button class="range-btn active" data-days="1">24h</button>
+                                <button class="range-btn" data-days="7">7d</button>
+                                <button class="range-btn" data-days="30">30d</button>
+                                <button class="range-btn" data-days="365">1r</button>
+                            </div>
+                        </div>
+                        <div class="chart-container-inner">
+                            <canvas id="price-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="trade-box">
+                        <h3>Přidat do portfolia</h3>
+                        <form id="trade-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Množství</label>
+                                    <input type="number" step="any" id="amount-input" placeholder="0.00" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nákupní cena (Celkem)</label>
+                                    <input type="number" step="any" id="price-input" placeholder="Cena za vše" required>
+                                </div></div>
+                            <button type="submit" class="btn-buy">Přidat transakci</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-portfolio-dashboard" class="view-section hidden">
+                <div class="portfolio-header">
+                    <h2>Moje Portfolio</h2>
+                    <div class="portfolio-actions">
+                        <button id="btn-export" class="btn-secondary small">Exportovat</button>
+                        <button id="btn-import" class="btn-secondary small">Importovat</button>
+                        <input type="file" id="file-import" accept=".json" class="hidden">
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="card">
+                        <span class="card-label">Celková hodnota</span>
+                        <span class="card-value" id="portfolio-total">0</span>
+                    </div>
+                    <div class="card">
+                        <span class="card-label">Zisk / Ztráta</span>
+                        <span class="card-value" id="portfolio-profit">0</span>
+                    </div>
+                </div>
+
+                <div class="portfolio-table-wrapper">
+                    <table class="portfolio-table">
+                        <thead>
+                        <tr>
+                            <th data-sort="symbol" class="sortable">Mince ↕</th>
+                            <th data-sort="amount" class="sortable text-right">Množství ↕</th>
+                            <th data-sort="buyPrice" class="sortable text-right">Nákupní cena ↕</th>
+                            <th data-sort="currentValue" class="sortable text-right">Hodnota ↕</th>
+                            <th data-sort="profit" class="sortable text-right">Zisk/Ztráta ↕</th>
+                            <th class="text-right">Akce</th>
+                        </tr>
+                        </thead>
+                        <tbody id="portfolio-list">
+                        </tbody>
+                    </table>
+                    <div id="empty-portfolio-msg" class="hidden">Zatím nemáte žádné investice.</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<div id="toast" class="toast">Zpráva</div>
+
+<div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+        <h3 id="modal-title">Nadpis</h3>
+        <div id="modal-body">Obsah</div>
+        <div class="modal-actions">
+            <button id="modal-btn-cancel" class="btn-secondary">Zrušit</button>
+            <button id="modal-btn-confirm" class="btn-primary">Potvrdit</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
