@@ -119,7 +119,7 @@ function confirmRemove(event, data) {
 <template>
   <div class="lg:py-32 py-8">
     <h1 class="text-4xl font-semibold mb-6">Watchlist</h1>
-    <DataTable paginator :rows="5" v-if="watchlistIds.length > 0" showGridlines :value="storedWatchlist" :loading="loading" class="w-full" responsiveLayout="scroll">
+    <DataTable removableSort paginator :rows="5" v-if="watchlistIds.length > 0" showGridlines :value="storedWatchlist" :loading="loading" class="w-full" responsiveLayout="scroll">
       <ColumnGroup type="header">
         <Row>
           <Column header="Name" />
