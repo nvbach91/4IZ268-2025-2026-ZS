@@ -119,13 +119,13 @@ function confirmRemove(event, data) {
 <template>
   <div class="lg:py-32 py-8">
     <h1 class="text-4xl font-semibold mb-6">Watchlist</h1>
-    <DataTable v-if="watchlistIds.length > 0" showGridlines :value="storedWatchlist" :loading="loading" class="w-full" responsiveLayout="scroll">
+    <DataTable paginator :rows="5" v-if="watchlistIds.length > 0" showGridlines :value="storedWatchlist" :loading="loading" class="w-full" responsiveLayout="scroll">
       <ColumnGroup type="header">
         <Row>
           <Column header="Name" />
           <Column header="Symbol" />
-          <Column header="Last Price" />
-          <Column header="Market Cap" />
+          <Column field="current_price" sortable header="Last Price" />
+          <Column field="market_cap" sortable header="Market Cap"/>
           <Column header="Note" />
           <Column header="Actions"  style="min-width: 180px;" />
         </Row>
@@ -147,15 +147,19 @@ function confirmRemove(event, data) {
       </Column>
       <Column field="current_price" header="Last Price">
         <template #body="{ data }">
-          {{ convertToCurrency(data.current_price) }}
+          <span class="flex justify-end">
+            {{ convertToCurrency(data.current_price) }}
+          </span>
         </template>
       </Column>
       <Column field="market_cap" header="Market Cap">
         <template #body="{ data }">
-          {{ data.market_cap ? convertToCurrency(data.market_cap) : '-' }}
+          <span class="flex justify-end">
+            {{ data.market_cap ? convertToCurrency(data.market_cap) : '-' }}
+          </span>
         </template>
       </Column>
-      <Column class="flex-1 w-full" header="Note">
+      <Column header="Note">
         <template #body="{ data }">
           {{ getNote(data.id) }}
         </template>

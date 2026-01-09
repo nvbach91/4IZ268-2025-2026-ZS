@@ -40,6 +40,9 @@ function stopRefreshTimer() {
 }
 onMounted(() => {
   homeStore.loadSearchHistory();
+  if(homeStore.searchHistory && homeStore.searchHistory.length > 0) {
+    loadFromHistory(homeStore.searchHistory[0]?.fetchName || '');
+  }
   if(coinData.value && coinData.value.length > 0) {
     startRefreshTimer();
   }
