@@ -78,6 +78,17 @@ const onSelectQuestion = (index) => {
   quiz.selectQuestion(index);
 };
 
+const displayAnswers = computed(() => {
+  const q = quiz.currentQuestion;
+  if (!q) return [];
+  const arr = q.answers.map((a, idx) => ({ text: a, index: idx }));
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+});
+
 const applySelection = () => {
   if (!selectedSet.value) return;
 
@@ -199,9 +210,10 @@ const getAnswerClass = (index) => {
           <div class="question" v-html="quiz.currentQuestion.question"></div>
 
           <ul class="answers">
-            <li v-for="(ans, i) in quiz.currentQuestion.answers" :key="i">
-              <button @click="quiz.answerQuestion(i)" :class="getAnswerClass(i)">
-                {{ ans }}
+            
+            <li v-for="(ans, i) in displayAnswers" :key="ans.index">
+              <button @click="quiz.answerQuestion(ans.index)" :class="getAnswerClass(ans.index)">
+                {{ ans.text }}
               </button>
             </li>
           </ul>
