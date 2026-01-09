@@ -105,14 +105,17 @@ const getAnswerClass = (index) => {
 
   const selected = quiz.lastSelectedAnswerIndex;
 
-  // ještě nic nebylo zodpovězeno
-  if (selected === null) return "";
-
   const isCorrectIndex = index === question.correctIndex;
   const isSelected = index === selected;
 
-  // správná odpověď vždy zelená, když už se odpovědělo
-  if (isCorrectIndex) {
+  // If the question was already answered correctly earlier, keep the correct answer highlighted
+  const answeredCorrectlyBefore = quiz.currentCorrectIds.includes(question.id);
+
+  // ještě nic nebylo zodpovězeno a otázka nebyla dříve správně zodpovězena
+  if (selected === null && !answeredCorrectlyBefore) return "";
+
+  // správná odpověď zelená pokud byla právě zodpovězena nebo byla dříve správná
+  if (isCorrectIndex && (selected !== null || answeredCorrectlyBefore)) {
     return "answer--correct";
   }
 
