@@ -159,7 +159,7 @@ function confirmRemove(event, data) {
           </span>
         </template>
       </Column>
-      <Column header="Note">
+      <Column class="flex-1 w-full" header="Note">
         <template #body="{ data }">
           {{ getNote(data.id) }}
         </template>
