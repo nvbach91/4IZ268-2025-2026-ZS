@@ -48,7 +48,7 @@ export async function renderDiscover(param) {
     }
 
     // Generate Year Options (2026 down to 1972)
-    let yearOptions = '<option value="">Year</option>';
+    let yearOptions = '<option value="">All Years</option>';
     for (let y = 2026; y >= 1972; y--) {
         yearOptions += `<option value="${y}">${y}</option>`;
     }

@@ -74,26 +74,41 @@ export const UI = {
     },
 
     showConfirmModal(title, message, onConfirm) {
-        const modalEl = document.getElementById('confirmation-modal');
-        const titleEl = document.getElementById('confirm-title');
-        const bodyEl = document.getElementById('confirm-body');
-        const btn = document.getElementById('confirm-btn');
+        // Cache elements on first use
+        if (!this._confirmCache) {
+            const modalEl = document.getElementById('confirmation-modal');
+            const titleEl = document.getElementById('confirm-title');
+            const bodyEl = document.getElementById('confirm-body');
+            const btn = document.getElementById('confirm-btn');
 
-        if (!modalEl || !titleEl || !bodyEl || !btn) return;
+            if (!modalEl || !titleEl || !bodyEl || !btn) return;
 
-        titleEl.textContent = title;
-        bodyEl.textContent = message;
+            this._confirmCache = {
+                modalEl,
+                titleEl,
+                bodyEl,
+                btn,
+                modal: new bootstrap.Modal(modalEl)
+            };
+        }
 
-        const newBtn = btn.cloneNode(true);
-        btn.parentNode.replaceChild(newBtn, btn);
+        const cache = this._confirmCache;
 
-        const modal = new bootstrap.Modal(modalEl);
+        cache.titleEl.textContent = title;
+        cache.bodyEl.textContent = message;
+
+        // Replace button to strip old listeners
+        const newBtn = cache.btn.cloneNode(true);
+        cache.btn.parentNode.replaceChild(newBtn, cache.btn);
+
+        // Update cache to point to the new button
+        cache.btn = newBtn;
 
         newBtn.addEventListener('click', () => {
             onConfirm();
-            modal.hide();
+            cache.modal.hide();
         });
 
-        modal.show();
+        cache.modal.show();
     }
 };
