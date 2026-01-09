@@ -16,7 +16,7 @@ export default function Slider({weatherData}) {
 
     return (
         <div className='slider p-10 bg-slate-700 rounded-xl mt-10 relative group'>
-            <p className='mb-4 uppercase text-gray-300 font-bold'>Today's Forecast</p>
+            <p className='mb-4 uppercase text-gray-300 font-bold'>Today's Forecast <span className="font-light lowercase text-xs">(local time at destination)</span></p>
             <SliderButton direction='left' onClick={handlePrev} disabled={!canGoPrev}/>
             <div className='overflow-hidden mx-4 relative'>
                 <div className='absolute right-0 top-0 bottom-0 w-[2px] bg-slate-700 z-10 pointer-events-none'></div>

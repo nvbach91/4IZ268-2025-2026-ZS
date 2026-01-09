@@ -1,10 +1,12 @@
 import {Droplets, Star, Thermometer, Wind} from "lucide-react";
 import WeatherIcon from "./WeatherIcon.jsx";
 import useStar from "../hooks/useStar.jsx";
+import {formatDate} from "../utils/formatWeatherData.js";
+
 
 export default function WeatherInfoCard({location, weatherData}) {
     const {isDefault, handleStarClick, removeDefaultLocation} = useStar(location);
-
+    {console.log(weatherData)}
     return (<div className='weather-info-card flex items-center justify-between'>
         <div className='flex flex-col gap-8'>
             <div>
@@ -16,6 +18,7 @@ export default function WeatherInfoCard({location, weatherData}) {
                 </h1>
                 <p>{location.country}</p>
             </div>
+            <div className="font-bold">Date: {formatDate(weatherData.date) ?? "--"}</div>
             <div className='flex gap-10'>
                 <div className='flex flex-col gap-4'>
                     <h3 className='font-semibold tracking-wide text-gray-300'>

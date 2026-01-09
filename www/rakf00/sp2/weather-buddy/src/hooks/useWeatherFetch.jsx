@@ -28,7 +28,7 @@ export default function useWeatherFetch(location) {
         };
 
         fetchData();
-    }, [location]);
+    }, [location?.latitude, location?.longitude]);
 
     return {weatherData, isLoading};
 }

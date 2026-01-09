@@ -1,7 +1,8 @@
 import WeatherIcon from "./WeatherIcon.jsx";
 import useStoreSettings from "../store/useStoreSettings.jsx";
+import {formatDate} from "../utils/formatWeatherData.js";
 
-export default function SideBarItem({day,className, ...props}) {
+export default function SideBarItem({day, className, ...props}) {
 
     const location = useStoreSettings(state => state.settings.location);
 
@@ -12,10 +13,11 @@ export default function SideBarItem({day,className, ...props}) {
         });
     }
 
-    return (
+        return (
         <div className={`grid grid-cols-4 place-items-center border-b border-b-slate-600 ${className}`} {...props}>
-        <p className='text-gray-200 justify-self-start'>{getDay(location.timeZone,day.date)}</p>
-        <WeatherIcon code={day.weatherCode} width='40' sidebar />
-        <p className='text-lg'><strong>{day.temperatureMax}&#176;</strong>/{day.temperatureMin}&#176;</p>
-    </div>)
+            <p className='text-gray-200 justify-self-start'>{getDay(location.timeZone, day.date)}
+                <br/> {formatDate(day.date)}</p>
+            <WeatherIcon code={day.weatherCode} width='40' sidebar/>
+            <p className='text-lg'><strong>{day.temperatureMax}&#176;</strong>/{day.temperatureMin}&#176;</p>
+        </div>)
 }

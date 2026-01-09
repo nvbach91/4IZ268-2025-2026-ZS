@@ -10,9 +10,13 @@ export default function SearchBar() {
         setSearchTerm(e.target.value);
     };
 
+    const handleEnter = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div className='relative z-50'>
-            <form>
+            <form onSubmit={handleEnter} >
                 <label htmlFor='search' className='sr-only'></label>
                 <div
                     className='searchContainer bg-slate-700 flex gap-3 p-3 justify-between items-center rounded-xl w-100 border border-transparent focus-within:border-gray-400'>

@@ -1,6 +1,14 @@
+export const formatDate = (dateTime) => {
+    if (!dateTime) {return;}
+    const datePart = dateTime.split("T")[0];
+    const [, month, day] = datePart.split("-");
+    return `${day}/${month}`;
+}
+
 export function formatWeatherData(data) {
     return {
         current: {
+            date: data.current.time,
             temperature: data.current.temperature_2m,
             humidity: data.current.relative_humidity_2m,
             windSpeed: data.current.wind_speed_10m,
@@ -35,3 +43,4 @@ export const EMPTY_WEATHER_DATA = {
     hourly: [], //data pro Slider
     daily: [], // data pro SideBar
 };
+
