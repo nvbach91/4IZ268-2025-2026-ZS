@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    caret-color: transparent;
+    color: white;
+    background: #0b131e;
+}
+
+input:focus {
+    caret-color: black;
+}
+
+main{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+input[type="range"] {
+    box-shadow: none !important;
+    --tw-shadow: none !important;
+}
