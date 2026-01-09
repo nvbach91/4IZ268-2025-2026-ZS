@@ -15,6 +15,8 @@ function formatQuestion(text) {
 const LS_WRONG_KEY = "quiz_wrong_questions";
 const LS_STATS_KEY = "quiz_stats_by_set";
 const LS_ANSWERED_KEY = "quiz_answered_questions";
+const LS_CORRECT_KEY = "quiz_correct_questions";
+const LS_LAST_SET_KEY = "quiz_last_selection";
 
 const CACHE_PREFIX = "quiz_cache_v1";
 
@@ -49,6 +51,7 @@ export const useQuizStore = defineStore("quiz", {
     // User progress (per set + difficulty)
     wrongBySet: {}, // { [setId__difficulty]: questionId[] }
     answeredQuestionIdsBySet: {}, // { [setId__difficulty]: questionId[] }
+    correctBySet: {}, // { [setId__difficulty]: questionId[] }
     statsBySet: {}, // { [setId__difficulty]: { answered: number, correct: number } }
 
     // Async state (used by UI)
@@ -99,6 +102,11 @@ lastSelectedAnswerIndex: null,
       const s = this.currentStats;
       return s.answered ? Math.round((s.correct / s.answered) * 100) : 0;
     },
+
+    currentCorrectIds(state) {
+      const key = progressKey(state.currentSetId, state.currentDifficulty);
+      return state.correctBySet[key] || [];
+    }
   },
 
   /**
@@ -164,6 +172,43 @@ lastSelectedAnswerIndex: null,
       );
     },
 
+    // Correct (per-question) storage
+    loadCorrectFromStorage() {
+      try {
+        const raw = localStorage.getItem(LS_CORRECT_KEY);
+        this.correctBySet = raw ? JSON.parse(raw) : {};
+      } catch {
+        this.correctBySet = {};
+      }
+    },
+
+    saveCorrectToStorage() {
+      localStorage.setItem(LS_CORRECT_KEY, JSON.stringify(this.correctBySet));
+    },
+
+    // Save / load last selected set + difficulty
+    loadLastSelectedFromStorage() {
+      try {
+        const raw = localStorage.getItem(LS_LAST_SET_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    },
+
+    saveLastSelectedToStorage() {
+      try {
+        localStorage.setItem(
+          LS_LAST_SET_KEY,
+          JSON.stringify({ setId: this.currentSetId, difficulty: this.currentDifficulty })
+        );
+      } catch {}
+    },
+
+    removeLastSelectedFromStorage() {
+      localStorage.removeItem(LS_LAST_SET_KEY);
+    },
+
     /**
      * ---------------------------
      * CACHE (Questions)
@@ -173,9 +218,9 @@ lastSelectedAnswerIndex: null,
       return `${CACHE_PREFIX}_${setId}_${this.currentDifficulty}_${QUESTIONS_LIMIT}`;
     },
 
-    loadQuestionsFromCache(setId) {
+    loadQuestionsFromCache(setId, difficulty) {
       try {
-        const raw = localStorage.getItem(this.getCacheKey(setId));
+        const raw = localStorage.getItem(this.getCacheKey(setId, difficulty));
         return raw ? JSON.parse(raw) : null;
       } catch {
         return null;
@@ -223,6 +268,13 @@ lastSelectedAnswerIndex: null,
         this.wrongBySet[key] = [];
         this.saveWrongToStorage();
       }
+      if (!this.correctBySet[key]) {
+        this.correctBySet[key] = [];
+        this.saveCorrectToStorage();
+      }
+
+      // persist last selection so it can be restored after reload
+      this.saveLastSelectedToStorage();
 
       // 1) Cache first (prevents "different questions" after switching sets)
       const cached = this.loadQuestionsFromCache(setId);
@@ -293,10 +345,12 @@ lastSelectedAnswerIndex: null,
       delete this.wrongBySet[key];
       delete this.statsBySet[key];
       delete this.answeredQuestionIdsBySet[key];
+      delete this.correctBySet[key];
 
       this.saveWrongToStorage();
       this.saveStatsToStorage();
       this.saveAnsweredToStorage();
+      this.saveCorrectToStorage();
 
       this.lastAnswerCorrect = null;
 
@@ -321,7 +375,7 @@ lastSelectedAnswerIndex: null,
 
       // pokud už je vybraný set, načti otázky pro novou obtížnost
       if (this.currentSetId) {
-        this.clearQuestionsCache(this.currentSetId);
+        this.clearQuestionsCache(this.currentSetId, oldDifficulty);
         this.clearCurrentSetProgress();
         this.selectSet(this.currentSetId);
       }
@@ -347,35 +401,73 @@ lastSelectedAnswerIndex: null,
       // WRONG tracking (for "wrong mode" filtering)
       if (!this.wrongBySet[key]) this.wrongBySet[key] = [];
 
+      // remember previous wrong/correct state to detect changes
+      const wasPreviouslyWrong = this.wrongBySet[key].includes(q.id);
+      const wasPreviouslyCorrect = (this.correctBySet[key] || []).includes(q.id);
+
+      // Update wrong list
       if (!correct) {
         if (!this.wrongBySet[key].includes(q.id)) {
           this.wrongBySet[key].push(q.id);
         }
       } else {
-        this.wrongBySet[key] = this.wrongBySet[key].filter(
-          (id) => id !== q.id
-        );
+        // Keep the question in the "wrong" list while user is in wrong-only mode
+        // so they can continue reviewing all previously wrong questions until
+        // they switch back to the "all" mode.
+        if (this.mode !== "wrong") {
+          this.wrongBySet[key] = this.wrongBySet[key].filter(
+            (id) => id !== q.id
+          );
+        }
       }
-      this.saveWrongToStorage();
 
-      // STATS: count only once per question id
+      // Update correct list (reflect the user's latest answer)
+      if (!this.correctBySet[key]) this.correctBySet[key] = [];
+
+      if (correct) {
+        if (!this.correctBySet[key].includes(q.id)) {
+          this.correctBySet[key].push(q.id);
+        }
+      } else {
+        this.correctBySet[key] = this.correctBySet[key].filter((id) => id !== q.id);
+      }
+
+      this.saveWrongToStorage();
+      this.saveCorrectToStorage();
+
+      // STATS: count only once per question id, but update correctness if user changed answer
       if (!this.answeredQuestionIdsBySet[key]) {
         this.answeredQuestionIdsBySet[key] = [];
       }
 
       const alreadyCounted = this.answeredQuestionIdsBySet[key].includes(q.id);
+
+      if (!this.statsBySet[key]) {
+        this.statsBySet[key] = { answered: 0, correct: 0 };
+      }
+
       if (!alreadyCounted) {
         this.answeredQuestionIdsBySet[key].push(q.id);
         this.saveAnsweredToStorage();
-
-        if (!this.statsBySet[key]) {
-          this.statsBySet[key] = { answered: 0, correct: 0 };
-        }
 
         this.statsBySet[key].answered += 1;
         if (correct) this.statsBySet[key].correct += 1;
 
         this.saveStatsToStorage();
+      } else {
+        // Question was already counted before: adjust correct count if correctness changed
+        if (correct && !wasPreviouslyCorrect) {
+          // previously counted as wrong, now correct -> increment correct
+          this.statsBySet[key].correct += 1;
+          this.saveStatsToStorage();
+        } else if (!correct && wasPreviouslyCorrect) {
+          // previously counted as correct, now wrong -> decrement correct (min 0)
+          this.statsBySet[key].correct = Math.max(
+            0,
+            (this.statsBySet[key].correct || 0) - 1
+          );
+          this.saveStatsToStorage();
+        }
       }
     },
 
@@ -421,10 +513,23 @@ lastSelectedAnswerIndex: null,
     },
 
     setMode(mode) {
+      const previous = this.mode;
       this.mode = mode;
       this.currentIndex = 0;
       this.lastAnswerCorrect = null;
       this.lastSelectedAnswerIndex = null;
+
+      // If user returns to the full list, remove any questions that were
+      // corrected while in "wrong" mode from the wrong-list so they no
+      // longer appear filtered out in the "all" view.
+      if (mode === "all" && this.currentSetId) {
+        const key = progressKey(this.currentSetId, this.currentDifficulty);
+        const correctIds = this.correctBySet[key] || [];
+        if (this.wrongBySet[key] && correctIds.length) {
+          this.wrongBySet[key] = this.wrongBySet[key].filter((id) => !correctIds.includes(id));
+          this.saveWrongToStorage();
+        }
+      }
     },
 
     /**
@@ -445,6 +550,7 @@ lastSelectedAnswerIndex: null,
       this.wrongBySet = {};
       this.statsBySet = {};
       this.answeredQuestionIdsBySet = {};
+      this.correctBySet = {};
       this.lastAnswerCorrect = null;
     },
 
@@ -454,6 +560,8 @@ lastSelectedAnswerIndex: null,
       localStorage.removeItem(LS_WRONG_KEY);
       localStorage.removeItem(LS_STATS_KEY);
       localStorage.removeItem(LS_ANSWERED_KEY);
+      localStorage.removeItem(LS_CORRECT_KEY);
+      localStorage.removeItem(LS_LAST_SET_KEY);
 
       this.lastAnswerCorrect = null;
       this.lastSelectedAnswerIndex = null;  
@@ -473,6 +581,7 @@ lastSelectedAnswerIndex: null,
       this.wrongBySet = {};
       this.statsBySet = {};
       this.answeredQuestionIdsBySet = {};
+      this.correctBySet = {};
 
       this.loading = false;
       this.error = null;

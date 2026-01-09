@@ -28,6 +28,7 @@ const props = defineProps({
   selectedQuestion: { type: Object, default: null },
   wrongIds: { type: Array, default: () => [] },
   answeredIds: { type: Array, default: () => [] },
+  correctIds: { type: Array, default: () => [] },
 });
 
 const emit = defineEmits(["select"]);
@@ -54,6 +55,11 @@ const getDotClass = (index) => {
 
   const isAnswered = props.answeredIds.includes(q.id);
   if (!isAnswered) return "unanswered";
+
+  // If we tracked per-question correctness, prefer that (allows showing a
+  // green "correct" dot even while the question is kept in the wrong-list
+  // for review). Otherwise fallback to previous behaviour.
+  if (props.correctIds.includes(q.id)) return "correct";
 
   return props.wrongIds.includes(q.id) ? "incorrect" : "correct";
 };

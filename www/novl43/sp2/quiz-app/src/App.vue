@@ -1,11 +1,15 @@
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useQuizStore } from "./stores/quizStore";
 
 import QuestionsMap from "./components/QuestionsMap.vue";
 import ResetDataModal from "./components/ResetDataModal.vue";
 
 const quiz = useQuizStore();
+
+// Local selection controls — apply with the button
+const selectedSet = ref(quiz.currentSetId || "");
+const selectedDifficulty = ref(quiz.currentDifficulty);
 
 /**
  * Reset modal state
@@ -42,25 +46,46 @@ onMounted(() => {
   quiz.loadWrongFromStorage();
   quiz.loadStatsFromStorage();
   quiz.loadAnsweredFromStorage();
+  quiz.loadCorrectFromStorage();
+
+  // restore last selected set and difficulty (if present)
+  const last = quiz.loadLastSelectedFromStorage();
+  if (last?.difficulty) quiz.currentDifficulty = last.difficulty;
+  if (last?.setId) quiz.selectSet(last.setId);
+
+  // initialize local controls to current (or restored) values
+  selectedDifficulty.value = quiz.currentDifficulty;
+  selectedSet.value = quiz.currentSetId || "";
 });
 
 const difficulties = ["Easy", "Medium", "Hard"];
 
 const onDifficultyChange = (event) => {
   const level = event.target.value;
-  quiz.setDifficulty(level);
+  selectedDifficulty.value = level;
 };
+
+
 
 /**
  * UI handlers
  */
 const onSetChange = (event) => {
-  const id = event.target.value;
-  if (id) quiz.selectSet(id);
+  selectedSet.value = event.target.value;
 };
 
 const onSelectQuestion = (index) => {
   quiz.selectQuestion(index);
+};
+
+const applySelection = () => {
+  if (!selectedSet.value) return;
+
+
+
+  // commit difficulty then select set (selectSet persists the last selection)
+  quiz.currentDifficulty = selectedDifficulty.value;
+  quiz.selectSet(selectedSet.value);
 };
 //hanler for answer classes
 const getAnswerClass = (index) => {
@@ -100,7 +125,7 @@ const getAnswerClass = (index) => {
     <section>
       <div class="field">
         <label for="set-select">Vyber kategorii:</label>
-        <select id="set-select" @change="onSetChange">
+        <select id="set-select" v-model="selectedSet" @change="onSetChange">
           <option value="">-- vyber --</option>
           <option v-for="set in quiz.sets" :key="set.id" :value="set.id">
             {{ set.name }}
@@ -108,13 +133,16 @@ const getAnswerClass = (index) => {
         </select>
       </div>
 
-      <div class="field">
+      <div class="field choices-row">
+        <div class="field choices-row2">
         <label for="difficulty-select">Obtížnost:</label>
-        <select id="difficulty-select" :value="quiz.currentDifficulty" @change="onDifficultyChange">
+        <select id="difficulty-select" v-model="selectedDifficulty" @change="onDifficultyChange">
           <option v-for="d in difficulties" :key="d" :value="d">
             {{ d }}
           </option>
         </select>
+        </div>
+        <button class="btn btn--primary" @click="applySelection" :disabled="!selectedSet">Potvrdit</button>
       </div>
     </section>
 
@@ -144,13 +172,16 @@ const getAnswerClass = (index) => {
         <strong>{{ quiz.currentStats.answered }}</strong>
         ({{ quiz.currentAccuracy }} %)
       </p>
+      <p class="SET-pill">
+        SET otázek: <strong>{{ quiz.currentSetId }}</strong>
+      </p>
       <p class="difficulty-pill">
         Obtížnost otázek: <strong>{{ quiz.currentDifficulty }}</strong>
       </p>
 
       <!-- Map of questions (click to navigate) -->
       <QuestionsMap :questions="quiz.filteredQuestions" :selectedQuestion="quiz.currentQuestion"
-        :wrongIds="quiz.currentWrongIds" :answeredIds="quiz.currentAnsweredIds" @select="onSelectQuestion" />
+        :wrongIds="quiz.currentWrongIds" :answeredIds="quiz.currentAnsweredIds" :correctIds="quiz.currentCorrectIds" @select="onSelectQuestion" />
 
       <!-- Loading / error states -->
       <div v-if="quiz.loading" class="loading">

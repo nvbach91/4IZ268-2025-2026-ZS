@@ -423,6 +423,15 @@ button:disabled {
   border-color: rgba(34, 197, 94, 0.6);
   box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
 }
+.choices-row{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.choices-row .btn{
+  margin-top:10px;
+  height: 37px;
+}
 
 .answers li button.answer--wrong {
   background: rgba(239, 68, 68, 0.16);
