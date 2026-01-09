@@ -1,0 +1,357 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    --font-main: 'Outfit', sans-serif;
+    --primary-color: #00e676;
+    --secondary-color: #03dac6;
+    --bg-dark: #121212;
+    --surface-dark: #1e1e1e;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+/* =========================================
+   2. TYPOGRAPHY & TEXT UTILITIES
+   ========================================= */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.uppercase {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.spacing-2 {
+    letter-spacing: 2px;
+}
+
+.fs-tiny {
+    font-size: 0.7rem;
+}
+
+.description-text {
+    max-width: 80ch;
+}
+
+/* =========================================
+   3. LAYOUT & HELPERS
+   ========================================= */
+.glass-effect {
+    background: rgba(30, 30, 30, 0.8) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.gradient-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
+}
+
+/* =========================================
+   4. BOOTSTRAP OVERRIDES
+   ========================================= */
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #9f6ee0;
+    border-color: #9f6ee0;
+}
+
+/* Forms */
+.form-control:focus {
+    background-color: #2c2c2c;
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(187, 134, 252, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 230, 118, 0.25);
+}
+
+/* =========================================
+   5. COMPONENT STYLES
+   ========================================= */
+/* Game Cards */
+.game-card {
+    background-color: var(--surface-dark);
+    border: 1px solid #333;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    cursor: pointer;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
+}
+
+.game-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.game-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card .card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.game-card-hover:hover img {
+    transform: scale(1.05);
+}
+
+/* Stat Cards */
+.stat-card {
+    background: var(--surface-dark);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Toast */
+.toast {
+    background-color: var(--surface-dark);
+    color: #fff;
+    border: 1px solid var(--primary-color);
+}
+
+/* Scroll Top Button */
+.scroll-top-btn {
+    width: 50px;
+    height: 50px;
+    z-index: 1000;
+}
+
+/* =========================================
+   6. VIEW SPECIFIC STYLES
+   ========================================= */
+
+/* --- Dashboard --- */
+.profile-card {
+    border: 1px solid #333;
+}
+
+.profile-card-bg {
+    background: linear-gradient(45deg, color-mix(in srgb, var(--primary-color), transparent 87%), transparent);
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.avatar-circle:hover {
+    transform: scale(1.05);
+}
+
+.profile-avatar-bg {
+    background-color: var(--primary-color);
+}
+
+.edit-btn-pos {
+    width: 32px;
+    height: 32px;
+    transform: translate(30%, 30%);
+}
+
+/* Dashboard Theme Picker */
+.color-swatch-select {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    border-color: transparent;
+}
+
+.icon-select-item {
+    cursor: pointer;
+}
+
+/* --- Detail View --- */
+.hero-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+}
+
+.hero-blur-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    filter: blur(20px);
+    opacity: 0.4;
+    z-index: 0;
+    background-image: var(--hero-bg);
+}
+
+.hero-main-wrapper {
+    z-index: 1;
+    min-height: 400px;
+    padding: 2rem;
+}
+
+.hero-main-img {
+    max-height: 500px;
+    width: auto;
+    object-fit: contain;
+}
+
+.hero-title-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.fav-fab-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sticky-meta-card {
+    top: 100px;
+    border-radius: 12px;
+}
+
+/* --- Discover & Library Views --- */
+.discover-card-img {
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.discover-card-img-small {
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.library-card-img {
+    height: 150px;
+    object-fit: cover;
+}
+
+/* =========================================
+   7. ANIMATIONS & THEMES
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeInUp 0.3s ease forwards;
+    opacity: 0;
+}
+
+/* Staggered Delays */
+.animate-fade-up:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.animate-fade-up:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.animate-fade-up:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.animate-fade-up:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.animate-fade-up:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+/* Theme Colors (Fixed Palette) */
+.theme-bg-0 {
+    background-color: #00e676;
+}
+
+.theme-bg-1 {
+    background-color: #bb86fc;
+}
+
+.theme-bg-2 {
+    background-color: #03dac6;
+}
+
+.theme-bg-3 {
+    background-color: #ff4081;
+}
+
+.theme-bg-4 {
+    background-color: #536dfe;
+}
+
+.theme-bg-5 {
+    background-color: #ffea00;
+}
