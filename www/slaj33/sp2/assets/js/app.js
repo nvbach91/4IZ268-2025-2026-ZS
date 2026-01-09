@@ -1,26 +1,11 @@
 import { redirectToSpotify, getToken } from "./auth.js";
-import { getUserData, searchData, getDetails, getTrackDetails, getAudioFeatures } from "./api.js";
+import { getUserData, searchData, getDetails, getTrackDetails } from "./api.js";
 import { showSearchResults, showSaved, renderDetails, renderTrackDetail } from "./ui.js";
+import {
+    loginButton, logoutButton, loginView, searchView, searchInput, dropdownMenu, profile, profilePicture, profileName, logoButton, savedView, resultContainer,
+    savedContainer, detailView, playlistContainer, trackDetailView, loadingSpinner, searchForm
+} from "./const.js";
 
-// UI elementy
-const loginButton = document.getElementById("login-button");
-const logoutButton = document.getElementById("logout-button");
-const loginView = document.getElementById("login-view");
-const searchView = document.getElementById("search-view");
-const searchButton = document.getElementById("search-button");
-const searchInput = document.getElementById("search-input");
-const dropdownMenu = document.getElementById("dropdown-menu");
-const profile = document.getElementById("profile");
-const profilePicture = document.getElementById("profile-picture")
-const profileName = document.getElementById("profile-name");
-const logoButton = document.getElementById("logo-button");
-const savedView = document.getElementById("saved-view");
-const resultContainer = document.getElementById("results-container");
-const savedContainer = document.getElementById("saved-container");
-const detailView = document.getElementById("detail-view");
-const playlistContainer = document.getElementById("playlist-tracks-container");
-const trackDetailView = document.getElementById("track-detail-view");
-const loadingSpinner = document.getElementById("loading-spinner");
 
 
 // Event Listeners
@@ -37,6 +22,7 @@ logoutButton.addEventListener("click", () => {
 
 logoButton.addEventListener("click", () => {
     window.location.href = "/~slaj33/sp2/";
+    //window.location.href = "/sp2/";
 });
 
 profile.addEventListener("click", () => {
@@ -58,6 +44,7 @@ window.addEventListener("load", async () => {
         if (code) {
             const token = await getToken(code);
             window.history.replaceState({}, document.title, "/~slaj33/sp2/");
+            //window.history.replaceState({}, document.title, "/sp2/");
 
             if (token) {
                 showApp();
@@ -204,7 +191,8 @@ async function showDetail(item) {
 let currentSearchResults = [];
 let currentDetailTracks = [];
 
-searchButton.addEventListener("click", async () => {
+searchForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
     const query = searchInput.value;
     const type = dropdownMenu.value;
     const token = localStorage.getItem("access_token");
@@ -287,64 +275,111 @@ function handleItemAction(event) {
 
     if (target.dataset.action === "save") {
         const id = target.dataset.id;
-        saveItemToLocalStorage(id);
+        saveItemToLocalStorage(id, target);
+        return;
     }
 
-    if (target.dataset.action === "remove") {
-        const id = target.dataset.id;
+if (target.dataset.action === "remove") {
+        if (target.dataset.confirmState !== "true") {
+            
+            const originalText = target.innerText;
+            target.innerText = "Opravdu odstranit?";
+            target.dataset.confirmState = "true";
+        
+            setTimeout(() => {
+                if (target && target.dataset.confirmState === "true") {
+                    target.innerText = "Odstranit";
+                    delete target.dataset.confirmState;
+                }
+            }, 3000);
+
+            return;
+        }
+
+            
+        const id = target.dataset.id;    
+        
+        delete target.dataset.confirmState;
+        
         removeFromLocalStorage(id, target);
+        return;
     }
 }
 
 
-//ulozeni do stranky saved a pameti
-function saveItemToLocalStorage(id) {
-    let itemToSave = currentSearchResults.find(item => item.id === id);
+function saveItemToLocalStorage(id, buttonElement) {
+    let itemToSave = currentSearchResults.find(item => item.id === id) || 
+                     currentDetailTracks.find(item => item.id === id);
 
     if (!itemToSave) {
-        itemToSave = currentDetailTracks.find(item => item.id === id);
-    }
-
-    if (!itemToSave) {
-        console.error("Polozka neni v pameti");
+        console.error("Položka nebyla nalezena.");
         return;
     }
+    const storageKey = `saved_${itemToSave.type}s`;
 
-    let savedItems = JSON.parse(localStorage.getItem("saved_items")) || [];
-    const exists = savedItems.some(item => item.id === id);
-
-    if (exists) {
-        console.log("Tato polozka je jiz ulozena");
-        return;
+    let saved = JSON.parse(localStorage.getItem(storageKey)) || [];
+    
+    if (!saved.some(i => i.id === id)) {
+        saved.push(itemToSave);
+        localStorage.setItem(storageKey, JSON.stringify(saved));
+        console.log(`Uloženo do: ${storageKey}`);
     }
-    savedItems.push(itemToSave);
-    localStorage.setItem("saved_items", JSON.stringify(savedItems));
-    console.log(savedItems);
-}
-
-
-//odstraneni ze stranky saved a pameti
-function removeFromLocalStorage(id, buttonElement) {
-    let savedItems = JSON.parse(localStorage.getItem("saved_items")) || [];
-    const exists = savedItems.some(item => item.id === id);
-
-    if (!exists) {
-        console.warn("Polozka neexistuje");
-        return;
-    }
-
-    const newItems = savedItems.filter(item => item.id !== id);
-    localStorage.setItem("saved_items", JSON.stringify(newItems));
 
     if (buttonElement) {
-        const cardToRemove = buttonElement.closest(".result-card");
-        if (cardToRemove) {
-            cardToRemove.remove();
+        buttonElement.innerText = "Odstranit";
+        buttonElement.classList.replace("btn-dark", "btn-danger");
+        buttonElement.dataset.action = "remove";
+    }
+}
+
+
+
+function removeFromLocalStorage(id, buttonElement) {
+    const types = ["saved_tracks", "saved_albums", "saved_playlists", "saved_artists"];
+
+    types.forEach(key => {
+        const items = JSON.parse(localStorage.getItem(key)) || [];
+        const newItems = items.filter(item => item.id !== id);
+        
+        if (items.length !== newItems.length) {
+            localStorage.setItem(key, JSON.stringify(newItems));
+            console.log(`Odstraněno z: ${key}`);
+        }
+    });
+
+    if (buttonElement) {
+
+        if (!document.getElementById("saved-view").classList.contains("hidden")) {
+            buttonElement.closest(".result-card")?.remove();
+            
+            if (document.getElementById("saved-container").children.length === 0) {
+            
+                 import("./ui.js").then(module => module.showSaved()); 
+            }
+        } 
+        
+        else {
+            buttonElement.innerText = "Uložit";
+            buttonElement.classList.replace("btn-danger", "btn-dark");
+            buttonElement.dataset.action = "save";
         }
     }
+}
 
-    if (newItems.length === 0) {
-        showSaved;
+
+function showNotification(message) {
+    const notification = document.getElementById("copy-notification");
+    
+    if (notification) {
+        notification.innerText = message;
+        notification.classList.remove("d-none");
+        notification.classList.add("show");
+
+        setTimeout(() => {
+            notification.classList.add("d-none");
+        }, 3000);
+    } else {
+        alert(message);
     }
 }
 
@@ -356,12 +391,16 @@ function copyToClipboard(id) {
     }
 
     if (!item) {
-        let saved = JSON.parse(localStorage.getItem("saved_items")) || [];
-        item = saved.find(i => i.id === id);
+        const types = ["saved_tracks", "saved_albums", "saved_playlists", "saved_artists"];
+        for (const key of types) {
+            const savedItems = JSON.parse(localStorage.getItem(key)) || [];
+            item = savedItems.find(i => i.id === id);
+            if (item) break;
+        }
     }
 
     if (!item) {
-        console.error("polozka neni v pametu");
+        console.error("Položka nebyla nalezena v paměti.");
         return;
     }
 
@@ -369,9 +408,12 @@ function copyToClipboard(id) {
 
     if (isrc) {
         navigator.clipboard.writeText(isrc)
-            .then(() => alert(`Zkopírováno: ${isrc}`))
-            .catch(err => console.error("Chyba pri kopirovani: ", err));
+            .then(() => {
+                showNotification(`ISRC zkopírováno: ${isrc}`);
+            })
+            .catch(err => console.error("Chyba při kopírování: ", err));
     } else {
-        console.warn("polozka nema isrc");
+        console.warn("Položka nemá ISRC.");
+        showNotification("Tato položka nemá ISRC kód.");
     }
 }

@@ -1,9 +1,5 @@
-const detailImage = document.getElementById("detail-image");
-const detailType = document.getElementById("detail-type");
-const detailTitle = document.getElementById("detail-title");
-const detailSubtitle = document.getElementById("detail-subtitle");
-const detailMeta = document.getElementById("detail-meta");
-
+import {resultContainer, savedContainer, detailImage, detailType, detailTitle, detailSubtitle, detailMeta, trackCoverImage, trackTitle, trackArtist, trackISRC, playlistContainer
+} from "./const.js"
 //vykresleni vysledku na stranku
 
 export function createCardHTML(item, type) {
@@ -14,6 +10,8 @@ export function createCardHTML(item, type) {
         }
 
         const artistNames = item.artists.map(artist => artist.name).join(", ");
+
+        const isrc = item.external_ids?.isrc || "";
 
         const cardWrapper = document.createElement("div");
         cardWrapper.classList.add("result-card");
@@ -29,7 +27,7 @@ export function createCardHTML(item, type) {
                     <button class="btn btn-warning detail-button" data-id=${item.id} data-action="detail">Detail</button>
                     <br>
                     <button class="btn btn-dark save-button" data-id=${item.id} data-action="save">Uložit</button>
-                    <button type="button" class="btn btn-warning" data-id=${item.id} data-isrc="${item.external_ids.isrc}" data-action="copy">Zkopírovat ISRC kód</button>
+                    <button type="button" class="btn btn-warning" data-id=${item.id} data-isrc="${isrc}" data-action="copy">Zkopírovat ISRC kód</button>
                 </div>
 
                 `;
@@ -123,7 +121,6 @@ export function createCardHTML(item, type) {
 
 //vysledky z vyhledavani
 export function showSearchResults(data, type) {
-    const resultContainer = document.getElementById("results-container");
     resultContainer.innerHTML = "";
     console.log("vykreslvani vysledku")
 
@@ -140,56 +137,67 @@ export function showSearchResults(data, type) {
         return;
     }
 
+    const fragment = document.createDocumentFragment();
+
     items.forEach(item => {
         if (!item) return;
 
         const card = createCardHTML(item, type);
 
-        resultContainer.appendChild(card);
+        fragment.appendChild(card);
     });
+
+    resultContainer.appendChild(fragment);
 }
 
 
 //vykresleni stranky s ulozenymi skladbami
-export function showSaved() {
-    const savedContainer = document.getElementById("saved-container");
+// ui.js
 
+export function showSaved() {
     savedContainer.innerHTML = "";
 
-    const savedItems = JSON.parse(localStorage.getItem("saved_items")) || [];
+    const tracks = JSON.parse(localStorage.getItem("saved_tracks")) || [];
+    const albums = JSON.parse(localStorage.getItem("saved_albums")) || [];
+    const playlists = JSON.parse(localStorage.getItem("saved_playlists")) || [];
+    const artists = JSON.parse(localStorage.getItem("saved_artists")) || [];
 
-
-    if (savedItems.length === 0) {
+    if (!tracks.length && !albums.length && !playlists.length && !artists.length) {
         savedContainer.innerHTML = "<p class='text-white'>Zatím nemáte žádné uložené položky.</p>";
         return;
     }
 
-    savedItems.forEach(item => {
-        const type = item.type;
+    const fragment = document.createDocumentFragment();
 
-        const card = createCardHTML(item, type);
-        const saveBtn = card.querySelector(".save-button");
+    const appendSection = (title, items) => {
+        if (items.length === 0) return;
 
-        if (saveBtn) {
-            saveBtn.innerText = "Odstranit";
-            saveBtn.classList.replace("btn-dark", "btn-danger");
-            saveBtn.dataset.action = "remove";
-        }
+    
+        items.forEach(item => {
+            const card = createCardHTML(item, item.type);
+            
+            const saveBtn = card.querySelector(".save-button");
+            if (saveBtn) {
+                saveBtn.innerText = "Odstranit";
+                saveBtn.classList.replace("btn-dark", "btn-danger");
+                saveBtn.dataset.action = "remove";
+            }
 
-        savedContainer.appendChild(card);
-    });
+            fragment.appendChild(card);
+        });
+    };
+
+    appendSection("Skladby", tracks);
+    appendSection("Alba", albums);
+    appendSection("Playlisty", playlists);
+    appendSection("Interpreti", artists);
+
+    savedContainer.appendChild(fragment);
 }
 
 
 //doplneni hodnot do playlistu a alba
 export function renderDetails(result) {
-    const detailImage = document.getElementById("detail-image");
-    const detailTitle = document.getElementById("detail-title");
-    const detailSubtitle = document.getElementById("detail-subtitle");
-    const detailType = document.getElementById("detail-type");
-    const detailMeta = document.getElementById("detail-meta");
-    const tracksContainer = document.getElementById("playlist-tracks-container");
-
     let cover = "https://placehold.co/200x200?text=No+Img";
     if (result.images && result.images.length > 0) {
         cover = result.images[0].url;
@@ -208,12 +216,13 @@ export function renderDetails(result) {
     detailType.innerText = result.type === "album" ? "Album" : "Playlist";
     detailMeta.innerText = `${result.tracks.total} skladeb`;
 
-    tracksContainer.innerHTML = "";
+    playlistContainer.innerHTML = "";
 
     const savedItems = JSON.parse(localStorage.getItem("saved_items")) || [];
 
-
     const items = result.tracks.items;
+
+    const fragment = document.createDocumentFragment();
 
     items.forEach((item, index) => {
         if (!item) return;
@@ -254,18 +263,14 @@ export function renderDetails(result) {
             </div>
         `;
 
-        tracksContainer.appendChild(row);
+        fragment.appendChild(row);
     });
+    playlistContainer.appendChild(fragment);
 }
 
 
 //doplneni hodnot pro detailni zobrazeni jednotlive skladby
 export function renderTrackDetail(trackData, audioFeatures) {
-    const trackCoverImage = document.getElementById("track-cover-image");
-    const trackTitle = document.getElementById("track-title");
-    const trackArtist = document.getElementById("track-artist");
-    const trackISRC = document.getElementById("track-isrc");
-
     let cover = "https://placehold.co/200x200?text=No+Img";
     if (trackData.album.images && trackData.album.images.length > 0) {
         cover = trackData.album.images[0].url;

@@ -38,18 +38,18 @@
         </section>
 
         <section id="search-view" class="view hidden">
-            <div class="search-bar">
+            <form id="search-form" class="search-bar">
                 <input type="text" class="form-control" id="search-input" placeholder="Zadejte název...">
                 <select id="dropdown-menu" class="form-select form-select-lg form-select-narrow"
-                    aria-label="Large select example">
-                    <option selected>Vybrat</option>
+                    aria-label="Large select example" required>
+                    <option value="" selected disabled>Vybrat</option>
                     <option value="track">Skladba</option>
                     <option value="album">Album</option>
                     <option value="artist">Interpret</option>
                     <option value="playlist">Playlist</option>
                 </select>
-                <button id="search-button" class="btn btn-warning">Hledat</button>
-            </div>
+                <button id="search-button" type="submit" class="btn btn-warning">Hledat</button>
+            </form>
 
             <div id="results-container" class="flex-container">
 
@@ -107,6 +107,11 @@
         <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
             <span class="visually-hidden">Načítám...</span>
         </div>
+    </div>
+
+    <div id="copy-notification" class="alert alert-success position-fixed bottom-0 end-0 m-4 d-none" role="alert"
+        style="z-index: 2050; min-width: 250px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        Zkopírováno do schránky!
     </div>
 
     <script type="module" src="./assets/js/app.js"></script>
