@@ -1,0 +1,451 @@
+/* =========================================================
+   Global design tokens
+   ========================================================= */
+:root {
+  --bg: #0b1220;
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-2: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.14);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.7);
+
+  --primary: #7c3aed;
+  --primary-2: #a78bfa;
+
+  --ok: #22c55e;
+  --bad: #ef4444;
+  --warn: #f59e0b;
+
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 10px 26px rgba(0, 0, 0, 0.28);
+
+  --ring: 0 0 0 3px rgba(167, 139, 250, 0.35);
+
+  --gap: 14px;
+  --gap-lg: 18px;
+
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* =========================================================
+   Base / Reset
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  line-height: 1.45;
+
+  background:
+    radial-gradient(1200px 800px at 15% 10%, rgba(124, 58, 237, 0.25), transparent 60%),
+    radial-gradient(1000px 700px at 85% 25%, rgba(59, 130, 246, 0.18), transparent 60%),
+    radial-gradient(900px 700px at 40% 90%, rgba(34, 197, 94, 0.12), transparent 60%),
+    linear-gradient(180deg, #070b14, #0b1220 35%, #0b1220);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+  border-radius: 10px;
+}
+
+/* =========================================================
+   App layout + typography
+   ========================================================= */
+.app {
+  width: min(960px, calc(100% - 32px));
+  margin: 28px auto 60px;
+  padding: 22px 22px 26px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  margin: 6px 0 18px;
+  font-size: clamp(22px, 2.2vw, 30px);
+  letter-spacing: 0.2px;
+}
+
+.stats {
+  margin: 8px 0 14px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 700;
+}
+
+section {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+label {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+select {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 220px;
+}
+
+select:focus-visible {
+  box-shadow: var(--ring);
+}
+
+select option {
+  background: #0b1220;
+  color: var(--text);
+}
+
+/* =========================================================
+   Buttons (generic)
+   - Use via class="btn ..." (used in modal)
+   ========================================================= */
+button {
+  font: inherit;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+
+  cursor: pointer;
+  user-select: none;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(167, 139, 250, 0.75));
+  border-color: rgba(167, 139, 250, 0.45);
+}
+
+.btn--primary:hover {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 1), rgba(167, 139, 250, 0.86));
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25);
+}
+
+.btn--ghost {
+  background: transparent;
+}
+
+.btn--danger {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.btn--danger:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+/* =========================================================
+   Modes row
+   - Buttons here are styled without adding .btn classes in template
+   ========================================================= */
+.modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Push last action button (Reset dat) to the right */
+.modes button:last-child {
+  margin-left: auto;
+}
+
+.modes button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.modes button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.modes button.active {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(167, 139, 250, 0.75));
+  border-color: rgba(167, 139, 250, 0.45);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.22);
+}
+
+/* =========================================================
+   Question + answers
+   ========================================================= */
+.question {
+  margin: 14px 0 12px;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.answers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  gap: 10px;
+}
+
+.answers li button {
+  width: 100%;
+  text-align: left;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+
+  cursor: pointer;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.answers li button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.answers li button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   Result messages
+   ========================================================= */
+.result {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.result.ok {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.result.bad {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+.navigation {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.navigation button {
+  flex: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.navigation button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   Loading + error
+   ========================================================= */
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 4px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: rgba(255, 255, 255, 0.92);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  font-weight: 700;
+}
+
+/* =========================================================
+   Small screens
+   ========================================================= */
+@media (max-width: 520px) {
+  .app {
+    padding: 18px 16px 22px;
+  }
+
+  section {
+    padding: 14px;
+  }
+
+  select {
+    width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .navigation {
+    flex-direction: column;
+  }
+}
+.question pre {
+  margin: 8px 0 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.field { margin-top: 10px; }
+/* Stav po zodpovězení otázky */
+.answers li button.answer--correct {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+}
+.choices-row{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.choices-row .btn{
+  margin-top:10px;
+  height: 37px;
+}
+
+.answers li button.answer--wrong {
+  background: rgba(239, 68, 68, 0.16);
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.4);
+}
+
+.answers li button.answer--neutral {
+  opacity: 0.7;
+}
+
+/* zabrání „skákaní“ efektu po odpovědi */
+.answers li button.answer--correct,
+.answers li button.answer--wrong,
+.answers li button.answer--neutral {
+  transform: none;
+}
