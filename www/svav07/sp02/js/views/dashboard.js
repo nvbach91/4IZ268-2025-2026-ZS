@@ -215,7 +215,7 @@ export function renderDashboard() {
         document.documentElement.style.setProperty('--primary-color', editState.color);
 
         modal.hide();
-        renderDashboard(); // Re-render
+        renderDashboard();
         UI.showToast('Profile Updated!');
     });
 }

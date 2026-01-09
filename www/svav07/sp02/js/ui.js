@@ -71,5 +71,29 @@ export const UI = {
             </div>
         `;
         return div;
+    },
+
+    showConfirmModal(title, message, onConfirm) {
+        const modalEl = document.getElementById('confirmation-modal');
+        const titleEl = document.getElementById('confirm-title');
+        const bodyEl = document.getElementById('confirm-body');
+        const btn = document.getElementById('confirm-btn');
+
+        if (!modalEl || !titleEl || !bodyEl || !btn) return;
+
+        titleEl.textContent = title;
+        bodyEl.textContent = message;
+
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        const modal = new bootstrap.Modal(modalEl);
+
+        newBtn.addEventListener('click', () => {
+            onConfirm();
+            modal.hide();
+        });
+
+        modal.show();
     }
 };

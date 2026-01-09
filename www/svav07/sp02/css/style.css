@@ -4,7 +4,6 @@
 :root {
     --font-main: 'Outfit', sans-serif;
     --primary-color: #00e676;
-    /* Default Green */
     --secondary-color: #03dac6;
     --bg-dark: #121212;
     --surface-dark: #1e1e1e;
@@ -51,7 +50,6 @@ body {
 
 .description-text {
     max-width: 80ch;
-    /* Optimal reading line length */
 }
 
 /* =========================================
@@ -92,7 +90,6 @@ body {
 
 .btn-primary:hover {
     background-color: #9f6ee0;
-    /* Fallback accent hover? Or darken primary? Using prev value */
     border-color: #9f6ee0;
 }
 
@@ -102,7 +99,6 @@ body {
     color: #fff;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.25rem rgba(187, 134, 252, 0.25);
-    /* Purple tint from old theme? */
 }
 
 .form-check-input:checked {
@@ -191,7 +187,6 @@ body {
 }
 
 .profile-card-bg {
-    /* Color-mix for alpha transparency */
     background: linear-gradient(45deg, color-mix(in srgb, var(--primary-color), transparent 87%), transparent);
 }
 

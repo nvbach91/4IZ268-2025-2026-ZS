@@ -4,6 +4,7 @@
 import { API } from '../api.js';
 import { appStore } from '../store.js';
 import { UI } from '../ui.js';
+import { Router } from '../router.js';
 
 export async function renderDetail(id) {
     const app = document.getElementById('app');
@@ -67,28 +68,28 @@ export async function renderDetail(id) {
                         <div id="game-description" class="lead text-justify description-text">
                             <!-- Description Injected via JS -->
                         </div>
-
-                        <!-- Interactions Area -->
-                        <div class="d-flex gap-3 mt-5">
-                             <button id="detail-add-btn" class="btn ${isSaved ? 'btn-success' : 'btn-outline-primary'} btn-lg px-5 rounded-pill">
-                                <i class="bi ${isSaved ? 'bi-check-lg' : 'bi-plus-lg'}"></i> 
-                                ${isSaved ? 'In Library' : 'Add to Library'}
-                            </button>
-                            
-                            ${isSaved ? `
-                                <button id="detail-fav-btn" class="btn ${isFav ? 'btn-danger' : 'btn-outline-danger'} btn-lg rounded-circle fav-fab-btn">
-                                    <i class="bi ${isFav ? 'bi-heart-fill' : 'bi-heart'}"></i>
-                                </button>
-                            ` : ''}
-                        </div>
                     </div>
 
                 <!-- Right: Metadata & Stats -->
                 <div class="col-lg-4">
                     <div class="card bg-dark border-secondary p-4 sticky-top sticky-meta-card">
+                        
+                        <!-- Interaction Area -->
+                        <div class="d-flex flex-column gap-2 mb-4">
+                             <button id="detail-add-btn" class="btn ${isSaved ? 'btn-success' : 'btn-outline-primary'} w-100 py-3 rounded-pill">
+                                <i class="bi ${isSaved ? 'bi-check-lg' : 'bi-plus-lg'} me-2"></i> 
+                                ${isSaved ? 'In Library' : 'Add to Library'}
+                            </button>
+                            
+                            <button id="detail-fav-btn" class="btn ${isFav ? 'btn-danger' : 'btn-outline-danger'} w-100 py-2 rounded-pill ${isSaved ? '' : 'd-none'}">
+                                <i class="bi ${isFav ? 'bi-heart-fill' : 'bi-heart'} me-2"></i> ${isFav ? 'Favorited' : 'Add to Favorites'}
+                            </button>
+                        </div>
+
                         <h4 class="text-muted uppercase small spacing-2 mb-4">Game Info</h4>
                         
                         ${renderMetaRow('Genres', game.genres)}
+                        ${renderTags(game.tags)}
                         ${renderMetaRow('Platforms', game.parent_platforms?.map(p => p.platform))}
                         ${renderMetaRow('Developers', game.developers)}
                         ${renderMetaRow('Publishers', game.publishers)}
@@ -111,7 +112,7 @@ export async function renderDetail(id) {
             </article>
         `;
 
-        // Set Dynamic Hero Background safely via JS (No inline attribute)
+        // Set Dynamic Hero Background safely via JS
         const heroBgEl = document.getElementById('detail-hero-bg');
         if (heroBgEl) {
             heroBgEl.style.setProperty('--hero-bg', `url('${game.background_image}')`);
@@ -148,6 +149,37 @@ export async function renderDetail(id) {
             });
         }
 
+        // Setup Tags Functionality
+        document.querySelectorAll('.tag-link').forEach(tagEl => {
+            tagEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tagName = e.target.closest('.tag-link').dataset.slug;
+                // Navigate to Discover with search query
+                Router.navigate(`discover/${encodeURIComponent(tagName)}`);
+            });
+        });
+
+        const expandBtn = document.getElementById('tags-expand-btn');
+        if (expandBtn) {
+            expandBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const hiddenTags = document.querySelectorAll('.hidden-tag');
+                const isExpanded = expandBtn.classList.contains('tags-expanded');
+
+                if (isExpanded) {
+                    // Collapse
+                    hiddenTags.forEach(t => t.classList.add('d-none'));
+                    expandBtn.textContent = `+${expandBtn.dataset.count} more`;
+                    expandBtn.classList.remove('tags-expanded');
+                } else {
+                    // Expand
+                    hiddenTags.forEach(t => t.classList.remove('d-none'));
+                    expandBtn.textContent = 'Show less';
+                    expandBtn.classList.add('tags-expanded');
+                }
+            });
+        }
+
         // Initialize Tooltips
         const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltips.forEach(t => new bootstrap.Tooltip(t));
@@ -155,21 +187,55 @@ export async function renderDetail(id) {
         // Event Listeners
         const addBtn = document.getElementById('detail-add-btn');
         if (addBtn) {
-            addBtn.addEventListener('click', () => {
-                if (isSaved) return; // Or handle remove? Library usually handles remove. Detail usually Adds.
-                if (appStore.add(game)) {
-                    UI.showToast('Added to Library!');
-                    renderDetail(id); // Re-render to update UI state
+            addBtn.addEventListener('click', function () {
+                const isNowSaved = appStore.has(game.id);
+
+                if (isNowSaved) {
+                    // REMOVE
+                    appStore.remove(game.id);
+                    UI.showToast('Removed from Library');
+
+                    // UI Updates
+                    this.className = 'btn btn-outline-primary btn-lg px-5 rounded-pill';
+                    this.innerHTML = '<i class="bi bi-plus-lg"></i> Add to Library';
+
+                    const fBtn = document.getElementById('detail-fav-btn');
+                    if (fBtn) fBtn.classList.add('d-none');
+                } else {
+                    // ADD
+                    if (appStore.add(game)) {
+                        UI.showToast('Added to Library!');
+
+                        // UI Updates
+                        this.className = 'btn btn-success btn-lg px-5 rounded-pill';
+                        this.innerHTML = '<i class="bi bi-check-lg"></i> In Library';
+
+                        const fBtn = document.getElementById('detail-fav-btn');
+                        if (fBtn) fBtn.classList.remove('d-none');
+                    }
                 }
             });
         }
 
         const favBtn = document.getElementById('detail-fav-btn');
         if (favBtn) {
-            favBtn.addEventListener('click', () => {
+            favBtn.addEventListener('click', function () {
                 const newStatus = appStore.toggleFavorite(game.id);
                 UI.showToast(newStatus ? 'Added to Favorites' : 'Removed from Favorites');
-                renderDetail(id);
+
+                // Update Button UI directly
+                const icon = this.querySelector('i');
+                if (newStatus) {
+                    this.classList.remove('btn-outline-danger');
+                    this.classList.add('btn-danger');
+                    icon.classList.remove('bi-heart');
+                    icon.classList.add('bi-heart-fill');
+                } else {
+                    this.classList.remove('btn-danger');
+                    this.classList.add('btn-outline-danger');
+                    icon.classList.remove('bi-heart-fill');
+                    icon.classList.add('bi-heart');
+                }
             });
         }
 
@@ -252,4 +318,39 @@ function parseDescription(text) {
     if (Object.keys(result).length === 0) return { English: text };
 
     return result;
+}
+
+function renderTags(tags) {
+    if (!tags || tags.length === 0) return '';
+
+    // Show top 10 tags initially
+    const visibleTags = tags.slice(0, 10);
+    const hiddenTags = tags.slice(10);
+
+    const visibleHtml = visibleTags.map(tag => `
+        <a href="#" class="badge bg-secondary text-decoration-none tag-link me-1 mb-1" data-slug="${tag.slug || tag.name}">
+            #${tag.name}
+        </a>
+    `).join('');
+
+    const hiddenHtml = hiddenTags.map(tag => `
+        <a href="#" class="badge bg-secondary text-decoration-none tag-link me-1 mb-1 d-none hidden-tag" data-slug="${tag.slug || tag.name}">
+            #${tag.name}
+        </a>
+    `).join('');
+
+    return `
+        <div class="mb-3">
+            <h6 class="text-secondary small uppercase mb-1">Tags</h6>
+            <div class="d-flex flex-wrap" id="tags-container">
+                ${visibleHtml}
+                ${hiddenHtml}
+                ${tags.length > 10 ? `
+                    <button class="badge bg-dark border border-secondary text-muted small me-1 mb-1 btn btn-sm p-1" id="tags-expand-btn" data-count="${tags.length - 10}">
+                        +${tags.length - 10} more
+                    </button>
+                ` : ''}
+            </div>
+        </div>
+    `;
 }

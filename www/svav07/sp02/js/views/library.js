@@ -7,8 +7,6 @@ import { Router } from '../router.js';
 
 export function renderLibrary() {
     const app = document.getElementById('app');
-    const library = appStore.getLibrary();
-
     app.innerHTML = `
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="section-title">My Library</h2>
@@ -24,6 +22,7 @@ export function renderLibrary() {
     const toggle = document.getElementById('fav-toggle');
 
     const render = (showFavs) => {
+        const library = appStore.getLibrary();
         const games = showFavs ? library.filter(g => g.isFavorite) : library;
 
         grid.innerHTML = '';
@@ -62,17 +61,46 @@ export function renderLibrary() {
                 Router.navigate(`game/${game.id}`);
             });
 
-            col.querySelector('.fav-btn').addEventListener('click', () => {
-                appStore.toggleFavorite(game.id);
-                render(toggle.checked); // Re-render to update UI
+            col.querySelector('.fav-btn').addEventListener('click', function () {
+                const newState = appStore.toggleFavorite(game.id);
+
+                // If we are showing favorites only and it's no longer a favorite -> Remove it
+                if (toggle.checked && !newState) {
+                    col.remove();
+                    // If grid is empty now, show empty message
+                    if (grid.children.length === 0) {
+                        grid.innerHTML = '<p class="text-center w-100 text-muted">No games found in collection.</p>';
+                    }
+                    return;
+                }
+
+                // Update Button UI directly
+                const btn = this;
+                if (newState) {
+                    btn.classList.remove('btn-outline-danger');
+                    btn.classList.add('btn-danger');
+                    btn.textContent = '♥';
+                } else {
+                    btn.classList.remove('btn-danger');
+                    btn.classList.add('btn-outline-danger');
+                    btn.textContent = '♡';
+                }
             });
 
             col.querySelector('.remove-btn').addEventListener('click', () => {
-                if (confirm(`Remove ${game.name}?`)) {
-                    appStore.remove(game.id);
-                    render(toggle.checked);
-                    UI.showToast('Game removed');
-                }
+                UI.showConfirmModal(
+                    'Remove Game',
+                    `Are you sure you want to remove ${game.name} from your library?`,
+                    () => {
+                        appStore.remove(game.id);
+                        col.remove(); // -- Fix for rerendering --
+                        // If grid is empty now, show empty message
+                        if (grid.children.length === 0) {
+                            grid.innerHTML = '<p class="text-center w-100 text-muted">No games found in collection.</p>';
+                        }
+                        UI.showToast('Game removed');
+                    }
+                );
             });
 
             fragment.appendChild(col);

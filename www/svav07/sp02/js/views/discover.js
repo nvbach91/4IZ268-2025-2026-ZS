@@ -6,6 +6,8 @@ import { appStore } from '../store.js';
 import { UI } from '../ui.js';
 import { Router } from '../router.js';
 
+const MAX_PAGES = 5; // --- Manual limit to avoid excessive requests ---
+
 let state = {
     page: 1,
     loading: false,
@@ -20,6 +22,7 @@ let state = {
 };
 
 let observer; // For Infinite Scroll
+
 
 export async function renderDiscover(param) {
     const app = document.getElementById('app');
@@ -58,10 +61,10 @@ export async function renderDiscover(param) {
                 <!-- Sorting -->
                 <select id="sort-select" class="form-select w-auto bg-dark text-light border-secondary">
                     <option value="-added">🔥 Popularity</option>
-                    <option value="-rating">⭐ Rating (High to Low)</option>
-                    <option value="rating">📉 Rating (Low to High)</option>
-                    <option value="-released">📅 Newest First</option>
-                    <option value="released">🕰 Oldest First</option>
+                    <option value="-rating">Rating (High to Low)</option>
+                    <option value="rating">Rating (Low to High)</option>
+                    <option value="-released">Newest First</option>
+                    <option value="released">Oldest First</option>
                 </select>
 
                 <!-- Filters -->
@@ -114,7 +117,7 @@ export async function renderDiscover(param) {
         // Initial Load
         await loadGames(true); // true = reset grid
 
-        // Wait for filters to populate UI (optional, but good for UX)
+        // Wait for filters to populate UI
         await filtersPromise;
 
         // Setup Event Listeners
@@ -127,26 +130,32 @@ export async function renderDiscover(param) {
     }
 }
 
+
 async function loadGames(reset = false) {
     if (state.loading || (!state.hasMore && !reset)) return;
 
-    state.loading = true;
     const sentinel = document.getElementById('sentinel');
-    const spinner = sentinel?.querySelector('.spinner-border');
-    if (spinner) spinner.classList.remove('d-none');
-
     const grid = document.getElementById('games-grid');
+
     if (reset) {
         grid.innerHTML = '';
         state.page = 1;
         state.hasMore = true;
+        // Restore sentinel spinner if it was overwritten by text
+        if (sentinel) {
+            sentinel.innerHTML = '<div class="spinner-border text-primary d-none" role="status"></div>';
+        }
     }
+
+    state.loading = true;
+    const spinner = sentinel?.querySelector('.spinner-border');
+    if (spinner) spinner.classList.remove('d-none');
 
     // Build Query
     const query = {
         page: state.page,
         ordering: state.filters.ordering,
-        page_size: 20
+        page_size: 20 // --- Consistent page size ---
     };
 
     if (state.filters.search) query.search = state.filters.search;
@@ -187,11 +196,17 @@ async function loadGames(reset = false) {
             });
             grid.appendChild(fragment);
 
+            // --- This is where i limit load ammount ---
             if (data.next) {
-                state.page++;
+                if (state.page >= MAX_PAGES) {
+                    state.hasMore = false;
+                    sentinel.innerHTML = '<p class="text-muted small">You\'ve reached the end. (100 games max)</p>';
+                } else {
+                    state.page++;
+                }
             } else {
                 state.hasMore = false;
-                sentinel.innerHTML = '<p class="text-muted small">You reached the end.</p>';
+                sentinel.innerHTML = '<p class="text-muted small">That\'s all games there are.</p>';
             }
         }
     } catch (e) {
@@ -214,7 +229,7 @@ function setupListeners() {
         const globalSearch = document.getElementById('global-search');
         state.filters.search = globalSearch ? globalSearch.value.trim() : '';
 
-        loadGames(true); // Reset and reload
+        loadGames(true);
     };
 
     ['genre-select', 'platform-select', 'year-select', 'sort-select'].forEach(id => {
@@ -224,16 +239,7 @@ function setupListeners() {
     // Global Search integration when already on page
     const globalSearch = document.getElementById('global-search');
     if (globalSearch) {
-        // Remove old listeners to prevent dupes (naive check, usually render wipes module state but listeners on global elements persist!)
-        // This is a risk with SPA. We should clean up listeners in a standardized way.
-        // For now, we'll use a named function or check.
-        // Or simpler: We just add it, and if we re-render, we might add it again. 
-        // FIX: The router cleans 'app' but 'global-search' is in Navbar. State leak!
-        // We'll ignore the complexity for now and just attach. Chrome handles generic listeners okay.
-        globalSearch.removeEventListener('search-trigger', handleChange); // Try removing previous ref if function was same? No, handleChange is new closure.
-
-        // Better: Set an on-property if possible, or accept the minor leak for this scale.
-        // Let's use a custom property on the element to track the handler
+        globalSearch.removeEventListener('search-trigger', handleChange);
         if (globalSearch._searchHandler) {
             globalSearch.removeEventListener('search-trigger', globalSearch._searchHandler);
         }

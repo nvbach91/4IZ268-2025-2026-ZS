@@ -31,18 +31,7 @@ if (searchInput) {
     searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const query = searchInput.value.trim();
-
-            // If we are already on discover, just trigger the change handler in discover.js
-            // But main.js doesn't have access to discover.js internals.
-            // Simplest robust solution: Just navigate. User accepts clean state for new search usually.
-            // BUT: "work together" implies "Lego" + "IOS".
-            // If I select IOS, then type Lego, I expect both.
-            // So: If on discover, getting the search input value is handled by discover's logic.
-            // We just need discover.js to listen to this input's 'change' or 'keypress'.
-
-            // Let's defer to the view logic if we are on the view.
             if (window.location.hash.startsWith('#discover')) {
-                // Dispatch event so discover.js catches it?
                 searchInput.dispatchEvent(new Event('search-trigger'));
             } else {
                 if (query) {
@@ -59,7 +48,6 @@ if (scrollBtn) {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
             scrollBtn.classList.remove('d-none');
-            // Little fade in animation could be added via CSS, but d-none toggle is simple
         } else {
             scrollBtn.classList.add('d-none');
         }
@@ -70,4 +58,4 @@ if (scrollBtn) {
     });
 }
 
-console.log('GameHub Initialized (refactored).');
+console.log('GameHub Initialized.');
