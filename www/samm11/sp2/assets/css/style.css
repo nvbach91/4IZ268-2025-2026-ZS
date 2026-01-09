@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+!important;
+    padding: 0;
+!important;
+}
+
+body {
+    height: 100vh;
+    padding-top: 72px;
+}
+
+section {
+    max-height: calc(100vh - 72px);
+}
+
+#loginBtn {
+    background-color: #FC4C02;
+    border-color: #cd3c00;
+}
+
+#profileSection h3 {
+    font-size: 40px;
+}
+
+#profileSection p, #profileSection dd {
+    font-size: 20px;
+}
+
+#profileSection dt {
+    font-size: 23px;
+}
+
+#athleteProfile {
+    border-radius: 50%;
+    width: 120px;
+    height: auto;
+    transition: scale 0.3s;
+}
+
+.activity-row {
+    cursor: pointer;
+}
+
+#athleteProfile:hover {
+    scale: 1.1;
+}
+
+.card {
+    height: calc(100vh - 160px);
+}
+
+.heatmap {
+    height: 100%;
+}
