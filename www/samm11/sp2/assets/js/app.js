@@ -1,6 +1,7 @@
 const App = (() => {
     const state = {
-        profilePage: true,
+        profilePage: 0,
+        currentPage: null,
         allActivities: [],
         filteredActivities: [],
         selectedActivityIds: new Set(),
@@ -11,55 +12,78 @@ const App = (() => {
         }
     };
 
-    function init() {
-        $('#profileBtn').on('click', togglePages);
-        $('#activitiesBtn').on('click', togglePages);
-        $('#loginBtn').on('click', handleLoginLogout);
-        $('#loadActivitiesBtn').on('click', handleLoadActivities);
+    const $profileBtn = $('#profileBtn');
+    const $activitiesBtn =  $('#activitiesBtn');
+    const $loginBtn = $('#loginBtn');
+    // const $loadActivitiesBtn = $('#loadActivitiesBtn');
+    const $loadMoreBtn = $('#loadMoreBtn');
 
+    const $statusText = $('#statusText');
+    const $sections = $('#profileSection, #activitiesSection');
+    const $activitiesSection = $('#activitiesSection');
+    const $profileSection = $('#profileSection');
+    const $activitiesTableBody = $('#activitiesTableBody');
+
+    const $activityTypeFilters = $('#activityTypeFilters');
+    const $minDistanceFilter = $('#minDistanceFilter');
+    const $maxDistanceFilter = $('#maxDistanceFilter');
+    const $dateRangeFromFilter = $('#dateRangeFromFilter');
+    const $dateRangeToFilter = $('#dateRangeToFilter');
+    const $resetFiltersBtn = $('#resetFiltersBtn');
+    const $unselectAllBtn = $('#unselectAllBtn');
+
+    async function init() {
+        $profileBtn.on('click', togglePages);
+        $activitiesBtn.on('click', togglePages);
+        $loginBtn.on('click', handleLoginLogout);
+        // $loadActivitiesBtn.on('click', handleLoadActivities);
+        $loadMoreBtn.on('click', handleLoadMoreActivities)
+
+        $dateRangeFromFilter.on('change', handleFilterChange);
+        $dateRangeToFilter.on('change', handleFilterChange);
+        $minDistanceFilter.on('change', handleFilterChange);
+        $maxDistanceFilter.on('change', handleFilterChange);
         $(document).on('change', '.activity-type-checkbox', handleFilterChange);
-        $(document).on('change', '#dateRangeFromFilter', handleFilterChange);
-        $(document).on('change', '#dateRangeToFilter', handleFilterChange);
-        $(document).on('change', '#minDistanceFilter', handleFilterChange);
-        $(document).on('change', '#maxDistanceFilter', handleFilterChange);
         $(document).on('change', '.activity-row-checkbox', handleActivitySelection);
-        $(document).on('click', '#resetFiltersBtn', resetFilters);
-        $(document).on('click', '#unselectAllBtn', unselectAllActivities);
+        $resetFiltersBtn.on('click', resetFilters);
+        $unselectAllBtn.on('click', unselectAllActivities);
 
-        checkAuthAndInitialize();
+        await checkAuthAndInitialize();
     }
 
-    function checkAuthAndInitialize() {
+    async function checkAuthAndInitialize() {
         if (StravaAPI.isAuthenticated()) {
             updateUIForLoggedIn();
             displayAthleteProfile();
 
             MapController.init('profileMap');
 
-            const cachedActivities = JSON.parse(localStorage.getItem('cached_activities'));
-            if (cachedActivities) {
-                state.allActivities = cachedActivities;
-                state.selectedActivityIds = new Set(cachedActivities.map(a => a.id));
-                displayActivitiesTable(cachedActivities);
-                displayProfileHeatmap();
-            }
+            // const cachedActivities = JSON.parse(localStorage.getItem('cached_activities'));
+            // if (cachedActivities) {
+            //     state.allActivities = cachedActivities;
+            //     state.selectedActivityIds = new Set(cachedActivities.map(a => a.id));
+            //     displayActivitiesTable(cachedActivities);
+            //     displayProfileHeatmap();
+            // } else {
+                await handleLoadMoreActivities();
+            // }
         } else {
             updateUIForLoggedOut();
         }
     }
 
     function updateUIForLoggedIn() {
-        $('#statusText').hide();
-        $('#loginBtn').text('Logout').off('click').on('click', handleLogout);
-        $('#loadActivitiesBtn').show();
-        $('#profileSection, #activitiesSection').removeClass('d-none');
+        $statusText.hide();
+        $loginBtn.text('Logout').off('click').on('click', handleLogout);
+        // $loadActivitiesBtn.show();
+        $sections.removeClass('d-none');
     }
 
     function updateUIForLoggedOut() {
-        $('#statusText').show();
-        $('#loginBtn').text('Login to Strava').off('click').on('click', handleLogin);
-        $('#loadActivitiesBtn').hide();
-        $('#profileSection, #activitiesSection').addClass('d-none');
+        $statusText.show();
+        $loginBtn.text('Login to Strava').off('click').on('click', handleLogin);
+        // $loadActivitiesBtn.hide();
+        $sections.addClass('d-none');
     }
 
     function displayAthleteProfile() {
@@ -78,20 +102,20 @@ const App = (() => {
 
     function togglePages() {
         if (state.profilePage) {
-            $('#activitiesBtn').removeClass('btn-outline-secondary').addClass('btn-success');
-            $('#profileBtn').removeClass('btn-success').addClass('btn-outline-secondary');
-            $('#activitiesSection').show();
-            $('#profileSection').hide();
+            $activitiesBtn.removeClass('btn-outline-secondary').addClass('btn-success');
+            $profileBtn.removeClass('btn-success').addClass('btn-outline-secondary');
+            $activitiesSection.show();
+            $profileSection .hide();
 
             MapController.moveToContainer('activitiesMap');
             applyFilters();
 
             state.profilePage = false;
         } else {
-            $('#profileBtn').removeClass('btn-outline-secondary').addClass('btn-success');
-            $('#activitiesBtn').removeClass('btn-success').addClass('btn-outline-secondary');
-            $('#profileSection').show();
-            $('#activitiesSection').hide();
+            $profileBtn.removeClass('btn-outline-secondary').addClass('btn-success');
+            $activitiesBtn.removeClass('btn-success').addClass('btn-outline-secondary');
+            $profileSection .show();
+            $activitiesSection.hide();
 
             MapController.moveToContainer('profileMap');
             setTimeout(() => {
@@ -103,11 +127,13 @@ const App = (() => {
     }
 
     function handleLogin() {
-        $('#loginBtn').html('<span class="spinner-border spinner-border-sm"></span> Logging in...');
+        $loginBtn.html('<span class="spinner-border spinner-border-sm"></span> Logging in...');
         window.location.href = `${location.origin}/api/auth-redirect`;
     }
 
-    function handleLogout() {
+    async function handleLogout() {
+        $loginBtn.html('<span class="spinner-border spinner-border-sm"></span> Logging out...');
+        await StravaAPI.deauthorize(); // Deauthorizacia na strane stravy
         localStorage.clear();
         location.reload();
     }
@@ -120,26 +146,43 @@ const App = (() => {
         }
     }
 
-    async function handleLoadActivities() {
-        const $btn = $('#loadActivitiesBtn');
+    async function handleLoadMoreActivities(e, num = 50) {
+        const $btn = $loadMoreBtn;
         showLoadingState($btn);
 
-        try {
-            const activities = await StravaAPI.fetchAllActivities(200);
-            state.allActivities = activities;
-            state.selectedActivityIds = new Set(activities.map(a => a.id));
+        const newActivities = await StravaAPI.fetchActivities(num, state.currentPage + 1);
+        if (newActivities.length > 0) state.currentPage += 1;
+        console.log(state.currentPage)
+        state.allActivities.push(...newActivities);
 
-            localStorage.setItem('cached_activities', JSON.stringify(activities));
+        newActivities.forEach(a => state.selectedActivityIds.add(a.id));
+        displayActivitiesTable(newActivities);
+        displayProfileHeatmap();
+        applyFilters();
 
-            displayActivitiesTable(activities);
-            displayProfileHeatmap();
-
-        } catch (error) {
-            console.error('Error loading activities:', error);
-        } finally {
-            hideLoadingState($btn, 'Load activities');
-        }
+        hideLoadingState($btn, 'Load 50 more');
     }
+
+
+    // async function handleLoadActivities() {
+    //     const $btn = $loadActivitiesBtn;
+    //     showLoadingState($btn);
+    //
+    //     try {
+    //         const activities = await StravaAPI.fetchAllActivities(200);
+    //         state.allActivities = activities;
+    //         state.selectedActivityIds = new Set(activities.map(a => a.id));
+    //
+    //         localStorage.setItem('cached_activities', JSON.stringify(activities));
+    //
+    //         displayActivitiesTable(activities);
+    //         displayProfileHeatmap();
+    //     } catch (error) {
+    //         console.error(error);
+    //     } finally {
+    //         hideLoadingState($btn, 'Load activities');
+    //     }
+    // }
 
     function displayActivitiesTable(activities) {
         const types = [...new Set(activities.map(a => a.type))].sort();
@@ -149,30 +192,64 @@ const App = (() => {
                 <label class="form-check-label" for="type_${type}">${type}</label>
             </div>`
         ).join('');
-        $('#activityTypeFilters').html(typeFilters);
+        $activityTypeFilters.html(typeFilters);
 
         const maxDistance = Math.ceil(Math.max(...activities.map(a => a.distance / 1000)));
-        $('#maxDistanceFilter').val(maxDistance);
+        $maxDistanceFilter.val(maxDistance);
 
         renderActivitiesTableRows(activities);
     }
 
-    function renderActivitiesTableRows(activities) {
-        const $tbody = $('#activitiesTableBody');
-        const rows = activities.map(activity => `
-            <tr data-activity-id="${activity.id}" class="activity-row">
-                <td>
-                    <input type="checkbox" class="form-check-input activity-row-checkbox" 
-                           value="${activity.id}" checked>
-                </td>
-                <td>${activity.name}</td>
-                <td><span class="badge" style="background-color: ${MapController.getColorForActivityType(activity.type)}">${activity.type}</span></td>
-                <td>${new Date(activity.start_date).toLocaleDateString()}</td>
-                <td>${(activity.distance / 1000).toFixed(2)}</td>
-            </tr>
-        `).join('');
+    function renderActivityDetail(activity) {
+        const detailHtml = `
+            <p class="badge" style="background-color: ${MapController.getColorForActivityType(activity.type)}">${activity.type}</p>
+            <h3>${activity.name}</h3>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                ${activity.kudos_count}
+            </span>
+            <p class="small">ID: ${activity.id}</p>
+            <ul class="list-group">
+                <li class="list-unstyled mb-2"><strong>${new Date(activity.start_date).toLocaleDateString()}</strong></li>
+                <li class="list-unstyled">Distance: ${(activity.distance / 1000).toFixed(2)}</li>
+                <li class="list-unstyled mb-2">Elevation gain: ${activity.total_elevation_gain}</li>
+                <li class="list-unstyled">Average speed: ${activity.average_speed}</li>
+                <li class="list-unstyled mb-2">Max speed: ${activity.max_speed}</li>
+                <li class="list-unstyled">Moving time: ${Math.round(activity.moving_time / 6) / 10} minutes</li>
+                <li class="list-unstyled mb-2">Elapsed time: ${Math.round(activity.elapsed_time / 6) / 10} minutes</li>
+                <li class="list-unstyled">Heartrate: ${activity.average_heartrate ? average_heartrate : 'Not recorded'}</li>
+                <li class="list-unstyled">Watts: ${activity.average_watts ? activity.average_watts : 'Not recorded'}</li>
+            </ul>
+        `;
 
-        $tbody.html(rows);
+        $('#activityDetailContainer').html(detailHtml);
+    }
+
+    function renderActivitiesTableRows(activities) {
+        const $rows = activities.map(activity => {
+            const $activity = $(`
+                <tr data-activity-id="${activity.id}" class="activity-row">
+                    <td>
+                        <input type="checkbox" class="form-check-input activity-row-checkbox" 
+                               value="${activity.id}" checked>
+                    </td>
+                    <td>${activity.name}</td>
+                    <td><span class="badge" style="background-color: ${MapController.getColorForActivityType(activity.type)}">${activity.type}</span></td>
+                    <td>${new Date(activity.start_date).toLocaleDateString()}</td>
+                    <td>${(activity.distance / 1000).toFixed(2)}</td>
+                </tr>
+            `);
+
+            $activity.on('click', e => {
+                if (!$(e.target).is('input[type="checkbox"]')) renderActivityDetail(activity);
+            });
+
+            return $activity;
+        });
+
+        $activitiesTableBody.append($rows);
     }
 
     function displayProfileHeatmap() {
@@ -185,12 +262,12 @@ const App = (() => {
     function handleFilterChange() {
         state.filters.types = $('.activity-type-checkbox:checked').map((_, element) => element.value).get();
 
-        const dateFrom = $('#dateRangeFromFilter').val();
-        const dateTo = $('#dateRangeToFilter').val();
+        const dateFrom = $dateRangeFromFilter.val();
+        const dateTo = $dateRangeToFilter.val();
         state.filters.dateRange = {start: dateFrom ? new Date(dateFrom) : null, end: dateTo ? new Date(dateTo) : null};
 
-        const minDistance = Number($('#minDistanceFilter').val() || 0);
-        const maxDistance = Number($('#maxDistanceFilter').val() || Infinity);
+        const minDistance = Number($minDistanceFilter.val() || 0);
+        const maxDistance = Number($maxDistanceFilter.val() || Infinity);
         state.filters.distanceRange = {min: minDistance, max: maxDistance};
 
         applyFilters();
@@ -255,11 +332,11 @@ const App = (() => {
 
     function resetFilters() {
         $('.activity-type-checkbox').prop('checked', true);
-        $('#dateRangeFromFilter').val('');
-        $('#dateRangeToFilter').val('');
-        $('#minDistanceFilter').val('0');
+        $dateRangeFromFilter.val('');
+        $dateRangeToFilter.val('');
+        $minDistanceFilter.val('0');
         const maxDistance = Math.ceil(Math.max(...state.allActivities.map(a => a.distance / 1000)));
-        $('#maxDistanceFilter').val(maxDistance);
+        $maxDistanceFilter.val(maxDistance);
 
         state.filters = {
             types: [],

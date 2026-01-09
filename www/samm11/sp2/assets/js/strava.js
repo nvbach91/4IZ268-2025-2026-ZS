@@ -55,6 +55,22 @@ const StravaAPI = (() => {
         }
     }
 
+    async function deauthorize() {
+        const token = getToken();
+        if (!token) throw new Error('Not authenticated');
+
+        try {
+            await fetch('https://www.strava.com/oauth/deauthorize', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     async function makeRequest(endpoint, options = {}) {
         if (await isTokenExpired()) {
             await refreshToken();
@@ -85,17 +101,13 @@ const StravaAPI = (() => {
     async function fetchAllActivities(maxActivities = 200) {
         const allActivities = [];
         let page = 1;
-        let hasMore = true;
 
-        while (hasMore && allActivities.length < maxActivities) {
+        while (allActivities.length < maxActivities) {
             const activities = await fetchActivities(50, page);
 
-            if (!activities || activities.length === 0) {
-                hasMore = false;
-            } else {
-                allActivities.push(...activities);
-                page++;
-            }
+            allActivities.push(...activities);
+            page += 1;
+            if (!activities || activities.length < 50) break;
         }
 
         return allActivities.slice(0, maxActivities);
@@ -109,6 +121,7 @@ const StravaAPI = (() => {
         isAuthenticated,
         isTokenExpired,
         refreshToken,
+        deauthorize,
         makeRequest,
         fetchActivities,
         fetchAllActivities

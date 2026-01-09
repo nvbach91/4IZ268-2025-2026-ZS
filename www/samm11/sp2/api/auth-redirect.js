@@ -4,7 +4,6 @@ module.exports = async (req, res) => {
     authUrl.searchParams.append('client_id', process.env.STRAVA_CLIENT_ID);
     authUrl.searchParams.append('response_type', 'code');
     authUrl.searchParams.append('redirect_uri', `${process.env.FRONTEND_URL}/api/auth-callback`);
-    authUrl.searchParams.append('approval_prompt', 'force');
     authUrl.searchParams.append('scope', 'read,activity:read_all');
 
     res.writeHead(302, {Location: authUrl.toString()});

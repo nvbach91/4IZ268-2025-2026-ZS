@@ -38,6 +38,10 @@ section {
     transition: scale 0.3s;
 }
 
+.activity-row {
+    cursor: pointer;
+}
+
 #athleteProfile:hover {
     scale: 1.1;
 }

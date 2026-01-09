@@ -29,10 +29,7 @@
                 <button class="btn btn-outline-secondary" id="activitiesBtn">Activities</button>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-success" id="loadActivitiesBtn">Load activities</button>
-            <button class="btn btn-primary" id="loginBtn">Login to Strava</button>
-        </div>
+        <button class="btn btn-primary" id="loginBtn">Login to Strava</button>
     </div>
 </nav>
 <p class="p-4" id="statusText">You're not logged in</p>
@@ -88,17 +85,22 @@
                 <div class="row g-2 mb-3">
                     <div class="col-sm-6">
                         <label class="form-label">Min Distance (km)</label>
-                        <input class="form-control form-control-sm" id="minDistanceFilter" min="0" type="number"
-                               value="0">
+                        <input class="form-control form-control-sm" id="minDistanceFilter" min="0" type="number" value="0">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label">Max Distance (km)</label>
                         <input class="form-control form-control-sm" id="maxDistanceFilter" min="0" type="number">
                     </div>
                 </div>
-                <div class="d-flex gap-2 mb-3">
-                    <button class="btn btn-sm btn-outline-primary" id="resetFiltersBtn">Reset</button>
-                    <button class="btn btn-sm btn-outline-danger" id="unselectAllBtn">Unselect</button>
+                <div class="d-flex gap-2 mb-3 justify-content-between">
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-primary" id="resetFiltersBtn">Reset filters</button>
+                        <button class="btn btn-sm btn-outline-danger" id="unselectAllBtn">Unselect</button>
+                    </div>
+                    <div class="d-flex gap-2">
+<!--                        <button class="btn btn-outline-success" id="loadActivitiesBtn">Load all activities</button>-->
+                        <button class="btn btn-outline-success" id="loadMoreBtn">Load 50 more</button>
+                    </div>
                 </div>
                 <div class="border overflow-y-auto">
                     <table class="table table-sm table-hover">
@@ -121,6 +123,10 @@
                 <div class="heatmap" id="activitiesMap"></div>
             </div>
         </div>
+    </div>
+    <div id="activityDetailContainer" class="card mt-3 p-3">
+        <h3>Activity detail</h3>
+        <p>Click on an activity to display</p>
     </div>
 </section>
 </body>
