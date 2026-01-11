@@ -190,18 +190,21 @@ export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = fals
         const sets = [];
         
         modal.find('.set-row').each(function() {
-            const reps = $(this).find('input[name="reps"]').val();
-            const weight = $(this).find('input[name="weight"]').val();
-            if (reps || weight) {
+            const reps = $(this).find('input[name="reps"]').val().trim();
+            const weight = $(this).find('input[name="weight"]').val().trim();
+            const repsNum = parseInt(reps) || 0;
+            const weightNum = parseFloat(weight) || 0;
+            
+            if (repsNum > 0) {
                 sets.push({
-                    reps: parseInt(reps) || 0,
-                    weight: parseFloat(weight) || 0
+                    reps: repsNum,
+                    weight: weightNum
                 });
             }
         });
         
         if (sets.length === 0) {
-            displayError('Please add at least one set');
+            displayError('Please add at least one set with reps');
             return;
         }
         
