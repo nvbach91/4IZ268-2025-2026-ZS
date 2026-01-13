@@ -1,17 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Manager</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
     <div id="theme">
-    <button id="dark-mode-btn" class="dark-mode-toggle">dark mode</button>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus accusantium cum totam fuga animi cumque sequi quaerat repellendus, qui ad, exercitationem expedita nihil asperiores quae? Cumque sapiente iste numquam. Libero.</p>
+      <div class="sidebar">
+        <h2>Task Manager</h2>
+
+        <nav>
+          <button id="add-task-button" type="button">
+            <i class="bi bi-plus-circle"></i>
+            Add task
+          </button>
+          <button id="all-tasks-button" type="button">
+            <i class="bi bi-list-task"></i>
+            All tasks
+          </button>
+          <button id="active-tasks-button" type="button">
+            <i class="bi bi-circle"></i>
+            Active tasks
+          </button>
+          <button id="done-tasks-button" type="button">
+            <i class="bi bi-check2-all"></i>
+            Done tasks
+          </button>
+        </nav>
+        <button id="dark-mode-btn" type="button">
+          <i class="bi bi-moon"></i>
+          dark mode
+        </button>
+      </div>
+
+      <div class="content">
+        <h1>My tasks</h1>
+        <div id="task-list"></div>
+      </div>
+      <div id="editing-overlay" class="d-none">
+        <div id="editing-window">
+          <h2 id="editing-title">Task</h2>
+
+          <div id="task-form">
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Title"
+              class="form-control"
+            />
+
+            <div id="title-error" class="form-text text-danger d-none">
+              Title is required
+            </div>
+
+            <textarea
+              id="task-description"
+              placeholder="Description"
+              rows="3"
+              class="form-control"
+            ></textarea>
+
+            <div id="editing-buttons">
+              <button
+                id="save-task-button"
+                type="button"
+                class="btn btn-primary"
+              >
+                Save
+              </button>
+              <button
+                id="cancel-task-button"
+                type="button"
+                class="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <input type="checkbox" id="1">
-    <script src="js/main.js"></script> 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

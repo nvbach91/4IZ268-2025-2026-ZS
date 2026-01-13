@@ -1,29 +1,220 @@
+:root {
+  --bg: #f5f6fb;
+  --panel: #ffffff;
+  --border: #e6e8f0;
+  --text: #1f2430;
+  --muted: #6b7280;
+
+  --sidebar-1: #141426;
+  --sidebar-2: #1b1430;
+
+  --accent: #6d28d9;
+  --accent-2: #7c3aed;
+  --accent-soft: #efe8ff;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-}
-
-#dark-mode-btn {
-  padding: 0.5em;
-  font-weight: 800;
-}
-
-#dark-mode-btn:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.dark-mode-toggle {
-  background: #000;
-  color: #fff;
+  background: var(--bg);
+  color: var(--text);
 }
 
 #theme {
+  display: flex;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh; /* lepšie ako height:100vh keď máš scroll */
 }
 
-.dark-mode-theme {
-  background: #000;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+  padding: 20px;
+  min-height: 100vh;
+  position: fixed;
+  background: linear-gradient(180deg, var(--sidebar-1), var(--sidebar-2));
   color: #fff;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar button {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #fff;
+  border-radius: 10px;
+
+  display: flex;          
+  align-items: center;     
+  justify-content: flex-start;
+
+  cursor: pointer;
+  gap: 10px;
+}
+
+.sidebar button.active-filter{
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 600;
+}
+
+.sidebar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+#dark-mode-btn {
+  justify-content: center;
+  font-weight: 600;
+  margin-top: auto;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+}
+
+h1{
+  text-align: left;
+  padding-left: 30px;
+}
+
+
+h2 {
+  text-align: center;
+}
+
+#task-list {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 16px 18px 16px;
+  border-radius: 12px;
+  margin: 10px;
+  background: #fffef9;
+  border: 1px solid var(--border);
+}
+
+.task-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.task p {
+  margin: 0;             
+  font-size: 18px;
+  line-height: 1.4;
+  color: #374151;
+}
+
+.task-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task button:not(.btn) {
+  width: fit-content;
+  align-self: flex-start;
+  border: 1px solid var(--border);
+  background: #f7f7fb;
+}
+
+.task button:not(.btn):hover {
+  background: #efeff7;
+}
+
+#editing-overlay {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  inset: 0;
+  z-index: 9999;
+}
+
+#editing-window {
+  background: #fff;
+  color: #111;
+  width: min(520px, 92vw);
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#editing-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+#task-title.is-invalid {
+  border-color: #dc2626;
+}
+
+#title-error {
+  margin-top: -6px;
+}
+
+body.dark-mode-theme {
+  background: #0b1020;
+  color: #ffffff;
+}
+
+body.dark-mode-theme .content {
+  background: transparent;
+}
+
+body.dark-mode-theme .task {
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+body.dark-mode-theme .task button {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+body.dark-mode-theme .task button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+body.dark-mode-theme .task p {
+  color: rgba(255, 255, 255, 0.65);
 }
