@@ -21,9 +21,10 @@ function App() {
   const fetchTodos = async () => {
     setLoading(true);
     try {
-      if (!user.isSignedIn) return;
+      if (!user.isSignedIn || !user.user?.id) return;
       const data = await todoApi.getAll();
-      setTodos(data.sort((a, b) => Number(b.id) - Number(a.id)));
+      const userTodos = data.filter((todo) => todo.userId === user.user?.id);
+      setTodos(userTodos.sort((a, b) => Number(b.id) - Number(a.id)));
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch todos");
@@ -38,15 +39,21 @@ function App() {
 
   const handleCreateTodo = async (
     title: string,
-    description: string,
-    tags: string[]
+    tag: string,
+    description?: string,
+    deadline?: Date
   ) => {
     try {
-      const newTodo = await todoApi.create({
+      if (!user.user?.id) {
+        toast.error("User not authenticated");
+        return;
+      }
+      const newTodo: Todo = await todoApi.create({
         title,
         description,
-        tags,
-        deadline: 0,
+        tag,
+        userId: user.user.id,
+        deadline: deadline || new Date("1970-01-01T00:00:00.000Z"),
       });
       setTodos([newTodo, ...todos]);
       toast.success("Todo created!");
@@ -86,15 +93,26 @@ function App() {
   const handleEditTodo = async (
     id: string,
     title: string,
-    description: string,
-    tags: string[]
+    tag: string,
+    description?: string,
+    deadline?: Date
   ) => {
     const previousTodos = [...todos];
     setTodos(
-      todos.map((t) => (t.id === id ? { ...t, title, description, tags } : t))
+      todos.map((t) => (t.id === id ? { ...t, title, description, tag } : t))
     );
     try {
-      await todoApi.update(id, { title, description, tags });
+      if (!user.user?.id) {
+        toast.error("User not authenticated");
+        return;
+      }
+      await todoApi.update(id, {
+        title,
+        description,
+        tag,
+        userId: user.user.id,
+        deadline: deadline || new Date("1970-01-01T00:00:00.000Z"),
+      });
       toast.success("Todo updated!");
     } catch (error) {
       console.error(error);

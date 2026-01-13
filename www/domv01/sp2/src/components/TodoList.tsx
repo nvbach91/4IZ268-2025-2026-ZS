@@ -7,7 +7,7 @@ interface TodoListProps {
     todos: Todo[];
     onToggle: (id: string, done: boolean) => void;
     onDelete: (id: string) => void;
-    onEdit?: (id: string, title: string, description: string, tags: string[]) => Promise<void>;
+    onEdit?: (id: string, title: string, tag: string, description?: string, deadline?: Date) => Promise<void>;
 }
 
 export function TodoList({ user, todos, onToggle, onDelete, onEdit }: TodoListProps) {
@@ -27,7 +27,7 @@ export function TodoList({ user, todos, onToggle, onDelete, onEdit }: TodoListPr
     }
 
     const groupedTodos = todos.reduce((acc, todo) => {
-        const tag = todo.tags && todo.tags.length > 0 ? todo.tags[0] : "Uncategorized";
+        const tag = todo.tag || "Uncategorized";
         if (!acc[tag]) {
             acc[tag] = [];
         }
@@ -35,12 +35,21 @@ export function TodoList({ user, todos, onToggle, onDelete, onEdit }: TodoListPr
         return acc;
     }, {} as Record<string, Todo[]>);
 
+    Object.keys(groupedTodos).forEach((key) => {
+        groupedTodos[key].sort((a, b) => {
+            if (!a.deadline && !b.deadline) return 0;
+            if (!a.deadline) return 1;
+            if (!b.deadline) return -1;
+            return new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+        });
+    });
+
     return (
         <div className="space-y-8">
             {Object.entries(groupedTodos).map(([tag, sectionTodos]) => (
                 <div key={tag} className="space-y-4">
-                    <h2 className="text-2xl font-semibold tracking-tight text-foreground border-b pb-2 uppercase text-sm text-muted-foreground">{tag}</h2>
-                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <h2 className="text-2xl font-semibold tracking-tight font-foreground border-b pb-2 uppercase text-muted-foreground">{tag}</h2>
+                    <div className="grid gap-6 lg:grid-cols-2">
                         {sectionTodos.map((todo) => (
                             <TodoItem
                                 key={todo.id}

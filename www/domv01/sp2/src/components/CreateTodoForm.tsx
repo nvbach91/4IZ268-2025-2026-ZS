@@ -1,12 +1,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Calendar as CalendarIcon, Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { Calendar } from "@/components/ui/calendar";
 import {
     Command,
     CommandEmpty,
@@ -24,6 +25,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
     Popover,
     PopoverContent,
@@ -31,7 +33,7 @@ import {
 } from "@/components/ui/popover";
 import { useState } from "react";
 
-const tags = [
+const tag = [
     { label: "Work", value: "work" },
     { label: "Personal", value: "personal" },
     { label: "Urgent", value: "urgent" },
@@ -43,34 +45,40 @@ const formSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required.",
     }),
+    tag: z.string().min(1, {
+        message: "Tag is required.",
+    }),
     description: z.string().optional(),
-    tag: z.string().optional(),
+    deadline: z.date().optional(),
 });
 
 interface CreateTodoFormProps {
-    onSubmit: (title: string, description: string, tags: string[]) => void;
+    onSubmit: (title: string,  tag: string, description?: string, deadline?: Date) => void;
     isLoading?: boolean;
     defaultValues?: {
-        title?: string;
+        title: string;
+        tag: string;
         description?: string;
-        tag?: string;
+        deadline?: Date;
     };
 }
 
 export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTodoFormProps) {
     const [open, setOpen] = useState(false)
+    const [calendarOpen, setCalendarOpen] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: defaultValues?.title || "",
             description: defaultValues?.description || "",
             tag: defaultValues?.tag || "",
+            deadline: defaultValues?.deadline instanceof Date ? defaultValues.deadline : (defaultValues?.deadline ? new Date(defaultValues.deadline) : undefined),
         },
     });
 
     function handleSubmit(values: z.infer<typeof formSchema>) {
-        const submittedTags = values.tag ? [values.tag] : [];
-        onSubmit(values.title, values.description || "", submittedTags);
+        const deadlineValue = values.deadline || new Date("1970-01-01T00:00:00.000Z");
+        onSubmit(values.title, values.tag || "", values.description || "", deadlineValue);
         form.reset();
     }
 
@@ -97,7 +105,7 @@ export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTod
                         <FormItem>
                             <FormLabel>Description (optional)</FormLabel>
                             <FormControl>
-                                <Input placeholder="Milk, eggs, bread..." {...field} />
+                                <Textarea rows={3} placeholder="Milk, eggs, bread..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -121,7 +129,7 @@ export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTod
                                             )}
                                         >
                                             {field.value
-                                                ? tags.find(
+                                                ? tag.find(
                                                     (tag) => tag.value === field.value
                                                 )?.label
                                                 : "Select tag"}
@@ -135,7 +143,7 @@ export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTod
                                         <CommandList>
                                             <CommandEmpty>No tag found.</CommandEmpty>
                                             <CommandGroup>
-                                                {tags.map((tag) => (
+                                                {tag.map((tag) => (
                                                     <CommandItem
                                                         value={tag.label}
                                                         key={tag.value}
@@ -164,9 +172,61 @@ export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTod
                         </FormItem>
                     )}
                 />
-                <Button type="submit" disabled={isLoading} className="w-full">
-                    {isLoading ? <><Spinner className="mr-2" /> {defaultValues ? "Updating..." : "Adding..."}</> : defaultValues ? "Update Todo" : "Add Todo"}
-                </Button>
+                <FormField
+                    control={form.control}
+                    name="deadline"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>Deadline (optional)</FormLabel>
+                            <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+                                <PopoverTrigger asChild>
+                                    <FormControl>
+                                        <Button
+                                            variant="outline"
+                                            className={cn(
+                                                "w-[200px] justify-start text-left font-normal",
+                                                !field.value && "text-muted-foreground"
+                                            )}
+                                        >
+                                            <CalendarIcon className="mr-2 h-4 w-4" />
+                                            {field.value
+                                                ? field.value.toLocaleDateString()
+                                                : "Pick a date"}
+                                        </Button>
+                                    </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                        mode="single"
+                                        selected={field.value}
+                                        onSelect={(date) => {
+                                            field.onChange(date)
+                                            setCalendarOpen(false)
+                                        }}
+                                        disabled={(date) =>
+                                            date < new Date(new Date().setHours(0, 0, 0, 0))
+                                        }
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <div className="flex gap-2">
+                    <Button type="submit" disabled={isLoading} className="flex-1">
+                        {isLoading ? <><Spinner className="mr-2" /> {defaultValues ? "Updating..." : "Adding..."}</> : defaultValues ? "Update Todo" : "Add Todo"}
+                    </Button>
+                    {defaultValues && (
+                        <Button type="button" variant="destructive" disabled={isLoading} onClick={() => {
+                            const event = new CustomEvent('deleteTodo');
+                            window.dispatchEvent(event);
+                        }}>
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Delete
+                        </Button>
+                    )}
+                </div>
             </form>
         </Form>
     );

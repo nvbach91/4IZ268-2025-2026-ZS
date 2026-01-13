@@ -1,14 +1,15 @@
 export type Todo = {
-  createdAt: string;
-  title: string;
-  description: string;
-  done: boolean;
-  tags: string[];
-  deadline: number;
   id: string;
+  userId: string;
+  createdAt: string;
+  done: boolean;
+  title: string;
+  tag: string;
+  description?: string;
+  deadline: Date;
 };
 
-const API_Base_URL = import.meta.env.VITE_API_BASE_URL
+const API_Base_URL = import.meta.env.VITE_API_BASE_URL;
 
 if (!API_Base_URL) {
   throw new Error('Missing API Url')
