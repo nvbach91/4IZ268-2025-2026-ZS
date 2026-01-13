@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Explorer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylsheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-danger">
+        <div class="container-fluid d-flex justify-content-between">
+            <!-- LEFT: Brand -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fa-solid fa-martini-glass-citrus"></i>
+                Cocktail Explorer
+            </a>
+
+            <!-- RIGHT: Action -->
+            <button class="btn btn-outline-light" type="button">
+                <i class="fa-solid fa-star"></i> Favourites
+            </button>
+        </div>
+    </nav>
+
+    <section class="col-12 col-lg-5">
+        <div class="card shadow-sm mb-3">
+            <div class="card-body">
+                <form>
+                    <div class="row g-2 mb-2">
+                        <!-- SEARCH INPUT -->
+                        <div class="col-12 col-md-8">
+                            <label for="queryInput" class="form-label">Search</label>
+                            <input id="queryInput" class="form-control" type="text" placeholder="e.g. mojito">
+                        </div>
+
+                        <!-- RADIO BUTTONS -->
+                        <div class="col-12 col-md-4">
+                            <div class="mt-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="searchMode" id="modeName"
+                                        value="name" checked>
+                                    <label class="form-check-label" for="modeName">Name Search</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="searchMode" id="modeIngredient"
+                                        value="ingredient">
+                                    <label class="form-check-label" for="modeIngredient">Ingredient Search</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <span class="fw-semibold">Type:</span>
+
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <div class="form-check m-0">
+                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAll"
+                                    value="all" checked>
+                                <label class="form-check-label" for="typeAll">All</label>
+                            </div>
+                            <div class="form-check m-0">
+                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAlc"
+                                    value="alc">
+                                <label class="form-check-label" for="typeAlc">Alcoholic</label>
+                            </div>
+                            <div class="form-check m-0">
+                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeNonAlc"
+                                    value="non-alc">
+                                <label class="form-check-label" for="typeNonAlc">Non-alcoholic</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-danger" type="submit">
+                            <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                        </button>
+                        <button class="btn btn-outline-danger" type="button">
+                            <i class="fa-solid fa-dice me-1"></i>Random
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Bootstrap JS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- App -->
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+
+</html>
