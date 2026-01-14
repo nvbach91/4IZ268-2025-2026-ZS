@@ -1,0 +1,201 @@
+/* Custom styling */
+
+body {
+    background-color: #f8f9fa;
+}
+
+:root{
+    --blue: #0d6efd;
+}
+
+/* Header styling */
+header {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Card styling */
+.card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+/* Misto mezi scroll barem a kartama */
+#oneDayForecastCards {
+    padding-bottom: 20px;
+}
+
+.error-text {
+    text-align: center;
+    justify-content: center;
+}
+
+/* Forecast day cards (5-denni) */
+.forecast-day {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 120px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.forecast-day .day-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.forecast-day .day-temp {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--blue);
+    margin: 10px 0;
+}
+
+.forecast-day .day-weather {
+    font-size: 14px;
+    color: #666;
+}
+
+.bi-chevron-down {
+    font-size: 1.2rem;
+    color: var(--blue);
+}
+
+/* Selected day detailni predpoved */
+
+.detail-forecast-item {
+    display: inline-block;
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.detail-forecast-item .time {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.detail-forecast-item .temp {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #0d6efd;
+}
+
+.detail-forecast-item .weather {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Chart container */
+#oneDayForecast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ikony */
+.bi {
+    font-size: 1.2rem;
+}
+
+#loader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+#graphColumn, #weatherColumn {
+    transition: all 0.3s ease;
+}
+
+#selectedDayForecast .forecast-day {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.forecast-day.active {
+    background: var(--blue);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.forecast-day.active .day-name,
+.forecast-day.active .day-temp,
+.forecast-day.active .day-weather {
+    color: white;
+}
+
+.forecast-day.active .bi-chevron-down {
+    color: white;
+    transform: rotate(180deg);
+}
+
+#cityAutocomplete {
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+    z-index: 1000;
+    border-radius: 4px;
+    top: 100%;
+}
+
+#cityAutocomplete .list-group-item {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: ease 0.2s;
+}
+
+#cityAutocomplete .list-group-item:hover {
+    background-color: #f8f9fa;
+    border: 1px solid var(--blue);
+}
+
+/* Responzivni upravy */
+@media (max-width: 768px) {
+    .forecast-day {
+        min-width: 100px;
+        padding: 15px;
+    }
+    
+    #forecastChart {
+        max-width: 100%;
+        height: auto !important;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
