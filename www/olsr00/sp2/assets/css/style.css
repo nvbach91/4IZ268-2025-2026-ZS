@@ -1,36 +1,118 @@
 body {
     background-color: #f8f9fa;
+    --bg-angle: 90deg;
+    --bg-color-gradient: linear-gradient(var(--bg-angle), rgba(87, 199, 133, 1) 0%, rgba(83, 227, 237, 1) 50%, rgba(87, 199, 133, 1) 100%);
+    --bg-color-damage: red;
+    --bg-color-success: rgb(3, 235, 3);
+    background: var(--bg-color-gradient);
     font-family: monospace;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main.container {
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/** prevents user from clicking during swap view */
+.animation-ui-lock {
+    pointer-events: none;
+}
+
+@keyframes flash-success {
+    0% {
+        background-color: var(--bg-color-gradient);
+        opacity: 1;
+    }
+
+    50% {
+        background-color: var(--bg-color-success);
+        opacity: 0.5;
+    }
+
+    100% {
+        background-color: var(--bg-color-gradient);
+        opacity: 1;
+    }
+}
+
+@keyframes flash-damage {
+    0% {
+        background-color: var(--bg-color-gradient);
+        opacity: 1;
+    }
+
+    50% {
+        background-color: var(--bg-color-damage);
+        opacity: 0.5;
+    }
+
+    100% {
+        background-color: var(--bg-color-gradient);
+        opacity: 1;
+    }
+}
+
+body.flash-success::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: flash-success 0.5s ease-out;
+    z-index: -1;
+}
+
+body.flash-damage::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    animation: flash-damage 0.5s ease-out;
+    z-index: -1;
+}
+
+.bg-light {
+    background-color: #e9ecef !important;
+}
+
+.main-menu-btn {
+    background-color: #e9ecef;
+    top: -2px;
 }
 
 .game-window {
     max-width: 900px;
-    margin: 20px auto;
     padding: 20px;
+    margin: 0 auto;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
+    box-shadow: 0px 0px 40px 20px rgba(0, 0, 0, 0.2);
 }
 
 .passport-card {
-    background-color: #f0f0f0;
+    background-color: #e9ecef;
     border: 1px solid #ccc;
     border-radius: 6px;
-}
-
-.border-field {
-    width: 18% !important;
+    min-height: 100%;
 }
 
 .allowed-list-area {
     background-color: #e9ecef;
-    min-height: 500px;
+    min-height: 100%;
     border: 1px solid #ccc;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .deny-btn {
@@ -59,16 +141,25 @@ body {
     color: white;
 }
 
+.status-tile {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    text-align: center;
+    font-weight: 700;
+    background-color: #e9ecef;
+    border-radius: 0.375rem;
+    color: #212529;
+}
+
+.settings-form {
+    max-width: 320px;
+    width: 100%;
+}
+
 .hidden-view {
     display: none !important;
-    opacity: 0;
 }
 
 .active-view {
     display: block !important;
-    opacity: 1;
-}
-
-.app-view {
-    transition: opacity 0.3s ease-in-out;
 }
