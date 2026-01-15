@@ -14,7 +14,7 @@ import { Plus } from "lucide-react";
 interface CreateTodoDialogProps {
   onSubmit: (
     title: string,
-    tag: string,
+    tag: Tags,
     description?: string,
     deadline?: Date
   ) => Promise<void>;
@@ -26,7 +26,7 @@ export function CreateTodoDialog({ onSubmit }: CreateTodoDialogProps) {
 
   const handleSubmit = async (
     title: string,
-    tag: string,
+    tag: Tags,
     description?: string,
     deadline?: Date
   ) => {

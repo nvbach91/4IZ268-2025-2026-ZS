@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Todo } from "@/api/todoApi";
+import type { Tags, Todo } from "@/api/todoApi";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -29,7 +29,7 @@ interface TodoItemProps {
     onEdit?: (
         id: string,
         title: string,
-        tag: string,
+        tag: Tags,
         description?: string,
         deadline?: Date
     ) => Promise<void>;
@@ -77,7 +77,7 @@ export function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
 
     const handleEditSubmit = async (
         title: string,
-        tag: string,
+        tag: Tags,
         description?: string,
         deadline?: Date
     ) => {
@@ -194,7 +194,7 @@ export function TodoItem({ todo, onToggle, onDelete, onEdit }: TodoItemProps) {
                         isLoading={isEditing}
                         defaultValues={{
                             title: todo.title,
-                            tag: todo.tag || "",
+                            tag: todo.tag || "All",
                             description: todo.description || "",
                             deadline: todo.deadline
                                 ? (() => {

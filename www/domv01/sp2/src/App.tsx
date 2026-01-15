@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { todoApi, type Todo } from "@/api/todoApi";
+import { todoApi, type Tags, type Todo } from "@/api/todoApi";
+import { CategoryFilter } from "@/components/CategoryFilter";
 import { CreateTodoDialog } from "@/components/CreateTodoDialog";
 import { TodoList } from "@/components/TodoList";
 import { Spinner } from "@/components/ui/spinner";
@@ -16,14 +17,20 @@ import {
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeTag, setActiveTag] = useState<Tags>("All");
+  const [completionFilter, setCompletionFilter] = useState<"all" | "completed" | "active">("all");
   const user = useUser();
+
+  const handleTagChange = (tag: Tags) => {
+    setActiveTag(tag);
+    setCompletionFilter("all");
+  };
 
   const fetchTodos = async () => {
     setLoading(true);
     try {
       if (!user.isSignedIn || !user.user?.id) return;
-      const data = await todoApi.getAll();
-      const userTodos = data.filter((todo) => todo.userId === user.user?.id);
+      const userTodos = await todoApi.getUserTodos(user.user.id);
       setTodos(userTodos.sort((a, b) => Number(b.id) - Number(a.id)));
     } catch (error) {
       console.error(error);
@@ -39,7 +46,7 @@ function App() {
 
   const handleCreateTodo = async (
     title: string,
-    tag: string,
+    tag: Tags,
     description?: string,
     deadline?: Date
   ) => {
@@ -81,7 +88,11 @@ function App() {
     setTodos(todos.filter((t) => t.id !== id));
 
     try {
-      await todoApi.delete(id);
+      if (!user.user?.id) {
+        toast.error("User not authenticated");
+        return;
+      }
+      await todoApi.delete(id, user.user.id);
       toast.success("Todo deleted");
     } catch (error) {
       console.error(error);
@@ -93,13 +104,13 @@ function App() {
   const handleEditTodo = async (
     id: string,
     title: string,
-    tag: string,
+    tag: Tags,
     description?: string,
     deadline?: Date
   ) => {
     const previousTodos = [...todos];
     setTodos(
-      todos.map((t) => (t.id === id ? { ...t, title, description, tag } : t))
+      todos.map((t) => (t.id === id ? { ...t, title, description, tag, deadline: deadline || new Date("1970-01-01T00:00:00.000Z") } : t))
     );
     try {
       if (!user.user?.id) {
@@ -133,7 +144,7 @@ function App() {
         </SignedIn>
       </header>
       <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans selection:bg-primary selection:text-primary-foreground">
-        <ToastContainer position="bottom-right" theme="colored" />
+        <ToastContainer position="bottom-right" theme="dark" />
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-2 text-center">
             <h1 className="text-5xl font-extrabold tracking-tight text-black drop-shadow-sm pb-1">
@@ -154,13 +165,27 @@ function App() {
               <Spinner className="size-10 text-primary animate-spin" />
             </div>
           ) : (
-            <TodoList
-              user={user}
-              todos={todos}
-              onToggle={handleToggleTodo}
-              onDelete={handleDeleteTodo}
-              onEdit={handleEditTodo}
-            />
+            <>
+              {todos.length > 0 && (
+                <div className="flex justify-center">
+                  <CategoryFilter
+                    activeTag={activeTag}
+                    onTagChange={handleTagChange}
+                    completionFilter={completionFilter}
+                    onCompletionFilterChange={setCompletionFilter}
+                  />
+                </div>
+              )}
+              <TodoList
+                user={user}
+                todos={todos}
+                activeTag={activeTag}
+                completionFilter={completionFilter}
+                onToggle={handleToggleTodo}
+                onDelete={handleDeleteTodo}
+                onEdit={handleEditTodo}
+              />
+            </>
           )}
         </div>
       </div>

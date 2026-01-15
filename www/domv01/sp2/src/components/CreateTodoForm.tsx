@@ -32,6 +32,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import type { Tags } from "@/api/todoApi";
 
 const tag = [
     { label: "Work", value: "work" },
@@ -53,11 +54,11 @@ const formSchema = z.object({
 });
 
 interface CreateTodoFormProps {
-    onSubmit: (title: string,  tag: string, description?: string, deadline?: Date) => void;
+    onSubmit: (title: string,  tag: Tags, description?: string, deadline?: Date) => void;
     isLoading?: boolean;
     defaultValues?: {
         title: string;
-        tag: string;
+        tag: Tags;
         description?: string;
         deadline?: Date;
     };
