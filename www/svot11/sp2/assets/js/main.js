@@ -22,9 +22,100 @@ const headerSelDay = $("#headerSelDay");
 const headerFiveDays = $("#headerFiveDays");
 const headerOneDay = $("#headerOneDay");
 const errorMessage = $("#errorMessage");
+const cityInput = $("#cityInput");
+const czLangBtn = $("#langCz");
+const enLangBtn = $("#langEn");
+const fvCityBtn = $("#fvCity");
+const favCitiesHeader = $("#headerFavCities");
+const favCitiesContainer = $("#favCities");
 
+let lang = 'cz'; // default jazyk
 
+czLangBtn.on('click', () => {
+    czLangBtn.addClass('active');
+    enLangBtn.removeClass('active');
+    lang = 'cz';
+    btn.click(); // znovu nahrat data v jinem jazyce
+});
 
+enLangBtn.on('click', () => {
+    enLangBtn.addClass('active');
+    czLangBtn.removeClass('active');
+    lang = 'en';
+    btn.click(); // znovu nahrat data v jinem jazyce
+});
+
+fvCityBtn.on('click', () => {
+    const cityName = city.text();
+    if (!cityName) return;
+    
+
+     // jen nazev mesta bez zeme
+    let favCities = JSON.parse(localStorage.getItem('favCities') || '[]');
+
+    if(favCities.includes(cityName)) {
+        console.log('Mesto uz je v oblibenych:', cityName);
+        return; // uz je v oblibenych
+    }
+
+    if (!favCities.includes(cityName)) {
+        favCities.push(cityName);
+        localStorage.setItem('favCities', JSON.stringify(favCities));
+        console.log('Ulozeni oblibeneho mesta do local storage:', favCities);
+    }
+    // funkcionalita pro pridani oblibeneho mesta
+
+    
+
+    loadFavCities();
+
+});
+
+const loadFavCities = () => {
+    
+    const favCities = JSON.parse(localStorage.getItem('favCities') || '[]');
+    favCitiesContainer.empty();
+    favCitiesHeader.empty();
+
+    favCards = [];
+
+    if (favCities.length === 0) {
+        favCitiesHeader.empty();
+        return;
+    }
+
+    const header = $('<h4 class="mb-3">Oblíbená města:</h4>');
+    favCitiesHeader.append(header);
+    favCities.forEach(cityName => {
+        const favCityCard = $(`
+            <div class="fav-city-card clickable d-flex align-items-center justify-content-between ms-3 gap-3">
+                <div class="fav-city-name">${cityName}</div>
+                <div class="bi bi-x-lg remove-fav-city"></div>
+            </div>  
+        `);
+        favCards.push(favCityCard);
+        // Odebrani oblibeneho mesta
+        favCityCard.find('.remove-fav-city').on('click', () => {
+            removeFavCityFromLS(cityName);
+            favCityCard.remove();
+            loadFavCities();
+        });
+        favCityCard.find('.fav-city-name').on('click', () => {
+            cityInput.val(cityName);
+            btn.click();
+        });
+
+    });
+    favCitiesContainer.append(favCards);
+    console.log('Nacteni oblibenych mest:', favCities);
+    
+}
+
+const removeFavCityFromLS = (cityName) => {
+    let favCities = JSON.parse(localStorage.getItem('favCities') || '[]');
+    favCities = favCities.filter(city => city !== cityName);
+    localStorage.setItem('favCities', JSON.stringify(favCities));
+}
 
 
 // promenna grafu 
@@ -32,7 +123,7 @@ let temperatureChart = null;
 
 let clickedDay = null;
 
-const btn = document.getElementById("searchBtn");
+const btn = $("#searchBtn");
 
 // zavolani funkce pro zruseni /index.html z URL
 const deleteIndexFromURL = () => {
@@ -42,8 +133,8 @@ const deleteIndexFromURL = () => {
 }
 deleteIndexFromURL();
 
-btn.addEventListener("click", async () => {
-    const mesto = document.getElementById("cityInput").value;
+btn.on("click", async () => {
+    const mesto = cityInput.val();
     errorMessage.empty();
     oneDayCardsContainer.removeClass("error-text");
 
@@ -95,25 +186,34 @@ btn.addEventListener("click", async () => {
 });
 
 myLocationBtn.on("click", async () => {
-    cityInput.value = "";
+    cityInput.val("");
     errorMessage.empty();
     oneDayCardsContainer.removeClass("error-text");
     showLoader();
-    const mesto = await getCityLocation();
-    const data = await getForecastData(mesto);
-    if (!data) {
-        const errorMsg = $('<h4 class="text-danger text-center mb-3">Nelze načíst předpověď pro aktuální polohu</h4>');
-        errorMessage.append(errorMsg);
+    try {
+        const mesto = await getCityLocation();
+        const data = await getForecastData(mesto);
+        if (!data) {
+            const errorMsg = $('<h4 class="text-danger text-center mb-3">Nelze načíst předpověď pro aktuální polohu</h4>');
+            errorMessage.append(errorMsg);
+            hideLoader();
+            return;
+        }
+        getWeather(mesto);
+        oneDayForecast(data);
+        fiveDayForecast(data);
+        oneDayCards(data);
+        localStorage.setItem('lastCity', mesto);
         hideLoader();
-        return;
+        updateHistory(mesto);
     }
-    getWeather(mesto);
-    oneDayForecast(data);
-    fiveDayForecast(data);
-    oneDayCards(data);
-    localStorage.setItem('lastCity', mesto);
-    hideLoader();
-    updateHistory(mesto);
+    catch (chyba) {
+        hideLoader();
+        console.error(chyba);
+        const errorMsg = $('<h4 class="text-danger text-center mb-3">Nelze získat aktuální polohu</h4>');
+        errorMessage.append(errorMsg);
+    }
+    
 });
 
 const getCityLocation = () => {
@@ -165,7 +265,8 @@ const getCityLocation = () => {
 
 async function getWeather(mesto) {
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${mesto}&appid=${apiKey}&units=metric&lang=cz`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${mesto}&appid=${apiKey}&units=metric&lang=${lang}`;
+    console.log(url);
    // const cityName = await getLocalNameOfCity(mesto);
     try {
         const odpoved = await fetch(url);
@@ -220,7 +321,7 @@ async function getWeather(mesto) {
 }
 
 const getForecastData = async (city) => {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=cz`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=${lang}`;
 
     try {
         forecastContainer.empty();
@@ -351,6 +452,8 @@ const fiveDayForecast = async (data) => {
     const header = $(`<h4>Předpověď na další dny</h4>`);
     headerFiveDays.append(header);
 
+    const cards = []; 
+
     dailyForecast.forEach(day => {
         const date = new Date(day.dt * 1000);
         const dayName = date.toLocaleDateString('cs-CZ', { 
@@ -399,8 +502,9 @@ const fiveDayForecast = async (data) => {
            
         });
 
-        fiveDayFc.append(dayCard);
+        cards.push(dayCard);
     });
+    fiveDayFc.append(cards);
 
     if (clickedDay) {
         // Najit kartu se stejnym datem
@@ -461,6 +565,7 @@ const selectedDayForecast = (data, day) => {
 }
 
 const generateDailyForecast = (dayForecast, container) => {
+    const cards = [];
     dayForecast.forEach(hour => {
        
         const hourDate = new Date(hour.dt * 1000);
@@ -479,12 +584,14 @@ const generateDailyForecast = (dayForecast, container) => {
             </div>
         `);
 
-        container.append(dayCard);
+        cards.push(dayCard);
     });
+    container.append(cards);
 }
 
 $(document).ready(async () => {
     setupAutoComplete();
+    loadFavCities();
     try {
 
         const loadedFromURL = await loadFromURL();
@@ -492,7 +599,7 @@ $(document).ready(async () => {
             const lastCity = localStorage.getItem('lastCity');
             if(lastCity) {
                 console.log('Nacitam posledni mesto:', lastCity);
-                $("#cityInput").val(lastCity);
+                cityInput.val(lastCity);
                 showLoader();
                 const data = await getForecastData(lastCity);
                 getWeather(lastCity);
@@ -567,7 +674,6 @@ const hideLoader = () => {
 }
 
 const setupAutoComplete = () => {
-    const cityInput = $("#cityInput");
     let timeout;
 
     const dropdown = $('<div id="cityAutocomplete" class="list-group position-absolute w-100" style="display: none;"></div>');
@@ -605,6 +711,7 @@ const setupAutoComplete = () => {
                     }
                 });
 
+                const items = [];
                 uniqueCities.forEach(city => {
                     const cityName = `${city.name}, ${city.country}`;
                     const item = $(`
@@ -620,8 +727,9 @@ const setupAutoComplete = () => {
                         btn.click(); // Stimulace kliknuti na tlacitko hledat
                     });
 
-                    dropdown.append(item);
+                    items.push(item);
                 });
+                dropdown.append(items);
                 dropdown.show();
             }
             catch (chyba) {
@@ -661,7 +769,7 @@ const loadFromURL = async () => {
     if (cityFromURL) {
         console.log('Nacitam mesto z URL:', cityFromURL);
         errorMessage.empty();
-        $("#cityInput").val(cityFromURL);
+        cityInput.val(cityFromURL);
         showLoader();
         
         const data = await getForecastData(cityFromURL);
@@ -684,7 +792,7 @@ window.addEventListener('popstate', async (event) => {
     if (event.state && event.state.city) {
         console.log('Zpet na mesto:', event.state.city);
         errorMessage.empty();
-        $("#cityInput").val(event.state.city);
+        cityInput.val(event.state.city);
         showLoader();
         
         const data = await getForecastData(event.state.city);
