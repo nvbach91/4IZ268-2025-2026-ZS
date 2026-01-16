@@ -34,15 +34,15 @@
           </button>
           <button id="all-tasks-button" type="button">
             <i class="bi bi-list-task"></i>
-            All tasks
+            All tasks <span id="count-all-tasks">0</span>
           </button>
           <button id="active-tasks-button" type="button">
             <i class="bi bi-circle"></i>
-            Active tasks
+            Active tasks <span id="count-active-tasks">0</span>
           </button>
           <button id="done-tasks-button" type="button">
             <i class="bi bi-check2-all"></i>
-            Done tasks
+            Done tasks <span id="count-done-tasks">0</span>
           </button>
         </nav>
         <button id="dark-mode-btn" type="button">
@@ -54,6 +54,11 @@
       <div class="content">
         <h1>My tasks</h1>
         <div id="task-list"></div>
+        <div class="text-center mt-3">
+          <button id="load-more-btn" class="btn btn-outline-primary d-none">
+            Load More
+          </button>
+        </div>
       </div>
       <div id="editing-overlay" class="d-none">
         <div id="editing-window">
@@ -77,6 +82,15 @@
               rows="3"
               class="form-control"
             ></textarea>
+
+            <label >
+              Choose deadline
+            <input
+              type="date"
+              id="task-deadline"
+              class="form-control"
+            />
+            </label>
 
             <div id="editing-buttons">
               <button

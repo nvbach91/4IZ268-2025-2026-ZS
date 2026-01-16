@@ -23,14 +23,14 @@ body {
 #theme {
   display: flex;
   width: 100vw;
-  min-height: 100vh; /* lepšie ako height:100vh keď máš scroll */
+  min-height: 100vh;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 200px;
+  width: 250px;
   padding: 20px;
   min-height: 100vh;
   position: fixed;
@@ -80,17 +80,14 @@ body {
 .content {
   flex: 1;
   padding: 20px;
-  margin-left: 250px;
+  margin-left: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 h1{
   text-align: left;
   padding-left: 30px;
-}
-
-
-h2 {
-  text-align: center;
 }
 
 #task-list {
@@ -99,6 +96,16 @@ h2 {
   margin: 20px;
   padding-bottom: 20px;
   padding-top: 10px;
+  flex: 1;
+}
+
+#pagination-container {
+  margin-top: auto;
+  padding: 20px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  position: sticky;
+  bottom: 0;
 }
 
 .task {
@@ -148,6 +155,12 @@ h2 {
   background: #efeff7;
 }
 
+.count-all-tasks,
+.count-active-tasks,
+.count-done-tasks{
+  font-size: 12px;
+}
+
 #editing-overlay {
   position: fixed;
   display: flex;
@@ -190,6 +203,18 @@ h2 {
   margin-top: -6px;
 }
 
+.task input[type="date"]:disabled {
+  background-color: transparent;
+  border: none;
+  cursor: not-allowed;
+  color: var(--muted);
+  padding: 0;
+}
+
+body.dark-mode-theme .task input[type="date"]:disabled {
+  color: rgba(255, 255, 255, 0.65);
+}
+
 body.dark-mode-theme {
   background: #0b1020;
   color: #ffffff;
@@ -217,4 +242,9 @@ body.dark-mode-theme .task button:hover {
 
 body.dark-mode-theme .task p {
   color: rgba(255, 255, 255, 0.65);
+}
+
+body.dark-mode-theme #pagination-container {
+  background: #0b1020;
+  border-top-color: rgba(255, 255, 255, 0.12);
 }

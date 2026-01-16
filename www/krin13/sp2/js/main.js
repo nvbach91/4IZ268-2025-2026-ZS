@@ -3,6 +3,7 @@ const url = "https://693e9a3c12c964ee6b6dd5a7.mockapi.io/";
 const theme = document.body;
 const taskTitle = document.getElementById("task-title");
 const taskDescription = document.getElementById("task-description");
+const taskDeadline = document.getElementById("task-deadline");
 
 const darkModeBtn = document.getElementById("dark-mode-btn");
 const saveTaskButton = document.getElementById("save-task-button");
@@ -13,10 +14,12 @@ const doneTasksButton = document.getElementById("done-tasks-button");
 const editingOverlay = document.getElementById("editing-overlay");
 const cancelTaskButton = document.getElementById("cancel-task-button");
 const titleError = document.getElementById("title-error");
+const tasksPerPage = 5;
 
 let darkMode = localStorage.getItem("dark-mode") || "disabled";
 let allTasks = [];
-let currentFilter = "all";
+let currentFilter = localStorage.getItem("currentFilter") || "all";
+let currentPage = 1;
 let editingTaskId = null;
 
 function openEditor() {
@@ -32,6 +35,7 @@ function closeEditor() {
   editingTaskId = null;
   taskTitle.value = "";
   taskDescription.value = "";
+  taskDeadline.value = "";
   taskTitle.classList.remove("is-invalid");
   titleError.classList.add("d-none");
 }
@@ -63,6 +67,7 @@ addTaskButton.addEventListener("click", function () {
   editingTaskId = null;
   taskTitle.value = "";
   taskDescription.value = "";
+  taskDeadline.value = "";
   openEditor();
 });
 
@@ -73,6 +78,7 @@ cancelTaskButton.addEventListener("click", function () {
 saveTaskButton.addEventListener("click", function () {
   const title = taskTitle.value.trim();
   const description = taskDescription.value;
+  const deadline = taskDeadline.value;
 
   taskTitle.classList.remove("is-invalid");
   titleError.classList.add("d-none");
@@ -85,9 +91,9 @@ saveTaskButton.addEventListener("click", function () {
   }
 
   if (editingTaskId === null) {
-    createTask(title, description);
+    createTask(title, description, deadline);
   } else {
-    updateTask(editingTaskId, title, description);
+    updateTask(editingTaskId, title, description, deadline);
   }
 
   closeEditor();
@@ -95,20 +101,26 @@ saveTaskButton.addEventListener("click", function () {
 
 allTasksButton.addEventListener("click", function () {
   currentFilter = "all";
+  currentPage = 1;
+  localStorage.setItem("currentFilter", "all");
   setActiveFilterButton("all");
-  renderTasks(allTasks);
+  fetchTasks(currentPage, tasksPerPage);
 });
 
 activeTasksButton.addEventListener("click", function () {
   currentFilter = "active";
+  currentPage = 1;
+  localStorage.setItem("currentFilter", "active");
   setActiveFilterButton("active");
-  renderTasks(allTasks.filter((task) => task.active));
+  fetchTasks(currentPage, tasksPerPage);
 });
 
 doneTasksButton.addEventListener("click", function () {
   currentFilter = "done";
+  currentPage = 1;
+  localStorage.setItem("currentFilter", "done");
   setActiveFilterButton("done");
-  renderTasks(allTasks.filter((task) => !task.active));
+  fetchTasks(currentPage, tasksPerPage);
 });
 
 const setActiveFilterButton = (filter) => {
@@ -116,42 +128,76 @@ const setActiveFilterButton = (filter) => {
   activeTasksButton.classList.remove("active-filter");
   doneTasksButton.classList.remove("active-filter");
 
-  if (filter === "all"){
+  if (filter === "all") {
     allTasksButton.classList.add("active-filter");
-  }else if (filter === "active") {
+  } else if (filter === "active") {
     activeTasksButton.classList.add("active-filter");
   } else if (filter === "done") {
-    doneTasksButton.classList.add ("active-filter");
+    doneTasksButton.classList.add("active-filter");
   }
-}
+};
 
 setActiveFilterButton(currentFilter);
 
-const fetchTasks = async () => {
+const fetchTasks = async (page, limit) => {
   try {
-    const response = await fetch(url + "tasks");
+    const modifiedURL = new URL(url + "tasks");
+    modifiedURL.searchParams.append("sortBy", "deadline");
+    modifiedURL.searchParams.append("order", "asc");
+    
+    modifiedURL.searchParams.append("page", page || 1);
+    modifiedURL.searchParams.append("limit", limit || 5);
+    
+    if (currentFilter !== "all") {
+      modifiedURL.searchParams.append("filter", currentFilter === "active" ? "true" : "false");
+    }
+
+    const response = await fetch(modifiedURL);
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
 
     const tasks = await response.json();
-    allTasks = tasks.sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-
-    if (currentFilter === "all") {
-      return renderTasks(allTasks);
+    
+    if (page === 1) {
+      allTasks = tasks;
+    } else {
+      allTasks = allTasks.concat(tasks);
     }
 
-    renderTasks(allTasks.filter((task) => task.active === currentFilter === "active"));
+    document.getElementById("count-all-tasks").textContent =
+      allTasks.filter((task) => !task.active).length + "/" + allTasks.length;
+    document.getElementById("count-active-tasks").textContent = allTasks.filter(
+      (task) => task.active
+    ).length;
+    document.getElementById("count-done-tasks").textContent = allTasks.filter(
+      (task) => !task.active
+    ).length;
 
+    renderTasks(allTasks, currentFilter);
+    
+    const loadMoreBtn = document.getElementById("load-more-btn");
+    if (tasks.length < limit) {
+      loadMoreBtn.classList.add("d-none");
+    } else {
+      loadMoreBtn.classList.remove("d-none");
+    }
   } catch (error) {
     console.error(error);
   }
+
+  console.log(allTasks);
 };
 
-const createTask = async (taskTitle, taskDescription) => {
+const createTask = async (taskTitle, taskDescription, deadline) => {
   try {
+    let deadlineDate = new Date();
+    if (deadline) {
+      deadlineDate = new Date(deadline);
+    } else {
+      deadlineDate.setDate(deadlineDate.getDate() + 7);
+    }
+
     const response = await fetch(url + "tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -160,6 +206,7 @@ const createTask = async (taskTitle, taskDescription) => {
         title: taskTitle,
         description: taskDescription,
         active: true,
+        deadline: deadlineDate.toISOString(),
       }),
     });
 
@@ -167,8 +214,10 @@ const createTask = async (taskTitle, taskDescription) => {
       throw new Error(`Response status: ${response.status}`);
     }
 
-    await response.json();
-    fetchTasks();
+    const newTask = await response.json();
+    allTasks.push(newTask);
+    allTasks = allTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    
   } catch (error) {
     console.error(error);
   }
@@ -180,8 +229,8 @@ const deleteTask = async (id) => {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-
-    fetchTasks();
+    allTasks = allTasks.filter((task) => task.id !== id);
+    renderTasks(allTasks, currentFilter);
   } catch (error) {
     console.error(error);
   }
@@ -198,36 +247,64 @@ const activeTask = async (id, isActive) => {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-
-    await response.json();
-    fetchTasks();
+    const taskIndex = allTasks.findIndex((task) => task.id === id);
+    if (taskIndex !== -1) {
+      allTasks[taskIndex].active = isActive;
+    }
+    renderTasks(allTasks, currentFilter);
   } catch (error) {
     console.error(error);
   }
 };
 
-const updateTask = async (id, title, description) => {
+const updateTask = async (id, title, description, deadline) => {
   try {
+    let deadlineDate;
+    if (deadline) {
+      deadlineDate = new Date(deadline).toISOString();
+    }
+
+    const body = { title, description };
+    if (deadlineDate) {
+      body.deadline = deadlineDate;
+    }
+
     const response = await fetch(url + "tasks/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description }),
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-
-    await response.json();
-    fetchTasks();
+    const taskIndex = allTasks.findIndex((task) => task.id === id);
+    if (taskIndex !== -1) {
+      allTasks[taskIndex].title = title;
+      allTasks[taskIndex].description = description;
+      if (deadlineDate) {
+        allTasks[taskIndex].deadline = deadlineDate;
+      }
+    }
+    allTasks = allTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    renderTasks(allTasks, currentFilter);
   } catch (error) {
     console.error(error);
   }
 };
 
-const renderTasks = (tasks) => {
+const renderTasks = (tasks, filter = currentFilter) => {
   const taskList = document.getElementById("task-list");
   taskList.innerHTML = "";
+
+  if (filter === "active") {
+    tasks = tasks.filter(task => task.active);
+  } else if (filter === "done") {
+    tasks = tasks.filter(task => !task.active);
+  }
+
+  const fragment = document.createDocumentFragment();
+  const modalsFragment = document.createDocumentFragment();
 
   tasks.forEach((task) => {
     const div = document.createElement("div");
@@ -256,7 +333,7 @@ const renderTasks = (tasks) => {
         activeTask(task.id, false);
       } else {
         activeTask(task.id, true);
-      };
+      }
     });
 
     const h3 = document.createElement("h3");
@@ -272,12 +349,37 @@ const renderTasks = (tasks) => {
     p.textContent = task.description;
     div.appendChild(p);
 
-    const del = document.createElement("button");
-    del.textContent = "delete";
-    del.classList.add("btn", "btn-outline-danger", "btn-sm");
-    del.addEventListener("click", function () {
-      deleteTask(task.id);
-    });
+    const modalId = `modal-${task.id}`;
+    const modal = `
+<div class="modal fade" id="${modalId}" tabindex="-1" role="dialog" aria-labelledby="modalLabel-${task.id}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel-${task.id}">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete your task?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary delete-modal-btn" data-bs-dismiss="modal" data-task-id="${task.id}">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+    const modalFragment = document
+      .createRange()
+      .createContextualFragment(modal);
+    modalsFragment.appendChild(modalFragment);
+
+    const modalButton = document.createElement("button");
+    modalButton.type = "button";
+    modalButton.className = "btn btn-outline-danger btn-sm";
+    modalButton.setAttribute("data-bs-toggle", "modal");
+    modalButton.setAttribute("data-bs-target", `#${modalId}`);
+    modalButton.textContent = "delete";
 
     const edit = document.createElement("button");
     edit.textContent = "edit";
@@ -286,16 +388,32 @@ const renderTasks = (tasks) => {
       editingTaskId = task.id;
       taskTitle.value = task.title;
       taskDescription.value = task.description;
+      taskDeadline.value = new Date(task.deadline).toISOString().split("T")[0];
       openEditor();
     });
 
     const buttons = document.createElement("div");
     buttons.classList.add("task-buttons");
-    buttons.appendChild(del);
+    buttons.appendChild(modalButton);
     buttons.appendChild(edit);
 
     div.appendChild(buttons);
-    taskList.appendChild(div);
+
+    const deadline = document.createElement("input");
+    deadline.type = "date";
+
+    if (task.deadline) {
+      const deadlineDate = new Date(task.deadline);
+      if (!isNaN(deadlineDate.getTime())) {
+        deadline.value = deadlineDate.toISOString().split("T")[0];
+      }
+    }
+
+    deadline.disabled = true;
+    deadline.className = "form-control";
+    div.appendChild(deadline);
+
+    fragment.appendChild(div);
 
     anime({
       targets: div,
@@ -305,7 +423,23 @@ const renderTasks = (tasks) => {
       easing: "easeOutCubic",
     });
   });
+
+  document.body.appendChild(modalsFragment);
+  taskList.appendChild(fragment);
 };
 
-fetchTasks();
+document.getElementById("load-more-btn").addEventListener("click", function() {
+  currentPage++;
+  fetchTasks(currentPage, tasksPerPage);
+});
 
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-modal-btn")) {
+    const taskId = e.target.getAttribute("data-task-id");
+    if (taskId) {
+      deleteTask(taskId);
+    }
+  }
+});
+
+fetchTasks();
