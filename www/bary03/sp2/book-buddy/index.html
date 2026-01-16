@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description"
+    content="Book Buddy is a single-page web application for managing your personal reading library. It allows users to search for books, categorize them into 'Want to Read', 'Reading' and 'Finished' shelves, and store this data persistently in local storage. The application offers a clean, three-column layout for intuitive book management.">
+  <meta name="keywords" content="book, library, reading, book management, personal library, book search">
+  <meta name="author" content="Baranovskyi Yevhenii">
+  <title>Book Buddy — Personal Book Library</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="icon" type="image/png" href="./assets/images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg" />
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png" />
+</head>
+
+
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-section">
+        <img src="./assets/images/book-icon.png" alt="Book Buddy Logo" class="logo">
+        <h1>Book <span>Buddy</span></h1>
+      </div>
+
+      <div class="search-section">
+        <input type="text" id="search-input" placeholder="Search for books by title or author...">
+        <button id="search-btn">
+          <img src="./assets/images/search.svg" alt="icon search" />
+        </button>
+      </div>
+
+      <div class="library-section" id="library-btn-wrapper">
+        <button id="library-btn">
+          <img src="./assets/images/book.svg" alt="icon book" />
+          My Library</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Library Panel -->
+      <section id="library-panel" class="panel">
+        <h2>My Library</h2>
+        <div class="shelves">
+          <div class="shelf">
+            <div class="shelf-header">
+              <h3>Want to Read <span class="count" id="count-to-read">(0)</span></h3>
+              <select class="sort-select" data-category="wantToRead">
+                <option value="title">Sort by Title</option>
+                <option value="date">Sort by Added Date</option>
+              </select>
+            </div>
+            <div id="to-read" class="book-list"></div>
+          </div>
+          <div class="shelf">
+            <div class="shelf-header">
+              <h3>Reading <span class="count" id="count-reading">(0)</span></h3>
+              <select class="sort-select" data-category="reading">
+                <option value="title">Sort by Title</option>
+                <option value="date">Sort by Added Date</option>
+              </select>
+            </div>
+            <div id="reading" class="book-list"></div>
+          </div>
+          <div class="shelf">
+            <div class="shelf-header">
+              <h3>Finished <span class="count" id="count-finished">(0)</span></h3>
+              <select class="sort-select" data-category="finished">
+                <option value="title">Sort by Title</option>
+                <option value="date">Sort by Added Date</option>
+              </select>
+            </div>
+            <div id="finished" class="book-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search Panel -->
+      <section id="search-panel" class="panel hidden">
+        <h2>Search Results</h2>
+        <div id="results" class="results"></div>
+      </section>
+
+      <!-- Book Detail Modal -->
+      <div id="book-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <div class="modal-body">
+            <img id="modal-thumb" alt="Book cover">
+            <div class="modal-info">
+              <h3 id="modal-title"></h3>
+              <p>Author: <span id="modal-author"></span></p>
+              <p>Language: <span id="modal-lang"></span></p>
+              <p>Published: <span id="modal-date"></span></p>
+              <p>Description: <span id="modal-desc"></span></p>
+              <button id="add-to-want">Add to "Want to Read"</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Detail Modal Library -->
+      <div id="library-modal" class="modal hidden">
+        <!-- <div class="modal-content scrollable"> -->
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <div class="modal-body">
+            <img id="lib-modal-thumb" alt="Book Cover">
+            <div class="modal-info">
+              <h3 id="lib-modal-title"></h3>
+              <p>Author: <span id="lib-modal-author"></span></p>
+              <p>Language: <span id="lib-modal-lang"></span></p>
+              <p>Published: <span id="lib-modal-date"></span></p>
+              <p>Description: <span id="lib-modal-desc"></span></p>
+              <a id="lib-modal-link" href="#" target="_blank" class="modal-link">Read this book</a>
+              <div class="modal-actions">
+                <button id="remove-btn" class="danger">Remove from Library</button>
+                <div id="move-buttons" class="move-buttons"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
