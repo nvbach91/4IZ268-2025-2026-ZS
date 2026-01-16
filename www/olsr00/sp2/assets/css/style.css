@@ -11,6 +11,14 @@ body {
     overflow: hidden;
 }
 
+
+.allowed-country-item {
+    background-color: red !important;
+}
+
+.custom-alert {
+    background-color: red !important;
+}
 main.container {
     height: 100%;
     max-width: 100%;

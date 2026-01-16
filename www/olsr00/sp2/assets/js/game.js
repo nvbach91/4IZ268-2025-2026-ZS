@@ -206,6 +206,28 @@ const App = {
         return allCountries;
     },
 
+    // FIX 5
+    async fetchMainCity(countryNameCommon) {
+        const API_URL = `https://restcountries.com/v3.1/name/${countryNameCommon}?fields=capital`;
+        const API_URL_ENCODED = encodeURI(API_URL)
+        try {
+            console.log(`Trying API request: ${API_URL_ENCODED}`);
+            const response = await axios.get(API_URL_ENCODED);
+            const responseData = response.data[0]
+            const capitalCity = responseData.capital[0]
+            //console.log(capitalCity)
+            return(capitalCity)
+        } catch (error) {
+            console.error(
+                "API request error:",
+                error.message
+            );
+            return null;
+        }
+
+
+    },
+
     async initializeGame() {
         this.countriesData = await this.fetchAllCountries();
 
@@ -226,12 +248,25 @@ const App = {
                 this.allowedCountries
             );
 
-            const allowedListElement = document.getElementById("allowed-countries");
+            const allowedListElement = this.dom.allowedListElement;
             // remove the placeholder content
             allowedListElement.innerHTML = "";
             // generates the allowed countries
-            this.allowedCountries.forEach((country) => {
+
+            // nemodifikovat DOM v cyklu
+            //FIX 2-1
+            const allowedCountriesInsert = document.createDocumentFragment();
+
+            // FIX 5-2
+
+            for (const country of this.allowedCountries) {
+                //const countryCode = this.countriesData[country].cca3
+                const countryNameCommon = this.countriesData[country].name.common;
+                const capitalCity = await this.fetchMainCity(countryNameCommon)
+                console.log(capitalCity)
+
                 const countryElement = document.createElement("div");
+                const capitalCityElement = document.createElement("p")
                 countryElement.classList.add(
                     "d-flex",
                     "flex-row",
@@ -248,7 +283,8 @@ const App = {
 
                 // countiry name
                 countryItem.classList.add("m-0", "me-2");
-                countryItem.innerHTML = this.countriesData[country].name.common;
+                countryItem.innerHTML = `${this.countriesData[country].name.common}<br>(${capitalCity})`;
+                //capitalCityElement.innerHTML = capitalCity
 
                 //countiry flag
                 img.src = this.countriesData[country].flags.svg;
@@ -258,9 +294,12 @@ const App = {
 
                 //add the elements to DOM
                 countryElement.appendChild(countryItem);
+                //countryElement.appendChild(capitalCityElement);
                 countryElement.appendChild(img);
-                allowedListElement.appendChild(countryElement);
-            });
+                //allowedListElement.appendChild(countryElement);
+                allowedCountriesInsert.appendChild(countryElement);
+            };
+            allowedListElement.appendChild(allowedCountriesInsert);
 
         } else {
             console.error("countriesData is missing.");
@@ -318,11 +357,67 @@ const App = {
         }
     },
 
+    //pridejte moznost ukladani historie hrani - jmeno hrace, cas, skore a zobrazit to v tabulce
+    //FIX 3-1
+
+    //FIX 4-1
+
+    savePlayerHistory(score) {
+        const historyAttempts = localStorage.getItem("attempts");
+        const playerName = this.dom.playerNameInput.value;
+        const time = new Date().toLocaleString();
+        const historyMaxLength = 3
+        let historySave = [];
+
+        if (historyAttempts) {
+            historySave = JSON.parse(historyAttempts);
+        }
+
+        if (historySave.length > historyMaxLength-1 ) {
+            historySave = historySave.slice(-(historyMaxLength-1));
+        }
+
+        historySave.push({ playerName, time, score });
+        historySave.reverse();
+
+        localStorage.setItem("attempts",JSON.stringify(historySave));
+    },
+
+    //reads the localStorage entries and generates the table rows
+    generateHistoryTable() {
+        const tableBody = this.dom.historyTableBody;
+        tableBody.innerHTML = '';
+
+        const insert = document.createDocumentFragment(); //FIX 2-2
+
+        const historyAttempts = JSON.parse(localStorage.getItem("attempts"));
+        console.log(historyAttempts)
+        for (historyItem in historyAttempts) {
+            const entry = historyAttempts;
+
+            const row = document.createElement('tr');
+            const nameCell = document.createElement('td');
+            const timeCell = document.createElement('td');
+            const scoreCell = document.createElement('td');
+
+            nameCell.textContent = entry[historyItem].playerName;
+            timeCell.textContent = entry[historyItem].time;
+            scoreCell.textContent = entry[historyItem].score;
+
+            row.appendChild(nameCell);
+            row.appendChild(timeCell);
+            row.appendChild(scoreCell);
+
+            insert.appendChild(row);
+        }
+        tableBody.appendChild(insert);
+    },
+
     async startNewRound() {
         if (this.currentRound > 0) {
             this.swipeAnimation("passport-content", "left", 750);
         };
-        
+
         // check for game over conditions (lives = 0 or rounds limit)
         if (
             (this.currentRound != 0 && this.currentRound >= this.gameRounds) ||
@@ -332,7 +427,11 @@ const App = {
             if (this.score > parseInt(localStorage.getItem("highscore") || "0")) {
                 this.dom.highscore.innerText = `HIGHSCORE: ${this.score}`;
                 localStorage.setItem("highscore", this.score.toString());
+
             }
+            // FIX 3-2
+            this.savePlayerHistory(this.score);
+            
             this.dom.finalScore.innerText = `FINAL SCORE: ${this.score} / ${this.gameRounds}`;
             await this.swapView("game-window", "finish-window");
             this.dom.finalScore.innerText = `FINAL SCORE: ${this.score} / ${this.gameRounds}`;
@@ -399,11 +498,23 @@ const App = {
 
     async startGame() {
         // fetch values from start screen settings
-        this.gameRounds = parseInt(document.getElementById("rounds").value);
-        this.lives = parseInt(document.getElementById("lives").value);
-        this.allowedCountriesAmount = parseInt(
-            document.getElementById("allowed-countries-amount").value
+        this.gameRounds = parseInt((this.dom.roundsUI).value);
+        this.lives = parseInt((this.dom.livesUI).value);
+        const settingAlloedCountriesAmountValue = parseInt(
+            (this.dom.settingAllowedCountriesAmount).value
         );
+
+        //FIX 6
+
+        if (settingAlloedCountriesAmountValue <= 10) {
+            this.allowedCountriesAmount = settingAlloedCountriesAmountValue
+            this.dom.allowedCountriesAlert.classList.add("hidden-view")
+        } else if (settingAlloedCountriesAmountValue > 10) {
+            this.dom.allowedCountriesAlert.classList.remove("hidden-view")
+            return
+        }
+
+
 
         // Reset round variables
         this.currentRound = 0;
@@ -411,9 +522,18 @@ const App = {
 
         this.dom.score.innerText = `SCORE: ${this.score}`;
         this.dom.lives.innerText = `LIVES: ${this.lives}`;
+        anime.animate("body", {
+            "--bg-angle": ["90deg", "270deg"],
+            duration: 250,
+            easing: "easeOutQuad",
+            complete: () => {
+                document.body.style.setProperty("--bg-angle", "0deg");
+            },
+        });
+
         await this.initializeGame();
 
-        const finishWindow = document.getElementById("finish-window");
+        const finishWindow = this.dom.finishWindow;
         // different swapView for new game vs restart
         if (finishWindow.classList.contains("active-view")) {
             this.swapView("finish-window", "game-window");
@@ -427,16 +547,23 @@ const App = {
     },
 
     init() {
+        // neopakovat vyber elementu, ktere jsou od zacatku v HTML dokumentu
+        // FIX 1
         this.dom = {
-            passportButtons: document.getElementById("passport-buttons"),
+            allowedCountriesAlert: document.getElementById("allowed-countries-alert"),
+            passportButtons: document.getElementById("passport-buttons"), //for ui lock
             loading: document.getElementById("passport-loading"),
             content: document.getElementById("passport-content"),
             //UI
+            roundsUI: document.getElementById("rounds"),
+            livesUI: document.getElementById("lives"),
             score: document.getElementById("current-score"),
             lives: document.getElementById("current-lives"),
             round: document.getElementById("current-round"),
             highscore: document.getElementById("highscore"),
             finalScore: document.getElementById("final-score"),
+            historyTableBody: document.getElementById("history-table-body"),
+            allowedListElement: document.getElementById("allowed-countries"),
             //passport
             area: document.getElementById("area-field"),
             region: document.getElementById("region-field"),
@@ -444,18 +571,30 @@ const App = {
             hemisphere: document.getElementById("hemisphere-field"),
             landlocked: document.getElementById("landlocked-field"),
             borders: document.getElementById("borders-container"),
+            //windows
+            historyWindow: document.getElementById("history-window"),
+            startWindow: document.getElementById("start-window"),
+            gameWindow: document.getElementById("game-window"),
+            finishWindow: document.getElementById("finish-window"),
+            //buttons
+            historyWindowBtn: document.getElementById("history-window-btn"),
+            startBtn: document.getElementById("start-game-btn"),
+            startNewGameBtn: document.getElementById("start-new-game-btn"),
+            allowBtn: document.getElementById("allow-btn"),
+            denyBtn: document.getElementById("deny-btn"),
+            mainMenuBtn: document.getElementById("main-menu-btn"),
+            //settings
+            playerNameInput: document.getElementById("playerName"),
+            settingAllowedCountriesAmount: document.getElementById("allowed-countries-amount")
         };
 
-        const gameWindow = document.getElementById("game-window");
-        const startWindow = document.getElementById("start-window");
-        const finishWindow = document.getElementById("finish-window");
-        
-        this.dom.highscore.innerText = `HIGHSCORE: ${localStorage.getItem("highscore") || "0" }`;
+        this.dom.highscore.innerText = `HIGHSCORE: ${localStorage.getItem("highscore") || "0"}`;
 
         // show start window
-        startWindow.classList.add("active-view");
-        gameWindow.classList.add("hidden-view");
-        finishWindow.classList.add("hidden-view");
+        this.dom.startWindow.classList.add("active-view");
+        this.dom.gameWindow.classList.add("hidden-view");
+        this.dom.finishWindow.classList.add("hidden-view");
+        this.dom.historyWindow.classList.add("hidden-view");
 
         // set history
         history.replaceState({ view: "start-window" }, "", "#start-window");
@@ -470,20 +609,26 @@ const App = {
             }
         });
 
-        const startGameButton = document.getElementById("start-game-btn");
-        const startNewGameButton = document.getElementById("start-new-game-btn");
+        const startGameButton = this.dom.startBtn;
+        const startNewGameButton = this.dom.startNewGameBtn;
 
         startGameButton.addEventListener("click", () => this.startGame());
         startNewGameButton.addEventListener("click", () => this.startGame());
 
-        const MainMenuButton = document.getElementById("main-menu-btn");
+        const MainMenuButton = this.dom.mainMenuBtn;
 
         MainMenuButton.addEventListener("click", async () => {
             await this.swapView("game-window", "start-window");
         });
 
-        const allowButton = document.getElementById("allow-btn");
-        const denyButton = document.getElementById("deny-btn");
+        this.dom.historyWindowBtn.addEventListener("click", async () => {
+            //FIX 3-3
+            this.generateHistoryTable();
+            await this.swapView("start-window", "history-window");
+        });
+
+        const allowButton = this.dom.allowBtn;
+        const denyButton = this.dom.denyBtn;
 
         allowButton.addEventListener("click", async () => {
             await this.allowDenyPassport(true);
