@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/dialog";
 import { CreateTodoForm } from "@/components/CreateTodoForm";
 import { Plus } from "lucide-react";
+import type { Tags } from "@/api/todoApi";
 
 interface CreateTodoDialogProps {
   onSubmit: (
     title: string,
     tag: Tags,
     description?: string,
-    deadline?: Date
+    deadline?: Date | string
   ) => Promise<void>;
 }
 
@@ -28,7 +29,7 @@ export function CreateTodoDialog({ onSubmit }: CreateTodoDialogProps) {
     title: string,
     tag: Tags,
     description?: string,
-    deadline?: Date
+    deadline?: Date | string,
   ) => {
     setIsLoading(true);
     try {

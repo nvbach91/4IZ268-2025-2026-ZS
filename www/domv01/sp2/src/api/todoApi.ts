@@ -6,10 +6,25 @@ export type Todo = {
   title: string;
   tag: Tags | null;
   description?: string;
-  deadline: Date;
+  deadline: Date | string;
 };
 
 export type Tags = "All" | "Work" | "Personal" | "Urgent" | "Home" | "Shopping";
+
+type TodoApiResponse = Omit<Todo, "deadline"> & { deadline: string | Date };
+
+type PaginationOptions = {
+  page?: number;
+  limit?: number;
+  completed?: boolean;
+};
+
+export type PaginatedTodos = {
+  todos: Todo[];
+  total: number | null;
+  page: number;
+  limit: number;
+};
 
 const API_Base_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -43,19 +58,77 @@ const storageManager = {
   },
 };
 
+const normalizeTodo = (todo: TodoApiResponse): Todo => ({
+  ...todo,
+  deadline: todo.deadline && todo.deadline !== "" ? new Date(todo.deadline) : "",
+});
+
+
 export const todoApi = {
-  getById: async (id: string): Promise<Todo> => {
-    const response = await fetch(`${API_Base_URL}/todos/${id}`);
+
+  getUserTodos: async (
+    userId: string,
+    options?: PaginationOptions
+  ): Promise<PaginatedTodos> => {
+    const page = options?.page ?? 1;
+    const limit = options?.limit ?? 1;
+    const endpoint = new URL(`${API_Base_URL}/todos`);
+    endpoint.searchParams.append("userId", userId);
+    endpoint.searchParams.append("page", String(page));
+    endpoint.searchParams.append("limit", String(limit));
+
+    if (typeof options?.completed === "boolean") {
+      endpoint.searchParams.append("completed", String(options.completed));
+    }
+
+    const response = await fetch(endpoint.toString());
     if (!response.ok) throw new Error("Failed to fetch todo");
-    return response.json();
+
+    const totalHeader = response.headers.get("x-total-count");
+    const total = totalHeader ? Number(totalHeader) : null;
+
+    const todos: Todo[] = (await response.json()).map(normalizeTodo);
+
+    return {
+      todos,
+      total: Number.isFinite(total) ? Number(total) : null,
+      page,
+      limit,
+    };
   },
 
-  getUserTodos: async (userId: string): Promise<Todo[]> => {
-    const todoIds = storageManager.getTodoIds(userId);
-    const todos = await Promise.all(
-      todoIds.map((id) => todoApi.getById(id).catch(() => null))
-    );
-    return todos.filter((todo): todo is Todo => todo !== null);
+  getUserTodosByTag: async (
+    userId: string,
+    tag: Tags,
+    options?: PaginationOptions
+  ): Promise<PaginatedTodos> => {
+    const page = options?.page ?? 1;
+    const limit = options?.limit ?? 10;
+    const endpoint = new URL(`${API_Base_URL}/todos`);
+    
+    endpoint.searchParams.append("userId", userId);
+    endpoint.searchParams.append("tag", tag);
+    endpoint.searchParams.append("page", String(page));
+    endpoint.searchParams.append("limit", String(limit));
+    
+    if (typeof options?.completed === "boolean") {
+      endpoint.searchParams.append("completed", String(options.completed));
+    }
+
+    const response = await fetch(endpoint.toString());
+    if (!response.ok) throw new Error("Failed to fetch todos by tag");
+
+    const totalHeader = response.headers.get("x-total-count");
+    const total = totalHeader ? Number(totalHeader) : null;
+
+    const todos: Todo[] = (await response.json()).map(normalizeTodo);
+    
+    return {
+      todos,
+      total: Number.isFinite(total) ? Number(total) : null,
+      page,
+      limit,
+    };
   },
 
   create: async (
@@ -71,9 +144,9 @@ export const todoApi = {
       }),
     });
     if (!response.ok) throw new Error("Failed to create todo");
-    const createdTodo = await response.json();
+    const createdTodo: TodoApiResponse = await response.json();
     storageManager.addTodoId(todo.userId, createdTodo.id);
-    return createdTodo;
+    return normalizeTodo(createdTodo);
   },
 
   update: async (id: string, updates: Partial<Todo>): Promise<Todo> => {
@@ -83,7 +156,8 @@ export const todoApi = {
       body: JSON.stringify(updates),
     });
     if (!response.ok) throw new Error("Failed to update todo");
-    return response.json();
+    const updatedTodo: TodoApiResponse = await response.json();
+    return normalizeTodo(updatedTodo);
   },
 
   delete: async (id: string, userId: string): Promise<void> => {

@@ -1,12 +1,13 @@
 import type { Tags, Todo } from "@/api/todoApi";
 import { TodoItem } from "@/components/TodoItem";
 import { type useUser } from "@clerk/clerk-react";
+import type { Filter } from "./CategoryFilter";
 
 interface TodoListProps {
   user: ReturnType<typeof useUser>;
   todos: Todo[];
   activeTag: Tags;
-  completionFilter: "all" | "completed" | "active";
+  completionFilter: Filter;
   onToggle: (id: string, done: boolean) => void;
   onDelete: (id: string) => void;
   onEdit?: (
@@ -14,7 +15,7 @@ interface TodoListProps {
     title: string,
     tag: Tags,
     description?: string,
-    deadline?: Date
+    deadline?: Date | string
   ) => Promise<void>;
 }
 
@@ -35,19 +36,12 @@ export function TodoList({
     );
   }
 
-  const filteredTodos =
-    activeTag !== "All"
-      ? todos.filter(
-          (todo) => todo.tag?.toLowerCase() === activeTag.toLowerCase()
-        )
-      : todos;
-
-  const filteredByCompletion = 
+  const filteredByCompletion =
     completionFilter === "all"
-      ? filteredTodos
+      ? todos
       : completionFilter === "completed"
-      ? filteredTodos.filter((todo) => todo.done)
-      : filteredTodos.filter((todo) => !todo.done);
+      ? todos.filter((todo) => todo.done)
+      : todos.filter((todo) => !todo.done);
 
   if (filteredByCompletion.length === 0) {
     return (
@@ -77,8 +71,22 @@ export function TodoList({
     });
   });
 
-  const totalCompleted = filteredTodos.filter((todo) => todo.done).length;
-  const totalTodos = filteredTodos.length;
+  const totalCompleted = todos.filter((todo) => todo.done).length;
+  const totalTodos = todos.length;
+
+  let sortedEntries = Object.entries(groupedTodos);
+  if (activeTag === "All") {
+    sortedEntries.sort(([, todosA], [, todosB]) => {
+      const earliestA = todosA.find(() => true)?.deadline;
+      const earliestB = todosB.find(() => true)?.deadline;
+
+      if (!earliestA && !earliestB) return 0;
+      if (!earliestA) return 1;
+      if (!earliestB) return -1;
+
+      return new Date(earliestA).getTime() - new Date(earliestB).getTime();
+    });
+  }
 
   return (
     <div className="space-y-8">
@@ -88,7 +96,7 @@ export function TodoList({
         </h2>
         <p className="text-sm text-muted-foreground">Total completed</p>
       </div>
-      {Object.entries(groupedTodos).map(([tag, sectionTodos]) => {
+      {sortedEntries.map(([tag, sectionTodos]) => {
         const completedCount = sectionTodos.filter((todo) => todo.done).length;
         const totalCount = sectionTodos.length;
 

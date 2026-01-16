@@ -11,7 +11,7 @@ import {
 import { FolderOpen, MoreHorizontalIcon } from "lucide-react";
 
 const tags: Tags[] = ["All", "Work", "Personal", "Urgent", "Home", "Shopping"];
-type Filter = "all" | "completed" | "active";
+export type Filter = "all" | "completed" | "active";
 
 export function CategoryFilter({
   activeTag,
@@ -42,7 +42,7 @@ export function CategoryFilter({
       <DropdownMenu>
         <Button variant="outline" size="sm" asChild>
           <DropdownMenuTrigger>
-            <MoreHorizontalIcon className="size-4" />
+            {completionFilter || "Active"}<MoreHorizontalIcon className="size-4" />
           </DropdownMenuTrigger>
         </Button>
         <DropdownMenuContent align="end">

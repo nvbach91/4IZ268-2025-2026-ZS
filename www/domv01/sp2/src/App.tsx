@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { todoApi, type Tags, type Todo } from "@/api/todoApi";
-import { CategoryFilter } from "@/components/CategoryFilter";
+import { todoApi, type Tags as Tag, type Todo } from "@/api/todoApi";
+import { CategoryFilter, type Filter } from "@/components/CategoryFilter";
 import { CreateTodoDialog } from "@/components/CreateTodoDialog";
 import { TodoList } from "@/components/TodoList";
+import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import {
   RedirectToSignIn,
@@ -17,38 +18,85 @@ import {
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTag, setActiveTag] = useState<Tags>("All");
-  const [completionFilter, setCompletionFilter] = useState<"all" | "completed" | "active">("all");
+  const [activeTag, setActiveTag] = useState<Tag>("All");
+  const [completionFilter, setCompletionFilter] = useState<Filter>("active");
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState<number | null>(null);
   const user = useUser();
 
-  const handleTagChange = (tag: Tags) => {
+  const handleTagChange = (tag: Tag) => {
     setActiveTag(tag);
-    setCompletionFilter("all");
+    setCompletionFilter("active");
+    setPage(1);
   };
 
-  const fetchTodos = async () => {
+  const handleTodosChange = (updatedTodo: Todo[]) => {
+    updatedTodo = updatedTodo.sort((a, b) => {
+      if (a.deadline === "") return 1;
+      if (b.deadline === "") return -1;
+      const timeA = new Date(a.deadline).getDate();
+      const timeB = new Date(b.deadline).getDate();
+      return timeA - timeB;
+    });
+    setTodos(updatedTodo);
+  };
+
+  const fetchTodos = async (pageToLoad = 1) => {
     setLoading(true);
     try {
       if (!user.isSignedIn || !user.user?.id) return;
-      const userTodos = await todoApi.getUserTodos(user.user.id);
-      setTodos(userTodos.sort((a, b) => Number(b.id) - Number(a.id)));
+
+      let result;
+      if (activeTag !== "All") {
+        result = await todoApi.getUserTodosByTag(user.user.id, activeTag, {
+          page: pageToLoad,
+          limit: 10,
+        });
+      } else {
+        result = await todoApi.getUserTodos(user.user.id, {
+          page: pageToLoad,
+          limit: 10,
+        });
+      }
+
+      handleTodosChange(result.todos);
+      setTotalCount(result.total);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to fetch todos");
+      setTodos([]);
+      setTotalCount(null);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchTodos();
+    if (!user.isSignedIn) {
+      setTodos([]);
+      setTotalCount(null);
+      setLoading(false);
+      return;
+    }
+
+    setPage(1);
   }, [user.isSignedIn]);
+
+  useEffect(() => {
+    if (!user.isSignedIn) return;
+    fetchTodos(page);
+  }, [page, user.isSignedIn, activeTag]);
+
+  const totalPages =
+    totalCount !== null ? Math.max(1, Math.ceil(totalCount / 10)) : null;
+  const hasNextPage =
+    totalPages !== null ? page < totalPages : todos.length >= 10;
+  const hasPreviousPage = page > 1;
 
   const handleCreateTodo = async (
     title: string,
-    tag: Tags,
+    tag: Tag,
     description?: string,
-    deadline?: Date
+    deadline?: Date | string
   ) => {
     try {
       if (!user.user?.id) {
@@ -60,9 +108,16 @@ function App() {
         description,
         tag,
         userId: user.user.id,
-        deadline: deadline || new Date("1970-01-01T00:00:00.000Z"),
+        deadline: deadline || "",
       });
-      setTodos([newTodo, ...todos]);
+      handleTodosChange([newTodo, ...todos]);
+      setTotalCount((prev) => (prev !== null ? prev + 1 : prev));
+
+      if (page === 1) {
+        fetchTodos(1);
+      } else {
+        setPage(1);
+      }
       toast.success("Todo created!");
     } catch (error) {
       console.error(error);
@@ -73,13 +128,13 @@ function App() {
 
   const handleToggleTodo = async (id: string, done: boolean) => {
     const previousTodos = [...todos];
-    setTodos(todos.map((t) => (t.id === id ? { ...t, done } : t)));
+    handleTodosChange(todos.map((t) => (t.id === id ? { ...t, done } : t)));
     try {
       await todoApi.update(id, { done });
     } catch (error) {
       console.error(error);
       toast.error("Failed to update todo");
-      setTodos(previousTodos);
+      handleTodosChange(previousTodos);
     }
   };
 
@@ -93,7 +148,15 @@ function App() {
         return;
       }
       await todoApi.delete(id, user.user.id);
+      setTotalCount((prev) => (prev !== null ? Math.max(0, prev - 1) : prev));
       toast.success("Todo deleted");
+
+      if (page > 1 && todos.length === 1) {
+        setPage((prev) => Math.max(1, prev - 1));
+        return;
+      }
+
+      fetchTodos(page);
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete todo");
@@ -104,14 +167,11 @@ function App() {
   const handleEditTodo = async (
     id: string,
     title: string,
-    tag: Tags,
+    tag: Tag,
     description?: string,
-    deadline?: Date
+    deadline?: Date | string
   ) => {
     const previousTodos = [...todos];
-    setTodos(
-      todos.map((t) => (t.id === id ? { ...t, title, description, tag, deadline: deadline || new Date("1970-01-01T00:00:00.000Z") } : t))
-    );
     try {
       if (!user.user?.id) {
         toast.error("User not authenticated");
@@ -122,15 +182,39 @@ function App() {
         description,
         tag,
         userId: user.user.id,
-        deadline: deadline || new Date("1970-01-01T00:00:00.000Z"),
+        deadline: deadline || "",
       });
       toast.success("Todo updated!");
+
+      handleTodosChange(
+        todos.map((t) =>
+          t.id === id
+            ? {
+                ...t,
+                title,
+                description,
+                tag,
+                deadline: deadline || "",
+              }
+            : t
+        )
+      );
     } catch (error) {
       console.error(error);
       toast.error("Failed to update todo");
       setTodos(previousTodos);
       throw error;
     }
+  };
+
+  const handleNextPage = () => {
+    if (!hasNextPage || loading) return;
+    setPage((prev) => prev + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (!hasPreviousPage || loading) return;
+    setPage((prev) => Math.max(1, prev - 1));
   };
 
   return (
@@ -150,9 +234,6 @@ function App() {
             <h1 className="text-5xl font-extrabold tracking-tight text-black drop-shadow-sm pb-1">
               Tasks
             </h1>
-            <p className="text-muted-foreground text-lg">
-              Manage your tasks efficiently and with style.
-            </p>
           </div>
           {user.isSignedIn && (
             <div className="flex justify-center">
@@ -166,7 +247,7 @@ function App() {
             </div>
           ) : (
             <>
-              {todos.length > 0 && (
+              <div className="space-y-4">
                 <div className="flex justify-center">
                   <CategoryFilter
                     activeTag={activeTag}
@@ -175,7 +256,30 @@ function App() {
                     onCompletionFilterChange={setCompletionFilter}
                   />
                 </div>
-              )}
+
+                {user.isSignedIn && (
+                  <div className="flex items-center justify-end gap-4 text-sm text-muted-foreground">
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handlePreviousPage}
+                        disabled={!hasPreviousPage || loading}
+                      >
+                        Previous
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleNextPage}
+                        disabled={!hasNextPage || loading}
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
               <TodoList
                 user={user}
                 todos={todos}
@@ -185,6 +289,26 @@ function App() {
                 onDelete={handleDeleteTodo}
                 onEdit={handleEditTodo}
               />
+              <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handlePreviousPage}
+                    disabled={!hasPreviousPage || loading}
+                  >
+                    Previous
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleNextPage}
+                    disabled={!hasNextPage || loading}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
             </>
           )}
         </div>

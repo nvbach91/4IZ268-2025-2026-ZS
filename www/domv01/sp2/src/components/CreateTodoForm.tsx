@@ -54,7 +54,7 @@ const formSchema = z.object({
 });
 
 interface CreateTodoFormProps {
-    onSubmit: (title: string,  tag: Tags, description?: string, deadline?: Date) => void;
+    onSubmit: (title: string,  tag: Tags, description?: string, deadline?: Date | string) => void;
     isLoading?: boolean;
     defaultValues?: {
         title: string;
@@ -78,8 +78,8 @@ export function CreateTodoForm({ onSubmit, isLoading, defaultValues }: CreateTod
     });
 
     function handleSubmit(values: z.infer<typeof formSchema>) {
-        const deadlineValue = values.deadline || new Date("1970-01-01T00:00:00.000Z");
-        onSubmit(values.title, values.tag || "", values.description || "", deadlineValue);
+        const deadlineValue = values.deadline || "";
+        onSubmit(values.title, values.tag as Tags, values.description, deadlineValue);
         form.reset();
     }
 
