@@ -10,7 +10,9 @@ import {
     getUniqueDates,
     getUniqueMuscleGroups,
     renderFilterDropdown,
-    findPageForDate
+    findPageForDate,
+    renderDateCalendar,
+    destroyDateCalendar
 } from './renders.js';
 import {
     getWorkouts,
@@ -49,20 +51,13 @@ $(document).ready(() => {
         const workouts = getWorkouts();
         const dates = getUniqueDates(workouts);
         
-        if (dates.length === 0) {
-            displayError('No workouts to filter');
-            return;
-        }
-        
-        const dropdown = renderFilterDropdown(dates, (selectedDate) => {
+        renderDateCalendar(dateFilterBtn, dates, activeFilters.date, (selectedDate) => {
             activeFilters.date = selectedDate;
             currentPage = 1;
             dateFilterText.text(selectedDate ? moment(selectedDate, 'YYYY-MM-DD').format('MMM D, YYYY') : 'Date');
             dateFilterBtn.toggleClass('active', !!selectedDate);
             refreshWorkoutList();
-        }, (date) => moment(date, 'YYYY-MM-DD').format('MMM D, YYYY'));
-        
-        dateFilterBtn.parent().css('position', 'relative').append(dropdown);
+        });
     });
     
     muscleFilterBtn.on('click', (e) => {

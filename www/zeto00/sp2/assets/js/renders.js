@@ -4,9 +4,9 @@ const WGER_BASE_URL = 'https://wger.de';
 
 const sanitizeHtml = (str) => {
     if (!str) return '';
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return str
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
 };
 
 const MUSCLE_GROUPS = [
@@ -360,8 +360,8 @@ const createSetRowHtml = (setNumber, reps = '', weight = '') => {
         <div class="set-row">
             <span class="set-number">${setNumber}</span>
             <div class="set-inputs">
-                <input type="number" class="form-input set-input" name="reps" placeholder="Reps" value="${reps}" min="0">
-                <input type="number" class="form-input set-input" name="weight" placeholder="Weight (kg)" value="${weight}" min="0" step="0.5">
+                <input type="number" class="form-input set-input" name="reps" placeholder="Reps" value="${reps}" min="0" required>
+                <input type="number" class="form-input set-input" name="weight" placeholder="Weight (kg)" value="${weight}" min="0" step="0.5" required>
             </div>
             <button type="button" class="remove-set-btn" title="Remove set">&times;</button>
         </div>
@@ -383,8 +383,7 @@ const attachRemoveSetHandler = (modal) => {
 };
 
 const PAGINATION = {
-    MAX_DAYS_PER_PAGE: 3,
-    MAX_EXERCISES_PER_PAGE: 5
+    MAX_DAYS_PER_PAGE: 3
 };
 
 export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, filters = {}, currentPage = 1, onPageChange = null) => {
@@ -539,26 +538,18 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
 
 const paginateWorkouts = (sortedDates, groupedWorkouts, currentPage) => {
     const pages = [];
-    let currentPageData = { dates: [], workouts: {}, exerciseCount: 0 };
     
-    for (const date of sortedDates) {
-        const dateWorkouts = groupedWorkouts[date];
+    for (let i = 0; i < sortedDates.length; i += PAGINATION.MAX_DAYS_PER_PAGE) {
+        const pageDates = sortedDates.slice(i, i + PAGINATION.MAX_DAYS_PER_PAGE);
+        const pageWorkouts = {};
+        let exerciseCount = 0;
         
-        const wouldExceedDays = currentPageData.dates.length >= PAGINATION.MAX_DAYS_PER_PAGE;
-        const wouldExceedExercises = currentPageData.exerciseCount + dateWorkouts.length > PAGINATION.MAX_EXERCISES_PER_PAGE;
-        
-        if (currentPageData.dates.length > 0 && (wouldExceedDays || wouldExceedExercises)) {
-            pages.push(currentPageData);
-            currentPageData = { dates: [], workouts: {}, exerciseCount: 0 };
+        for (const date of pageDates) {
+            pageWorkouts[date] = groupedWorkouts[date];
+            exerciseCount += groupedWorkouts[date].length;
         }
         
-        currentPageData.dates.push(date);
-        currentPageData.workouts[date] = dateWorkouts;
-        currentPageData.exerciseCount += dateWorkouts.length;
-    }
-    
-    if (currentPageData.dates.length > 0) {
-        pages.push(currentPageData);
+        pages.push({ dates: pageDates, workouts: pageWorkouts, exerciseCount });
     }
     
     const totalPages = pages.length;
@@ -607,29 +598,10 @@ export const findPageForDate = (workouts, targetDate, filters = {}) => {
         return moment(b, 'YYYY-MM-DD').diff(moment(a, 'YYYY-MM-DD'));
     });
     
-    let pageNumber = 1;
-    let currentPageData = { dates: [], exerciseCount: 0 };
+    const dateIndex = sortedDates.indexOf(targetDate);
+    if (dateIndex === -1) return 1;
     
-    for (const date of sortedDates) {
-        const dateWorkouts = groupedWorkouts[date];
-        
-        const wouldExceedDays = currentPageData.dates.length >= PAGINATION.MAX_DAYS_PER_PAGE;
-        const wouldExceedExercises = currentPageData.exerciseCount + dateWorkouts.length > PAGINATION.MAX_EXERCISES_PER_PAGE;
-        
-        if (currentPageData.dates.length > 0 && (wouldExceedDays || wouldExceedExercises)) {
-            pageNumber++;
-            currentPageData = { dates: [], exerciseCount: 0 };
-        }
-        
-        currentPageData.dates.push(date);
-        currentPageData.exerciseCount += dateWorkouts.length;
-        
-        if (date === targetDate) {
-            return pageNumber;
-        }
-    }
-    
-    return 1;
+    return Math.floor(dateIndex / PAGINATION.MAX_DAYS_PER_PAGE) + 1;
 };
 
 const renderPaginationControls = (currentPage, totalPages, totalExercises) => {
@@ -689,4 +661,68 @@ const renderPaginationControls = (currentPage, totalPages, totalExercises) => {
             </div>
         </div>
     `);
+};
+
+let dateCalendarInstance = null;
+
+export const destroyDateCalendar = () => {
+    if (dateCalendarInstance) {
+        dateCalendarInstance.destroy();
+        dateCalendarInstance = null;
+    }
+    $('.calendar-dropdown').remove();
+};
+
+export const renderDateCalendar = (targetBtn, workoutDates, currentSelectedDate, onSelectCallback) => {
+    destroyDateCalendar();
+    $('.filter-dropdown').remove();
+    
+    const dropdown = $(`
+        <div class="calendar-dropdown">
+            <div class="calendar-header">
+                <button type="button" class="calendar-clear-btn">Clear Filter</button>
+            </div>
+            <div class="calendar-container"></div>
+        </div>
+    `);
+    
+    targetBtn.parent().css('position', 'relative').append(dropdown);
+    
+    const calendarContainer = dropdown.find('.calendar-container')[0];
+    
+    dateCalendarInstance = flatpickr(calendarContainer, {
+        inline: true,
+        dateFormat: 'Y-m-d',
+        defaultDate: currentSelectedDate || null,
+        onDayCreate: function(dObj, dStr, fp, dayElem) {
+            const year = dayElem.dateObj.getFullYear();
+            const month = String(dayElem.dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dayElem.dateObj.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            
+            if (workoutDates.includes(dateStr)) {
+                dayElem.style.backgroundColor = '#e0e0e0';
+                dayElem.style.borderRadius = '4px';
+                dayElem.style.color = '#333';
+            }
+        },
+        onChange: function(selectedDates, dateStr) {
+            if (dateStr) {
+                onSelectCallback(dateStr);
+                destroyDateCalendar();
+            }
+        }
+    });
+    
+    dropdown.find('.calendar-clear-btn').on('click', () => {
+        onSelectCallback(null);
+        destroyDateCalendar();
+    });
+    
+    $(document).on('click.calendarDropdown', (e) => {
+        if (!$(e.target).closest('.calendar-dropdown, .filter-btn').length) {
+            destroyDateCalendar();
+            $(document).off('click.calendarDropdown');
+        }
+    });
 };
