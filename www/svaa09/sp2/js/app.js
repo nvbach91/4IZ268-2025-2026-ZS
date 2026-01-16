@@ -11,7 +11,8 @@ const state = {
     cache: new Map(),
     removedFromFavorites: [],
     collectionFilter: 'all',
-    collectionSort: 'a-z'
+    collectionSort: 'a-z',
+    selectedLanguage: 'EN' // výchozí jazyk
 };
 
 // HTML elementy pro manipulaci, volají se až po renderu
@@ -42,49 +43,65 @@ const saveFavorites = () => {
     localStorage.setItem('cocktail_favorites', JSON.stringify(state.favorites));
 };
 
+
 // Přidá nebo odebere drink z oblíbených
-const toggleFavorite = (id, event) => {
+const toggleFavorite = (drink, event) => {
     if (event) event.stopPropagation();
 
-    // Odebrání drinku, pokud už je v oblíbených
-    if (state.favorites.includes(id)) {
-        // Filtrace seznamu, tak aby zůstalo vše kromě ID
-        state.favorites = state.favorites.filter(fav => fav !== id);
-        if (state.currentView === 'favorites' && !state.removedFromFavorites.includes(id)) {
-            state.removedFromFavorites.push(id);
+    // Získání dat drinku z různých možných zdrojů
+    const drinkData = typeof drink === 'object' ? drink :
+    // Nejprve z výsledků hledání, pak z cache
+        state.searchResults?.find(d => d.idDrink === drink) ||
+        state.cache.get(`lookup.php?i=${drink}`)?.drinks?.[0];
+    if (!drinkData) return;
+
+    // Kontrola jestli už drink je v oblíbených
+    const id = drinkData.idDrink;
+    // Najdu index drinku v oblíbených
+    const index = state.favorites.findIndex(fav => fav.idDrink === id);
+
+    // Pokud je v oblíbených, odeberu ho, jinak přidám 
+    if (index > -1) {
+        // Odebrání drinku z oblíbených
+        state.favorites.splice(index, 1);
+        if (state.currentView === 'favorites' && !state.removedFromFavorites.find(f => f.idDrink === id)) {
+            state.removedFromFavorites.push({
+                idDrink: drinkData.idDrink,
+                strDrink: drinkData.strDrink,
+                strCategory: drinkData.strCategory,
+                strDrinkThumb: drinkData.strDrinkThumb
+            });
         }
     } else {
-        // Přidání drinku do oblíbených, pokud tam není
-        state.favorites.push(id);
-        state.removedFromFavorites = state.removedFromFavorites.filter(fav => fav !== id);
+        // Přidání drinku do oblíbených
+        state.favorites.push({
+            idDrink: drinkData.idDrink,
+            strDrink: drinkData.strDrink,
+            strCategory: drinkData.strCategory,
+            strDrinkThumb: drinkData.strDrinkThumb
+        });
+        state.removedFromFavorites = state.removedFromFavorites.filter(fav => fav.idDrink !== id);
     }
-    // Aktualizuje seznam v LocalStorage
+
     saveFavorites();
-    // Překreslí UI - změní srdíčko
     render();
 };
 
 // Kontrola jestli je drink v oblíbených
-const isFavorite = (id) => state.favorites.includes(id);
+const isFavorite = (id) => state.favorites.some(fav => fav.idDrink === id);
 
 // Main funkce pro stahování dat
-// async -> fce běží asynchronně, await -> počká na výsledek (odpověď serveru)
 const fetchApi = async (endpoint) => {
-    // Kontrola cache - pokud už mám data v cache, vrátím je
     if (state.cache.has(endpoint)) {
         return state.cache.get(endpoint);
     }
 
-    // Stažení dat
     try {
         const res = await fetch(`${API_BASE}${endpoint}`);
-        // Převod odpovědi na JSON
         const data = await res.json();
-        // Uložení do cache
         state.cache.set(endpoint, data);
         return data;
     } catch (error) {
-        // Pokud nastane chyba, vypíše ji do konzole
         console.error("API Error:", error);
         return null;
     }
@@ -206,11 +223,11 @@ const Header = () => `
             </div>
         </div>
     </header>
-`;
+`
 
 // Karta drinku
 const CocktailCard = (drink) => `
-    <div class="group bg-white rounded-xl p-4 border border-gray-100 hover:shadow-lg transition-all cursor-pointer animate-fade-in" data-drink-id="${drink.idDrink}">
+    <div class="group bg-white rounded-xl p-4 border border-gray-100 hover:shadow-lg transition-all cursor-pointer" data-drink-id="${drink.idDrink}">
         <div class="aspect-square overflow-hidden rounded-lg bg-gray-50 mb-4 relative">
             <img src="${drink.strDrinkThumb}/preview" alt="${drink.strDrink}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
             <button class="favorite-btn absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm flex items-center justify-center hover:bg-white transition-colors" data-drink-id="${drink.idDrink}">
@@ -226,8 +243,24 @@ const CocktailCard = (drink) => `
 const DetailView = (drink) => {
     const ingredients = formatIngredients(drink);
 
+    // Definice podporovaných jazyků
+    const languages = [
+        { code: 'EN', label: 'EN', key: 'strInstructions' },
+        { code: 'DE', label: 'DE', key: 'strInstructionsDE' },
+        { code: 'ES', label: 'ES', key: 'strInstructionsES' },
+        { code: 'FR', label: 'FR', key: 'strInstructionsFR' },
+        { code: 'IT', label: 'IT', key: 'strInstructionsIT' }
+    ]
+
+    // Hledání dostupných jazyků pro instrukce
+    const availableLanguages = languages.filter(lang => drink[lang.key] && drink[lang.key].trim() !== "");
+    // Výběr aktuálního jazyka
+    const currentLangObj = availableLanguages.find(l => l.code === state.selectedLanguage) || availableLanguages[0];
+    // Získání instrukcí v aktuálním jazyce
+    const instructionText = drink[currentLangObj.key];
+
     return `
-    <div class="animate-fade-in max-w-4xl mx-auto px-4 pb-12">
+    <div class="max-w-4xl mx-auto px-4 pb-12">
         <button id="back-btn" class="mb-6 text-sm text-gray-500 hover:text-black transition-colors flex items-center gap-2">
             <i class="fa-solid fa-arrow-left"></i> Back
         </button>
@@ -258,8 +291,15 @@ const DetailView = (drink) => {
                     </div>
                     
                     <div>
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3">Instructions</h3>
-                        <p class="text-gray-600 leading-relaxed font-light">${drink.strInstructions}</p>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3">Instructions</h3>                
+                        <div class="flex gap-2 mb-3">
+                            ${availableLanguages.map(lang => `
+                                <button class="lang-btn px-2 py-1 text-[10px] font-bold border rounded transition-all ${state.selectedLanguage === lang.code ? 'bg-black text-white border-black' : 'bg-white text-gray-400 border-gray-200 hover:border-gray-400'}" data-lang="${lang.code}">
+                                    ${lang.label}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <p class="text-gray-600 leading-relaxed font-light">${instructionText}</p>
                     </div>
                 </div>
             </div>
@@ -284,18 +324,10 @@ const CollectionStats = (drinks) => {
     const totalCount = drinks.length;
     // Počet unikátních kategorií
     const categories = [...new Set(drinks.map(d => d.strCategory))].length;
-    // Průměrný počet ingrediencí na drink
-    const avgIngredients = Math.round(drinks.reduce((sum, drink) => {
-        let count = 0;
-        for (let i = 1; i <= 15; i++) {
-            if (drink[`strIngredient${i}`]) count++;
-        }
-        return sum + count;
-    }, 0) / drinks.length) || 0;
 
     // Vykreslení statistik
     return `
-        <div class="grid grid-cols-3 gap-4 mb-6 px-4">
+        <div class="grid grid-cols-2 gap-4 mb-6 px-4">
             <div class="bg-gray-50 rounded-lg p-4 text-center">
                 <p class="text-2xl font-bold text-gray-900">${totalCount}</p>
                 <p class="text-xs text-gray-500">Total Favorites</p>
@@ -303,10 +335,6 @@ const CollectionStats = (drinks) => {
             <div class="bg-gray-50 rounded-lg p-4 text-center">
                 <p class="text-2xl font-bold text-gray-900">${categories}</p>
                 <p class="text-xs text-gray-500">Categories</p>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-4 text-center">
-                <p class="text-2xl font-bold text-gray-900">${avgIngredients}</p>
-                <p class="text-xs text-gray-500">Avg. Ingredients</p>
             </div>
         </div>
     `;
@@ -336,10 +364,11 @@ const CollectionControls = (drinks) => {
                 ${state.collectionSort === 'a-z' ? 'A-Z' : 'Z-A'}
             </button>
         </div>
+
     `;
 };
 
-// Hlavní renderovací funkce TODO
+// Hlavní render funkce
 const render = async () => {
     const hash = window.location.hash;
 
@@ -365,8 +394,8 @@ const render = async () => {
             content += EmptyState();
         }
 
+    // Detail drinku
     } else if (hash.startsWith('#details/')) {
-        // Detail drinku
         state.currentView = 'details';
         state.removedFromFavorites = [];
         const id = hash.split('/')[1]; // Získání ID z konce URL
@@ -376,32 +405,29 @@ const render = async () => {
         } else {
             content += EmptyState("Cocktail not found.");
         }
+
     } else if (hash === '#favorites') {
         // Oblíbené drinky
         state.currentView = 'favorites';
-        const displayIds = [...new Set([...state.favorites, ...state.removedFromFavorites])];
+        const allFavs = [...state.favorites, ...state.removedFromFavorites];
+        const uniqueFavs = allFavs.filter((fav, index, self) =>
+            index === self.findIndex(f => f.idDrink === fav.idDrink)
+        );
 
         // Prázdný stav
-        if (displayIds.length === 0) {
-            content += EmptyState("You haven't saved any cocktails yet.");        
+        if (uniqueFavs.length === 0) {
+            content += EmptyState("You haven't saved any cocktails yet.");
         } else {
             content += `<div class="p-6"><h2 class="text-2xl font-light mb-8 text-center">Your Collection</h2>`;
 
-            // Stažení dat pro všechny oblíbené drinky
-            let favDrinks = [];
-            for (const id of displayIds) {
-                const drink = await getCocktailById(id);
-                if (drink) favDrinks.push(drink);
-            }
-
             // Vložení statistik a ovládacích prvků
-            content += CollectionStats(favDrinks);
-            content += CollectionControls(favDrinks);
+            content += CollectionStats(uniqueFavs);
+            content += CollectionControls(uniqueFavs);
 
             // Logika filtrování podle kategorie
-            let filteredDrinks = favDrinks;
+            let filteredDrinks = uniqueFavs;
             if (state.collectionFilter !== 'all') {
-                filteredDrinks = favDrinks.filter(d => d.strCategory === state.collectionFilter);
+                filteredDrinks = uniqueFavs.filter(d => d.strCategory === state.collectionFilter);
             }
 
             // Logika řazení abecedně
@@ -438,15 +464,57 @@ const render = async () => {
         searchInput.focus();
     }
 
+    // Event listenery pro jazykové tlačítka (musí být až PO vyrenderování do DOMu)
+    if (hash.startsWith('#details/')) {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                state.selectedLanguage = e.target.dataset.lang;
+            });
+        });
+    }
+
+    // Detail view - přepínání jazyka instrukcí
+    if (hash.startsWith('#details/')) {
+        const drinkId = hash.split('/')[1];
+        const drink = await getCocktailById(drinkId);
+    
+        // Definice podporovaných jazyků
+        const languages = [
+            { code: 'EN', key: 'strInstructions' },
+            { code: 'DE', key: 'strInstructionsDE' },
+            { code: 'ES', key: 'strInstructionsES' },
+            { code: 'FR', key: 'strInstructionsFR' },
+            { code: 'IT', key: 'strInstructionsIT' }
+        ];
+        
+        // Připojení event listenerů k buttonům
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            // Při kliknutí na tlačítko jazyka
+            btn.addEventListener('click', (e) => {            
+                state.selectedLanguage = e.target.dataset.lang;
+                
+                // Aktualizace instrukcí podle vybraného jazyka
+                const langObj = languages.find(l => l.code === state.selectedLanguage);
+                // Pokud není dostupný, použije se EN
+                document.querySelector('.text-gray-600.leading-relaxed').textContent = drink[langObj.key];
+                
+                // Aktualizace stavů tlačítek
+                document.querySelectorAll('.lang-btn').forEach(b => {                
+                    b.className = b.dataset.lang === state.selectedLanguage
+                        ? 'lang-btn px-2 py-1 text-[10px] font-bold border rounded transition-all bg-black text-white border-black'
+                        : 'lang-btn px-2 py-1 text-[10px] font-bold border rounded transition-all bg-white text-gray-400 border-gray-200 hover:border-gray-400';
+                });
+            });
+        });
+    }
+    
     attachEventListeners();
 };
 
 // Připojení interakcí k DOM elementům -> Odstranění inline javascriptu
-const attachEventListeners = () => {
+const attachEventListeners = () => { // Tip do budoucna -> Odstranit funkci a rozdělit do jednotlivých částí
     // Získání referencí na prvky
-    const searchInput = document.getElementById('search-input');
-    const searchBtn = document.getElementById('search-btn');
-    const favoritesBtn = document.getElementById('favorites-btn');
+    
     const homeTitle = document.getElementById('home-title');
     const backBtn = document.getElementById('back-btn');
     const filterType = document.getElementById('filter-type');
