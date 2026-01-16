@@ -13,7 +13,7 @@ const BookBuddyAPI = (() => {
 
       const data = await response.json();
       if (!data.items) return { items: [], totalItems: 0 };
-
+      console.log(data);
       const books = data.items.map(item => ({
         id: item.id,
         title: item.volumeInfo.title || 'Unknown Title',
@@ -22,7 +22,8 @@ const BookBuddyAPI = (() => {
         description: item.volumeInfo.description || 'No description available.',
         thumbnail: item.volumeInfo.imageLinks?.thumbnail || './assets/images/no-cover.png',
         publishedDate: item.volumeInfo.publishedDate || 'N/A',
-        infoLink: item.volumeInfo.infoLink || '#'
+        infoLink: item.volumeInfo.infoLink || '#',
+        categories: item.volumeInfo.categories || []
       }));
 
       return { items: books, totalItems: data.totalItems || 0 };
