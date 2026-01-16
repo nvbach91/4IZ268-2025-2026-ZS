@@ -1,8 +1,25 @@
 import { searchResults, toast, workoutList } from './elements.js';
 
+const WGER_BASE_URL = 'https://wger.de';
+
+const sanitizeHtml = (str) => {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+};
+
 const MUSCLE_GROUPS = [
     'Arms', 'Back', 'Chest', 'Legs', 'Shoulders', 'Abs', 'Calves', 'Cardio', 'Other'
 ];
+
+const getFullImageUrl = (imagePath) => {
+    if (!imagePath) return null;
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+        return imagePath;
+    }
+    return `${WGER_BASE_URL}${imagePath}`;
+};
 
 export const renderSearchResults = (suggestions, onSelectCallback) => {
     searchResults.empty();
@@ -13,14 +30,28 @@ export const renderSearchResults = (suggestions, onSelectCallback) => {
         return;
     }
     
+    const fragment = $(document.createDocumentFragment());
+    
     suggestions.forEach((suggestion) => {
         const { value, data } = suggestion;
         const { id, name, category, image, image_thumbnail } = data;
         
+        const safeName = sanitizeHtml(name);
+        const safeCategory = sanitizeHtml(category) || 'Uncategorized';
+        
+        const imageSrc = getFullImageUrl(image_thumbnail) || getFullImageUrl(image);
+        const imageHtml = imageSrc 
+            ? `<img class="result-image" src="${imageSrc}" alt="${safeName}" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+               <div class="result-image-placeholder hidden"><span>No Image</span></div>`
+            : `<div class="result-image-placeholder"><span>No Image</span></div>`;
+        
         const resultItem = $(`
             <div class="search-result-item" data-id="${id}">
-                <div class="result-name">${name}</div>
-                <div class="result-category">${category || 'Uncategorized'}</div>
+                ${imageHtml}
+                <div class="result-content">
+                    <div class="result-name">${safeName}</div>
+                    <div class="result-category">${safeCategory}</div>
+                </div>
             </div>
         `);
         
@@ -31,9 +62,10 @@ export const renderSearchResults = (suggestions, onSelectCallback) => {
             hideSearchResults();
         });
         
-        searchResults.append(resultItem);
+        fragment.append(resultItem);
     });
     
+    searchResults.append(fragment);
     searchResults.addClass('active');
 };
 
@@ -69,22 +101,27 @@ export const getUniqueMuscleGroups = (workouts) => {
 export const renderFilterDropdown = (items, onSelectCallback, formatFn = (item) => item) => {
     const dropdown = $('<div class="filter-dropdown"></div>');
     
+    const fragment = $(document.createDocumentFragment());
+    
     const allOption = $('<div class="filter-option" data-value="">All</div>');
     allOption.on('click', () => {
         onSelectCallback(null);
         dropdown.remove();
     });
-    dropdown.append(allOption);
+    fragment.append(allOption);
     
     items.forEach(item => {
-        const option = $(`<div class="filter-option" data-value="${item}">${formatFn(item)}</div>`);
+        const safeItem = sanitizeHtml(item);
+        const safeFormatted = sanitizeHtml(formatFn(item));
+        const option = $(`<div class="filter-option" data-value="${safeItem}">${safeFormatted}</div>`);
         option.on('click', () => {
             onSelectCallback(item);
             dropdown.remove();
         });
-        dropdown.append(option);
+        fragment.append(option);
     });
     
+    dropdown.append(fragment);
     return dropdown;
 };
 
@@ -95,19 +132,48 @@ export const renderSearchLoading = () => {
 };
 
 export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = false) => {
-    const { id, name, category, sets: existingSets, date: existingDate, muscleGroup: existingMuscle, note: existingNote } = exerciseData;
+    const { id, name, category, sets: existingSets, date: existingDate, muscleGroups: existingMuscles, muscleGroup: legacyMuscle, note: existingNote, image, image_thumbnail } = exerciseData;
     
     const defaultDate = existingDate || moment().format('YYYY-MM-DD');
-    const defaultMuscle = existingMuscle || category || 'Other';
+    let defaultMuscles = existingMuscles || [];
+    if (defaultMuscles.length === 0 && legacyMuscle) {
+        defaultMuscles = [legacyMuscle];
+    }
+    if (defaultMuscles.length === 0 && category) {
+        const categoryMapping = {
+            'Arms': 'Arms',
+            'Back': 'Back',
+            'Chest': 'Chest',
+            'Legs': 'Legs',
+            'Shoulders': 'Shoulders',
+            'Abs': 'Abs',
+            'Calves': 'Calves',
+            'Cardio': 'Cardio'
+        };
+        const mappedCategory = categoryMapping[category] || category;
+        if (MUSCLE_GROUPS.includes(mappedCategory)) {
+            defaultMuscles = [mappedCategory];
+        } else if (MUSCLE_GROUPS.includes(category)) {
+            defaultMuscles = [category];
+        }
+    }
     const defaultSets = existingSets || [{ reps: '', weight: '' }];
     const defaultNote = existingNote || '';
+    const exerciseImage = getFullImageUrl(image_thumbnail) || getFullImageUrl(image);
+    
+    const safeName = sanitizeHtml(name);
+    const safeNote = sanitizeHtml(defaultNote);
     
     $('.modal-overlay').remove();
     
     const setsHtml = defaultSets.map((set, index) => createSetRowHtml(index + 1, set.reps, set.weight)).join('');
     
     const muscleOptions = MUSCLE_GROUPS.map(muscle => 
-        `<option value="${muscle}" ${muscle === defaultMuscle ? 'selected' : ''}>${muscle}</option>`
+        `<option value="${muscle}">${muscle}</option>`
+    ).join('');
+    
+    const selectedMusclesHtml = defaultMuscles.map(muscle => 
+        createMuscleTagHtml(muscle)
     ).join('');
     
     const modal = $(`
@@ -119,21 +185,31 @@ export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = fals
                 </div>
                 <form class="exercise-form" id="exerciseForm">
                     <div class="form-group">
-                        <label class="form-label">Exercise Name</label>
-                        <input type="text" class="form-input" name="exerciseName" value="${name}" readonly>
+                        <label class="form-label">Exercise Name <span class="required-mark">*</span></label>
+                        <input type="text" class="form-input" name="exerciseName" value="${safeName}" readonly required>
+                        <input type="hidden" name="exerciseImage" value="${exerciseImage || ''}">
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label class="form-label">Date</label>
+                            <label class="form-label">Date <span class="required-mark">*</span></label>
                             <input type="date" class="form-input" name="date" value="${defaultDate}" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Muscle Group</label>
-                            <select class="form-input" name="muscleGroup" required>
+                            <label class="form-label">Add Muscle Group</label>
+                            <select class="form-input" id="muscleGroupSelect">
+                                <option value="">Select...</option>
                                 ${muscleOptions}
                             </select>
                         </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Selected Muscle Groups <span class="required-mark">*</span></label>
+                        <div class="muscle-tags-container" id="muscleTagsContainer">
+                            ${selectedMusclesHtml}
+                        </div>
+                        <p class="form-hint">At least one muscle group is required</p>
                     </div>
                     
                     <div class="sets-section">
@@ -148,7 +224,7 @@ export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = fals
                     
                     <div class="form-group">
                         <label class="form-label">Note (optional)</label>
-                        <textarea class="form-input form-textarea" name="note" placeholder="Add a short note..." rows="2">${defaultNote}</textarea>
+                        <textarea class="form-input form-textarea" name="note" placeholder="Add a short note..." rows="2">${safeNote}</textarea>
                     </div>
                     
                     <div class="form-actions">
@@ -183,6 +259,28 @@ export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = fals
         }
     });
     
+    modal.find('#muscleGroupSelect').on('change', function() {
+        const selectedMuscle = $(this).val();
+        if (!selectedMuscle) return;
+        
+        const existingTags = modal.find('.muscle-tag').map(function() {
+            return $(this).data('muscle');
+        }).get();
+        
+        if (existingTags.includes(selectedMuscle)) {
+            displayError('This muscle group is already added');
+            $(this).val('');
+            return;
+        }
+        
+        const tagHtml = createMuscleTagHtml(selectedMuscle);
+        modal.find('#muscleTagsContainer').append(tagHtml);
+        attachRemoveMuscleTagHandler(modal);
+        $(this).val('');
+    });
+    
+    attachRemoveMuscleTagHandler(modal);
+    
     modal.find('#exerciseForm').on('submit', (e) => {
         e.preventDefault();
         
@@ -208,19 +306,51 @@ export const renderExerciseForm = (exerciseData, onSubmitCallback, isEdit = fals
             return;
         }
         
+        const muscleGroups = modal.find('.muscle-tag').map(function() {
+            return $(this).data('muscle');
+        }).get();
+        
+        if (muscleGroups.length === 0) {
+            displayError('Please select at least one muscle group');
+            return;
+        }
+        
         const workoutData = {
             exerciseId: id,
             name: formData.get('exerciseName'),
             date: formData.get('date'),
-            muscleGroup: formData.get('muscleGroup'),
+            muscleGroups: muscleGroups,
+            muscleGroup: muscleGroups[0],
             sets: sets,
-            note: formData.get('note')?.trim() || ''
+            note: formData.get('note')?.trim() || '',
+            image: formData.get('exerciseImage') || null
         };
         
         modal.remove();
         
         if (onSubmitCallback) {
             onSubmitCallback(workoutData);
+        }
+    });
+};
+
+const createMuscleTagHtml = (muscle) => {
+    const safeMuscle = sanitizeHtml(muscle);
+    return `
+        <span class="muscle-tag" data-muscle="${safeMuscle}">
+            ${safeMuscle}
+            <button type="button" class="remove-muscle-tag" title="Remove">&times;</button>
+        </span>
+    `;
+};
+
+const attachRemoveMuscleTagHandler = (modal) => {
+    modal.find('.remove-muscle-tag').off('click').on('click', function() {
+        const tags = modal.find('.muscle-tag');
+        if (tags.length > 1) {
+            $(this).closest('.muscle-tag').remove();
+        } else {
+            displayError('At least one muscle group is required');
         }
     });
 };
@@ -243,7 +373,6 @@ const attachRemoveSetHandler = (modal) => {
         const setRows = modal.find('.set-row');
         if (setRows.length > 1) {
             $(this).closest('.set-row').remove();
-            // Renumber sets
             modal.find('.set-row').each(function(index) {
                 $(this).find('.set-number').text(index + 1);
             });
@@ -253,7 +382,12 @@ const attachRemoveSetHandler = (modal) => {
     });
 };
 
-export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, filters = {}) => {
+const PAGINATION = {
+    MAX_DAYS_PER_PAGE: 3,
+    MAX_EXERCISES_PER_PAGE: 5
+};
+
+export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, filters = {}, currentPage = 1, onPageChange = null) => {
     workoutList.empty();
     
     if (!workouts || workouts.length === 0) {
@@ -283,7 +417,7 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
                 <p class="empty-hint">Try adjusting your filter criteria</p>
             </div>
         `);
-        return;
+        return { totalPages: 0, currentPage: 1 };
     }
     
     const groupedWorkouts = {};
@@ -299,8 +433,13 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
         return moment(b, 'YYYY-MM-DD').diff(moment(a, 'YYYY-MM-DD'));
     });
     
-    sortedDates.forEach(date => {
-        const dateWorkouts = groupedWorkouts[date];
+    const paginatedData = paginateWorkouts(sortedDates, groupedWorkouts, currentPage);
+    const { pageDates, pageWorkouts, totalPages, totalExercises } = paginatedData;
+    
+    const mainFragment = $(document.createDocumentFragment());
+    
+    pageDates.forEach(date => {
+        const dateWorkouts = pageWorkouts[date];
         const formattedDate = moment(date, 'YYYY-MM-DD').format('dddd, MMMM D, YYYY');
         const isToday = moment(date, 'YYYY-MM-DD').isSame(moment(), 'day');
         const dateLabel = isToday ? 'Today' : formattedDate;
@@ -313,6 +452,7 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
         `);
         
         const cardsContainer = dateGroup.find('.workout-cards');
+        const cardsFragment = $(document.createDocumentFragment());
         
         dateWorkouts.forEach(workout => {
             const sets = Array.isArray(workout.sets) ? workout.sets : [];
@@ -321,14 +461,29 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
                 `<span class="set-badge">${set.reps}×${set.weight}kg</span>`
             ).join('');
             
-            const noteHtml = workout.note ? `<div class="workout-note">${workout.note}</div>` : '';
+            const safeNote = sanitizeHtml(workout.note);
+            const safeName = sanitizeHtml(workout.name);
+            const noteHtml = safeNote ? `<div class="workout-note">${safeNote}</div>` : '';
+            const workoutImageSrc = getFullImageUrl(workout.image);
+            const workoutImageHtml = workoutImageSrc 
+                ? `<div class="workout-image">
+                    <img src="${workoutImageSrc}" alt="${safeName}" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                    <div class="workout-image-placeholder hidden"><span>N/A</span></div>
+                   </div>`
+                : `<div class="workout-image"><div class="workout-image-placeholder"><span>N/A</span></div></div>`;
+            
+            const muscleGroupsArray = workout.muscleGroups || (workout.muscleGroup ? [workout.muscleGroup] : []);
+            const muscleGroupsHtml = muscleGroupsArray.map(mg => 
+                `<span class="workout-muscle">${sanitizeHtml(mg)}</span>`
+            ).join('');
             
             const workoutCard = $(`
                 <div class="workout-card" data-id="${workout.id}">
                     <div class="workout-card-header">
+                        ${workoutImageHtml}
                         <div class="workout-info">
-                            <h4 class="workout-name">${workout.name}</h4>
-                            <span class="workout-muscle">${workout.muscleGroup}</span>
+                            <h4 class="workout-name">${safeName}</h4>
+                            <div class="workout-muscles">${muscleGroupsHtml}</div>
                         </div>
                         <div class="workout-actions">
                             <button class="action-btn edit-btn" title="Edit"><img src="assets/img/edit.png" alt="Edit"></button>
@@ -346,23 +501,192 @@ export const renderWorkoutList = (workouts, onEditCallback, onDeleteCallback, fi
                 </div>
             `);
             
-            // Edit handler
             workoutCard.find('.edit-btn').on('click', () => {
                 if (onEditCallback) {
                     onEditCallback(workout.id);
                 }
             });
             
-            // Delete handler
             workoutCard.find('.delete-btn').on('click', () => {
                 if (onDeleteCallback) {
                     onDeleteCallback(workout.id);
                 }
             });
             
-            cardsContainer.append(workoutCard);
+            cardsFragment.append(workoutCard);
         });
         
-        workoutList.append(dateGroup);
+        cardsContainer.append(cardsFragment);
+        mainFragment.append(dateGroup);
     });
+    
+    workoutList.append(mainFragment);
+    
+    if (totalPages > 1 && onPageChange) {
+        const paginationHtml = renderPaginationControls(currentPage, totalPages, totalExercises);
+        workoutList.append(paginationHtml);
+        
+        workoutList.find('.pagination-btn').on('click', function() {
+            const page = $(this).data('page');
+            if (page && page !== currentPage) {
+                onPageChange(page);
+            }
+        });
+    }
+    
+    return { totalPages, currentPage };
+};
+
+const paginateWorkouts = (sortedDates, groupedWorkouts, currentPage) => {
+    const pages = [];
+    let currentPageData = { dates: [], workouts: {}, exerciseCount: 0 };
+    
+    for (const date of sortedDates) {
+        const dateWorkouts = groupedWorkouts[date];
+        
+        const wouldExceedDays = currentPageData.dates.length >= PAGINATION.MAX_DAYS_PER_PAGE;
+        const wouldExceedExercises = currentPageData.exerciseCount + dateWorkouts.length > PAGINATION.MAX_EXERCISES_PER_PAGE;
+        
+        if (currentPageData.dates.length > 0 && (wouldExceedDays || wouldExceedExercises)) {
+            pages.push(currentPageData);
+            currentPageData = { dates: [], workouts: {}, exerciseCount: 0 };
+        }
+        
+        currentPageData.dates.push(date);
+        currentPageData.workouts[date] = dateWorkouts;
+        currentPageData.exerciseCount += dateWorkouts.length;
+    }
+    
+    if (currentPageData.dates.length > 0) {
+        pages.push(currentPageData);
+    }
+    
+    const totalPages = pages.length;
+    const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+    const pageData = pages[safeCurrentPage - 1] || { dates: [], workouts: {}, exerciseCount: 0 };
+    
+    let totalExercises = 0;
+    for (const date of sortedDates) {
+        totalExercises += groupedWorkouts[date].length;
+    }
+    
+    return {
+        pageDates: pageData.dates,
+        pageWorkouts: pageData.workouts,
+        totalPages,
+        currentPage: safeCurrentPage,
+        totalExercises
+    };
+};
+
+export const findPageForDate = (workouts, targetDate, filters = {}) => {
+    if (!workouts || workouts.length === 0) return 1;
+    
+    let filteredWorkouts = [...workouts];
+    
+    if (filters.date) {
+        filteredWorkouts = filteredWorkouts.filter(w => w.date === filters.date);
+    }
+    
+    if (filters.muscleGroup) {
+        filteredWorkouts = filteredWorkouts.filter(w => w.muscleGroup === filters.muscleGroup);
+    }
+    
+    if (filteredWorkouts.length === 0) return 1;
+    
+    const groupedWorkouts = {};
+    filteredWorkouts.forEach(workout => {
+        const date = workout.date;
+        if (!groupedWorkouts[date]) {
+            groupedWorkouts[date] = [];
+        }
+        groupedWorkouts[date].push(workout);
+    });
+    
+    const sortedDates = Object.keys(groupedWorkouts).sort((a, b) => {
+        return moment(b, 'YYYY-MM-DD').diff(moment(a, 'YYYY-MM-DD'));
+    });
+    
+    let pageNumber = 1;
+    let currentPageData = { dates: [], exerciseCount: 0 };
+    
+    for (const date of sortedDates) {
+        const dateWorkouts = groupedWorkouts[date];
+        
+        const wouldExceedDays = currentPageData.dates.length >= PAGINATION.MAX_DAYS_PER_PAGE;
+        const wouldExceedExercises = currentPageData.exerciseCount + dateWorkouts.length > PAGINATION.MAX_EXERCISES_PER_PAGE;
+        
+        if (currentPageData.dates.length > 0 && (wouldExceedDays || wouldExceedExercises)) {
+            pageNumber++;
+            currentPageData = { dates: [], exerciseCount: 0 };
+        }
+        
+        currentPageData.dates.push(date);
+        currentPageData.exerciseCount += dateWorkouts.length;
+        
+        if (date === targetDate) {
+            return pageNumber;
+        }
+    }
+    
+    return 1;
+};
+
+const renderPaginationControls = (currentPage, totalPages, totalExercises) => {
+    let paginationButtons = '';
+    
+    paginationButtons += `
+        <button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                data-page="${currentPage - 1}" 
+                ${currentPage === 1 ? 'disabled' : ''}>
+            ← Prev
+        </button>
+    `;
+    
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    if (startPage > 1) {
+        paginationButtons += `<button class="pagination-btn" data-page="1">1</button>`;
+        if (startPage > 2) {
+            paginationButtons += `<span class="pagination-ellipsis">...</span>`;
+        }
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        paginationButtons += `
+            <button class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">
+                ${i}
+            </button>
+        `;
+    }
+    
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationButtons += `<span class="pagination-ellipsis">...</span>`;
+        }
+        paginationButtons += `<button class="pagination-btn" data-page="${totalPages}">${totalPages}</button>`;
+    }
+    
+    paginationButtons += `
+        <button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                data-page="${currentPage + 1}"
+                ${currentPage === totalPages ? 'disabled' : ''}>
+            Next →
+        </button>
+    `;
+    
+    return $(`
+        <div class="pagination-container">
+            <div class="pagination-info">${totalExercises} exercises total</div>
+            <div class="pagination-controls">
+                ${paginationButtons}
+            </div>
+        </div>
+    `);
 };

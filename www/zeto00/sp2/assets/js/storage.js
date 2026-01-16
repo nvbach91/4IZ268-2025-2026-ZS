@@ -55,7 +55,6 @@ export const getWorkoutsGroupedByDate = () => {
         grouped[date].push(workout);
     });
     
-    // Sort dates in descending order (newest first)
     const sortedDates = Object.keys(grouped).sort((a, b) => {
         return moment(b, 'YYYY-MM-DD').diff(moment(a, 'YYYY-MM-DD'));
     });

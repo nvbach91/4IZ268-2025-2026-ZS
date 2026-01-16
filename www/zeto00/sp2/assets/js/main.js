@@ -9,7 +9,8 @@ import {
     renderWorkoutList,
     getUniqueDates,
     getUniqueMuscleGroups,
-    renderFilterDropdown
+    renderFilterDropdown,
+    findPageForDate
 } from './renders.js';
 import {
     getWorkouts,
@@ -26,8 +27,16 @@ let activeFilters = {
     muscleGroup: null
 };
 
+let currentPage = 1;
+
+const handlePageChange = (page) => {
+    currentPage = page;
+    refreshWorkoutList();
+    workoutList[0]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
 const refreshWorkoutList = () => {
-    renderWorkoutList(getWorkouts(), handleEditWorkout, handleDeleteWorkout, activeFilters);
+    renderWorkoutList(getWorkouts(), handleEditWorkout, handleDeleteWorkout, activeFilters, currentPage, handlePageChange);
 };
 
 $(document).ready(() => {
@@ -47,6 +56,7 @@ $(document).ready(() => {
         
         const dropdown = renderFilterDropdown(dates, (selectedDate) => {
             activeFilters.date = selectedDate;
+            currentPage = 1;
             dateFilterText.text(selectedDate ? moment(selectedDate, 'YYYY-MM-DD').format('MMM D, YYYY') : 'Date');
             dateFilterBtn.toggleClass('active', !!selectedDate);
             refreshWorkoutList();
@@ -69,6 +79,7 @@ $(document).ready(() => {
         
         const dropdown = renderFilterDropdown(muscles, (selectedMuscle) => {
             activeFilters.muscleGroup = selectedMuscle;
+            currentPage = 1;
             muscleFilterText.text(selectedMuscle || 'Muscle Group');
             muscleFilterBtn.toggleClass('active', !!selectedMuscle);
             refreshWorkoutList();
@@ -119,6 +130,9 @@ const handleExerciseSelect = (exerciseData) => {
 
 const handleFormSubmit = (workoutData) => {
     saveWorkout(workoutData);
+    const workouts = getWorkouts();
+    const targetPage = findPageForDate(workouts, workoutData.date, activeFilters);
+    currentPage = targetPage;
     refreshWorkoutList();
 };
 
@@ -135,10 +149,30 @@ const handleEditWorkout = (workoutId) => {
 };
 
 const handleDeleteWorkout = (workoutId) => {
-    if (confirm('Are you sure you want to delete this workout?')) {
-        deleteWorkout(workoutId);
-        refreshWorkoutList();
-    }
+    Swal.fire({
+        title: 'Delete Workout?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        width: '20em',
+        showCancelButton: true,
+        confirmButtonColor: '#e74c3c',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteWorkout(workoutId);
+            refreshWorkoutList();
+            Swal.fire({
+                title: 'Deleted!',
+                text: 'Your workout has been deleted.',
+                icon: 'success',
+                width: '18em',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    });
 };
 
 $(document).on('click', function(event) {
