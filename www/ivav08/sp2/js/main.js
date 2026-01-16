@@ -1,4 +1,4 @@
-import { fetchMemes } from './api.js';
+import { fetchMemes, searchMemes } from './api.js';
 import { loadImageForCanvas, drawMeme, downloadMeme, initCanvasDrag, textPositions } from './canvas.js';
 import { saveFavorite, getFavorites, removeFavorite, updateFavorite } from './storage.js';
 import { showSection, renderGallery, renderFavorites, toggleLoader, showToast } from './ui.js';
@@ -18,6 +18,14 @@ const textBottomInput = document.getElementById('text-bottom');
 const backButton = document.getElementById('back-btn');
 const favoriteBtn = document.getElementById('favorite-btn');
 const deleteBtn = document.getElementById('editor-delete-btn');
+const navGallery = document.getElementById('nav-gallery');
+const navFavorites = document.getElementById('nav-favorites');
+const downloadBtn = document.getElementById('download-btn');
+const pageGallery = document.getElementById('page-gallery');
+const pageFavorites = document.getElementById('page-favorites');
+const lastSavedDateContainer = document.getElementById('last-saved-date');
+const lastSavedDateValue = document.getElementById('date-value');
+const countElement = document.getElementById('fav-count');
 
 // --- ROUTING LOGIC ---
 
@@ -28,6 +36,59 @@ function updateURL(params) {
         url.searchParams.set(key, params[key]);
     }
     window.history.pushState({}, '', url);
+}
+
+function debounce(fn, delay) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => { fn(...args) }, delay);
+    };
+}
+
+function saveCurrentMeme() {
+    if (!currentMeme) return;
+
+    const now = new Date().toISOString();
+
+    const memeData = {
+        uniqueId: currentMeme.uniqueId || Date.now(),
+        id: currentMeme.id,
+        name: currentMeme.name,
+        url: currentMeme.url,
+        topText: textTopInput.value.toUpperCase(),
+        bottomText: textBottomInput.value.toUpperCase(),
+        text1_x: textPositions.top.x,
+        text1_y: textPositions.top.y,
+        text2_x: textPositions.bottom.x,
+        text2_y: textPositions.bottom.y,
+        createdAt: currentMeme.createdAt || now,
+        updatedAt: now
+    };
+
+    if (currentMeme.uniqueId) {
+        updateFavorite(memeData);
+        showToast('Meme updated!');
+    } else {
+        saveFavorite(memeData);
+        showToast('Saved to collection!');
+
+        if (countElement) countElement.textContent = getFavorites().length;
+
+        currentMeme = memeData;
+
+        const url = new URL(window.location);
+        url.searchParams.set('page', 'editor');
+        url.searchParams.set('id', memeData.uniqueId);
+        window.history.pushState({}, '', url);
+
+        updateEditorButtons();
+    }
+
+    lastSavedDateValue.textContent = new Date(now).toLocaleString();
+    lastSavedDateContainer.classList.remove('hidden');
+
+    hasUnsavedChanges = false;
 }
 
 function handleInitialRoute() {
@@ -59,7 +120,6 @@ window.addEventListener('popstate', () => {
 });
 
 // --- NAVIGATION FUNCTIONS ---
-
 function navigateToGallery(pushHistory = true) {
     if (pushHistory) updateURL({ page: 'gallery' });
 
@@ -85,12 +145,15 @@ function handleSafeNavigation(nextAction) {
             text: "You have unsaved edits. Are you sure you want to leave?",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#e74c3c',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, discard changes',
-            cancelButtonText: 'No, stay here'
+            confirmButtonColor: '#48b62dff',
+            cancelButtonColor: '#e74c3c',
+            confirmButtonText: 'Save & Leave',
+            cancelButtonText: 'Discard Changes'
         }).then((result) => {
             if (result.isConfirmed) {
+                saveCurrentMeme();
+                nextAction();
+            } else if (result.isCanceled) {
                 hasUnsavedChanges = false;
                 nextAction();
             }
@@ -145,6 +208,18 @@ function openEditorWithTemplate(meme, fromSection, pushHistory = true) {
     showSection('page-editor');
     updateEditorButtons();
 
+    if (meme.updatedAt) {
+        const dateObj = new Date(meme.updatedAt);
+        lastSavedDateValue.textContent = dateObj.toLocaleString(); // Покаже дату і час
+        lastSavedDateContainer.classList.remove('hidden');
+    } else if (meme.createdAt) {
+        const dateObj = new Date(meme.createdAt);
+        lastSavedDateValue.textContent = dateObj.toLocaleString();
+        lastSavedDateContainer.classList.remove('hidden');
+    } else {
+        lastSavedDateContainer.classList.add('hidden');
+    }
+
     let savedPositions = null;
     if (meme.text1_x !== undefined) {
         savedPositions = {
@@ -174,13 +249,7 @@ function updateEditorButtons() {
 
 function refreshFavoritesDisplay(filterText = '') {
     const favorites = getFavorites();
-    const query = filterText.toLowerCase();
-
-    const filtered = favorites.filter(m =>
-        m.name.toLowerCase().includes(query) ||
-        m.topText.toLowerCase().includes(query) ||
-        m.bottomText.toLowerCase().includes(query)
-    );
+    const filtered = searchMemes(favorites, filterText);
 
     renderFavorites(filtered, favoritesGrid,
         (meme) => handleSafeNavigation(() => openEditorWithTemplate(meme, 'page-favorites')),
@@ -190,11 +259,11 @@ function refreshFavoritesDisplay(filterText = '') {
 
 // --- EVENT LISTENERS ---
 
-document.getElementById('nav-gallery').addEventListener('click', () => {
+navGallery.addEventListener('click', () => {
     handleSafeNavigation(() => navigateToGallery());
 });
 
-document.getElementById('nav-favorites').addEventListener('click', () => {
+navFavorites.addEventListener('click', () => {
     handleSafeNavigation(() => navigateToFavorites());
 });
 
@@ -209,17 +278,21 @@ backButton.addEventListener('click', () => {
     });
 });
 
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
+searchInput.addEventListener('input', debounce((e) => {
+    const query = e.target.value;
 
-    if (!document.getElementById('page-gallery').classList.contains('hidden')) {
-        const filtered = allMemes.filter(meme => meme.name.toLowerCase().includes(query));
-        renderGallery(filtered, galleryGrid, (meme) => handleSafeNavigation(() => openEditorWithTemplate(meme, 'page-gallery')));
-    }
-    else if (!document.getElementById('page-favorites').classList.contains('hidden')) {
+    if (!pageGallery.classList.contains('hidden')) {
+        const filtered = searchMemes(allMemes, query);
+        renderGallery(filtered, galleryGrid, (meme) =>
+            handleSafeNavigation(() => openEditorWithTemplate(meme, 'page-gallery'))
+        );
+    } else if (!pageFavorites.classList.contains('hidden')) {
         refreshFavoritesDisplay(query);
     }
-});
+}, 400)
+);
+
+favoriteBtn.addEventListener('click', saveCurrentMeme);
 
 [textTopInput, textBottomInput].forEach(input => {
     input.addEventListener('input', () => {
@@ -228,7 +301,7 @@ searchInput.addEventListener('input', (e) => {
     });
 });
 
-document.getElementById('download-btn').addEventListener('click', () => {
+downloadBtn.addEventListener('click', () => {
     if (currentMeme) {
         const filename = `meme-${currentMeme.name.replace(/\s+/g, '-')}-${Date.now()}.png`;
         downloadMeme(canvas, filename);
@@ -236,42 +309,13 @@ document.getElementById('download-btn').addEventListener('click', () => {
     }
 });
 
-favoriteBtn.addEventListener('click', () => {
-    if (!currentMeme) return;
-
-    const memeData = {
-        uniqueId: currentMeme.uniqueId || Date.now(),
-        id: currentMeme.id,
-        name: currentMeme.name,
-        url: currentMeme.url,
-        topText: textTopInput.value.toUpperCase(),
-        bottomText: textBottomInput.value.toUpperCase(),
-        text1_x: textPositions.top.x,
-        text1_y: textPositions.top.y,
-        text2_x: textPositions.bottom.x,
-        text2_y: textPositions.bottom.y
-    };
-
-    if (currentMeme.uniqueId) {
-        updateFavorite(memeData);
-        showToast('Meme updated successfully!');
-    } else {
-        saveFavorite(memeData);
-        showToast('Saved to collection!');
-        currentMeme = memeData;
-
-        updateURL({ page: 'editor', id: memeData.uniqueId });
-        updateEditorButtons();
-    }
-
-    hasUnsavedChanges = false;
-});
-
 deleteBtn.addEventListener('click', () => {
     if (!currentMeme || !currentMeme.uniqueId) return;
 
     removeFavorite(currentMeme.uniqueId);
     showToast('Removed from collection');
+
+    if (countElement) countElement.textContent = getFavorites().length;
 
     delete currentMeme.uniqueId;
     hasUnsavedChanges = true;

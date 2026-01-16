@@ -26,7 +26,7 @@
             </div>
             <nav>
                 <button id="nav-gallery" class="active">Templates Gallery</button>
-                <button id="nav-favorites">My Favorites</button>
+                <button id="nav-favorites">My Favorites (<span id="fav-count">0</span>)</button>
             </nav>
         </div>
     </header>
@@ -51,6 +51,10 @@
                 <div class="controls-panel">
                     <h3>Edit Meme</h3>
 
+                    <p id="last-saved-date" class="date-info hidden">
+                        Last saved: <span id="date-value"></span>
+                    </p>
+
                     <div class="input-group">
                         <label for="text-top">Top Text</label>
                         <textarea id="text-top" rows="2" placeholder="Top text here..."></textarea>
@@ -73,7 +77,7 @@
         </section>
 
         <section id="page-favorites" class="hidden">
-            <h2>My Favorite Templates</h2>
+            <h2 class="intro">My Favorite Templates </h2>
             <div id="favorites-grid" class="grid-container"></div>
             <p id="no-favorites-msg" class="hidden">You haven't saved any templates yet.</p>
         </section>

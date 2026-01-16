@@ -6,19 +6,20 @@ export const textPositions = {
 };
 
 export function loadImageForCanvas(url, canvas, drawCallback) {
-    currentImageObject.crossOrigin = "anonymous"; 
+    currentImageObject = new Image();
+    currentImageObject.crossOrigin = "anonymous";
     currentImageObject.src = url;
 
     currentImageObject.onload = () => {
         canvas.width = currentImageObject.width;
         canvas.height = currentImageObject.height;
-        
+
         textPositions.top.x = canvas.width / 2;
-        textPositions.top.y = 40; 
+        textPositions.top.y = 40;
         textPositions.top.isDragging = false;
 
         textPositions.bottom.x = canvas.width / 2;
-        textPositions.bottom.y = canvas.height - 100; 
+        textPositions.bottom.y = canvas.height - 100;
         textPositions.bottom.isDragging = false;
 
         drawCallback();
@@ -48,15 +49,15 @@ export function drawMeme(canvas, ctx, topText, bottomText, customPositions = nul
         textPositions.bottom.y = customPositions.bottom.y;
     }
 
-    const fontSize = canvas.width / 10; 
-    const lineHeight = fontSize * 1.1; 
-    
+    const fontSize = canvas.width / 10;
+    const lineHeight = fontSize * 1.1;
+
     ctx.font = `${fontSize}px Impact, sans-serif`;
     ctx.fillStyle = 'white';
     ctx.strokeStyle = 'black';
     ctx.lineWidth = fontSize / 15;
     ctx.textAlign = 'center';
-    ctx.textBaseline = 'top'; 
+    ctx.textBaseline = 'top';
 
     if (topText) {
         drawTextLine(ctx, topText, textPositions.top.x, textPositions.top.y, canvas.width - 20, lineHeight);
@@ -80,7 +81,7 @@ function isMouseOverText(mouseX, mouseY, textX, textY, textContent, ctx, canvasW
     const fontSize = canvasWidth / 10;
     const lineHeight = fontSize * 1.1;
     const lines = textContent.split('\n');
-    
+
     let maxWidth = 0;
     lines.forEach(line => {
         const width = ctx.measureText(line).width;
@@ -118,13 +119,13 @@ export function initCanvasDrag(canvas, ctx, getTextsCallback, redrawCallback) {
     }
 
     canvas.addEventListener('mousedown', (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const pos = getMousePos(e);
         const { topText, bottomText } = getTextsCallback();
 
         if (isMouseOverText(pos.x, pos.y, textPositions.top.x, textPositions.top.y, topText, ctx, canvas.width)) {
             textPositions.top.isDragging = true;
-        } 
+        }
         else if (isMouseOverText(pos.x, pos.y, textPositions.bottom.x, textPositions.bottom.y, bottomText, ctx, canvas.width)) {
             textPositions.bottom.isDragging = true;
         }
@@ -135,7 +136,7 @@ export function initCanvasDrag(canvas, ctx, getTextsCallback, redrawCallback) {
 
     canvas.addEventListener('mousemove', (e) => {
         if (!textPositions.top.isDragging && !textPositions.bottom.isDragging) return;
-        
+
         e.preventDefault();
         const pos = getMousePos(e);
 
@@ -150,7 +151,7 @@ export function initCanvasDrag(canvas, ctx, getTextsCallback, redrawCallback) {
             textPositions.bottom.y += dy;
         }
 
-        redrawCallback(); 
+        redrawCallback();
 
         startX = pos.x;
         startY = pos.y;

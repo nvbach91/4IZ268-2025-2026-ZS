@@ -162,6 +162,7 @@ main {
   opacity: 0.8;
 }
 
+.favorite-title,
 .meme-item p {
   padding: 12px;
   font-size: 0.9rem;
@@ -171,6 +172,10 @@ main {
   text-overflow: ellipsis;
   font-weight: 500;
   margin-top: auto;
+}
+
+.favorite-title {
+  color: white;
 }
 
 /* OVERLAY TEXT (THUMBNAILS) */
@@ -198,7 +203,7 @@ main {
   top: 10px;
 }
 .text-bottom {
-  bottom: 10px;
+  bottom: 50px;
 }
 
 /* =========================================
@@ -213,6 +218,14 @@ main {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+}
+
+.date-info {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  margin-top: -15px; /* Підтягнемо ближче до заголовка */
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
 /* CANVAS WRAPPER */
