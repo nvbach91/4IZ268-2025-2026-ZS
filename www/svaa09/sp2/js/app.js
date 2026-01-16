@@ -507,14 +507,16 @@ const render = async () => {
             });
         });
     }
-    
+
     attachEventListeners();
 };
 
 // Připojení interakcí k DOM elementům -> Odstranění inline javascriptu
-const attachEventListeners = () => { // Tip do budoucna -> Odstranit funkci a rozdělit do jednotlivých částí
+const attachEventListeners = () => { // TODO odstranit funkci a rozdělit do jednotlivých částí
     // Získání referencí na prvky
-    
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const favoritesBtn = document.getElementById('favorites-btn');
     const homeTitle = document.getElementById('home-title');
     const backBtn = document.getElementById('back-btn');
     const filterType = document.getElementById('filter-type');
