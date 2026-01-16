@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFTED - Fitness Tracker</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="app-logo">
+        <img src="assets/img/favicon.png" alt="LIFTED Logo">
+        <h1>LIFTED</h1>
+      </div>
+    </header>
+
+    <div class="search-container">
+      <div class="search-wrapper">
+        <img class="search-icon" src="assets/img/search.png" alt="Search">
+        <input type="text" class="search-input" id="exerciseSearch" placeholder="Search exercises...">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3 class="filter-title">Filters</h3>
+      <div class="filter-row">
+        <button class="filter-btn" id="dateFilterBtn">
+          <img src="assets/img/calendar.png" alt="Date">
+          <span id="dateFilterText">Date</span>
+        </button>
+        <button class="filter-btn" id="muscleFilterBtn">
+          <img src="assets/img/chest.png" alt="Muscle">
+          <span id="muscleFilterText">Muscle Group</span>
+        </button>
+      </div>
+    </div>
+
+    <main class="main-content" id="workoutList"></main>
+    <div class="toast-container">
+      <div class="toast" id="toast"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>
