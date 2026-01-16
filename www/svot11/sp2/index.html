@@ -32,6 +32,10 @@
                         <button id="myLocation" class="btn btn-outline-light" type="button">
                             <i class="bi bi-geo-alt-fill"></i>
                         </button>
+                        <div class="btn-group ms-2" role="group" aria-label="Výběr jazyka">
+                            <button type="button" class="btn btn-outline-light active" id="langCz">CZ</button>
+                            <button type="button" class="btn btn-outline-light" id="langEn">EN</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,7 +88,12 @@
                     <div class="card-body">
                         <div id="description">
                             <div class="text-center mb-3">
-                                <h2 id="city" class="mb-2"></h2>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <h2 id="city" class="mb-2"></h2>
+                                    <button id="fvCity">
+                                        <i class="bi bi-star"></i>
+                                    </button>
+                                </div>                              
                                 <div class="d-flex justify-content-center align-items-center">
                                     <div id="weatherImg"></div>
                                     <p id="degrees" class="display-3 mb-0 ms-2"></p>
@@ -127,12 +136,23 @@
         </div>
 
         <!-- 5-denni predpoved -->
-        <div class="mb-4">
+        <div class="mb-4 d-flex flex-row">
+            <div>
                 <div id="headerFiveDays" class="mb-4"></div>
                 <div id="fiveDayForecast" class="d-flex gap-3 flex-wrap">
-                    <!-- Forecast data will be dynamically generated here -->
+                <!-- Forecast data will be dynamically generated here -->
                 </div>
+            </div> 
+            <!-- Oblibena mesta -->
+            <div class="d-flex flex-column align-items-center flex-grow-1" >
+                <div id="headerFavCities" class="mb-1"></div>
+                <div id="favCities" class="d-flex flex-column flex-wrap gap-2">
+                    <!-- Favorite cities data will be dynamically generated here -->
+                </div>
+            </div>
         </div>
+        
+      
 
         <!-- Detailni predpoved pro vybrany den -->
         <div class="mb-4">
