@@ -178,6 +178,20 @@ header {
     border: 1px solid var(--blue);
 }
 
+.fav-city-card {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+
+.fav-city-card:hover {
+    border: 1px solid var(--blue);
+    transition: all 0.3s ease;
+    animation: translateY(-1px);
+}
+
 /* Responzivni upravy */
 @media (max-width: 768px) {
     .forecast-day {
