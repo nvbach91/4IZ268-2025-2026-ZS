@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="./assets/style.css">
+    <script type="module" src="./assets/js/app.js" defer></script>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="container header-inner">
+            <a id="logo-link" class="logo" href="#" role="button">
+                <i class="fas fa-globe-europe"></i> World Explorer
+            </a>
+            <div class="header-actions">
+                <button id="show-fav-btn" class="icon-btn" aria-label="Zobrazit oblíbené">
+                    <i class="fas fa-heart"></i>
+                    <span class="mode-text">Oblíbené</span>
+                </button>
+
+                <button id="theme-toggle" class="icon-btn" aria-label="Přepnout tmavý režim">
+                    <i class="fas fa-moon"></i>
+                    <span class="mode-text">Režim</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="controls" class="controls">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Hledat stát..." class="form-control"
+                    aria-label="Hledat stát">
+            </div>
+
+            <select id="region-filter" class="form-control" aria-label="Filtrovat podle regionu">
+                <option value="">Všechny regiony</option>
+                <option value="Africa">Afrika</option>
+                <option value="Americas">Amerika</option>
+                <option value="Asia">Asie</option>
+                <option value="Europe">Evropa</option>
+                <option value="Oceania">Oceánie</option>
+                <option value="Antarctic">Antarktida</option>
+            </select>
+        </section>
+
+        <div id="loader" class="hidden">
+            <div class="loader"></div>
+            <p class="loader-text">Načítám data z API...</p>
+        </div>
+
+        <div id="error-msg" class="error-msg hidden" role="alert">
+            <strong>Chyba!</strong> <span id="error-text"></span>
+        </div>
+
+        <section id="countries-grid" class="countries-grid">
+        </section>
+        <div id="pagination" class="pagination-container hidden">
+        </div>
+
+        <article id="country-detail" class="detail-view hidden">
+            <div class="detail-header">
+                <button id="back-button" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Zpět
+                </button>
+                <div id="fav-btn-container"></div>
+            </div>
+
+            <div class="detail-content">
+                <div class="detail-flag">
+                    <img id="detail-flag-img" src="" alt="Vlajka státu">
+                </div>
+                <div class="detail-info">
+                    <h2 id="detail-name" class="detail-title"></h2>
+
+                    <div class="info-grid">
+                        <div class="info-item"><strong>Nativní název:</strong> <span id="detail-native"></span></div>
+                        <div class="info-item"><strong>Populace:</strong> <span id="detail-population"></span></div>
+                        <div class="info-item"><strong>Region:</strong> <span id="detail-region"></span></div>
+                        <div class="info-item"><strong>Hlavní město:</strong> <span id="detail-capital"></span></div>
+                        <div class="info-item"><strong>Doména:</strong> <span id="detail-tld"></span></div>
+                        <div class="info-item"><strong>Měna:</strong> <span id="detail-currency"></span></div>
+                    </div>
+
+                    <div class="borders-section">
+                        <strong>Sousední státy:</strong>
+                        <div id="detail-borders" class="borders-container"></div>
+                    </div>
+
+                    <a id="detail-maps" href="#" target="_blank" class="map-link">
+                        <i class="fas fa-map-marked-alt"></i> Zobrazit na Google Maps
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Webovka 4IZ268 v JS</p>
+            <small>Data provided by REST Countries API</small>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="theme">
+      <div class="sidebar">
+        <h2>Task Manager</h2>
+
+        <nav>
+          <button id="add-task-button" type="button">
+            <i class="bi bi-plus-circle"></i>
+            Add task
+          </button>
+          <button id="all-tasks-button" type="button">
+            <i class="bi bi-list-task"></i>
+            All tasks <span id="count-all-tasks">0</span>
+          </button>
+          <button id="active-tasks-button" type="button">
+            <i class="bi bi-circle"></i>
+            Active tasks <span id="count-active-tasks">0</span>
+          </button>
+          <button id="done-tasks-button" type="button">
+            <i class="bi bi-check2-all"></i>
+            Done tasks <span id="count-done-tasks">0</span>
+          </button>
+        </nav>
+        <button id="dark-mode-btn" type="button">
+          <i class="bi bi-moon"></i>
+          dark mode
+        </button>
+      </div>
+
+      <div class="content">
+        <h1>My tasks</h1>
+        <div id="task-list"></div>
+        <div class="text-center mt-3">
+          <button id="load-more-btn" class="btn btn-outline-primary d-none">
+            Load More
+          </button>
+        </div>
+      </div>
+      <div id="editing-overlay" class="d-none">
+        <div id="editing-window">
+          <h2 id="editing-title">Task</h2>
+
+          <div id="task-form">
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Title"
+              class="form-control"
+            />
+
+            <div id="title-error" class="form-text text-danger d-none">
+              Title is required
+            </div>
+
+            <textarea
+              id="task-description"
+              placeholder="Description"
+              rows="3"
+              class="form-control"
+            ></textarea>
+
+            <label >
+              Choose deadline
+            <input
+              type="date"
+              id="task-deadline"
+              class="form-control"
+            />
+            </label>
+
+            <div id="editing-buttons">
+              <button
+                id="save-task-button"
+                type="button"
+                class="btn btn-primary"
+              >
+                Save
+              </button>
+              <button
+                id="cancel-task-button"
+                type="button"
+                class="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

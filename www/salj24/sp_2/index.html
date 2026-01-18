@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knihovna</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+</head>
+
+<body>
+    <div class="container">
+        <a href="./my_library/" class="menu-button"> <i class="fa-solid fa-book"></i> Moje knihovna</a>
+        <h1>Knihovna</h1>
+        <form id="search-form">
+            <label class="form-label">Vyhledávání knih</label>
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <input class="form-control" name="author" placeholder="Autor">
+                </div>
+                <div class="col-12 mb-2">
+                    <input class="form-control" name="title" placeholder="Název knihy">
+                </div>
+                <div class="col-12 mb-2">
+                    <select class="form-select" name="genre">
+                        <option value="">-- Vyber žánr --</option>
+                        <option value="fiction">Beletrie</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="science fiction">Sci-fi</option>
+                        <option value="mystery">Detektivka</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="romance">Romance</option>
+                        <option value="horror">Horor</option>
+                        <option value="historical fiction">Historický román</option>
+                        <option value="biography">Biografie</option>
+                        <option value="poetry">Poezie</option>
+                        <option value="adventure">Dobrodružství</option>
+                        <option value="young adult">Mládežnická literatura</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary w-100">
+                        <i class="fa-solid fa-magnifying-glass"></i> Hledat
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div id="search-results" class="books-grid mt-4"></div>
+    </div>
+    <div class="modal fade" id="book-detail-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail knihy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
