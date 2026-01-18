@@ -1,0 +1,215 @@
+/* ===================================
+   STYLY PRO TISK
+   =================================== */
+
+/* Custom Font pro tisk */
+@font-face {
+    font-family: 'Le Murmure';
+    src: url('../assets/fonts/le-murmure.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@media print {
+    /* Reset barev a pozadí */
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    /* Skrytí nepotřebných prvků */
+    nav,
+    .main-nav,
+    .site-footer,
+    .hero-image,
+    .card-link,
+    button,
+    .highlights {
+        display: none !important;
+    }
+    
+    /* Základní nastavení stránky */
+    @page {
+        margin: 2cm;
+        size: A4;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        font-family: 'Inter', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Nadpisy */
+    h1 {
+        font-size: 24pt;
+        margin-bottom: 0.5cm;
+        page-break-after: avoid;
+    }
+    
+    h2 {
+        font-size: 18pt;
+        margin-top: 0.5cm;
+        margin-bottom: 0.3cm;
+        page-break-after: avoid;
+    }
+    
+    h3 {
+        font-size: 14pt;
+        margin-top: 0.4cm;
+        margin-bottom: 0.2cm;
+        page-break-after: avoid;
+    }
+    
+    /* Odstavce */
+    p {
+        margin-bottom: 0.4cm;
+        orphans: 3;
+        widows: 3;
+    }
+    
+    /* Odkazy */
+    a {
+        text-decoration: underline;
+        color: black;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 10pt;
+        font-style: italic;
+    }
+    
+    /* Nepoužívat URL pro lokální odkazy */
+    a[href^="/"]:after,
+    a[href^="#"]:after,
+    a[href^="javascript"]:after {
+        content: "";
+    }
+    
+    /* Hlavička */
+    .site-header {
+        border-bottom: 2pt solid black;
+        padding-bottom: 0.5cm;
+        margin-bottom: 1cm;
+    }
+    
+    .site-title {
+        font-size: 20pt;
+        margin-bottom: 0.2cm;
+        font-family: 'Le Murmure', serif;
+    }
+    
+    .site-tagline {
+        font-size: 12pt;
+        font-style: italic;
+    }
+    
+    /* Obsah */
+    main {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .content-header {
+        border-bottom: 1pt solid black;
+        padding-bottom: 0.3cm;
+        margin-bottom: 0.8cm;
+    }
+    
+    /* Sekce */
+    section {
+        page-break-inside: avoid;
+        margin-bottom: 0.8cm;
+    }
+    
+    /* Články a karty */
+    article {
+        page-break-inside: avoid;
+        margin-bottom: 0.5cm;
+        padding: 0.3cm;
+        border: 1pt solid #cccccc;
+    }
+    
+    /* Citace */
+    blockquote {
+        margin: 0.5cm 1cm;
+        padding: 0.3cm;
+        border-left: 3pt solid black;
+        font-style: italic;
+    }
+    
+    /* Obrázky */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+    
+    figure {
+        page-break-inside: avoid;
+        margin: 0.5cm 0;
+    }
+    
+    figcaption {
+        font-size: 10pt;
+        font-style: italic;
+        margin-top: 0.2cm;
+    }
+    
+    /* Galerie - přepnout na jednoduchý seznam */
+    .gallery {
+        display: block;
+    }
+    
+    .gallery-item {
+        page-break-inside: avoid;
+        margin-bottom: 0.8cm;
+        border: 1pt solid #cccccc;
+        padding: 0.3cm;
+    }
+    
+    .gallery-item img {
+        max-height: 8cm;
+        width: auto;
+    }
+    
+    /* Tabulky (pokud jsou použity) */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        page-break-inside: avoid;
+    }
+    
+    th, td {
+        border: 1pt solid black;
+        padding: 0.2cm;
+        text-align: left;
+    }
+    
+    th {
+        font-weight: bold;
+        background-color: #f0f0f0 !important;
+    }
+    
+    /* Číslování stránek */
+    .page-number:after {
+        content: counter(page);
+    }
+    
+    /* Optimalizace tisku */
+    .no-print {
+        display: none !important;
+    }
+    
+    /* Zajištění čitelnosti */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

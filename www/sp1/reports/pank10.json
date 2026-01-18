@@ -1,0 +1,167 @@
+{
+  "studentId": "pank10",
+  "score": 94,
+  "maxScore": 140,
+  "feedback": [
+    "Duplicate CSS selector \"h1\" found in css\\main.css.",
+    "Duplicate CSS selector \"h2\" found in css\\main.css.",
+    "Duplicate CSS selector \"h3\" found in css\\main.css.",
+    "index.html: Avoid including index.html in URLs (mythology/index.html).",
+    "index.html: Avoid including index.html in URLs (art_archive/index.html).",
+    "index.html: Avoid including index.html in URLs (modern/index.html).",
+    "index.html: Avoid including index.html in URLs (about/index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../art_archive/index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../literature/index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../modern/index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../about/index.html).",
+    "mythology\\index.html: Avoid including index.html in URLs (../about/index.html).",
+    "modern\\index.html: Avoid including index.html in URLs (../about/index.html).",
+    "literature\\index.html: Avoid including index.html in URLs (../about/index.html).",
+    "art_archive\\index.html: Avoid including index.html in URLs (../about/index.html).",
+    "Include at least one phone link using tel:.",
+    "about\\index.html: External link should open in new tab.",
+    "about\\index.html: External link should open in new tab.",
+    "about\\index.html: External link should open in new tab.",
+    "index.html: Missing meta author.",
+    "index.html: Missing meta keywords.",
+    "mythology\\index.html: Missing meta author.",
+    "mythology\\index.html: Missing meta keywords.",
+    "modern\\index.html: Missing meta author.",
+    "modern\\index.html: Missing meta keywords.",
+    "literature\\index.html: Missing meta author.",
+    "literature\\index.html: Missing meta keywords.",
+    "art_archive\\index.html: Missing meta author.",
+    "art_archive\\index.html: Missing meta keywords.",
+    "about\\index.html: Missing meta author.",
+    "about\\index.html: Missing meta keywords.",
+    "index.html: Unescaped \"&\" detected in text: \"přidáno: Feywild v D&D\"",
+    "index.html: Unescaped \"&\" detected in text: \"stolní hra Dungeons & Dragons reimaginov\"",
+    "modern\\index.html: Unescaped \"&\" detected in text: \"Dungeons & Dragons: Feywild\"",
+    "modern\\index.html: Unescaped \"&\" detected in text: \"Dungeons & Dragons\"",
+    "modern\\index.html: Unescaped \"&\" detected in text: \"D&D umožňuje hráčům h\"",
+    "modern\\index.html: Unescaped \"&\" detected in text: \"Feywild z D&D ovlivnil mnoho da\"",
+    "modern\\index.html: Unescaped \"&\" detected in text: \"chy až po ACOTAR a D&D – víly zůstávají\""
+  ],
+  "breakdown": {
+    "Site Size": {
+      "name": "Site Size",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Images": {
+      "name": "Performance: Images",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Performance: Data URLs": {
+      "name": "Performance: Data URLs",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Maintainability: CSS Duplication": {
+      "name": "Maintainability: CSS Duplication",
+      "score": 9,
+      "maxScore": 15,
+      "feedback": [
+        "Duplicate CSS selector \"h1\" found in css\\main.css.",
+        "Duplicate CSS selector \"h2\" found in css\\main.css.",
+        "Duplicate CSS selector \"h3\" found in css\\main.css."
+      ]
+    },
+    "Maintainability: Structure": {
+      "name": "Maintainability: Structure",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: URLs": {
+      "name": "Accessibility: URLs",
+      "score": 0,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Avoid including index.html in URLs (mythology/index.html).",
+        "index.html: Avoid including index.html in URLs (art_archive/index.html).",
+        "index.html: Avoid including index.html in URLs (modern/index.html).",
+        "index.html: Avoid including index.html in URLs (about/index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../art_archive/index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../literature/index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../modern/index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../about/index.html).",
+        "mythology\\index.html: Avoid including index.html in URLs (../about/index.html).",
+        "modern\\index.html: Avoid including index.html in URLs (../about/index.html).",
+        "literature\\index.html: Avoid including index.html in URLs (../about/index.html).",
+        "art_archive\\index.html: Avoid including index.html in URLs (../about/index.html)."
+      ]
+    },
+    "Accessibility: Favicon": {
+      "name": "Accessibility: Favicon",
+      "score": 10,
+      "maxScore": 10,
+      "feedback": []
+    },
+    "Accessibility: Contact Links": {
+      "name": "Accessibility: Contact Links",
+      "score": 5,
+      "maxScore": 10,
+      "feedback": [
+        "Include at least one phone link using tel:."
+      ]
+    },
+    "Accessibility: Link Behavior": {
+      "name": "Accessibility: Link Behavior",
+      "score": 7,
+      "maxScore": 10,
+      "feedback": [
+        "about\\index.html: External link should open in new tab.",
+        "about\\index.html: External link should open in new tab.",
+        "about\\index.html: External link should open in new tab."
+      ]
+    },
+    "SEO": {
+      "name": "SEO",
+      "score": 0,
+      "maxScore": 15,
+      "feedback": [
+        "index.html: Missing meta author.",
+        "index.html: Missing meta keywords.",
+        "mythology\\index.html: Missing meta author.",
+        "mythology\\index.html: Missing meta keywords.",
+        "modern\\index.html: Missing meta author.",
+        "modern\\index.html: Missing meta keywords.",
+        "literature\\index.html: Missing meta author.",
+        "literature\\index.html: Missing meta keywords.",
+        "art_archive\\index.html: Missing meta author.",
+        "art_archive\\index.html: Missing meta keywords.",
+        "about\\index.html: Missing meta author.",
+        "about\\index.html: Missing meta keywords."
+      ]
+    },
+    "Escaping": {
+      "name": "Escaping",
+      "score": 3,
+      "maxScore": 10,
+      "feedback": [
+        "index.html: Unescaped \"&\" detected in text: \"přidáno: Feywild v D&D\"",
+        "index.html: Unescaped \"&\" detected in text: \"stolní hra Dungeons & Dragons reimaginov\"",
+        "modern\\index.html: Unescaped \"&\" detected in text: \"Dungeons & Dragons: Feywild\"",
+        "modern\\index.html: Unescaped \"&\" detected in text: \"Dungeons & Dragons\"",
+        "modern\\index.html: Unescaped \"&\" detected in text: \"D&D umožňuje hráčům h\"",
+        "modern\\index.html: Unescaped \"&\" detected in text: \"Feywild z D&D ovlivnil mnoho da\"",
+        "modern\\index.html: Unescaped \"&\" detected in text: \"chy až po ACOTAR a D&D – víly zůstávají\""
+      ]
+    },
+    "Semantics (Required)": {
+      "name": "Semantics (Required)",
+      "score": 20,
+      "maxScore": 20,
+      "feedback": []
+    }
+  }
+}

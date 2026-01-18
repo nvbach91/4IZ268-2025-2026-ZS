@@ -1,11 +1,11 @@
 
    Config loaded: .htmlhintrc
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\index.html
       L22 |...               <button class="hamburger" onclick="this.classList.toggle('active'); document.querySele...
                                                       ^ Inline script [  onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\index.html
       L30 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
                               ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
       L52 |                <button onclick="location.href='./ubytovani/index.html'">Vstupte k nám</button>
@@ -17,27 +17,27 @@
       L227 |            <a href="#top" onclick="scrollToTop()">
                                       ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\index.html
       L162 |            width="33%" height="auto" style="border:0;"
                                                  ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\rakf00\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\rakf00\index.html
       L34 |        <div class='overlay absolute '></div>
                        ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
       L35 |        <div class='hero-text absolute '>
                        ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\novl43\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\novl43\index.html
       L42 |...<li class="menu-item"><a href="./o-nas/" class="menu-link ">O nás</a></li>
                                                       ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bary03\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\bary03\index.html
       L245 |...g src="./assets/images/left_contact.jpg" alt="Interiér  CAFÉ V ZAHRADĚ">
                                                        ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
       L265 |... src="./assets/images/right_contact.jpg" alt="Interiér  CAFÉ V ZAHRADĚ">
                                                        ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\barv34\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\barv34\index.html
       L28 |...f="./assets/images/photos/hero-1920.jpg" imagesrcset="
                                                       ^ The attributes of [ imagesrcset ] must not have leading or trailing whitespace. (attr-whitespace)
       L28 |...f="./assets/images/photos/hero-1920.jpg" imagesrcset="
@@ -52,7 +52,7 @@
       L581 |    <div id="back-to-top" onclick="scrollToTop()">
                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\pro-uchazece\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\pro-uchazece\index.html
       L27 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
@@ -69,7 +69,7 @@
             ^ Inline script [ 
                             onclick="this.classList.toggle('active'); this.nextElementSibling.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\pro-studenty\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\pro-studenty\index.html
       L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
@@ -83,47 +83,39 @@
             ^ Inline script [ 
                                         onclick="this.parentElement.parentElement.classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\partneri\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\partneri\index.html
       L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\o-skole\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\o-skole\index.html
       L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\kontakty\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\kontakty\index.html
       L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\zeto00\aktuality\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\zeto00\aktuality\index.html
       L26 |                    onclick="this.classList.toggle('active'); document.querySelector('nav').classList...
            ^ Inline script [ 
                     onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active')" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\ubytovani\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\ubytovani\index.html
       L27 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
                               ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
       L99 |            <a href="#top" onclick="scrollToTop()">
                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\okoli\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\okoli\index.html
       L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
                               ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
       L159 |            <a href="#top" onclick="scrollToTop()">
                                       ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\galerie\index.html
-      L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
-                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
-      L32 |    <div class="header-apt-section ">
-                   ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
-      L62 |            <a href="#top" onclick="scrollToTop()">
-                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
-
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\kontakty\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\kontakty\index.html
       L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
                               ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
       L64 |...1scs!2scz!4v1645123456789!5m2!1scs!2scz"  style="border:0;" allowfullscreen="" loading="lazy"></ifram...
@@ -131,13 +123,21 @@
       L73 |            <a href="#top" onclick="scrollToTop()">
                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svot11\cenik\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\galerie\index.html
+      L29 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
+                              ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
+      L32 |    <div class="header-apt-section ">
+                   ^ The attributes of [ class ] must not have leading or trailing whitespace. (attr-whitespace)
+      L62 |            <a href="#top" onclick="scrollToTop()">
+                                     ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svot11\cenik\index.html
       L30 |            <button onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-...
                               ^ Inline script [  onclick="location.href='https://www.booking.com/hotel/cz/academic-apartment-brno-aab-2-1-62-m2.cs.html?aid=318615&label=New_Czech_CS_7024025545-d7FqMRhXtEUt6Z4xCASKfAS217242873966%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg&sid=9c7aa909845c74f8b1d0491ccb49a070&dest_id=8837169&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=3&hpos=3&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1762686160&srpvid=5ac14da2c7f80a16&type=total&ucfs=1&activeTab=main'" ] cannot be used. (inline-script-disabled)
       L74 |            <a href="#top" onclick="scrollToTop()">
                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svav07\projects\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svav07\projects\index.html
       L2 |<html lang="cs" style="scroll-behavior: smooth;">
                          ^ Inline style [  style="scroll-behavior: smooth;" ] cannot be used. (inline-style-disabled)
       L78 |...="PURPLE KISS - Sweet Juice Dance Cover" style="border:0"
@@ -161,51 +161,51 @@
       L340 |..."PURPLE KISS - Love is dead Dance Cover" style="border:0"
                                                        ^ Inline style [  style="border:0" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\subd02\kontakt\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\subd02\kontakt\index.html
       L54 |                <iframe style="border:none" src="https://mapy.com/s/jasazekojo" id="contact-map"></if...
                                   ^ Inline style [  style="border:none" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\spen00\Navy\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\spen00\Navy\index.html
       L28 |                    <li><a href= "../STC/index.html">Stormtrooper</a></li>
                                      ^ The attribute 'href' must not have spaces between the name and value. (attr-no-unnecessary-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\slaj33\contact-page\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\slaj33\contact-page\index.html
       L54 |                    <p>M+H, Saloos naturcosmetic s.r.o. <br>
                                ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p> ] on line 54. (tag-pair)
       L75 |...                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                                                       ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\slaj33\about-page\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\slaj33\about-page\index.html
       L71 |                <ul id="layout" style="margin: 40px 0;">
                                           ^ Inline style [  style="margin: 40px 0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\semk04\author\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\semk04\author\index.html
       L50 |                <p class="author-text">
                            ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p class="author-text"> ] on line 50. (tag-pair)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\menu\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\menu\index.html
       L80 |            width="33%" height="auto" style="border:0;"
                                                 ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\gallery\index.html
-      L88 |            width="33%" height="auto" style="border:0;"
-                                                ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
-
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\contact\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\contact\index.html
       L102 |            width="600" height="500" style="border:0; -webkit-filter: grayscale(70%); filter: graysca...
                                                 ^ Inline style [  style="border:0; -webkit-filter: grayscale(70%); filter: grayscale(70%);" ] cannot be used. (inline-style-disabled)
       L146 |            width="33%" height="auto" style="border:0;"
                                                  ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\blog\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\gallery\index.html
+      L88 |            width="33%" height="auto" style="border:0;"
+                                                ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\blog\index.html
       L249 |            width="33%" height="auto" style="border:0;"
                                                  ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\samm11\about\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\samm11\about\index.html
       L120 |            width="33%" height="auto" style="border:0;"
                                                  ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\ryga02\home\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\ryga02\home\index.html
       L60 |                        style="width: 300px; height: auto;">
            ^ Inline style [ 
                         style="width: 300px; height: auto;" ] cannot be used. (inline-style-disabled)
@@ -216,23 +216,27 @@
             ^ Inline style [ 
                         style="width: auto; height: 400px;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\puzo00\contact\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\puzo00\contact\index.html
       L51 |...                width="750" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                                                       ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\petj30\ubytovani\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\petj30\ubytovani\index.html
       L20 |...mpPlovarnaSobeslav" target="_blank"><img src="../assets/img/facebook.png" width="18"></a></li>
                                                       ^ An alt attribute must be present on <img> elements. (alt-require)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\olsr00\events\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\pank10\about\index.html
+      L63 |...       <li>WCAG 2.1 pro přístupnost - <a href= https://accessibilitycheck.friendlycaptcha.com><em> Ac...
+                                                       ^ The attribute 'href' must not have spaces between the name and value. (attr-no-unnecessary-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\olsr00\events\index.html
       L40 |            <div class="news-wrapper" style="margin-bottom: 2rem;">
                                                 ^ Inline style [  style="margin-bottom: 2rem;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\novl43\galerie\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\novl43\galerie\index.html
       L153 |    </div>
                 ^ Tag must be paired, no start tag: [ </div> ] (tag-pair)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\kohj08\robotika\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\kohj08\robotika\index.html
       L171 |            <div style="display:flex; align-items:center; gap:0.6rem;">
                             ^ Inline style [  style="display:flex; align-items:center; gap:0.6rem;" ] cannot be used. (inline-style-disabled)
       L174 |                   style="width:40px; height:auto; opacity:0.9;">
@@ -241,7 +245,7 @@
       L175 |              <h2 style="margin:0;">Roboti KUKA</h2>
                              ^ Inline style [  style="margin:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\jass01\trip-tips\index.html
       L114 |            src="../assets/images/pictures/trip_tips/hero/img_2.jpg
             ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
       L114 |            src="../assets/images/pictures/trip_tips/hero/img_2.jpg
@@ -251,27 +255,27 @@
       L119 |            src="../assets/images/pictures/trip_tips/hero/img_3.jpg
             ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\domv01\jisteni\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\domv01\jisteni\index.html
       L132 |        <div class="media" style="display: none"></div>
                                       ^ Inline style [  style="display: none" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\domv01\ferraty\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\domv01\ferraty\index.html
       L110 |        <div class="media" style="display: none"></div>
                                       ^ Inline style [  style="display: none" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\daoq00\kontakty\index.html
-      L140 |...                width="550" height="550" style="border:0;" allowfullscreen="" loading="lazy"
-                                                       ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
-
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\daoq00\dorty\index.html
-      L64 |...     <img src="../assets/img/dort02.jpg" alt="Black forest ">
-                                                      ^ The attributes of [ alt ] must not have leading or trailing whitespace. (attr-whitespace)
-
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\chem12\historie\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\chem12\historie\index.html
       L49 |    <p>Dnes Uhříněves nabízí kombinaci historických památek, jako jsou zámek a kostel Všech svatých, ...
                ^ Tag must be paired, missing: [ </p> ], start tag match failed [ <p> ] on line 49. (tag-pair)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bobv02\events\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\daoq00\kontakty\index.html
+      L140 |...                width="550" height="550" style="border:0;" allowfullscreen="" loading="lazy"
+                                                       ^ Inline style [  style="border:0;" ] cannot be used. (inline-style-disabled)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\daoq00\dorty\index.html
+      L64 |...     <img src="../assets/img/dort02.jpg" alt="Black forest ">
+                                                      ^ The attributes of [ alt ] must not have leading or trailing whitespace. (attr-whitespace)
+
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\bobv02\events\index.html
       L37 |                <img class="band-photo" src="../assets/Images/badnaee.jpg">
                                ^ An alt attribute must be present on <img> elements. (alt-require)
       L43 |                <img class="band-photo" src="../assets/Images/ssssssss.jpg">
@@ -289,15 +293,15 @@
       L86 |                <img class="band-photo" src="../assets/Images/squirrel-burn.jpg">
                                ^ An alt attribute must be present on <img> elements. (alt-require)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\barv34\gdpr\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\barv34\gdpr\index.html
       L226 |    <div id="back-to-top" onclick="scrollToTop()">
                                      ^ Inline script [  onclick="scrollToTop()" ] cannot be used. (inline-script-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bart24\zapasy\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\bart24\zapasy\index.html
       L39 |            <div style="margin-bottom: 4rem;">
                            ^ Inline style [  style="margin-bottom: 4rem;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bart24\akademie\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\bart24\akademie\index.html
       L40 |...              <a href="#u10" class="btn" style="background-color: #555;">Přípravka u11</a>
                                                       ^ Inline style [  style="background-color: #555;" ] cannot be used. (inline-style-disabled)
       L54 |                    <ul style="list-style: none;">
@@ -305,7 +309,7 @@
       L72 |                    <ul style="list-style: none;">
                                   ^ Inline style [  style="list-style: none;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\bare19\BargelStav\fotokolekce.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\bare19\BargelStav\fotokolekce.html
       L48 |...      <img src="assets/img/klaster1.jpg" alt="Rekonstrukce kláštera  ukázka 1">
                                                       ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
       L49 |...      <img src="assets/img/klaster2.jpg" alt="Rekonstrukce kláštera  ukázka 2">
@@ -319,12 +323,12 @@
       L53 |...      <img src="assets/img/klaster6.jpg" alt="Rekonstrukce kláštera  ukázka 6">
                                                       ^ The attributes of [ alt ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svov17\homepage\contact\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svov17\homepage\contact\index.html
       L91 |            style="border:0;" 
            ^ Inline style [ 
             style="border:0;" ] cannot be used. (inline-style-disabled)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\world\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\jass01\trip-tips\world\index.html
       L108 |            src="../../assets/images/pictures/trip_tips/world/hero_2.jpg
             ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
       L108 |            src="../../assets/images/pictures/trip_tips/world/hero_2.jpg
@@ -334,7 +338,7 @@
       L113 |            src="../../assets/images/pictures/trip_tips/world/hero_3.jpg
             ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\europe\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\jass01\trip-tips\europe\index.html
       L108 |            src="../../assets/images/pictures/trip_tips/europe/hero_2.jpg
             ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
       L108 |            src="../../assets/images/pictures/trip_tips/europe/hero_2.jpg
@@ -344,7 +348,7 @@
       L113 |            src="../../assets/images/pictures/trip_tips/europe/hero_3.jpg
             ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\czechia\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\jass01\trip-tips\czechia\index.html
       L108 |            src="../../assets/images/pictures/trip_tips/czechia/hero_2.jpg
             ^ The attributes of [ src ] must not have leading or trailing whitespace. (attr-whitespace)
       L108 |            src="../../assets/images/pictures/trip_tips/czechia/hero_2.jpg
@@ -354,12 +358,12 @@
       L113 |            src="../../assets/images/pictures/trip_tips/czechia/hero_3.jpg
             ^ The attributes of [ src ] must be separated by only one space. (attr-whitespace)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\svov17\homepage\past_events\3\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\svov17\homepage\past_events\3\index.html
       L3 |<head>
           ^ Tag must be paired, missing: [ </head> ], start tag match failed [ <head> ] on line 3. (tag-pair)
 
-   C:\dev\4IZ268-2025-2026-ZS\www\sp1\files\jass01\trip-tips\europe\2\index.html
+   C:\dev\4IZ268-2025-2026-ZS\www\sp1\submissions\jass01\trip-tips\europe\2\index.html
       L129 |...      <li>Distance: 2,500 to 3,000 km/li></li>
                                                        ^ Special characters must be escaped : [ > ]. (spec-char-escape)
 
-Scanned 379 files, found 119 errors in 52 files (424 ms)
+Scanned 386 files, found 120 errors in 53 files (1322 ms)
