@@ -3,59 +3,148 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Prague HEAT! – Pilot test</title>
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 20px; }
-    button { margin: 6px 6px 6px 0; padding: 8px 10px; }
-    pre { background: #f5f5f5; padding: 12px; border-radius: 8px; overflow: auto; max-height: 70vh; }
-    .row { display: flex; gap: 8px; flex-wrap: wrap; }
-    .small { color: #555; font-size: 14px; }
-  </style>
+  <title>Prague HEAT!</title>
+
+  <!-- Leaflet (CDN) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Leaflet.heat (CDN) -->
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
-  <h1>Prague HEAT! – Pilot test UI</h1>
-  <p class="small">
-    Tohle je jen testovací stránka pro ověření, že backend volá externí API (Golemio + OpenWeather).
-  </p>
+  <header class="topbar">
+    <div class="brand">
+      <strong>Prague HEAT!</strong>
+      <span class="muted">heatmap prototype</span>
+    </div>
 
-  <div class="row">
-    <button id="btn-health">GET /api/health</button>
-    <button id="btn-weather">GET /api/weather/prague</button>
-    <button id="btn-golemio">GET /api/golemio/vehiclepositions</button>
-    <button id="btn-tram">GET golemio?route_type=0</button>
-    <button id="btn-bus">GET golemio?route_type=3</button>
-    <button id="btn-clear">Clear</button>
-  </div>
+    <div class="controls">
+      <div class="rtDropdown" id="routeTypes">
+        <button type="button" class="rtBtn" id="rtBtn" aria-haspopup="true" aria-expanded="false">
+          Route types <span class="rtArrow">▾</span>
+        </button>
 
-  <h2>Output</h2>
-  <pre id="out">Klikni na tlačítko.</pre>
+        <div class="rtMenu" id="rtMenu" role="menu">
+          <label class="rtItem"><input type="checkbox" class="rt" value="0" checked> Tram</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="3" checked> Bus</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="1" checked> Metro</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="2" checked> Train</label>
+        </div>
+      </div>
+
+      <label>
+        Only delay greater than: (s)
+        <input id="minDelay" type="number" min="0" step="10" value="0">
+      </label>
+
+      <label class="wide">
+        Radius: <span id="radiusVal" class="muted">45</span>
+        <input id="radius" type="range" min="10" max="60" step="1" value="45">
+      </label>
+
+      <label class="wide">
+        Blur: <span id="blurVal" class="muted">1</span>
+        <input id="blur" type="range" min="1" max="50" step="1" value="1">
+      </label>
+
+      <label>
+        Auto refresh (s)
+        <input id="refreshSec" type="number" min="1" step="1" value="30">
+      </label>
+
+      <button id="btnApply" type="button">Apply</button>
+      <button id="btnRefresh" type="button">Refresh</button>
+
+      <span id="status" class="status muted">idle</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="mapWrap">
+      <div id="map"></div>
+    </section>
+
+    <aside class="side">
+      <div class="card">
+        <h3>Overview</h3>
+
+        <div class="kv">
+          <div class="k">Vehicles</div><div class="v" id="ovCount">-</div>
+          <div class="k">Avg delay</div><div class="v" id="ovAvg">-</div>
+          <div class="k">P95 delay</div><div class="v" id="ovP95">-</div>
+          <div class="k">Max delay</div><div class="v" id="ovMax">-</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="wx">
+          <div class="wxTitle">Weather (Prague)</div>
+          <div class="kv">
+            <div class="k">Temp</div><div class="v" id="wxTemp">-</div>
+            <div class="k">Wind</div><div class="v" id="wxWind">-</div>
+            <div class="k">Precip</div><div class="v" id="wxPrecip">-</div>
+            <div class="k">Condition</div><div class="v" id="wxCond">-</div>
+          </div>
+          <div class="muted small wxAt" id="wxAt">-</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>AI overview</h3>
+        <div class="aiRow">
+          <button id="aiBtn" type="button">Generate AI overview</button>
+          <span id="aiStatus" class="muted small">idle</span>
+        </div>
+        <div id="aiOut" class="aiOut muted">-</div>
+      </div>
+
+      <div class="card">
+        <h3>Top delays</h3>
+        <ol id="topList" class="topList"></ol>
+        <p class="muted small">Click an item to zoom.</p>
+      </div>
+
+      <div class="card">
+        <h3>Legend</h3>
+        <p class="muted small">
+          Heat uses only vehicles inside Prague bbox (to keep it focused).
+          Negative delays are treated as 0 for heat.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="./js/app.js"></script>
 
   <script>
-    const out = document.getElementById("out");
+    (function () {
+      const btn = document.getElementById("rtBtn");
+      const menu = document.getElementById("rtMenu");
+      const wrap = document.getElementById("routeTypes");
+      if (!btn || !menu || !wrap) return;
 
-    async function callApi(path) {
-      out.textContent = "Loading " + path + " ...";
-      try {
-        const resp = await fetch(path);
-        const text = await resp.text();
-        // try to pretty-print JSON
-        try {
-          const json = JSON.parse(text);
-          out.textContent = JSON.stringify(json, null, 2);
-        } catch {
-          out.textContent = text;
-        }
-      } catch (e) {
-        out.textContent = "ERROR: " + e.message;
+      function close() {
+        wrap.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
       }
-    }
 
-    document.getElementById("btn-health").addEventListener("click", () => callApi("/api/health"));
-    document.getElementById("btn-weather").addEventListener("click", () => callApi("/api/weather/prague"));
-    document.getElementById("btn-golemio").addEventListener("click", () => callApi("/api/golemio/vehiclepositions"));
-    document.getElementById("btn-tram").addEventListener("click", () => callApi("/api/golemio/vehiclepositions?route_type=0"));
-    document.getElementById("btn-bus").addEventListener("click", () => callApi("/api/golemio/vehiclepositions?route_type=3"));
-    document.getElementById("btn-clear").addEventListener("click", () => out.textContent = "Klikni na tlačítko.");
+      btn.addEventListener("click", () => {
+        const open = wrap.classList.toggle("open");
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!wrap.contains(e.target)) close();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") close();
+      });
+    })();
   </script>
 </body>
 </html>
