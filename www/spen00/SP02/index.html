@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Rowing Results Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./Assets/css/main.css" />
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gsiLoaded()"></script>
+
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="app-title">
+            <h1>Rowing Results Dashboard</h1>
+            <p>Přehled výsledků testů veslařů z Google Sheets</p>
+        </div>
+        <div class="app-actions">
+            <button id="btn-refresh">Refresh dat</button>
+            <button id="btn-auth" disabled>Přihlásit k Google</button>
+            <button id="btn-signout" class="hidden">Odhlásit</button>
+        
+        </div>
+    </header>
+
+    <main class="app-main">
+     
+        <aside class="filters-panel">
+            <h2>Filtry</h2>
+
+            <label for="filter-category">Kategorie</label>
+            <select id="filter-category">
+                <option value="">Vše</option>
+                <option value="U17">U17</option>
+                <option value="U19">U19</option>
+                <option value="U23">U23</option>
+                <option value="Open">Open</option>
+                <option value="Veterán">Veterán</option>
+            </select>
+
+            <label for="filter-testType">Typ testu</label>
+            <select id="filter-testType">
+                <option value="">Vše</option>
+                <option value="2k">2 km</option>
+                <option value="6k">6 km</option>
+                <option value="AT">AT test</option>
+                <option value="Jiný">Jiný</option>
+            </select>
+
+            <label for="filter-season">Sezóna</label>
+            <select id="filter-season">
+                <option value="">Vše</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+
+            <label for="filter-name">Hledat podle jména</label>
+            <input type="text" id="filter-name" placeholder="Např. Novák" />
+
+            <div class="filters-buttons">
+                <button id="btn-apply-filters">Použít filtry</button>
+                <button id="btn-reset-filters" type="button">Reset</button>
+            </div>
+
+            <p class="filters-note">
+                Poslední nastavení filtrů se ukládá do <code>localStorage</code>.
+            </p>
+        </aside>
+
+     
+        <section class="content-panel">
+     
+            <section class="rowers-section">
+                <div class="rowers-header">
+                    <h2>Seznam veslařů</h2>
+                    <p>Klikni na <strong>Detail</strong> pro historii testů.</p>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="rowers-table">
+                        <thead>
+                            <tr>
+                                <th>Jméno</th>
+                                <th>Klub</th>
+                                <th>Kategorie</th>
+                                <th>Počet testů</th>
+                                <th>Akce</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rowers-tbody">
+                        
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="rowers-loader" class="loader hidden">Načítám data...</div>
+                <div id="rowers-error" class="error-message hidden"></div>
+            </section>
+
+            <section id="detail-panel" class="detail-panel">
+                <h2>Detail veslaře</h2>
+
+                <div class="detail-top">
+                    <div class="detail-info">
+                        <p><strong>Jméno:</strong> <span id="detail-name">–</span></p>
+                        <p><strong>Klub:</strong> <span id="detail-club">–</span></p>
+                        <p><strong>Kategorie:</strong> <span id="detail-category">–</span></p>
+
+                        <h3>Statistiky</h3>
+                        <ul>
+                            <li>Osobní rekord 2 km: <span id="detail-best-2k">–</span></li>
+                            <li>Osobní rekord 6 km: <span id="detail-best-6k">–</span></li>
+                            <li>Poslední test: <span id="detail-last-test">–</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="detail-chart">
+                        <h3>Vývoj výkonu</h3>
+                        <canvas id="performance-chart"></canvas>
+
+                        <div class="chart-filters">
+                            <label><input type="checkbox" id="chart-2k" checked /> 2 km</label>
+                            <label><input type="checkbox" id="chart-6k" /> 6 km</label>
+                            <label><input type="checkbox" id="chart-current-season" /> Jen aktuální sezóna</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <section class="detail-history">
+                    <h3>Historie testů</h3>
+                    <div class="table-wrapper">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Datum</th>
+                                    <th>Typ testu</th>
+                                    <th>Čas</th>
+                                    <th>Poznámka</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <hr />
+
+                <section class="detail-form">
+                    <h3>Přidat nový test</h3>
+
+                    <form id="new-test-form">
+                        <div class="form-row">
+                            <label for="form-rower">Veslař</label>
+                            <select id="form-rower"></select>
+                        </div>
+
+                        <div class="form-row checkbox-row">
+                            <label>
+                                <input type="checkbox" id="form-add-new-rower" />
+                                Přidat nového veslaře
+                            </label>
+                        </div>
+
+                        <div class="form-row hidden" id="form-new-rower-row">
+                            <label for="form-new-rower">Jméno nového veslaře</label>
+                            <input type="text" id="form-new-rower" placeholder="Např. Novák Jan" />
+                        </div>
+
+                        <div class="form-row">
+                            <label for="form-testType">Typ testu</label>
+                            <select id="form-testType">
+                                <option value="2k">2 km</option>
+                                <option value="6k">6 km</option>
+                                <option value="AT">AT test</option>
+                                <option value="Jiný">Jiný</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="form-date">Datum</label>
+                            <input type="date" id="form-date" required />
+                        </div>
+
+                        <div class="form-row">
+                            <label for="form-time">Čas (HH:MM:SS nebo mm:ss)</label>
+                            <input type="text" id="form-time" placeholder="Např. 06:45,3 nebo 6:45.3" required />
+                        </div>
+
+                        <div class="form-row">
+                            <label for="form-note">Poznámka (volitelné)</label>
+                            <textarea id="form-note" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit">Uložit test</button>
+                            <button type="reset" id="form-reset">Reset formuláře</button>
+                        </div>
+
+                        <p id="form-message" class="form-message"></p>
+                    </form>
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <script src="./Assets/js/main.js"></script>
+</body>
+
+</html>
