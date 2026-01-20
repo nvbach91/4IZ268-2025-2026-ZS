@@ -85,3 +85,12 @@ footer {
 .order-selected {
     background-color: red;
 }
+
+.star-glowing {
+    background-color: gold;
+}
+
+.title {
+    text-decoration: none;
+    color: black;
+}
