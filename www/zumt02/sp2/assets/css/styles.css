@@ -64,6 +64,13 @@ footer {
     flex-wrap: wrap;
 }
 
+.flex-rev-row {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10%;
+    flex-wrap: wrap;
+}
+
 .flex-col {
     display: flex;
     flex-direction: column;

@@ -227,7 +227,7 @@ export const renderAnime = async (resp) => {
                 </div>
                 <div>Episodes: ${episodeCount}</div>
                 <div>Studio: ${studio}</div>
-                <div>Rating: ${printStars(averageRating)} ${averageRating}%</div>
+                <div>Rating: ${printStars(averageRating)} ${averageRating ? (averageRating + " %") : "No ratings"}</div>
             </div>
             <div class="flex-col anime-desc">
                 <p>${description}</p>

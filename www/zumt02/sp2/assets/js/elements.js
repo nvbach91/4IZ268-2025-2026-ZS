@@ -6,6 +6,7 @@ export const categoryContainer = $('#categories');
 export let categoryList = [];
 
 export const buttonSearch = $('#button-search');
+export const buttonApply = $('#button-apply');
 
 export const button2Watch = $('#button-2watch');
 export const buttonSeen = $('#button-seen');

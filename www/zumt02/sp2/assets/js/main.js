@@ -1,12 +1,11 @@
-import { buttonSearch, button2Watch, buttonSeen, buttonOrderRelevance, buttonOrderNewest, buttonOrderRating, buttonOrderPopularity, OrderEnum, setOrder, filtersContainer, appContainer, loadingImg } from "./elements.js";
+import { buttonSearch, button2Watch, buttonSeen, buttonOrderRelevance, buttonOrderNewest, buttonOrderRating, buttonOrderPopularity, OrderEnum, setOrder, filtersContainer, appContainer, loadingImg, buttonApply } from "./elements.js";
 import { deselectOrder, renderAnime, renderCategories, renderIdList } from "./renders.js";
 import { getAnime, getCategories, getSelectedCategories } from "./network.js";
 import { cleanParams, get2Watch, getSeen, loadCategories, loadList, loadOrder, loadSearch, push2WatchToURL, pushSeenToURL, saveCategories, saveOrder, saveSearch } from "./storage.js";
 
 const preload = loadingImg;
 
-buttonSearch.on('click', async (e) => {
-  e.preventDefault();
+const search = async () => {
   cleanParams();
   saveSearch(true);
   saveCategories(getSelectedCategories(), true);
@@ -14,6 +13,15 @@ buttonSearch.on('click', async (e) => {
 
   filtersContainer.show();
   renderAnime(await getAnime());
+};
+
+buttonSearch.on('click', (e) => {
+  e.preventDefault();
+  search();
+});
+
+buttonApply.on('click', () => {
+  search();
 });
 
 button2Watch.on('click', async () => {
@@ -38,24 +46,28 @@ buttonOrderRelevance.on('click', () => {
   setOrder(OrderEnum.RELEVANCE);
   deselectOrder();
   buttonOrderRelevance.addClass("order-selected");
+  search();
 });
 
 buttonOrderNewest.on('click', () => {
   setOrder(OrderEnum.NEWEST);
   deselectOrder();
   buttonOrderNewest.addClass("order-selected");
+  search();
 });
 
 buttonOrderRating.on('click', () => {
   setOrder(OrderEnum.RATING);
   deselectOrder();
   buttonOrderRating.addClass("order-selected");
+  search();
 });
 
 buttonOrderPopularity.on('click', () => {
   setOrder(OrderEnum.POPULARITY);
   deselectOrder();
   buttonOrderPopularity.addClass("order-selected");
+  search();
 });
 
 const initialCategories = loadCategories();
