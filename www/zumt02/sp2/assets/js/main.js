@@ -1,17 +1,3 @@
-/*var request = new XMLHttpRequest();
-
-request.open('GET', 'https://kitsu.io/api/edge/anime');
-
-request.onreadystatechange = function () {
-  if (this.readyState === 4) {
-    console.log('Status:', this.status);
-    console.log('Headers:', this.getAllResponseHeaders());
-    console.log('Body:', this.responseText);
-  }
-};
-
-request.send();*/
-
 import { buttonSearch, button2Watch, buttonSeen, buttonOrderRelevance, buttonOrderNewest, buttonOrderRating, buttonOrderPopularity, OrderEnum, setOrder, filtersContainer, appContainer, loadingImg } from "./elements.js";
 import { deselectOrder, renderAnime, renderCategories, renderIdList } from "./renders.js";
 import { getAnime, getCategories, getSelectedCategories } from "./network.js";
@@ -83,11 +69,9 @@ renderCategories(await getCategories());
 renderAnime(await getAnime());
 
 window.addEventListener('popstate', async () => {
-  console.log("popstate");
+  //console.log("popstate");
   appContainer.empty();
   appContainer.append(loadingImg);
-  //loadOrder();
-  //loadCategories();
   loadSearch();
 
   switch (loadList()) {

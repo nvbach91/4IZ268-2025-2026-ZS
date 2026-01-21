@@ -2,13 +2,29 @@
     box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
+.julee {
+    font-family: "Julee", cursive;
+    font-size: 64px;
 }
 
-h1 {
-    margin-left: 20vw;
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+p,
+button,
+input,
+label {
+    font-family: "Roboto Flex", sans-serif;
+}
+
+h1,
+h2,
+h3,
+div {
+    font-family: Georgia, 'Times New Roman', Times, serif
 }
 
 main {
@@ -83,14 +99,45 @@ footer {
 }
 
 .order-selected {
-    background-color: red;
+    background-color: orange;
 }
 
 .star-glowing {
     background-color: gold;
 }
 
+.order-selected:hover {
+    background-color: orangered;
+}
+
+.star-glowing:hover {
+    background-color: orange;
+}
+
 .title {
     text-decoration: none;
     color: black;
+}
+
+.title img {
+    padding: 8px;
+}
+
+.title .flex-row {
+    align-items: flex-end;
+}
+
+button {
+    font-size: medium;
+    border: 2px grey solid;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.search-field {
+    font-size: larger;
 }

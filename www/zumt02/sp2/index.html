@@ -6,17 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Scuffed Anime List</title>
     <link href="./assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="icon" href="./assets/img/sage_resize.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Julee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div class="content flex-col">
         <header>
-            <a href="./index.html" class="title"><h1>My Scuffed Anime List</h1></a>
+            <a href="./index.html" class="title">
+                <div class="flex-row">
+                    <img src="./assets/img/sage_resize.png" alt="Logo">
+                    <div class="flex-col">
+                        <h1 class="julee">My Scuffed Anime List</h1>
+                        <h1>俺のヘタクソなアニメリスト</h1>
+                    </div>
+                </div>
+            </a>
             <div class="flex-row">
                 <form id="form-search">
                     <div>
-                        <input name="searchField">
-                        <button id="button-search">Search</button>
+                        <input name="searchField" class="search-field">
+                        <button id="button-search">Search <i class="fas fa-search"></i></button>
                     </div>
                 </form>
                 <div class="buttons-right">

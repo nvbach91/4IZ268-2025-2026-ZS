@@ -2,39 +2,7 @@ import { appContainer, buttonOrderNewest, buttonOrderPopularity, buttonOrderRati
 import { getAnimeById, makeRequest } from "./network.js";
 import { addRating, get2Watch, getRatings, getSeen, loadCategories, loadOrder, removeFrom2Watch, removeFromSeen, saveTo2Watch, saveToSeen } from "./storage.js";
 
-/*const getStudio = async (link) => {
-    try {
-        const resp = await axios.get(link);
-        for (const production of resp.data.data) {
-            const { attributes, relationships } = production;
-            if (attributes.role === "studio") {
-                const respStudio = await axios.get(relationships.company.links.related);
-                return respStudio.data.data.attributes.name;
-            }
-        }
-    } catch (e) {
-        console.error("Axios error:", e);
-    }
-
-    return "unknown";
-};*/
-
 const getStudioName = (mediaProductions, studios, producers, index) => {
-    /*for (const production of mediaProductions) {
-        for (const studio of studios) {
-            if (production.id === studio.id) {
-                for (const producer of producers) {
-                    if (producer.id === studio.relationships.company.data.id) {
-                        return producer.attributes.name;
-                    }
-                }
-            }
-        }
-    }
-    return "unknown";*/
-    //console.log(`mediaProductions of ${index}:`);
-    //console.log(mediaProductions);
-
     let i = 0;
     for (const studio of studios) {
         if (i > index) return "unknown";
@@ -50,7 +18,7 @@ const getStudioName = (mediaProductions, studios, producers, index) => {
             } else {
                 "unknown";
             }
-        } 
+        }
         i++;
     }
     return "unknown";
@@ -100,9 +68,9 @@ const printStars = (rating) => {
     const i = rating / 20;
     let stars = "";
     for (let index = 0; index < i; index++) {
-        stars += "*";
+        stars += '<i class="fas fa-star"></i>';
     }
-    for (let index = 0; index < 5-i; index++) {
+    for (let index = 0; index < 5 - i; index++) {
         stars += " ";
     }
     return stars;
@@ -207,12 +175,12 @@ const clickBehaviourStars = (animeElement, id, myRatings) => {
             addRating(id, index);
             //console.log(id + "-" + getRatings().get(id));
             clickBehaviourStars(animeElement, id, getRatings());
-        }); 
+        });
     }
     if (stars != undefined) {
         for (let index = 1; index <= stars; index++) {
             const button = animeElement.find(`#${id}-${index}-star`);
-            button.addClass("star-glowing");   
+            button.addClass("star-glowing");
         }
     }
 };
@@ -223,12 +191,6 @@ export const renderAnime = async (resp) => {
     }
 
     const animeList = resp.data.data;
-    
-    /*const studioPromises = animeList.map(anime =>
-        getStudio(anime.relationships.productions.links.related)
-    );
-
-    const studios = await Promise.all(studioPromises);*/
     const studios = getStudios(resp.data.included);
     const producers = getProducers(resp.data.included);
 
@@ -244,15 +206,17 @@ export const renderAnime = async (resp) => {
 
     for (const anime of animeList) {
         const { id, attributes, relationships } = anime;
-        const { canonicalTitle, posterImage, averageRating, description, episodeCount, startDate, status, subtype } = attributes;
+        const { canonicalTitle, posterImage, averageRating, description, episodeCount, startDate, status, subtype, titles } = attributes;
         const { small } = posterImage;
-        const studio = getStudioName(relationships.productions.data, studios, producers, index); /*studios[index];*/
+        const studio = getStudioName(relationships.productions.data, studios, producers, index);
         index++;
 
         //console.log(canonicalTitle);
         const animeElement = $(`
         <div class="anime">
             <h2>${canonicalTitle}</h2>
+            <h3>${(titles.en && titles.en !== canonicalTitle) ? titles.en : ""}</h3>
+            <h3>${titles.ja_jp ? titles.ja_jp : ""}</h3>
             <h3>Season: ${formatSeason(startDate)}</h3>
             <div class="flex-row">
             <div class="flex-col">
@@ -272,11 +236,11 @@ export const renderAnime = async (resp) => {
                     <button id="${id}-button-add-seen">Add to Seen</button>
                     <div>
                         <label>My rating: </label>
-                        <button id="${id}-1-star">*</button>
-                        <button id="${id}-2-star">*</button>
-                        <button id="${id}-3-star">*</button>
-                        <button id="${id}-4-star">*</button>
-                        <button id="${id}-5-star">*</button>
+                        <button id="${id}-1-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-2-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-3-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-4-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-5-star"><i class="fas fa-star"></i></button>
                     </div>
                 </div>
             </div>
@@ -298,10 +262,10 @@ export const renderAnime = async (resp) => {
 };
 
 export const deselectOrder = () => {
-  buttonOrderRelevance.removeClass("order-selected");
-  buttonOrderNewest.removeClass("order-selected");
-  buttonOrderRating.removeClass("order-selected");
-  buttonOrderPopularity.removeClass("order-selected");
+    buttonOrderRelevance.removeClass("order-selected");
+    buttonOrderNewest.removeClass("order-selected");
+    buttonOrderRating.removeClass("order-selected");
+    buttonOrderPopularity.removeClass("order-selected");
 };
 
 export const renderCategories = async (resp) => {
@@ -317,7 +281,7 @@ export const renderCategories = async (resp) => {
         case OrderEnum.POPULARITY:
             buttonOrderPopularity.addClass("order-selected");
             break;
-        
+
         case OrderEnum.RATING:
             buttonOrderRating.addClass("order-selected");
             break;
@@ -325,7 +289,7 @@ export const renderCategories = async (resp) => {
         case OrderEnum.NEWEST:
             buttonOrderNewest.addClass("order-selected");
             break;
-    
+
         default:
             buttonOrderRelevance.addClass("order-selected");
             break;
@@ -351,7 +315,7 @@ export const renderCategories = async (resp) => {
     categoryContainer.append(categoryElements);
 };
 
-const renderNavId = (classType, idList, from, to) => {
+const renderNavId = (classType, idList, from) => {
     if (typeof idList === "undefined") {
         return null;
     };
@@ -373,7 +337,7 @@ const renderNavId = (classType, idList, from, to) => {
         navbar.find(".button-prev").remove();
     } else {
         navbar.find(".button-prev").on("click", async () => {
-            renderIdList(idList, from-10, to-10);
+            renderIdList(idList, from - 10, from);
         });
     }
 
@@ -381,19 +345,20 @@ const renderNavId = (classType, idList, from, to) => {
         navbar.find(".button-next").remove();
     } else {
         navbar.find(".button-next").on("click", async () => {
-            renderIdList(idList, from+10, to+10);
+            renderIdList(idList, from + 10, from + 20);
         });
     }
 
     navbar.find(".button-last").on("click", async () => {
-        let last = idList.length;
+        const last = idList.length;
         if (last < 0) {
             last = 0;
         }
-        let start = last - 10;
+        const start = Math.max(0, Math.floor(last / 10) * 10);
         if (start < 0) {
             start = 0;
         }
+        //console.log(`${start} - ${last}`);
         renderIdList(idList, start, last);
     });
 
@@ -411,28 +376,21 @@ export const renderIdList = async (idList, from, to) => {
     const merged = mergeAxiosJsonApiResponses(animes);
     //console.log(merged);
     renderAnime(merged);
-    appContainer.prepend(renderNavId("page-nav-top", idList, from, to));
-    appContainer.append(renderNavId("page-nav-bottom", idList, from, to));
+    appContainer.prepend(renderNavId("page-nav-top", idList, from));
+    appContainer.append(renderNavId("page-nav-bottom", idList, from));
 };
 
 const mergeAxiosJsonApiResponses = (responses) => {
-  return {
-    //status: responses[0].status,
-    //statusText: responses[0].statusText,
-    //headers: responses[0].headers,
-    //config: responses[0].config,
-    //request: responses[0].request,
-    data: {
-      data: responses.flatMap(r => r.data.data),
-      included: Object.values(
-        Object.fromEntries(
-          responses
-            .flatMap(r => r.data.included ?? [])
-            .map(r => [`${r.type}:${r.id}`, r])
-        )
-      ),
-      //meta: responses[0].data.meta,
-      //links: responses[0].data.links
-    }
-  };
+    return {
+        data: {
+            data: responses.flatMap(r => r.data.data),
+            included: Object.values(
+                Object.fromEntries(
+                    responses
+                        .flatMap(r => r.data.included ?? [])
+                        .map(r => [`${r.type}:${r.id}`, r])
+                )
+            )
+        }
+    };
 };

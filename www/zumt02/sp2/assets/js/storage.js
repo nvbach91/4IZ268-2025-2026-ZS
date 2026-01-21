@@ -101,27 +101,6 @@ export const removeRating = (id) => {
     }
 };
 
-/*export const saveCategories = (categories) => {
-    //console.log("Saved: ", categories);
-    sessionStorage.setItem("categories", JSON.stringify(categories));
-};
-
-export const loadCategories = () => {
-    return JSON.parse(sessionStorage.getItem("categories"));
-};
-
-export const saveOrder = () => {
-    sessionStorage.setItem("order", JSON.stringify(order));
-};
-
-export const loadOrder = () => {
-    const loaded = JSON.parse(sessionStorage.getItem("order"));
-    if (loaded !== null) {
-        setOrder(loaded);
-    }
-};*/
-
-
 const updateUrl = (params, replace = false) => {
     const url = `${location.pathname}?${params.toString()}`;
 
@@ -155,7 +134,7 @@ export const push2WatchToURL = (replace = false) => {
 export const loadList = () => {
     const params = new URLSearchParams(location.search);
     const list = params.get('list');
-    console.log("Loaded list: ", list);
+    //console.log("Loaded list: ", list);
     return list;
 };
 
@@ -168,14 +147,14 @@ export const saveCategories = (categories, replace = false) => {
         params.delete('categories');
     }
 
-    console.log("Saved categories: ", categories);
+    //console.log("Saved categories: ", categories);
     updateUrl(params, replace);
 };
 
 export const loadCategories = () => {
     const params = new URLSearchParams(location.search);
     const raw = params.get('categories');
-    console.log("Loaded categories: ", raw);
+    //console.log("Loaded categories: ", raw);
     return raw ? raw.split(',') : [];
 };
 
@@ -188,7 +167,7 @@ export const saveOrder = (replace = false) => {
         params.delete('order');
     }
 
-    console.log("Saved orded: ", order);
+    //console.log("Saved orded: ", order);
     updateUrl(params, replace);
 };
 
@@ -197,7 +176,7 @@ export const loadOrder = () => {
     const loaded = params.get('order') ?? "";
 
     setOrder(loaded);
-    console.log("Loaded order: ", order);
+    //console.log("Loaded order: ", order);
 };
 
 export const saveSearch = (replace = false) => {
@@ -211,15 +190,13 @@ export const saveSearch = (replace = false) => {
         params.delete('search');
     }
 
-    console.log("Saved search: ", searchString);
+    //console.log("Saved search: ", searchString);
     updateUrl(params, replace);
 };
 
 export const loadSearch = () => {
     const params = new URLSearchParams(location.search);
-    const searchString = params.get('search');
-    if (searchString) {
-        const formData = new FormData(formSearch.get(0));
-        formData.set('searchField', searchString);
-    }
+    const searchString = params.get('search') ?? "";
+
+    formSearch.find('[name="searchField"]').val(searchString);
 };
