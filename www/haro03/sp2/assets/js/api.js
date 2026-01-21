@@ -1,9 +1,17 @@
-const API_URL = 'https://opentdb.com/api.php?amount=5&type=multiple';
+// Načte otázky z externího Trivia API
+export async function fetchQuestions(url) {
+  // Odeslání HTTP požadavku na API
+  const res = await fetch(url);
 
-function fetchQuestions() {
-  return $.ajax({
-    url: API_URL,
-    method: 'GET',
-    dataType: 'json'
-  });
+  // Kontrola, zda server odpověděl úspěšně (status 200–299)
+  // Pokud ne, vyhodí chybu, kterou zachytí volající funkce
+  if (!res.ok) {
+    throw new Error(`API request failed: ${res.status}`);
+  }
+
+  // Převod odpovědi ze serveru do JSON objektu
+  const data = await res.json();
+
+  // Vrácení kompletní odpovědi (obsahuje otázky i response_code)
+  return data;
 }
