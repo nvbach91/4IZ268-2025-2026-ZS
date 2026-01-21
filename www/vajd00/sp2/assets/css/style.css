@@ -1,3 +1,15 @@
+:root {
+    --bg1: #0b1220;
+    --bg2: rgba(255, 255, 255, 0.92);
+
+    --text: #0f172a;
+    --muted: #475569;
+
+    --border: rgba(15, 23, 42, 0.18);
+    --border2: rgba(37, 99, 235, 0.9);
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.229);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,84 +17,449 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  padding: 10px 20%;
-  font-family: "Poppins", sans-serif;
+    padding: 15px 20%;
+    font-family: "Poppins", sans-serif;
+    background: var(--bg1);
+    color: var(--text);
 }
 
-.row {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
+h1 {
+    margin: 0 0 8px 0;
+    font-size: 34px;
+    color: #ffffff;
+}
+
+h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.muted {
+    color: var(--muted);
 }
 
 .small {
-  align-items: center;
-  gap: 8px;
+    font-size: 12px;
 }
 
-.box {
-  flex: 1;
-  border: 2px solid #000;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
+/* ===== PANELS ====== */
+.summary,
+.toolbar,
 .panel {
-  border: 2px solid #000;
-  padding: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
 }
 
-.panel h2 {
-  margin: 0 0 12px 0;
+.header {
+    margin-bottom: 10px;
 }
 
-label {
-  display: block;
-  margin-top: 8px;
-  margin-bottom: 4px;
+.footer {
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
 }
 
-select, button {
-  width: 100%;
-  padding: 6px;
+/* ===== SUMMARY ===== */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+    text-align: center;
 }
 
-.graph {
-  border: 2px dashed #000;
-  height: 160px;
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.summary .label {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--muted);
 }
 
-.table-placeholder {
-  border: 2px dashed #000;
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.summary .value {
+    margin-top: 6px;
+    font-size: 20px;
+    font-weight: 900;
 }
 
-.form-placeholder {
-  border: 2px dashed #000;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ===== TOOLBAR ===== */
+.toolbar .row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 16px;
+    row-gap: 10px;
+    align-items: center;
 }
 
-@media (max-width: 800px) {
-  .row { flex-direction: column; }
-  .grid { grid-template-columns: 1fr; }
+.toolbar label {
+    grid-column: 1 / -1;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--muted);
+}
+
+#currencySelect {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+#btnRefreshRate {
+    white-space: nowrap;
+}
+
+#rateInfo {
+    font-size: 12px;
+    color: var(--muted);
+    align-self: center;
+}
+
+/* ===== MAIN GRID ===== */
+.grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 16px;
+    align-items: stretch;
+    height: min(760px, 80vh);
+    margin-bottom: 16px;
+}
+
+.grid>aside.panel,
+.grid>main.panel {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ===== FILTER x GRAPH ===== */
+.grid>aside.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.grid>aside.panel hr {
+    border: 0;
+    border-top: 1px solid rgba(15, 23, 42, 0.18);
+    margin: 10px 0;
+}
+
+.grid>aside.panel label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.chartBox {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+
+    border: 1px dashed rgba(15, 23, 42, 0.35);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 10px;
+}
+
+#spendChart {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ===== TABLE ===== */
+.grid>main.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+}
+
+.panelHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex: 0 0 auto;
+}
+
+.tableWrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: auto;
+
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    font-size: 14px;
+    padding: 12px 10px;
+    color: var(--text);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+}
+
+.table tr:hover {
+    background: rgba(37, 100, 235, 0.189);
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+/* ===== FORM ===== */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    gap: 14px;
+    align-items: end;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.label2 {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--border2);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+}
+
+/* ===== RADIOS ===== */
+.radios {
+    display: flex;
+    gap: 10px;
+}
+
+.radios label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--bg1);
+    background: rgba(255, 255, 255, 0.92);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.radios label:hover {
+    transform: translateY(-1px);
+    border-color: var(--border2);
+}
+
+.radios input[type="radio"] {
+    accent-color: #2563eb;
+}
+
+/* ===== BUTTONS ===== */
+.btnRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: var(--border2);
+    background: rgba(96, 165, 250, 0.18);
+}
+
+button:active {
+    transform: translateY(0px);
+}
+
+button.ghost {
+    background: transparent;
+}
+
+button.danger {
+    border-color: rgba(220, 38, 38, 0.55);
+    color: rgba(220, 38, 38);
+    background: rgba(220, 38, 38, 0.05);
+}
+
+button.danger:hover {
+    background: rgba(220, 38, 38, 0.10);
+    border-color: rgba(220, 38, 38, 0.75);
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    body {
+        padding: 14px 16px;
+    }
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .grid>aside.panel,
+    .grid>main.panel {
+        height: auto;
+        overflow: visible;
+    }
+
+    .chartBox {
+        min-height: 260px;
+    }
+
+    .panelHead {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .formRow {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ===== PRINT ===== */
+@media print {
+    body {
+        padding: 0;
+        margin: 0;
+        background: #fff;
+        color: #000;
+    }
+
+    h1 {
+        color: #000;
+    }
+
+    .footer {
+        color: #000;
+    }
+
+    .summary,
+    .panel,
+    .toolbar,
+    .card {
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        backdrop-filter: none;
+        border-radius: 0;
+    }
+
+    .toolbar,
+    .grid>aside.panel,
+    .chartBox,
+    #txForm,
+    button {
+        display: none;
+    }
+
+    .grid {
+        display: block;
+        height: auto;
+    }
+
+    .tableWrap {
+        overflow: visible;
+        border: 1px solid #ccc;
+    }
+
+    .table th {
+        position: static;
+        top: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11pt;
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 6px 8px;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    th.center,
+    td.center {
+        display: none;
+    }
 }
