@@ -1,47 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Vyhledávač filmů a seriálů.">
+    <meta name="keywords" content="filmy, seriály, herci">
+    <title>Movie Explorer</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <title>Movie Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div id="loader" class="loader-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3 id="modal-title">Nadpis</h3>
+            <div id="modal-body"></div>
+            <div class="modal-actions">
+                <button id="modal-btn-cancel" class="btn btn-secondary">Zrušit</button>
+                <button id="modal-btn-confirm" class="btn btn-primary">Potvrdit</button>
+            </div>
+        </div>
+    </div>
+
     <header>
-        <h1>Movie Explorer</h1>
+        <h1 id="logo">Movie Explorer</h1>
         <nav>
-            <a href="./movies/">Filmy</a>
-            <a href="./series/">Seriály</a>
+            <a href="#movies" data-link>Filmy</a>
+            <a href="#series" data-link>Seriály</a>
+            <a href="#people" data-link>Osobnosti</a>
+            <a href="#folder/Oblíbené" data-link>Oblíbené</a>
         </nav>
         <form id="search-form">
-            <input type="text" id="search-input" placeholder="Zadejte název filmu nebo seriálu..." required>
+            <input type="text" id="search-input" placeholder="Hledat film, seriál, osobu..." required>
             <button type="submit">Hledat</button>
         </form>
     </header>
 
-    <main>
-        <section id="results-container">
-            <h2>Výsledky vyhledávání</h2>
-        </section>
+    <main class="container">
+        <div id="filter-bar" class="hidden">
+            <select id="filter-genre">
+                <option value="">Všechny žánry</option>
+            </select>
+            <select id="filter-year">
+                <option value="">Všechny roky</option>
+            </select>
+            <select id="filter-sort"></select>
+            <button id="btn-apply-filters">Filtrovat</button>
+        </div>
 
-        <section id="detail-container" style="display: none;">
-        </section>
+        <div class="content-wrapper">
+            <section id="main-content">
+                <div id="homepage-sections"></div>
 
-        <aside id="folders-sidebar">
-            <h2>Mé složky</h2>
-            <div id="folders-list">
-            </div>
-            <button id="add-folder-btn">Přidat novou složku</button>
-        </aside>
+                <div id="category-view" class="hidden">
+                    <h2 id="section-title">Výsledky</h2>
+                    <div id="results-container" class="grid-container"></div>
+                    <div class="load-more-wrapper">
+                        <button id="load-more-btn" class="hidden">Načíst další</button>
+                    </div>
+                </div>
+
+                <div id="detail-container" class="detail-view hidden"></div>
+            </section>
+
+            <aside id="folders-sidebar">
+                <h2>Mé složky</h2>
+                <div id="folders-list"></div>
+                <div class="add-folder-group">
+                    <input type="text" id="new-folder-name" placeholder="Nová složka...">
+                    <button id="add-folder-btn">Přidat</button>
+                </div>
+            </aside>
+        </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <footer>
+        <p>&copy; 2025 Dao Quynh Anh</p>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js"></script>
+    <script>moment.locale('cs');</script>
     <script src="./assets/js/app.js"></script>
 </body>
 
