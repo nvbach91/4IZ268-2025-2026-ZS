@@ -1,0 +1,254 @@
+/* --- Globální proměnné a reset --- */
+:root {
+    --primary-color: #0088A8;
+    --secondary-color: #00CC99;
+    --accent-color: #FF5733;
+    --bg-color: #f0f4f8;
+    --card-bg: #ffffff;
+    --text-color: #2d3436;
+    --border-radius: 12px;
+    --shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 0 0 40px 0;
+}
+
+/* --- Typografie a hlavička --- */
+header {
+    background: linear-gradient(135deg, var(--primary-color), #005f73);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* --- Layout --- */
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    background: var(--card-bg);
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Vyhledávání a Recepty --- */
+.search-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 136, 168, 0.1);
+}
+
+#search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    cursor: grab;
+    transition: var(--transition);
+    border: 1px solid #eee;
+}
+
+.recipe-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.recipe-card h4 {
+    padding: 12px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* --- Týdenní Plánovač (8 sloupců) --- */
+#meal-planner-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    gap: 2px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.grid-header, .type-cell {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.type-cell {
+    background-color: #005f73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meal-slot {
+    background-color: white;
+    min-height: 100px;
+    padding: 8px;
+    transition: var(--transition);
+}
+
+.meal-slot:hover {
+    background-color: #f9f9f9;
+}
+
+.planned-recipe {
+    background: #e3f2fd;
+    border-left: 4px solid var(--primary-color);
+    padding: 8px;
+    font-size: 0.8rem;
+    position: relative;
+    border-radius: 4px;
+    animation: fadeIn 0.3s ease;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border: none;
+    background: none;
+    color: #ff7675;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Tlačítka --- */
+.btn-primary, .btn-secondary, .btn-danger, #search-button {
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary, #search-button { background-color: var(--secondary-color); color: white; }
+.btn-primary:hover, #search-button:hover { filter: brightness(0.9); }
+
+.btn-secondary { background-color: #b2bec3; color: white; }
+.btn-danger { background-color: var(--accent-color); color: white; }
+
+/* --- Pomocné třídy --- */
+.hidden { display: none !important; }
+
+/* --- Loading Spinner --- */
+#loader {
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#loader::before {
+    content: "";
+    display: inline-block;
+    width: 20px; height: 20px;
+    border: 3px solid rgba(0, 136, 168, 0.3);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Toast Notifikace --- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.5s ease-out;
+}
+
+.toast-info { background: var(--primary-color); }
+.toast-error { background: var(--accent-color); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Responzivita --- */
+@media (max-width: 1024px) {
+    #meal-planner-grid {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+    .grid-header { display: none; }
+    .type-cell { width: 100%; border-bottom: 1px solid #eee; }
+}
