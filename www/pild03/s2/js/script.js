@@ -1,550 +1,442 @@
+/**
+ * 4IZ268 - MealPlanner Application
+ * Namespace: MealApp
+ */
 
-const API_BASE = 'https://www.themealdb.com/api/json/v1/1/'; 
-const DAYS = ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'];
-const MEAL_TYPES = ['Snídaně', 'Oběd', 'Večeře'];
+const MealApp = {
+    API_BASE: 'https://www.themealdb.com/api/json/v1/1/',
+    DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    MEAL_TYPES: ['Breakfast', 'Lunch', 'Dinner'],
+   UNIT_MAP: {
+        'g': 'g', 'gram': 'g', 'grams': 'g',
+        'kg': 'kg', 'kilogram': 'kg',
+        'ml': 'ml', 'l': 'l', 'liter': 'l',
+        'cup': 'cup', 'cups': 'cup',
+        'tbsp': 'tbsp', 'tbs': 'tbsp', 'tablespoon': 'tbsp', 'tablespoons': 'tbsp',
+        'tsp': 'tsp', 'teaspoon': 'tsp', 'teaspoons': 'tsp',
+        'pcs': 'pcs', 'piece': 'pcs', 'unit': 'pcs', 'egg': 'pcs', 'eggs': 'pcs'
+    },
+    state: {
+        mealPlan: {},
+        recipeCache: {}
+    },
 
+    init() {
+        this.loadFromStorage();
+        this.renderGrid();
+        this.attachEventListeners();
+    },
 
-const searchInput = document.getElementById('recipe-search-input');
-const searchButton = document.getElementById('search-button');
-const searchResults = document.getElementById('search-results');
-const plannerGrid = document.getElementById('meal-planner-grid');
-const generateListButton = document.getElementById('generate-list-button');
-const shoppingListSection = document.getElementById('shopping-list-section');
-const shoppingListContent = document.getElementById('shopping-list-content');
-
-const clearListDisplayButton = document.getElementById('clear-list-display-button');
-const clearFullPlanButton = document.getElementById('clear-full-plan-button');
-
-let mealPlan = {}; 
-let recipeCache = {}; 
-
-
-
-const FRACTION_MAP = {
-    '1/2': 0.5, '1/4': 0.25, '3/4': 0.75, '1/3': 0.3333, '2/3': 0.6667
-};
-
-const UNIT_MAP = {
-    'g': { base_unit: 'g', factor: 1 }, 'grams': { base_unit: 'g', factor: 1 },
-    'kg': { base_unit: 'g', factor: 1000 }, 'kilograms': { base_unit: 'g', factor: 1000 }, 'oz': { base_unit: 'g', factor: 28.35 }, 
-
-    'ml': { base_unit: 'ml', factor: 1 }, 'mls': { base_unit: 'ml', factor: 1 },
-    'l': { base_unit: 'ml', factor: 1000 }, 'litre': { base_unit: 'ml', factor: 1000 },
-    'cup': { base_unit: 'ml', factor: 237 }, 'cups': { base_unit: 'ml', factor: 237 },
-    'tbsp': { base_unit: 'ml', factor: 15 }, 'tsp': { base_unit: 'ml', factor: 5 }, 'fl oz': { base_unit: 'ml', factor: 30 },
-
-    'piece': { base_unit: 'ks', factor: 1 }, 'unit': { base_unit: 'ks', factor: 1 },
-    'pinch': { base_unit: 'nesčítatelná', factor: 0 }, 
-    'dash': { base_unit: 'nesčítatelná', factor: 0 }, 
-    'sprig': { base_unit: 'nesčítatelná', factor: 0 }, 
-};
-
-const CATEGORIES = {
-    'chicken': 'Maso a Ryby', 'beef': 'Maso a Ryby', 'fish': 'Maso a Ryby', 'pork': 'Maso a Ryby',
-    'milk': 'Mléčné výrobky', 'cheese': 'Mléčné výrobky', 'butter': 'Mléčné výrobky', 'cream': 'Mléčné výrobky', 'yoghurt': 'Mléčné výrobky',
-    'onion': 'Ovoce a Zelenina', 'tomato': 'Ovoce a Zelenina', 'potato': 'Ovoce a Zelenina', 'apple': 'Ovoce a Zelenina', 'garlic': 'Ovoce a Zelenina', 'carrot': 'Ovoce a Zelenina',
-    'flour': 'Pečivo a Obiloviny', 'sugar': 'Pečivo a Obiloviny', 'rice': 'Pečivo a Obiloviny', 'pasta': 'Pečivo a Obiloviny', 'bread': 'Pečivo a Obiloviny',
-    'salt': 'Koření a Dochucovadla', 'pepper': 'Koření a Dochucovadla', 'oil': 'Koření a Dochucovadla', 'vinegar': 'Koření a Dochucovadla', 'sauce': 'Koření a Dochucovadla',
-    'egg': 'Různé/Ostatní',
-    'default': 'Různé/Ostatní'
-};
-
-
-
-function parseIngredientAmount(measure) {
-    if (!measure) return { quantity: 0, unit: '' };
-
-    measure = measure.toLowerCase().trim();
-    let quantity = 0;
-    let unit = '';
-
-    const parts = measure.split(/\s+/).filter(p => p.trim() !== '');
-
-    let quantityStr = '';
-    let unitIndex = -1;
-    
-    for (let i = 0; i < parts.length; i++) {
-        let part = parts[i];
+    // --- API & SEARCH ---
+   async searchRecipes(query) {
+        if (!query || query.trim() === "") return;
         
-        if (i < parts.length - 1 && /^\d+$/.test(part) && FRACTION_MAP[parts[i+1]]) {
-            quantity = parseFloat(part) + FRACTION_MAP[parts[i+1]];
-            unitIndex = i + 2;
-            break;
-        } 
-        else if (/^\d+[\/\.]?\d*$/.test(part) || FRACTION_MAP[part]) {
-            quantityStr += part;
-            unitIndex = i + 1;
-        } 
-        else if (!/^\d+[\/\.]?\d*$/.test(part)) {
-            unitIndex = i;
-            break;
-        }
-    }
+        const $results = $('#search-results');
+        this.toggleLoader(true);
+        $results.empty();
 
-    if (quantity === 0 && quantityStr) {
-        if (FRACTION_MAP[quantityStr]) {
-            quantity = FRACTION_MAP[quantityStr];
-        } else {
-            quantity = parseFloat(quantityStr);
-        }
-    }
+        const q = query.trim().toLowerCase();
 
-    if (unitIndex !== -1) {
-        unit = parts.slice(unitIndex).join(' ').replace(/[^a-z]/g, '');
-    }
-    
-    if (quantity === 0 && unit) {
-        let unitMapping = UNIT_MAP[unit.replace(/s$/, '')];
-        if (unitMapping && unitMapping.factor > 0) {
-             quantity = 1;
-        }
-    }
-    
-    if (unit) {
-        let unitMapping = UNIT_MAP[unit.replace(/s$/, '')];
-        if (unitMapping && unitMapping.factor === 0) {
-            return { quantity: 0, unit: 'nesčítatelná' };
-        }
-    }
+        try {
+            // Paralelní volání endpointů: Název, Kategorie, Oblast
+            // Poznámka: TheMealDB nepodporuje search v kompletně všech ingrediencích najednou
+            const [nameRes, catRes, areaRes] = await Promise.all([
+                fetch(`${this.API_BASE}search.php?s=${encodeURIComponent(q)}`),
+                fetch(`${this.API_BASE}filter.php?c=${encodeURIComponent(q)}`),
+                fetch(`${this.API_BASE}filter.php?a=${encodeURIComponent(q)}`)
+            ]);
 
-    return { quantity: quantity || 0, unit: unit.replace(/[^a-z]/g, '') }; 
-}
+            const nameData = await nameRes.json();
+            const catData = await catRes.json();
+            const areaData = await areaRes.json();
 
-function normalizeAmount(quantity, unit) {
-    const unitLower = unit.toLowerCase();
-    
-    let unitMapping = UNIT_MAP[unitLower];
-    if (!unitMapping) {
-        unitMapping = UNIT_MAP[unitLower.replace(/s$/, '')];
-    }
+            const combinedMeals = new Map();
 
-    if (unitMapping && unitMapping.factor > 0) {
-        return {
-            normalizedQuantity: quantity * unitMapping.factor,
-            baseUnit: unitMapping.base_unit
-        };
-    }
-
-    return {
-        normalizedQuantity: quantity,
-        baseUnit: unitLower || 'ks' 
-    };
-}
-
-function formatNormalizedQuantity(amount, baseUnit) {
-    if (baseUnit === 'g' && amount >= 1000) {
-        return `${(amount / 1000).toFixed(2).replace(/\.00$/, '')} kg`;
-    }
-    if (baseUnit === 'ml' && amount >= 1000) {
-        return `${(amount / 1000).toFixed(2).replace(/\.00$/, '')} l`;
-    }
-    if (baseUnit === 'ks') {
-        return `${Math.round(amount)} ks`;
-    }
-    
-    if (amount % 1 !== 0) {
-        amount = amount.toFixed(2).replace(/\.00$/, '');
-    }
-
-    return `${amount} ${baseUnit}`;
-}
-
-function categorizeIngredient(ingredientName) {
-    const lowerName = ingredientName.toLowerCase();
-    for (const keyword in CATEGORIES) {
-        if (lowerName.includes(keyword)) {
-            return CATEGORIES[keyword];
-        }
-    }
-    return CATEGORIES['default'];
-}
-
-
-
-async function searchRecipes(query) {
-    if (!query) return;
-
-    searchResults.innerHTML = 'Načítám...';
-    try {
-        const url = `${API_BASE}search.php?s=${encodeURIComponent(query)}`;
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP chyba, status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        searchResults.innerHTML = ''; 
-
-        if (data.meals) {
-            data.meals.slice(0, 10).forEach(meal => { 
-                renderRecipeCard(meal);
-            });
-        } else {
-            searchResults.innerHTML = '<p>Žádné recepty nenalezeny.</p>';
-        }
-    } catch (error) {
-        console.error('Chyba při vyhledávání receptů:', error);
-        searchResults.innerHTML = `<p>Chyba při komunikaci s API. Zkuste prosím jiné slovo nebo zkontrolujte síťové připojení. (Technický detail: ${error.message || 'Chyba sítě'})</p>`;
-    }
-}
-
-async function fetchRecipeDetails(id) {
-    if (recipeCache[id]) {
-        return recipeCache[id];
-    }
-
-    try {
-        const response = await fetch(`${API_BASE}lookup.php?i=${id}`);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP chyba při načítání detailů, status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        const meal = data.meals ? data.meals[0] : null;
-
-        if (meal) {
-            recipeCache[id] = meal;
-            saveRecipeCache();
-            return meal;
-        }
-        return null;
-    } catch (error) {
-        console.error(`Chyba při načítání detailů receptu ${id}:`, error);
-        return null;
-    }
-}
-
-
-
-function renderRecipeCard(meal) {
-    const card = document.createElement('div');
-    card.classList.add('recipe-card');
-    card.setAttribute('data-recipe-id', meal.idMeal);
-    card.setAttribute('data-recipe-name', meal.strMeal);
-    card.setAttribute('draggable', true); 
-
-    card.innerHTML = `
-        <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-        <h4>${meal.strMeal}</h4>
-    `;
-    
-    card.addEventListener('dragstart', handleDragStart);
-    card.addEventListener('click', () => {
-        showRecipeDetail(meal.idMeal);
-    });
-
-    fetchRecipeDetails(meal.idMeal); 
-    searchResults.appendChild(card);
-}
-
-function renderPlannerGrid() {
-    plannerGrid.innerHTML = '';
-
-    const headers = ['', ...MEAL_TYPES];
-    headers.forEach(text => {
-        const header = document.createElement('div');
-        header.classList.add('grid-header');
-        header.textContent = text;
-        plannerGrid.appendChild(header);
-    });
-
-    DAYS.forEach(day => {
-        const dayCell = document.createElement('div');
-        dayCell.classList.add('day-cell');
-        dayCell.textContent = day;
-        plannerGrid.appendChild(dayCell);
-
-        MEAL_TYPES.forEach(mealType => {
-            const slotKey = `${day}-${mealType}`;
-            const slot = document.createElement('div');
-            slot.classList.add('meal-slot');
-            slot.setAttribute('data-slot-key', slotKey);
-            
-            slot.addEventListener('dragover', handleDragOver);
-            slot.addEventListener('dragleave', handleDragLeave);
-            slot.addEventListener('drop', handleDrop);
-
-            if (mealPlan[slotKey]) {
-                renderPlannedRecipe(slot, mealPlan[slotKey].id, mealPlan[slotKey].name);
+            // 1. Přidání výsledků podle názvu (obsahuje nejvíce dat)
+            if (nameData.meals) {
+                nameData.meals.forEach(meal => combinedMeals.set(meal.idMeal, meal));
             }
 
-            plannerGrid.appendChild(slot);
-        });
-    });
-}
+            // 2. Přidání výsledků podle kategorie (např. Seafood, Vegan)
+            if (catData.meals) {
+                catData.meals.forEach(meal => {
+                    if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
+                });
+            }
 
-function renderPlannedRecipe(slot, id, name) {
-    slot.innerHTML = '';
-    
-    const recipeDiv = document.createElement('div');
-    recipeDiv.classList.add('planned-recipe');
-    recipeDiv.setAttribute('data-recipe-id', id);
-    recipeDiv.setAttribute('data-recipe-name', name);
-    recipeDiv.textContent = name;
-    
-    recipeDiv.addEventListener('click', (e) => {
-        if (e.target.tagName !== 'BUTTON') { 
-             showRecipeDetail(id);
-        }
-        e.stopPropagation(); 
-    });
-    
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = '✖';
-    removeBtn.style.cssText = 'background:none; border:none; color:red; margin-left:5px; cursor:pointer; float:right;';
-    removeBtn.addEventListener('click', (e) => {
-        const slotKey = slot.getAttribute('data-slot-key');
-        delete mealPlan[slotKey];
-        saveMealPlan();
-        slot.innerHTML = '';
-        e.stopPropagation(); 
-    });
-    
-    recipeDiv.appendChild(removeBtn);
-    slot.appendChild(recipeDiv);
-}
+            // 3. Přidání výsledků podle oblasti (např. Italian, French)
+            if (areaData.meals) {
+                areaData.meals.forEach(meal => {
+                    if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
+                });
+            }
 
+            const finalMeals = Array.from(combinedMeals.values());
 
-
-
-function handleDragStart(e) {
-    e.dataTransfer.setData('text/plain', JSON.stringify({
-        id: e.target.getAttribute('data-recipe-id'),
-        name: e.target.getAttribute('data-recipe-name')
-    }));
-    e.target.style.opacity = '0.5';
-    e.stopPropagation();
-}
-
-function handleDragOver(e) {
-    e.preventDefault(); 
-    e.currentTarget.style.backgroundColor = '#e0f7fa';
-}
-
-function handleDragLeave(e) {
-    e.currentTarget.style.backgroundColor = '#f0f0f0';
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    e.currentTarget.style.backgroundColor = '#f0f0f0';
-
-    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-    const slotKey = e.currentTarget.getAttribute('data-slot-key');
-
-    mealPlan[slotKey] = { id: data.id, name: data.name };
-    saveMealPlan();
-
-    renderPlannedRecipe(e.currentTarget, data.id, data.name);
-}
-
-
-
-async function showRecipeDetail(id) {
-    const recipe = await fetchRecipeDetails(id);
-    if (!recipe) {
-        alert('Detaily receptu se nepodařilo načíst.');
-        return;
-    }
-
-    let ingredientsList = '<ul>';
-    for (let i = 1; i <= 20; i++) {
-        const ingredient = recipe[`strIngredient${i}`];
-        const measure = recipe[`strMeasure${i}`];
-        if (ingredient && ingredient.trim() !== "") {
-            ingredientsList += `<li>${measure.trim()} ${ingredient.trim()}</li>`;
-        }
-    }
-    ingredientsList += '</ul>';
-
-    const detailContainer = document.createElement('div');
-    detailContainer.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: rgba(0, 0, 0, 0.8); z-index: 1000; overflow-y: auto;
-        display: flex; justify-content: center; align-items: flex-start;
-        padding: 50px 20px;
-    `;
-
-    const contentBox = document.createElement('div');
-    contentBox.style.cssText = `
-        background: white; padding: 30px; border-radius: 10px; max-width: 900px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); position: relative;
-    `;
-    
-    contentBox.innerHTML = `
-        <button id="close-detail-btn" style="position: absolute; top: 10px; right: 10px; font-size: 20px; background: none; border: none; cursor: pointer;">✖</button>
-        <h2>${recipe.strMeal}</h2>
-        <div style="display:flex; gap: 20px; margin-bottom: 20px;">
-            <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
-            <div>
-                <h3>Ingredience:</h3>
-                ${ingredientsList}
-            </div>
-        </div>
-        <h3>Instrukce:</h3>
-        <p>${recipe.strInstructions}</p>
-        ${recipe.strYoutube ? `<p><a href="${recipe.strYoutube}" target="_blank">Video recept</a></p>` : ''}
-    `;
-
-    detailContainer.appendChild(contentBox);
-    document.body.appendChild(detailContainer);
-
-    document.getElementById('close-detail-btn').addEventListener('click', () => {
-        document.body.removeChild(detailContainer);
-    });
-    
-    detailContainer.addEventListener('click', (e) => {
-        if (e.target === detailContainer) {
-            document.body.removeChild(detailContainer);
-        }
-    });
-}
-
-
-
-
-function saveMealPlan() {
-    localStorage.setItem('mealPlan', JSON.stringify(mealPlan));
-}
-
-function loadMealPlan() {
-    const savedPlan = localStorage.getItem('mealPlan');
-    if (savedPlan) {
-        mealPlan = JSON.parse(savedPlan);
-    }
-    const savedCache = localStorage.getItem('recipeCache');
-    if (savedCache) {
-        recipeCache = JSON.parse(savedCache);
-    }
-}
-
-function saveRecipeCache() {
-    localStorage.setItem('recipeCache', JSON.stringify(recipeCache));
-}
-
-
-
-async function generateShoppingList() {
-    const activeRecipeIds = Object.values(mealPlan).map(item => item.id);
-    const uniqueRecipeIds = [...new Set(activeRecipeIds)];
-    
-    if (uniqueRecipeIds.length === 0) {
-        shoppingListContent.innerHTML = '<p>Nejprve přetáhněte recepty do plánu.</p>';
-        shoppingListSection.style.display = 'block';
-        return;
-    }
-
-    shoppingListContent.innerHTML = '<p>Generuji seznam (probíhá normalizace jednotek)...</p>';
-    
-    const consolidatedList = {}; 
-
-    for (const id of uniqueRecipeIds) {
-        const details = await fetchRecipeDetails(id); 
-
-        if (details) {
-            for (let i = 1; i <= 20; i++) {
-                const ingredient = details[`strIngredient${i}`];
-                const measure = details[`strMeasure${i}`];
-
-                if (ingredient && ingredient.trim() !== '') {
-                    const cleanName = ingredient.trim();
-                    const { quantity, unit } = parseIngredientAmount(measure);
-                    const { normalizedQuantity, baseUnit } = normalizeAmount(quantity, unit);
-                    
-                    if (baseUnit === 'nesčítatelná') continue; 
-
-                    if (!consolidatedList[cleanName]) {
-                        consolidatedList[cleanName] = {};
-                    }
-                    
-                    consolidatedList[cleanName][baseUnit] = 
-                        (consolidatedList[cleanName][baseUnit] || 0) + normalizedQuantity;
+            if (finalMeals.length > 0) {
+                this.renderSearchResults(finalMeals);
+            } else {
+                // Poslední pokus: zkusit to jako hlavní ingredienci (filter.php?i=)
+                const ingRes = await fetch(`${this.API_BASE}filter.php?i=${encodeURIComponent(q)}`);
+                const ingData = await ingRes.json();
+                
+                if (ingData.meals) {
+                    this.renderSearchResults(ingData.meals);
+                } else {
+                    $results.html('<p>No recipes found. Try searching for "Chicken", "Italian", or "Seafood".</p>');
                 }
             }
+        } catch (error) {
+            this.showNotification("Search failed. Please check your connection.", "error");
+        } finally {
+            this.toggleLoader(false);
         }
-    }
+    },
 
-    const categorizedList = {};
+    getNormalizedName(name) {
+        if (!name) return "";
+        const lower = name.toLowerCase().trim();
+        if (lower.includes('egg')) return 'Eggs';
+        if (lower.includes('onion')) return 'Onion';
+        if (lower.includes('garlic')) return 'Garlic';
+        if (lower.includes('chicken')) return 'Chicken';
+        if (lower.includes('flour')) return 'Flour';
+        if (lower.includes('sugar')) return 'Sugar';
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    },
 
-    for (const name in consolidatedList) {
-        const category = categorizeIngredient(name);
-        
-        const amounts = [];
-        for (const baseUnit in consolidatedList[name]) {
-            const totalAmount = consolidatedList[name][baseUnit];
-            if (totalAmount > 0.001 || baseUnit === 'ks') {
-                 amounts.push(formatNormalizedQuantity(totalAmount, baseUnit));
+    renderSearchResults(meals) {
+        const $results = $('#search-results');
+        $results.empty();
+        meals.slice(0, 10).forEach(meal => {
+            const $card = $(`
+                <div class="recipe-card" draggable="true" data-id="${meal.idMeal}" data-name="${meal.strMeal}">
+                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                    <h4>${meal.strMeal}</h4>
+                </div>
+            `);
+            $card.on('dragstart', (e) => this.handleDragStart(e));
+            $card.on('click', () => this.showRecipeDetail(meal.idMeal));
+            $results.append($card);
+        });
+    },
+
+    // --- VYLEPŠENÝ DETAIL RECEPTU ---
+async showRecipeDetail(id) {
+        // Prevence duplicity
+        $('.recipe-detail-overlay').remove();
+
+        this.toggleLoader(true);
+        const recipe = await this.getRecipeDetails(id);
+        this.toggleLoader(false);
+
+        if (!recipe) return;
+
+        // Formátování ingrediencí do buněk
+        let ingredientsHtml = '';
+        for (let i = 1; i <= 20; i++) {
+            const ing = recipe[`strIngredient${i}`];
+            const msr = recipe[`strMeasure${i}`];
+            if (ing && ing.trim()) {
+                ingredientsHtml += `
+                    <div style="background: white; padding: 15px; margin-bottom: 12px; border-radius: 10px; border-left: 5px solid #00CC99; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                        <div style="font-weight: bold; color: #333; font-size: 17px; margin-bottom: 4px;">${ing.charAt(0).toUpperCase() + ing.slice(1)}</div>
+                        <div style="color: #0088A8; font-size: 15px; font-weight: 600;">${msr}</div>
+                    </div>`;
             }
         }
-        
-        if (amounts.length === 0) continue; 
 
-        if (!categorizedList[category]) {
-            categorizedList[category] = [];
-        }
-        
-        categorizedList[category].push(`<li>${name} <strong>(${amounts.join(', ')})</strong></li>`);
-    }
+        // Formátování instrukcí - rozdělení na odstavce podle konců řádků
+        const formattedInstructions = recipe.strInstructions
+            .split('\n')
+            .filter(para => para.trim() !== '') // Odstraní prázdné řádky
+            .map(para => `<p style="margin-bottom: 20px;">${para.trim()}</p>`)
+            .join('');
 
-    shoppingListContent.innerHTML = '';
-    for (const category in categorizedList) {
-        const ul = document.createElement('ul');
-        ul.innerHTML = categorizedList[category].join('');
-        
-        const h3 = document.createElement('h3');
-        h3.textContent = category;
-        
-        shoppingListContent.appendChild(h3);
-        shoppingListContent.appendChild(ul);
-    }
+        const detailContainer = document.createElement('div');
+        detailContainer.className = 'recipe-detail-overlay';
+        detailContainer.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.8); z-index: 2500; display: flex; 
+            justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(8px);
+        `;
 
-    shoppingListSection.style.display = 'block';
-}
+        detailContainer.innerHTML = `
+            <div style="background: white; border-radius: 25px; max-width: 1200px; width: 95%; height: 90vh; display: flex; overflow: hidden; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.6); animation: fadeIn 0.3s ease;">
+                <button class="close-detail-btn" style="position: absolute; top: 20px; right: 25px; font-size: 35px; background: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; z-index: 20; color: #444; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; transition: 0.2s;">&times;</button>
+                
+                <div style="width: 30%; background: #f4f7f9; padding: 45px 30px; border-right: 1px solid #e1e8ed; overflow-y: auto;">
+                    <h3 style="color: #0088A8; font-size: 24px; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #00CC99; padding-bottom: 10px;">
+                        <span>🛒</span> Ingredients
+                    </h3>
+                    <div style="display: flex; flex-direction: column;">
+                        ${ingredientsHtml}
+                    </div>
+                </div>
 
+                <div style="width: 70%; padding: 50px 60px; overflow-y: auto; scroll-behavior: smooth;">
+                    <h2 style="margin-top: 0; color: #222; font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 25px;">${recipe.strMeal}</h2>
+                    
+                    <div style="margin-bottom: 40px;">
+                        <img src="${recipe.strMealThumb}" style="width: 100%; height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.2);">
+                    </div>
 
+                    <h3 style="color: #0088A8; font-size: 26px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                        <span>👨‍🍳</span> Preparation Method
+                    </h3>
+                    
+                    <div style="line-height: 1.9; color: #333; font-size: 18px; text-align: justify; background: #fff; border-radius: 15px;">
+                        ${formattedInstructions}
+                    </div>
+                </div>
+            </div>
+        `;
 
-function setupEventListeners() {
-    searchButton.addEventListener('click', () => {
-        searchRecipes(searchInput.value.trim());
-    });
-    
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            searchRecipes(searchInput.value.trim());
-        }
-    });
+        document.body.appendChild(detailContainer);
 
+        const close = () => {
+            $(detailContainer).fadeOut(200, function() { 
+                $(this).remove(); 
+            });
+        };
 
-    generateListButton.addEventListener('click', generateShoppingList);
-    
-    if (clearListDisplayButton) {
-        clearListDisplayButton.addEventListener('click', () => {
-            shoppingListContent.innerHTML = '';
-            shoppingListSection.style.display = 'none';
+        $(detailContainer).find('.close-detail-btn').on('click', close);
+        $(detailContainer).on('click', (e) => { if (e.target === detailContainer) close(); });
+    },
+    // --- GRID RENDERING ---
+    renderGrid() {
+        const $grid = $('#meal-planner-grid');
+        $grid.empty();
+        $grid.append('<div class="grid-header">Time</div>');
+        this.DAYS.forEach(day => $grid.append(`<div class="grid-header">${day}</div>`));
+
+        this.MEAL_TYPES.forEach(type => {
+            $grid.append(`<div class="type-cell">${type}</div>`);
+            this.DAYS.forEach(day => {
+                const slotKey = `${day}-${type}`;
+                const $slot = $(`<div class="meal-slot" data-slot="${slotKey}"></div>`);
+                $slot.on('dragover', (e) => e.preventDefault());
+                $slot.on('drop', (e) => this.handleDrop(e));
+                if (this.state.mealPlan[slotKey]) this.renderPlannedItem($slot, this.state.mealPlan[slotKey]);
+                $grid.append($slot);
+            });
         });
-    }
+    },
 
-    if (clearFullPlanButton) {
-        clearFullPlanButton.addEventListener('click', () => {
-            if (confirm('Opravdu chcete vymazat celý plán a uložené recepty? Tato akce je nevratná.')) {
-                localStorage.removeItem('mealPlan');
-                localStorage.removeItem('recipeCache');
-                mealPlan = {};
-                recipeCache = {};
-                renderPlannerGrid();
-                shoppingListContent.innerHTML = '';
-                shoppingListSection.style.display = 'none';
+    renderPlannedItem($slot, item) {
+        const $el = $(`
+            <div class="planned-recipe" style="cursor: pointer;">
+                <span class="recipe-name-click">${item.name}</span>
+                <button class="remove-btn">×</button>
+            </div>
+        `);
+        
+        // Kliknutí na název receptu v kalendáři otevře detail
+        $el.find('.recipe-name-click').on('click', (e) => {
+            e.stopPropagation();
+            this.showRecipeDetail(item.id);
+        });
+
+        $el.find('.remove-btn').on('click', (e) => {
+            e.stopPropagation();
+            delete this.state.mealPlan[$slot.data('slot')];
+            this.saveToStorage();
+            $slot.empty();
+        });
+
+        $slot.html($el);
+    },
+
+ // --- GENERATOR S LOGIKOU PRO SPOJOVÁNÍ VAJEC ---
+    async generateList() {
+        const recipeIds = [...new Set(Object.values(this.state.mealPlan).map(item => item.id))];
+        if (recipeIds.length === 0) return;
+
+        this.toggleLoader(true);
+        const totals = {}; 
+
+        for (const id of recipeIds) {
+            const recipe = await this.getRecipeDetails(id);
+            if (!recipe) continue;
+
+            // Dočasný objekt pro aktuální recept, abychom párovali bílky/žloutky v rámci jednoho jídla
+            let recipeIngredients = [];
+
+            for (let i = 1; i <= 20; i++) {
+                const name = recipe[`strIngredient${i}`];
+                const msr = recipe[`strMeasure${i}`];
+
+                if (name && name.trim()) {
+                    const unifiedName = this.getNormalizedName(name);
+                    const parsed = this.parseMeasure(msr);
+                    recipeIngredients.push({ name: unifiedName, value: parsed.value, unit: parsed.unit });
+                }
+            }
+
+            // --- LOGIKA PRO SPOJENÍ VAJEC ---
+            // Najdeme bílky a žloutky v tomto receptu
+            let whites = recipeIngredients.find(ing => ing.name === 'Egg Whites' && ing.unit === 'pcs');
+            let yolks = recipeIngredients.find(ing => ing.name === 'Egg Yolks' && ing.unit === 'pcs');
+
+            if (whites && yolks) {
+                // Počet celých vajec je minimum z bílků a žloutků (obvykle jsou stejné, např. 3 a 3)
+                let wholeEggsCount = Math.min(whites.value, yolks.value);
+                
+                // Přidáme celá vejce
+                recipeIngredients.push({ name: 'Eggs', value: wholeEggsCount, unit: 'pcs' });
+                
+                // Odečteme je z původních hromádek
+                whites.value -= wholeEggsCount;
+                yolks.value -= wholeEggsCount;
+            }
+
+            // --- ULOŽENÍ DO CELKOVÉHO SEZNAMU ---
+            recipeIngredients.forEach(ing => {
+                if (ing.value <= 0) return; // Pokud jsme všechno spotřebovali na celá vejce, přeskočíme
+                
+                if (!totals[ing.name]) totals[ing.name] = {};
+                if (!totals[ing.name][ing.unit]) totals[ing.name][ing.unit] = 0;
+                totals[ing.name][ing.unit] += ing.value;
+            });
+        }
+
+        this.renderShoppingList(totals);
+        this.toggleLoader(false);
+    },
+
+    // --- NORMALIZACE (Ponecháme bílky/žloutky pro generator) ---
+    getNormalizedName(name) {
+        if (!name) return "";
+        let lower = name.toLowerCase().trim();
+        
+        if (lower.includes('yolk')) return 'Egg Yolks';
+        if (lower.includes('white')) return 'Egg Whites';
+
+        const modifiers = ['melted', 'softened', 'cold', 'unsalted', 'salted', 'frozen', 'fresh', 'chopped', 'minced', 'large', 'small'];
+        modifiers.forEach(mod => {
+            lower = lower.replace(new RegExp(`\\b${mod}\\b`, 'g'), '');
+        });
+
+        lower = lower.trim();
+        if (lower.includes('butter')) return 'Butter';
+        if (lower.includes('egg')) return 'Eggs';
+        if (lower.includes('onion')) return 'Onion';
+        if (lower.includes('garlic')) return 'Garlic';
+        if (lower.includes('flour')) return 'Flour';
+        if (lower.includes('sugar')) return 'Sugar';
+
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    },
+
+
+    parseMeasure(text) {
+        if (!text) return { value: 0, unit: 'pcs' };
+        const lower = text.toLowerCase().trim();
+        let value = 0;
+        const numMatch = lower.match(/(\d+[\/\.]?\d*)/);
+        if (numMatch) {
+            if (numMatch[1].includes('/')) {
+                const p = numMatch[1].split('/');
+                value = parseFloat(p[0]) / parseFloat(p[1]);
+            } else {
+                value = parseFloat(numMatch[1]);
+            }
+        } else { value = 1; }
+
+        let normalizedUnit = 'untracked'; 
+        for (const [key, val] of Object.entries(this.UNIT_MAP)) {
+            if (new RegExp(`\\b${key}\\b`).test(lower)) {
+                normalizedUnit = val;
+                break;
+            }
+        }
+        if (normalizedUnit === 'untracked') {
+            normalizedUnit = lower.replace(/[0-9\/\.\s]/g, '') || 'pcs';
+        }
+        return { value: value, unit: normalizedUnit };
+    },
+
+    renderShoppingList(totals) {
+        const $content = $('#shopping-list-content');
+        let listHtml = '<ul style="list-style:none; padding:0;">';
+        
+        Object.entries(totals).sort().forEach(([name, units]) => {
+            const measureStrings = Object.entries(units).map(([unit, amount]) => {
+                if (amount <= 0) return null;
+                let displayAmount = amount;
+                let displayUnit = unit;
+
+                if (unit === 'g' && amount >= 1000) {
+                    displayAmount = (amount / 1000).toFixed(2).replace(/\.?0+$/, '');
+                    displayUnit = 'kg';
+                } else if (unit === 'ml' && amount >= 1000) {
+                    displayAmount = (amount / 1000).toFixed(2).replace(/\.?0+$/, '');
+                    displayUnit = 'l';
+                } else if (unit === 'pcs') {
+                    displayAmount = Math.ceil(amount);
+                } else {
+                    displayAmount = Math.round(amount * 100) / 100;
+                }
+                return `${displayAmount} ${displayUnit}`;
+            }).filter(s => s !== null);
+
+            if (measureStrings.length > 0) {
+                listHtml += `
+                    <li style="padding:12px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; font-size:18px;">
+                        <span style="font-weight:bold;">${name}</span>
+                        <span style="color:#0088A8;">${measureStrings.join(', ')}</span>
+                    </li>`;
             }
         });
+
+        listHtml += '</ul>';
+        $content.html(listHtml);
+        $('#shopping-list-section').fadeIn().removeClass('hidden');
+    },
+
+   
+    async getRecipeDetails(id) {
+        if (this.state.recipeCache[id]) return this.state.recipeCache[id];
+        const response = await fetch(`${this.API_BASE}lookup.php?i=${id}`);
+        const data = await response.json();
+        if (data.meals) {
+            this.state.recipeCache[id] = data.meals[0];
+            this.saveToStorage();
+            return data.meals[0];
+        }
+        return null;
+    },
+
+    attachEventListeners() {
+        $('#search-button').on('click', () => this.searchRecipes($('#recipe-search-input').val()));
+        $('#recipe-search-input').on('keypress', (e) => { if(e.key === 'Enter') this.searchRecipes($(e.target).val()); });
+        $('#generate-list-btn').on('click', () => this.generateList());
+        $('#hide-list-btn').on('click', () => $('#shopping-list-section').hide());
+        $('#clear-plan-btn').on('click', () => { if(confirm("Clear plan?")) { this.state.mealPlan = {}; this.saveToStorage(); this.renderGrid(); } });
+    },
+
+    handleDragStart(e) {
+        const $target = $(e.currentTarget);
+        e.originalEvent.dataTransfer.setData('application/json', JSON.stringify({id: $target.data('id'), name: $target.data('name')}));
+    },
+
+    handleDrop(e) {
+        e.preventDefault();
+        const data = JSON.parse(e.originalEvent.dataTransfer.getData('application/json'));
+        const slotKey = $(e.currentTarget).data('slot');
+        this.state.mealPlan[slotKey] = data;
+        this.saveToStorage();
+        this.renderPlannedItem($(e.currentTarget), data);
+    },
+
+    toggleLoader(show) { $('#loader').toggleClass('hidden', !show); },
+    saveToStorage() { localStorage.setItem('mealPlanner_v2', JSON.stringify(this.state)); },
+    loadFromStorage() { const saved = localStorage.getItem('mealPlanner_v2'); if (saved) this.state = JSON.parse(saved); },
+    showNotification(msg, type) {
+        const $toast = $(`<div class="toast toast-${type}">${msg}</div>`);
+        $('body').append($toast);
+        setTimeout(() => $toast.fadeOut(() => $toast.remove()), 3000);
     }
-}
+};
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadMealPlan();
-    renderPlannerGrid();
-    setupEventListeners();
-});
+$(document).ready(() => MealApp.init());
