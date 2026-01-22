@@ -106,7 +106,7 @@ export  function keyAutoCompleteInput(event) {
 export async function checkInputValidity(event) {
     const $wrapper = $(event.target).closest("[data-item='wrapper']");
     const $indicator = $wrapper.parent().find("[data-item='indicator']");
-    const inputVal = $wrapper.find("[data-item='input']").val();
+    const inputVal = $wrapper.find("[data-item='input']").val().trim();
     const category = $wrapper.data("table");
 
     const list = await Data.getComponentList(category);
