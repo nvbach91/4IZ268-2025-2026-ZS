@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="App using TheCocktailDB API for browsing cokctail recipes">
+    <meta name="author" content="Jakub Hrouda">
     <title>Cocktail Explorer</title>
 
+    <link rel="icon" href="./assets/img/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylsheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -20,79 +23,125 @@
                 Cocktail Explorer
             </a>
 
-            <!-- RIGHT: Action -->
-            <button class="btn btn-outline-light" type="button">
+            <!-- RIGHT: FavBtn -->
+            <button id="favouritesBtn" class="btn btn-outline-light" type="button">
                 <i class="fa-solid fa-star"></i> Favourites
             </button>
         </div>
     </nav>
 
-    <section class="col-12 col-lg-5">
-        <div class="card shadow-sm mb-3">
-            <div class="card-body">
-                <form>
-                    <div class="row g-2 mb-2">
-                        <!-- SEARCH INPUT -->
-                        <div class="col-12 col-md-8">
-                            <label for="queryInput" class="form-label">Search</label>
-                            <input id="queryInput" class="form-control" type="text" placeholder="e.g. mojito">
-                        </div>
+    <!-- APP AREA  -->
+    <main class="container-fluid app-main pt-3 pb-3 mb-3">
+        <div class="row g-3 app-row">
 
-                        <!-- RADIO BUTTONS -->
-                        <div class="col-12 col-md-4">
-                            <div class="mt-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="searchMode" id="modeName"
-                                        value="name" checked>
-                                    <label class="form-check-label" for="modeName">Name Search</label>
+            <!-- LEFT PANEL: Search + Results -->
+            <section class="col-12 col-lg-5 panel-column">
+                <!-- Search -->
+                <div class="card shadow-sm mb-3 flex-shrink-0">
+                    <div class="card-body">
+                        <form id="searchForm">
+                            <div class="row g-2 mb-2">
+                                <!-- SEARCH INPUT -->
+                                <div class="col-12 col-md-8">
+                                    <label for="queryInput" class="form-label">Search</label>
+                                    <input id="queryInput" class="form-control" type="text" placeholder="e.g. mojito">
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="searchMode" id="modeIngredient"
-                                        value="ingredient">
-                                    <label class="form-check-label" for="modeIngredient">Ingredient Search</label>
+
+                                <!-- RADIO BUTTONS SearchMode -->
+                                <div class="col-12 col-md-4">
+                                    <div class="mt-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="searchMode" id="modeName"
+                                                value="name" checked>
+                                            <label class="form-check-label" for="modeName">Name Search</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="searchMode"
+                                                id="modeIngredient" value="ingredient">
+                                            <label class="form-check-label" for="modeIngredient">Ingredient
+                                                Search</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- RADIO BUTTONS AlcFilter -->
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <span class="fw-semibold">Type:</span>
+
+                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                    <div class="form-check m-0">
+                                        <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAll"
+                                            value="all" checked>
+                                        <label class="form-check-label" for="typeAll">All</label>
+                                    </div>
+                                    <div class="form-check m-0">
+                                        <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAlc"
+                                            value="alc">
+                                        <label class="form-check-label" for="typeAlc">Alcoholic</label>
+                                    </div>
+                                    <div class="form-check m-0">
+                                        <input class="form-check-input" type="radio" name="alcoholFilter"
+                                            id="typeNonAlc" value="non-alc">
+                                        <label class="form-check-label" for="typeNonAlc">Non-alcoholic</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BUTTONS Search submit vs Random -->
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass me-1"></i>Search
+                                </button>
+                                <button id="randomBtn" class="btn btn-outline-danger" type="button">
+                                    <i class="fa-solid fa-dice me-1"></i>Random
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="card shadow-sm flex-grow-1 min-height-0">
+                    <div class="card-header bg-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Results</span>
+                            <small id="resultsInfo" class="text-muted"></small>
                         </div>
                     </div>
-
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <span class="fw-semibold">Type:</span>
-
-                        <div class="d-flex flex-wrap align-items-center gap-3">
-                            <div class="form-check m-0">
-                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAll"
-                                    value="all" checked>
-                                <label class="form-check-label" for="typeAll">All</label>
-                            </div>
-                            <div class="form-check m-0">
-                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeAlc"
-                                    value="alc">
-                                <label class="form-check-label" for="typeAlc">Alcoholic</label>
-                            </div>
-                            <div class="form-check m-0">
-                                <input class="form-check-input" type="radio" name="alcoholFilter" id="typeNonAlc"
-                                    value="non-alc">
-                                <label class="form-check-label" for="typeNonAlc">Non-alcoholic</label>
-                            </div>
+                    <div id="results"
+                        class="card-body scrollable-content d-flex flex-column align-items-center justify-content-center text-center">
+                        <div id="results-placeholder" class="text-muted">
+                            <i class="fa-solid fa-circle-question fa-3x mb-3 opacity-25"></i>
+                            <p class="mb-0">Search a drink to get a result</p>
+                            <!-- JS will render results here -->
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-danger" type="submit">
-                            <i class="fa-solid fa-magnifying-glass me-1"></i>Search
-                        </button>
-                        <button class="btn btn-outline-danger" type="button">
-                            <i class="fa-solid fa-dice me-1"></i>Random
-                        </button>
+            <!-- RIGHT PANEL: Selected cocktail detail -->
+            <section class="col-12 col-lg-7 panel-column">
+                <div class="card shadow-sm h-100 min-height-0">
+                    <div class="card-header bg-white fw-bold">Detail</div>
+                    <div id="detail"
+                        class="card-body scrollable-content d-flex flex-column justify-content-center align-items-center text-center">
+                        <div id="detail-placeholder" class="text-muted">
+                            <i class="fa-solid fa-wine-glass fa-3x mb-3 opacity-25"></i>
+                            <p class="mb-0">
+                                Select a cocktail from the results to see details.
+                                <!-- JS will render detail here -->
+                            </p>
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </section>
+
         </div>
-    </section>
-
+    </main>
 
     <!-- Bootstrap JS (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- App -->
     <script type="module" src="assets/js/app.js"></script>
