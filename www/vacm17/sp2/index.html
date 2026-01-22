@@ -1,37 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Martin Vácha">
+        <meta name="description" content="App for comparing various pc's">
 
-    <meta name="author" content="Martin Vácha">
-    <meta name="description" content="App for comparing various pc's">
-    <meta name="keywords" content="App, PC, Compare">
+        <title>App Name</title>
 
-    <title>App Name</title>
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/css/dynamic.css">
+        <link rel="stylesheet" href="assets/css/theme.css">
+        <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap" rel="stylesheet">
+    </head>
+    <body class="preload">
 
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header>
-        <h1 class="app-header">Computer Comparison App</h1>
-    </header>
-    <main>
-        <div class="pc-container">
-            <div class="pc-container-search"></div>
-            <div class="pc-container-window"></div>
-            <div class="pc-container-controls"></div>
+        <header>
+            <h1 class="app-header">Computer Comparison App</h1>
+            <button id="change-theme-btn" aria-label="Toggle Theme">⭒.☾˚⭒︎</button>
+        </header>
+
+        <main>
+            <section class="pc-container">
+                <div class="pc-container-search">
+                    <input id="search-input" type="search" placeholder="Enter name of a computer" autocomplete="off">
+                </div>
+                <div class="pc-container-window-controls-wrapper">
+                    <div id="pc-container-window" class="pc-container-window">
+                        <div id="loading" class="loading hidden">Loading data...</div>
+                        <!-- DYNAMIC CONTENT -->
+                    </div>
+                    <div class="pc-container-controls">
+                        <button id="pc-container-add-btn" class="pc-container-controls-add">+</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="comparator-container">
+                <div id="comparator-container-window" class="comparator-container-window">
+                    <!-- DYNAMIC CONTENT -->
+                </div>
+                <div class="comparator-container-controls">
+                    <button id="comparator-clear-btn" class="comparator-container-controls-clear">Clear</button>
+                    <button id="comparator-reset-btn" class="comparator-container-controls-reset">Reset scores</button>
+                    <button id="comparator-compare-btn" class="comparator-container-controls-compare">Compare</button>
+                </div>
+            </section>
+        </main>
+
+        <div class="modal-overlay" id="modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <div id="modal-title" class="modal-title">Create a new Computer</div>
+                    <span id="modal-close-btn" class="modal-close-btn">&times;</span>
+                </div>
+                <div id="modal-content" class="modal-content">
+                    <div class="modal-content-row">
+                        <label for="input-name">Name</label>
+                        <div class="input-wrapper">
+                            <input id="input-name" type="text" placeholder="Enter name of your PC..." autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-content-row">
+                        <label for="input-processor">Processor</label>
+                        <div data-item="wrapper" data-table="cpu" class="input-wrapper">
+                            <input data-item="input" id="input-processor" type="text" placeholder="Intel Core i9 12500H"
+                                   autocomplete="off">
+                            <ul data-item="list" id="autocomplete-list-processor" class="autocomplete-list"></ul>
+                        </div>
+                        <div data-item="indicator" class="circle-indicator"></div>
+                    </div>
+                    <div class="modal-content-row">
+                        <label for="input-graphics-card">Graphics</label>
+                        <div data-item="wrapper" data-table="gpu" class="input-wrapper">
+                            <input data-item="input" id="input-graphics-card" type="text" placeholder="Nvidia RTX 3080Ti"
+                                   autocomplete="off">
+                            <ul data-item="list" id="autocomplete-list-gpu" class="autocomplete-list"></ul>
+                        </div>
+                        <div data-item="indicator" class="circle-indicator"></div>
+                    </div>
+                    <div class="modal-content-row">
+                        <label for="input-ram">RAM</label>
+                        <div data-item="wrapper" data-table="ram" class="input-wrapper">
+                            <input data-item="input" id="input-ram" type="text" placeholder="Kingston FURY 16GB DDR4"
+                                   autocomplete="off">
+                            <ul data-item="list" id="autocomplete-list-ram" class="autocomplete-list"></ul>
+                        </div>
+                        <div data-item="indicator" class="circle-indicator"></div>
+                    </div>
+                    <div class="modal-content-row">
+                        <label for="input-drive">Storage Drive</label>
+                        <div data-item="wrapper" data-table="ssd" class="input-wrapper">
+                            <input data-item="input" id="input-drive" type="text" placeholder="Samsung 990 EVO Plus 1TB"
+                                   autocomplete="off">
+                            <ul data-item="list" id="autocomplete-list-drive" class="autocomplete-list"></ul>
+                        </div>
+                        <div data-item="indicator" class="circle-indicator"></div>
+                    </div>
+                </div>
+                <button id="modal-action-btn" class="modal-action-btn">Add</button>
+            </div>
         </div>
-        <div class="comparator-container">
-            <div class="comparator-container-window"></div>
-            <div class="comparator-container-controls"></div>
-        </div>
-    </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="assets/js/main.js" type="module"></script>
-</body>
+        <div id="pop-up" class="pop-up-overlay">
+            <div id="pop-up-box" class="pop-up-box">
+                <div id="pop-up-text"></div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="assets/js/main.js" type="module"></script>
+
+    </body>
 </html>

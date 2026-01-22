@@ -1,0 +1,107 @@
+body.dark header {
+    color: #dedede;
+    background: #121212;
+}
+
+body.dark {
+    background: #252525;
+}
+
+body.dark .pc-container-search,
+body.dark .pc-container-window,
+body.dark .pc-container-controls,
+body.dark .comparator-container-window,
+body.dark .comparator-container-controls {
+    box-shadow: var(--box-shadow-dark);
+}
+
+body.dark .pc-container-search input {
+    color: black;
+    background: #a8a8a8;
+}
+
+body.dark .pc-container-search input::placeholder {
+    color: #2f2f2f;
+}
+
+body.dark header button {
+    color: #dedede;
+    box-shadow: var(--box-shadow-dark);
+    background: black;
+}
+
+body.dark header button:hover {
+    color: black;
+    background: #dedede;
+}
+
+/* ITEMS */
+
+body.dark .pc-container-window-item,
+body.dark .comparator-container-window-item,
+body.dark .items-banner-action-btn,
+body.dark .no-items-banner-action-btn {
+    color: #dedede;
+    box-shadow: var(--box-shadow-dark);
+    background: #252525;
+}
+
+body.dark .item-score-container {
+    box-shadow: var(--box-shadow-dark);
+}
+
+body.dark .pc-container-window-item button {
+    background: #0c4073;
+}
+
+body.dark .item-body-box {
+    margin-top: 5px;
+    box-shadow: var(--box-shadow-dark);
+}
+
+body.dark .item-body-row, body.dark .item-body-name, body.dark .item-body-score  {
+    box-shadow: none;
+}
+
+body.dark .item-close-btn {
+    color: #dedede;
+}
+
+body.dark .no-items-banner-text {
+    color: #858383;
+}
+
+/* MODAL */
+body.dark .modal,
+body.dark .autocomplete-list {
+    background: #252525;
+    color: #dedede;
+}
+
+body.dark .modal-content input {
+    background: #252525;
+    color: #dedede;
+}
+
+body.dark .modal button,
+body.dark .pc-container-search button,
+body.dark .pc-container-controls button,
+body.dark .comparator-container-controls button {
+    background: #0c4073;
+    color: #dedede;
+}
+
+body.dark .modal button:hover,
+body.dark .pc-container-search button:hover,
+body.dark .pc-container-controls button:hover,
+body.dark .comparator-container-controls button:hover,
+body.dark .pc-container-window-item button:hover {
+    background: #06589f;
+}
+
+body.dark .modal-close-btn:hover,
+body.dark .item-close-btn:hover,
+body.dark .items-banner-action-btn:hover,
+body.dark .autocomplete-list li:hover {
+    background: #2f2f2f;
+}
