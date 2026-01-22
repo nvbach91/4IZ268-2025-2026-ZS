@@ -1,46 +1,101 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmotéka</title>
+    <meta name="description" content="Movie Library - search and discover movies using TMDB API.">
+    <meta name="keywords" content="movies, search, movie library, TMDB">
+    <meta name="author" content="Movie Library Team">
+    
+    <title>Movie Library - Home</title>
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Film Knihovna</a>
+            <a class="navbar-brand" href="./">Movie Library</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link active" aria-current="page" href="./">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="films/index.html">Filmy</a>
+                        <a class="nav-link" href="films/">Search Movies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="favourite/index.html">Oblíbené</a>
+                        <a class="nav-link" href="favourite/">Favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="team/index.html">Tým</a>
+                        <a class="nav-link" href="detail/">Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="team/">Team</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1>Filmotéka</h1>
-        <p>Vítej v aplikaci na vyhledávání filmů!</p>
-        <a href="films/index.html" class="btn btn-primary">Začít</a>
-    </div>
+    <main class="container mt-5">
+        <!-- Hero section -->
+        <section class="mb-5">
+            <h1 class="mb-3">Welcome to Movie Library</h1>
+            <p class="lead">
+                Movie Library is a simple web application where you can search movies, read basic information and save your favourites.
+            </p>
+            <a href="films/" class="btn btn-primary btn-lg mt-3">Start searching movies</a>
+        </section>
 
-    <footer class="mt-5 py-3 bg-dark text-white text-center">
-        <p>&copy; 2025 Filmotéka</p>
+        <!-- About project -->
+        <section class="mb-5">
+            <h2>About the project</h2>
+            <p>
+                This website was created as a semester project for the Web Technologies course at the University of Economics in Prague.
+                The main goal was to build a small but functional movie library using only HTML, CSS, JavaScript and the Bootstrap framework.
+            </p>
+            <p>
+                The application communicates with <strong>TMDB (The Movie Database)</strong> API, which provides real movie data such as
+                titles, posters, ratings and release dates.
+            </p>
+        </section>
+
+        <!-- Features -->
+        <section class="mb-5">
+            <h2>What you can do here</h2>
+            <ul>
+                <li>Search for movies by title and filter results by year, rating and sorting.</li>
+                <li>Open a detail page with more information about a selected movie.</li>
+                <li>Save movies to your favourites and keep them even after reloading the page.</li>
+                <li>Quickly navigate between Home, Search, Details, Favourites and Team pages.</li>
+            </ul>
+        </section>
+
+        <!-- Technologies -->
+        <section class="mb-5">
+            <h2>Used technologies</h2>
+            <ul>
+                <li>HTML5 and CSS3 for structure and styling.</li>
+                <li>Bootstrap 5 for responsive layout and basic components.</li>
+                <li>Vanilla JavaScript for working with TMDB API and browser localStorage.</li>
+                <li>TMDB API for movie data (titles, posters, ratings, overview).</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="mt-5 py-4 bg-dark text-white text-center">
+        <div class="container">
+            <p>&copy; 2025 Movie Library. All rights reserved.</p>
+            <p>
+                Contact: 
+                <a href="tel:+420777123456" class="text-light text-decoration-none">+420&nbsp;777&nbsp;123&nbsp;456</a> &mdash;
+                <a href="mailto:info@movielibrary.com" class="text-light text-decoration-none">info@movielibrary.com</a>
+            </p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
