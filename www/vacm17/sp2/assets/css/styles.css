@@ -81,12 +81,15 @@ main {
     gap: 30px;
 
     padding: 30px;
+    height: calc(100vh - 100px);
 }
 
 .pc-container, .comparator-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    height: 100%;
 }
 
 .pc-container {
@@ -112,7 +115,7 @@ main {
 .pc-container-search {
     display: flex;
     flex-direction: row;
-    height: 50px;
+    flex: 0 0 50px;
 }
 
 .pc-container-search input {
@@ -160,7 +163,7 @@ main {
     overflow-y: auto;
     overflow-x: hidden;
 
-    height: 664px;
+    flex: 1;
     padding: 10px;
 }
 
@@ -168,6 +171,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    flex: 1;
 }
 
 .pc-container-controls, .comparator-container-controls {
@@ -176,7 +181,7 @@ main {
     gap: 5px;
 
     padding: 5px;
-    height: 80px;
+    flex: 0 0 80px;
 }
 
 .pc-container-controls button {
@@ -201,11 +206,12 @@ main {
     overflow-x: auto;
     overflow-y: hidden;
 
-    height: 734px;
+    flex: 1;
     padding: 10px;
 }
 
 .comparator-container-controls {
+    flex: 0 0 80px;
     justify-content: right;
 }
 
