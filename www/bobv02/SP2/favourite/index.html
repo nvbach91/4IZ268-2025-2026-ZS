@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oblíbené filmy</title>
+    <meta name="description" content="View your favourite movies saved in Movie Library.">
+    <meta name="keywords" content="favourite movies, saved movies">
+    <meta name="author" content="Movie Library Team">
+    
+    <title>Favourite Movies - Movie Library</title>
+    <link rel="icon" href="../assets/img/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">Film Knihovna</a>
+            <a class="navbar-brand" href="../">Movie Library</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Domů</a>
+                        <a class="nav-link" href="../">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../films/index.html">Hledat filmy</a>
+                        <a class="nav-link" href="../films/">Search Movies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Oblíbené</a>
+                        <a class="nav-link active" aria-current="page" href="../favourite/">Favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../detail/index.html">Detail</a>
+                        <a class="nav-link" href="../detail/">Details</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../team/index.html">Tým</a>
+                        <a class="nav-link" href="../team/">Team</a>
                     </li>
                 </ul>
             </div>
@@ -37,16 +42,24 @@
     </nav>
 
     <main class="container py-5">
-        <h1>Moje oblíbené filmy</h1>
-        <p class="text-muted mt-4">Zatím nejsou žádné oblíbené filmy...</p>
+        <h1>My Favourite Movies</h1>
+        <div id="favouriteList" class="row g-4 mt-3">
+            Loading...
+        </div>
     </main>
 
-    <footer class="bg-dark text-white text-center py-4 mt-5">
+    <footer class="mt-5 py-4 bg-dark text-white text-center">
         <div class="container">
-            <p>&copy; 2025 Film Knihovna</p>
+            <p>&copy; 2025 Movie Library. All rights reserved.</p>
+            <p>
+                Contact: 
+                <a href="tel:+420123456789" class="text-light text-decoration-none">+420&nbsp;123&nbsp;456&nbsp;789</a> &mdash;
+                <a href="mailto:info@movielibrary.com" class="text-light text-decoration-none">info@movielibrary.com</a>
+            </p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 </html>
