@@ -3,8 +3,16 @@ import * as Modal from "./modal.js";
 
 export const elements = {
     $modal: $("#modal"),
+    $modaContent: $("#modal-content"),
+    $search: $("#search-input"),
     $pcWindow: $("#pc-container-window"),
     $compWindow: $("#comparator-container-window"),
+    $pcControlsAdd: $("#pc-container-add-btn"),
+    $compControlsClear: $("#comparator-clear-btn"),
+    $compControlsReset: $("#comparator-reset-btn"),
+    $compControlsCompare: $("#comparator-compare-btn"),
+    $modalAction: $("#modal-action-btn"),
+    $modalClose: $("#modal-close-btn"),
     $inputs: $("[data-item='input']"),
     $lists: $("[data-item='list']")
 };

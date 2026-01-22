@@ -128,3 +128,9 @@ export function closeList() {
     $lists.removeClass("active");
     console.log(`BACKEND: closeAutoCompleteList: ${$lists.length} lists removed.`);
 }
+
+export function disableModal(errorMessage,error) {
+    console.error(`DATA: disableModal: ${errorMessage}`, error);
+    UI.showPopup("Failed to load application data.", "red");
+    UI.elements.$modaContent.html(`<div>Initialization failed. Data did not load.</div>`);
+}

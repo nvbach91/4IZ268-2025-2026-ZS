@@ -8,7 +8,16 @@ async function initialize() {
 
     // Pre-load database
     $loading.removeClass("hidden");
+
     const data = await Data.fetchData();
+
+    try {
+
+    } catch (error) {
+
+        return;
+    }
+
     $loading.addClass("hidden");
     console.log("MAIN: initialize: Data fetched:", data);
 
@@ -22,11 +31,7 @@ async function initialize() {
 initialize()
     .then(() => {
         console.log("MAIN: Application fully initialized.");
-    })
-    .catch((error) => {
-        console.error("MAIN: Critical error during initialization:", error);
-        UI.showPopup("Failed to load application data.", "red");
-});
+    });
 
 window.addEventListener("load", () => {
     document.body.classList.remove('preload');
@@ -35,34 +40,34 @@ window.addEventListener("load", () => {
 // ----- EVENT LISTENERS -----
 
 // --- Search ---
-$("#search-input").on("input", (e) => {
+UI.elements.$search.on("input", (e) => {
     UI.search(e);
 });
 
 // --- WINDOW CONTAINERS ---
 
 // Comparator
-$("#comparator-container-window").on("click", (e) => {
+UI.elements.$compWindow.on("click", (e) => {
     UI.comparatorClick(e);
 });
 
 // Items
-$("#pc-container-window").on("click", (e) => {
+UI.elements.$pcWindow.on("click", (e) => {
     UI.itemClick(e);
 });
 
 // --- WINDOW CONTROLS ---
 
 // Score calculation
-$("#comparator-compare-btn").on("click", UI.compareBtnClick);
-$("#comparator-clear-btn").on("click", UI.clearBtnClick);
-$("#comparator-reset-btn").on("click", UI.resetBtnClick);
+UI.elements.$compControlsCompare.on("click", UI.compareBtnClick);
+UI.elements.$compControlsClear.on("click", UI.clearBtnClick);
+UI.elements.$compControlsReset.on("click", UI.resetBtnClick);
 
 // --- MODAL ---
 
-$("#pc-container-add-btn").on("click", () => Modal.toggleModal(true));
-$("#modal-close-btn").on("click", () => Modal.toggleModal(false));
-$("#modal-action-btn").on("click", Modal.createItem);
+UI.elements.$pcControlsAdd.on("click", () => Modal.toggleModal(true));
+UI.elements.$modalClose.on("click", () => Modal.toggleModal(false));
+UI.elements.$modalAction.on("click", Modal.createItem);
 
 UI.elements.$inputs.on("input", async (e) => {
     await Modal.displayList(e);

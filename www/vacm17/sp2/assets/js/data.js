@@ -1,4 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import * as Modal from "./modal.js";
+
 
 const supabaseUrl = "https://bxkvjqcmykdnzjjinfzf.supabase.co";
 const supabaseKey = "sb_publishable_14WkpONyvoqvnT1W8g7VGQ_kAf_n5Y6";
@@ -25,7 +27,7 @@ export async function fetchData() {
         if (!error) {
             temporaryStorage[table] = data;
         } else {
-            console.error(`DATA: fetchData: Error fetching ${table}:`, error);
+            Modal.disableModal(`Error fetching ${table}`, error)
         }
     }
     return temporaryStorage;
