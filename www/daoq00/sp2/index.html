@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Vyhledávač filmů a seriálů.">
+    <meta name="description" content="Vyhledávač filmů a seriálů.">
     <meta name="keywords" content="filmy, seriály, herci">
     <title>Movie Explorer</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -33,10 +33,10 @@
     <header>
         <h1 id="logo">Movie Explorer</h1>
         <nav>
-            <a href="#movies" data-link>Filmy</a>
-            <a href="#series" data-link>Seriály</a>
-            <a href="#people" data-link>Osobnosti</a>
-            <a href="#folder/Oblíbené" data-link>Oblíbené</a>
+            <a href="#movies" class="nav-link" data-link>Filmy</a>
+            <a href="#series" class="nav-link" data-link>Seriály</a>
+            <a href="#people" class="nav-link" data-link>Osobnosti</a>
+            <a href="#folder/Oblíbené" class="nav-link" data-link>Oblíbené</a>
         </nav>
         <form id="search-form">
             <input type="text" id="search-input" placeholder="Hledat film, seriál, osobu..." required>
@@ -46,13 +46,13 @@
 
     <main class="container">
         <div id="filter-bar" class="hidden">
-            <select id="filter-genre">
+            <select id="filter-genre" aria-label="Vybrat žánr">
                 <option value="">Všechny žánry</option>
             </select>
-            <select id="filter-year">
+            <select id="filter-year" aria-label="Vybrat rok">
                 <option value="">Všechny roky</option>
             </select>
-            <select id="filter-sort"></select>
+            <select id="filter-sort" aria-label="Řazení"></select>
             <button id="btn-apply-filters">Filtrovat</button>
         </div>
 
@@ -74,10 +74,11 @@
             <aside id="folders-sidebar">
                 <h2>Mé složky</h2>
                 <div id="folders-list"></div>
-                <div class="add-folder-group">
-                    <input type="text" id="new-folder-name" placeholder="Nová složka...">
-                    <button id="add-folder-btn">Přidat</button>
-                </div>
+                
+                <form id="add-folder-form" class="add-folder-group">
+                    <input type="text" id="new-folder-name" placeholder="Nová složka..." required>
+                    <button type="submit" id="add-folder-btn">Přidat</button>
+                </form>
             </aside>
         </div>
     </main>
