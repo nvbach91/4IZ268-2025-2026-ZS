@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vyhledávač filmů a seriálů.">
+    <meta name="keywords" content="filmy, seriály, herci">
+    <title>Movie Explorer</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader" class="loader-overlay hidden">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3 id="modal-title">Nadpis</h3>
+            <div id="modal-body"></div>
+            <div class="modal-actions">
+                <button id="modal-btn-cancel" class="btn btn-secondary">Zrušit</button>
+                <button id="modal-btn-confirm" class="btn btn-primary">Potvrdit</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1 id="logo">Movie Explorer</h1>
+        <nav>
+            <a href="#movies" class="nav-link" data-link>Filmy</a>
+            <a href="#series" class="nav-link" data-link>Seriály</a>
+            <a href="#people" class="nav-link" data-link>Osobnosti</a>
+            <a href="#folder/Oblíbené" class="nav-link" data-link>Oblíbené</a>
+        </nav>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Hledat film, seriál, osobu..." required>
+            <button type="submit">Hledat</button>
+        </form>
+    </header>
+
+    <main class="container">
+        <div id="filter-bar" class="hidden">
+            <select id="filter-genre" aria-label="Vybrat žánr">
+                <option value="">Všechny žánry</option>
+            </select>
+            <select id="filter-year" aria-label="Vybrat rok">
+                <option value="">Všechny roky</option>
+            </select>
+            <select id="filter-sort" aria-label="Řazení"></select>
+            <button id="btn-apply-filters">Filtrovat</button>
+        </div>
+
+        <div class="content-wrapper">
+            <section id="main-content">
+                <div id="homepage-sections"></div>
+
+                <div id="category-view" class="hidden">
+                    <h2 id="section-title">Výsledky</h2>
+                    <div id="results-container" class="grid-container"></div>
+                    <div class="load-more-wrapper">
+                        <button id="load-more-btn" class="hidden">Načíst další</button>
+                    </div>
+                </div>
+
+                <div id="detail-container" class="detail-view hidden"></div>
+            </section>
+
+            <aside id="folders-sidebar">
+                <h2>Mé složky</h2>
+                <div id="folders-list"></div>
+                
+                <form id="add-folder-form" class="add-folder-group">
+                    <input type="text" id="new-folder-name" placeholder="Nová složka..." required>
+                    <button type="submit" id="add-folder-btn">Přidat</button>
+                </form>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Dao Quynh Anh</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js"></script>
+    <script>moment.locale('cs');</script>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
