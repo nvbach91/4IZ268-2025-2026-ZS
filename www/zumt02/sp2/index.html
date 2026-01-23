@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Scuffed Anime List</title>
+    <link href="./assets/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="icon" href="./assets/img/sage_resize.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Julee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="content flex-col">
+        <header>
+            <a href="./index.html" class="title">
+                <div class="flex-row">
+                    <img src="./assets/img/sage_resize.png" alt="Logo">
+                    <div class="flex-col">
+                        <h1 class="julee">My Scuffed Anime List</h1>
+                        <h1>俺のヘタクソなアニメリスト</h1>
+                    </div>
+                </div>
+            </a>
+            <div class="flex-row">
+                <form id="form-search">
+                    <div>
+                        <input name="searchField" class="search-field">
+                        <button id="button-search">Search <i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <div class="buttons-right">
+                    <button id="button-rated">Rated</button>
+                    <button id="button-2watch">To Watch</button>
+                    <button id="button-seen">Seen</button>
+                </div>
+            </div>
+            <div class="filters" id="filters">
+                <div>
+                    <div>
+                        <h2>Categories</h2>
+                        <div class="categories" id="categories">
+                        </div>
+                        <div class="flex-rev-row">
+                            <button id="button-apply">Apply</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h2>Order by</h2>
+                        <div>
+                            <button id="button-order-relevance" class="order-selected">Relevance</button>
+                            <button id="button-order-newest">Newest</button>
+                            <button id="button-order-rating">Rating</button>
+                            <button id="button-order-popularity">Popularity</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="app" id="app">
+            </div>
+        </main>
+        <footer>
+            <div>Tomáš Zummer</div>
+            <div>2025</div>
+        </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+
+</html>

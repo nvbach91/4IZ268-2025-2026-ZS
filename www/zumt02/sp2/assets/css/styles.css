@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+.julee {
+    font-family: "Julee", cursive;
+    font-size: 64px;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+p,
+button,
+input,
+label {
+    font-family: "Roboto Flex", sans-serif;
+}
+
+h1,
+h2,
+h3,
+div {
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+main {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+}
+
+footer {
+    margin-top: auto;
+    border-top: 1px black solid;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.filters {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+}
+
+.content {
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centered-content {
+    justify-content: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    flex-wrap: wrap;
+}
+
+.flex-rev-row {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10%;
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.buttons-right {
+    margin-left: auto;
+    margin-right: 10vw;
+}
+
+.anime-desc {
+    width: 50vw;
+}
+
+.page-nav-top {
+    margin-bottom: 10px;
+    border-bottom: 1px black solid;
+    padding-bottom: 10px;
+}
+
+.page-nav-bottom {
+    margin-top: 10px;
+    border-top: 1px black solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 156px;
+}
+
+.order-selected {
+    background-color: orange;
+}
+
+.star-glowing {
+    background-color: gold;
+}
+
+.order-selected:hover {
+    background-color: orangered;
+}
+
+.star-glowing:hover {
+    background-color: orange;
+}
+
+.title {
+    text-decoration: none;
+    color: black;
+}
+
+.title img {
+    padding: 8px;
+}
+
+.title .flex-row {
+    align-items: flex-end;
+}
+
+button {
+    font-size: medium;
+    border: 2px grey solid;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.search-field {
+    font-size: larger;
+}
