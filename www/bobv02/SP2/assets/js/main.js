@@ -3,6 +3,7 @@
 const API_KEY = '0a4102b109e21ac8b9c68f8141338cb2';
 const API_URL = 'https://api.themoviedb.org/3';
 
+
 // Global state for search and filters
 let currentQuery = '';
 let currentPage = 1;
@@ -11,7 +12,9 @@ let currentFilters = {};
 let genresCache = [];
 let currentMovieDetail = null;
 
+
 //  HELPERS 
+
 
 // Escape HTML to avoid XSS
 function escapeHtml(text) {
@@ -26,7 +29,9 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
+
 //  LOCAL STORAGE (FAVOURITES) 
+
 
 // Get favourites array from localStorage
 function getFavourites() {
@@ -39,6 +44,7 @@ function getFavourites() {
     }
 }
 
+
 // Save favourites array to localStorage
 function saveFavourites(favs) {
     try {
@@ -50,11 +56,13 @@ function saveFavourites(favs) {
     }
 }
 
+
 // Check if movie is already in favourites
 function checkIfFavourite(id) {
     const favs = getFavourites();
     return favs.some(f => f.id === id);
 }
+
 
 // Update favourites badge in navbar + text on favourites page
 function updateFavCount() {
@@ -63,11 +71,14 @@ function updateFavCount() {
     const span = document.getElementById('favCount');
     const favText = document.getElementById('favCount-number');
 
+
     if (span) span.textContent = count;
     if (favText) favText.textContent = count;
 }
 
+
 //  SPA NAVIGATION 
+
 
 // Show one page (home/search/favourites/detail/team) and hide others
 function showPage(pageId) {
@@ -75,6 +86,7 @@ function showPage(pageId) {
     pages.forEach(p => {
         p.style.display = (p.id === 'page-' + pageId) ? '' : 'none';
     });
+
 
     const links = document.querySelectorAll('.navbar-nav .nav-link');
     links.forEach(a => {
@@ -85,11 +97,14 @@ function showPage(pageId) {
         }
     });
 
+
     // Extra logic when switching pages
     if (pageId === 'favourites') {
         renderFavourites();
     } else if (pageId === 'detail') {
-        renderDetailFromStorage();
+        if (!currentMovieDetail) {
+            renderDetailFromStorage();
+        }
     } else if (pageId === 'search') {
         // On search page, if nothing yet, show info message
         const res = document.getElementById('results');
@@ -100,7 +115,9 @@ function showPage(pageId) {
     }
 }
 
+
 //  GENRES (for filters) 
+
 
 // Load list of genres from TMDB (for search and favourites)
 async function loadGenres() {
@@ -110,8 +127,10 @@ async function loadGenres() {
         });
         genresCache = res.data.genres || [];
 
+
         const genreSelect = document.getElementById('genreFilter');
         const favGenreSelect = document.getElementById('favGenreFilter');
+
 
         // Fill search genre dropdown
         if (genreSelect) {
@@ -122,6 +141,7 @@ async function loadGenres() {
                 genreSelect.appendChild(opt);
             });
         }
+
 
         // Fill favourites genre dropdown
         if (favGenreSelect) {
@@ -137,6 +157,7 @@ async function loadGenres() {
     }
 }
 
+
 // Convert array of genre ids to names
 function getGenreNames(ids) {
     if (!Array.isArray(ids)) return [];
@@ -148,7 +169,9 @@ function getGenreNames(ids) {
         .filter(Boolean);
 }
 
+
 //  SEARCH MOVIES 
+
 
 // Call TMDB API with query, page and filters
 async function searchMovies(query, page = 1, filters = {}) {
@@ -163,12 +186,15 @@ async function searchMovies(query, page = 1, filters = {}) {
         return;
     }
 
+
     const info = document.getElementById('noResults');
     if (info) info.style.display = 'none';
+
 
     currentQuery = query;
     currentPage = page;
     currentFilters = filters;
+
 
     try {
         // Basic search request
@@ -179,9 +205,11 @@ async function searchMovies(query, page = 1, filters = {}) {
             page: page
         };
 
+
         const res = await axios.get(`${API_URL}/search/movie`, { params });
         let movies = res.data.results || [];
         totalPages = res.data.total_pages || 1;
+
 
         // Filter by year
         if (filters.minYear) {
@@ -191,15 +219,18 @@ async function searchMovies(query, page = 1, filters = {}) {
             });
         }
 
+
         // Filter by rating
         if (filters.minRating) {
             movies = movies.filter(m => m.vote_average >= filters.minRating);
         }
 
+
         // Filter by genre (if we have genre_ids)
         if (filters.genreId) {
             movies = movies.filter(m => m.genre_ids && m.genre_ids.includes(filters.genreId));
         }
+
 
         // Sorting
         if (filters.sort === 'rating') {
@@ -210,8 +241,10 @@ async function searchMovies(query, page = 1, filters = {}) {
             movies.sort((a, b) => b.popularity - a.popularity);
         }
 
+
         const append = page > 1;
         renderResults(movies, append);
+
 
         // Show/hide Load More
         const loadMore = document.getElementById('loadMoreContainer');
@@ -223,6 +256,7 @@ async function searchMovies(query, page = 1, filters = {}) {
             }
         }
 
+
         // Save filters in URL as params
         const url = new URL(window.location.href);
         url.searchParams.set('q', query);
@@ -232,16 +266,19 @@ async function searchMovies(query, page = 1, filters = {}) {
         if (filters.genreId) url.searchParams.set('genre', filters.genreId); else url.searchParams.delete('genre');
         history.replaceState({}, '', url.toString());
 
+
     } catch (e) {
         console.error('Error searching movies:', e);
         Swal.fire('Error', 'Error searching movies. Please try again.', 'error');
     }
 }
 
+
 // Render list of movies cards into #results
 function renderResults(movies, append = false) {
     const container = document.getElementById('results');
     if (!container) return;
+
 
     if (!movies || movies.length === 0) {
         if (!append) {
@@ -250,8 +287,10 @@ function renderResults(movies, append = false) {
         return;
     }
 
+
     const favs = getFavourites();
     const favIds = favs.map(f => f.id);
+
 
     const html = movies.map(movie => {
         const title = escapeHtml(movie.title) || 'Unknown';
@@ -259,8 +298,10 @@ function renderResults(movies, append = false) {
         const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A';
         const isFav = favIds.includes(movie.id);
 
+
         const genres = getGenreNames(movie.genre_ids || []);
         const genresText = genres.length ? `<div class="film-year">${genres.join(', ')}</div>` : '';
+
 
         return `
         <div class="col-md-3">
@@ -277,7 +318,7 @@ function renderResults(movies, append = false) {
                     ${genresText}
                     <div class="mt-2">
                         <button class="btn btn-sm btn-success w-100" data-action="detail" data-id="${movie.id}">View Details</button>
-                        <button class="btn btn-sm btn-warning w-100 mt-1" data-action="toggle-fav" data-id="${movie.id}"
+                        <button class="btn btn-sm ${isFav ? 'btn-danger' : 'btn-warning'} w-100 mt-1" data-action="toggle-fav" data-id="${movie.id}"
                             data-title="${title}" data-poster="${movie.poster_path || ''}">
                             ${isFav ? 'Remove from Fav' : 'Add to Fav'}
                         </button>
@@ -287,6 +328,7 @@ function renderResults(movies, append = false) {
         </div>`;
     }).join('');
 
+
     if (append) {
         container.insertAdjacentHTML('beforeend', html);
     } else {
@@ -294,7 +336,9 @@ function renderResults(movies, append = false) {
     }
 }
 
+
 //  MOVIE DETAIL 
+
 
 // Load one movie detail from API by id
 async function loadMovieDetail(id) {
@@ -309,35 +353,43 @@ async function loadMovieDetail(id) {
     }
 }
 
+
 // Render detail page for given movie id
 async function renderDetail(id) {
     const container = document.getElementById('movieDetail');
     if (!container) return;
+
 
     if (!id) {
         container.innerHTML = '<div class="alert alert-warning">No movie selected. <a href="#" data-page="search">Go search</a></div>';
         return;
     }
 
+
     container.innerHTML = '<p>Loading movie details...</p>';
     const movie = await loadMovieDetail(id);
     currentMovieDetail = movie;
+
 
     if (!movie) {
         container.innerHTML = '<div class="alert alert-danger">Error loading movie details.</div>';
         return;
     }
 
+
     const title = escapeHtml(movie.title) || 'Unknown';
     const overview = escapeHtml(movie.overview || 'No description available.');
     const isFav = checkIfFavourite(movie.id);
+
 
     const genres = movie.genres ? movie.genres.map(g => g.name).join(', ') : '';
     const companies = movie.production_companies ? movie.production_companies.map(c => c.name).join(', ') : '';
     const collection = movie.belongs_to_collection ? movie.belongs_to_collection.name : '';
 
+
     const collectionBlock = collection ? `<p><strong>Collection:</strong> ${escapeHtml(collection)}</p>` : '';
     const companiesBlock = companies ? `<p><strong>Production companies:</strong> ${escapeHtml(companies)}</p>` : '';
+
 
     container.innerHTML = `
         <div class="row">
@@ -355,8 +407,10 @@ async function renderDetail(id) {
                 ${collectionBlock}
                 ${companiesBlock}
 
+
                 <h3 class="mt-4">Overview</h3>
                 <p>${overview}</p>
+
 
                 <div class="mt-4">
                     <button class="btn ${isFav ? 'btn-danger' : 'btn-success'} btn-lg me-2" id="detailFavBtn"
@@ -369,9 +423,11 @@ async function renderDetail(id) {
         </div>
     `;
 
+
     // Save last opened movie id to localStorage
     localStorage.setItem('selectedMovieId', movie.id);
 }
+
 
 // If user opens "Details" tab directly, load from localStorage
 function renderDetailFromStorage() {
@@ -381,7 +437,9 @@ function renderDetailFromStorage() {
     }
 }
 
+
 //  FAVOURITES LIST 
+
 
 // Render favourite movies in favourites page
 function renderFavourites() {
@@ -390,9 +448,12 @@ function renderFavourites() {
     const favSearch = document.getElementById('favSearchInput');
     const favGenre = document.getElementById('favGenreFilter');
 
+
     if (!list) return;
 
+
     let favs = getFavourites();
+
 
     // Text search inside favourites
     if (favSearch && favSearch.value.trim()) {
@@ -400,11 +461,13 @@ function renderFavourites() {
         favs = favs.filter(f => f.title.toLowerCase().includes(q));
     }
 
+
     // Genre filter
     if (favGenre && favGenre.value) {
         const genreId = parseInt(favGenre.value);
         favs = favs.filter(f => Array.isArray(f.genre_ids) && f.genre_ids.includes(genreId));
     }
+
 
     if (!favs.length) {
         list.innerHTML = '';
@@ -412,7 +475,9 @@ function renderFavourites() {
         return;
     }
 
+
     if (noFav) noFav.style.display = 'none';
+
 
     const html = favs.map(movie => {
         const title = escapeHtml(movie.title) || 'Unknown';
@@ -435,16 +500,20 @@ function renderFavourites() {
         </div>`;
     }).join('');
 
+
     list.innerHTML = html;
 }
 
+
 //  FAVOURITES TOGGLE / REMOVE 
+
 
 // Add/remove favourite (used from cards and detail)
 function toggleFavouriteSimple(id, title, posterPath) {
     id = parseInt(id);
     let favs = getFavourites();
     const idx = favs.findIndex(f => f.id === id);
+
 
     if (idx > -1) {
         // Remove without extra confirm (confirm is separate function)
@@ -463,6 +532,7 @@ function toggleFavouriteSimple(id, title, posterPath) {
         Swal.fire('Added', 'Added to favourites.', 'success');
     }
 }
+
 
 // Ask confirmation before removing from favourites list
 function confirmRemoveFavourite(id) {
@@ -485,7 +555,9 @@ function confirmRemoveFavourite(id) {
     });
 }
 
+
 //  INITIALIZATION 
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // Cache DOM elements once (no repeated queries in loops)
@@ -503,9 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const favSearchInput = document.getElementById('favSearchInput');
     const favGenreFilter = document.getElementById('favGenreFilter');
 
+
     // Update favourites badge and load genres for filters
     updateFavCount();
     loadGenres();
+
 
     // SPA navigation via data-page
     if (nav) {
@@ -518,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Delegated events inside main (cards buttons etc.)
     if (main) {
         main.addEventListener('click', (e) => {
@@ -525,6 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!btn) return;
             const action = btn.dataset.action;
             const id = btn.dataset.id;
+
 
             if (action === 'detail') {
                 // View details from card
@@ -537,17 +613,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const poster = btn.dataset.poster || '';
                 toggleFavouriteSimple(id, title, poster);
 
+
                 const card = btn.closest('.film-card');
                 const isNowFav = checkIfFavourite(parseInt(id, 10));
                 if (card) {
                     card.classList.toggle('is-favourite', isNowFav);
                 }
+                btn.classList.toggle('btn-danger', isNowFav);
+                btn.classList.toggle('btn-warning', !isNowFav);
                 btn.textContent = isNowFav ? 'Remove from Fav' : 'Add to Fav';
             } else if (action === 'remove-fav') {
                 // Remove from favourites list
                 confirmRemoveFavourite(id);
             }
         });
+
 
         main.addEventListener('click', (e) => {
             const link = e.target.closest('a[data-page]');
@@ -557,6 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showPage(page);
         });
     }
+
 
     // Search button
     if (searchBtn && searchInput) {
@@ -572,6 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchMovies(query, 1, filters);
         });
 
+
         // Press Enter in search input
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -579,6 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 
     // Apply filters button
     if (filterBtn && searchInput) {
@@ -593,6 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchMovies(query, 1, filters);
         });
     }
+
 
     // Reset filters
     if (resetBtn) {
@@ -611,6 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Load more results
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
@@ -619,6 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 
     // Detail page favourite button (inside #movieDetail)
     const movieDetailContainer = document.getElementById('movieDetail');
@@ -636,6 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('btn-success', !isFav);
         });
 
+
         // Back to search button on detail page (data-page="search")
         movieDetailContainer.addEventListener('click', (e) => {
             const backBtn = e.target.closest('button[data-page="search"], a[data-page="search"]');
@@ -645,6 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Favourites filters (search text, genre)
     if (favSearchInput) {
         favSearchInput.addEventListener('input', renderFavourites);
@@ -652,6 +740,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (favGenreFilter) {
         favGenreFilter.addEventListener('change', renderFavourites);
     }
+
 
     // Restore search state from URL if exists
     const url = new URL(window.location.href);
@@ -667,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('search');
         searchMovies(q, 1, filters);
     } else {
-        // Default page on load = home
-        showPage('home');
+        // Default page on load = search
+        showPage('search');
     }
 });
