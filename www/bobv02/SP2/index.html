@@ -16,14 +16,14 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" data-page="home">Movie Library</a>
+            <a class="navbar-brand" href="#" data-page="about">Movie Library</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" data-page="home" href="#">Home</a>
+                        <a class="nav-link active" data-page="about" href="#">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-page="search" href="#">Search Movies</a>
@@ -44,7 +44,7 @@
 
     <main class="container-fluid flex-grow-1">
         <!-- HOME PAGE -->
-        <div id="page-home" class="page-content container mt-5">
+        <div id="page-about" class="page-content container mt-5">
             <section class="mb-5">
                 <h1 class="mb-3">Welcome to Movie Library</h1>
                 <p class="lead">
@@ -72,7 +72,7 @@
                     <li>Search for movies by title and filter results by year, rating, genre and sorting.</li>
                     <li>Open a detail page with more information about a selected movie.</li>
                     <li>Save movies to your favourites and keep them even after reloading the page.</li>
-                    <li>Quickly navigate between Home, Search, Details, Favourites and Team pages.</li>
+                    <li>Quickly navigate between About, Search, Details, Favourites and Team pages.</li>
                 </ul>
             </section>
 
@@ -89,7 +89,7 @@
         </div>
 
         <!-- SEARCH PAGE -->
-        <div id="page-search" class="page-content container py-5" style="display: none;">
+        <div id="page-search" class="page-content container py-5">
             <h1>Search Movies</h1>
 
             <div class="search-box row mt-4 mb-4">
@@ -136,17 +136,17 @@
 
             <div id="results" class="row g-4"></div>
 
-            <div id="loadMoreContainer" class="mt-4 text-center" style="display: none;">
+            <div id="loadMoreContainer" class="mt-4 text-center">
                 <button id="loadMoreBtn" class="btn btn-info">Load More</button>
             </div>
 
-            <div id="noResults" class="alert alert-info mt-4" style="display: none;">
+            <div id="noResults" class="alert alert-info mt-4">
                 Enter a movie title and search to begin.
             </div>
         </div>
 
         <!-- FAVOURITES PAGE -->
-        <div id="page-favourites" class="page-content container py-5" style="display: none;">
+        <div id="page-favourites" class="page-content container py-5">
             <h1>My Favourite Movies</h1>
 
             <div class="row mt-4 mb-4">
@@ -164,13 +164,13 @@
 
             <div id="favouriteList" class="row g-4"></div>
 
-            <div id="noFavourites" class="alert alert-info" style="display: none;">
+            <div id="noFavourites" class="alert alert-info">
                 No favourite movies yet. <a href="#" data-page="search">Start searching</a>
             </div>
         </div>
 
         <!-- DETAIL PAGE -->
-        <div id="page-detail" class="page-content container py-5" style="display: none;">
+        <div id="page-detail" class="page-content container py-5">
             <div id="movieDetail">
                 <div id="noDetail" class="alert alert-warning">
                     No movie selected. <a href="#" data-page="search">Go search</a>
@@ -179,7 +179,7 @@
         </div>
 
         <!-- TEAM PAGE -->
-        <div id="page-team" class="page-content container py-5" style="display: none;">
+        <div id="page-team" class="page-content container py-5">
             <h1>Team</h1>
             <p class="lead mt-3">
                 This project was created as a semester assignment for the Web Technologies course by the author below.
@@ -219,4 +219,3 @@
     <script src="assets/js/main.js"></script>
 </body>
 </html>
-
