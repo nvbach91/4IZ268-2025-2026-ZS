@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Book Catalog</title>
+    <meta name="description" content="Aplikace pro snadnou správu vaší osobní knihovny.">
+    <meta name="keywords" content="knihy, katalog knih, ISBN hledání, osobní knihovna, seznam knih">
+    <meta name="author" content="Kateřina Semrádová">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="https://i.pinimg.com/1200x/c2/89/6e/c2896e1102ff67c78e2a3c9fb83c14d5.jpg" type="image/jpg">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Osobní katalog knih</h1>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Hledat podle názvu...">
+        </div>
+    </header>
+
+    <main class="main-content">
+        <aside class="left-panel">
+            <h2 id="form-toggle">
+                Přidat novou knihu 
+                <span class="toggle-icon">▼</span>
+            </h2>
+            
+            <form id="api-search-form" class="form-group">
+                <label for="api-search-query">Název/Autor:</label>
+                <div class="isbn-group">
+                    <input type="text" id="api-search-query" placeholder="Zadej název knihy...">
+                    <button type="submit" id="btn-api-search" class="btn-search">Hledat</button>
+                </div>
+                <div id="api-search-results" class="api-results-container"></div>
+            </form>
+
+            <form id="add-book-form">
+                <div class="form-group">
+                    <label for="isbn">ISBN:</label>
+                    <div class="isbn-group">
+                        <input type="text" id="isbn" placeholder="Zadej ISBN...">
+                        <button type="button" id="btn-search-isbn" class="btn-search">Hledat</button>
+                    </div>
+                    
+                    <div id="loading-indicator">
+                        <div class="spinner"></div> Načítám data...
+                    </div>
+                    
+                    <small class="hint-text">Zkus: 9780140328721</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Název:</label>
+                    <input type="text" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="author">Autor:</label>
+                    <input type="text" id="author" required>
+                </div>
+                <div class="form-group">
+                    <label for="genre">Žánr:</label>
+                    <input type="text" id="genre">
+                </div>
+                <div class="form-group">
+                    <label for="status">Stav:</label>
+                    <select id="status">
+                        <option value="not read">Nepřečteno</option>
+                        <option value="reading">Rozečteno</option>
+                        <option value="read">Přečteno</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="note">Poznámka:</label>
+                    <textarea id="note" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Obsah knihy:</label>
+                    <textarea id="description" rows="5" placeholder="Popis knihy se načte automaticky z vyhledávání..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="cover-url">URL obálky:</label>
+                    <input type="text" id="cover-url" placeholder="http://...">
+                </div>
+                
+                <button type="submit" class="btn-add">PŘIDAT KNIHU</button>
+            </form>
+
+            <div class="stats-container">
+                <h3>Statistiky knihovny</h3>
+                <div class="stat-item">
+                    <span>Celkem knih:</span>
+                    <strong id="stat-total">0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Přečteno:</span>
+                    <strong id="stat-read" class="text-success">0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>K přečtení:</span>
+                    <strong id="stat-not-read" class="text-danger">0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Rozečteno:</span>
+                    <strong id="stat-reading" class="text-warning">0</strong>
+                </div>
+            </div>
+        </aside>
+
+        <section class="right-panel">
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Vše</button>
+                <button class="filter-btn" data-filter="read">Přečteno</button>
+                <button class="filter-btn" data-filter="not read">Nepřečteno</button>
+                <button class="filter-btn" data-filter="reading">Rozečteno</button>
+                <button class="filter-btn" data-filter="favorites">Oblíbené</button>
+                
+                <div class="sort-by">
+                    Řadit dle: 
+                    <select class="sort-by-select" id="sort-select">
+                        <option value="newest">Nejnovější</option>
+                        <option value="title">Názvu (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="book-list-container" class="book-list">
+                </div>
+        </section>
+    </main>
+</div>
+
+<script type="module" src="./assets/js/main.js"></script>
+
+</body>
+</html>
