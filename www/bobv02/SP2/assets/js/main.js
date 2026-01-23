@@ -123,7 +123,7 @@ async function loadGenres() {
             });
         }
 
-        // Fill favourites genre dropdown (if you later use genre_ids in favs)
+        // Fill favourites genre dropdown
         if (favGenreSelect) {
             genresCache.forEach(g => {
                 const opt = document.createElement('option');
@@ -223,7 +223,7 @@ async function searchMovies(query, page = 1, filters = {}) {
             }
         }
 
-        // Save filters in URL as params (so you can show teacher)
+        // Save filters in URL as params
         const url = new URL(window.location.href);
         url.searchParams.set('q', query);
         if (filters.minYear) url.searchParams.set('minYear', filters.minYear); else url.searchParams.delete('minYear');
@@ -400,7 +400,7 @@ function renderFavourites() {
         favs = favs.filter(f => f.title.toLowerCase().includes(q));
     }
 
-    // Genre filter (only if you stored genre_ids when adding)
+    // Genre filter
     if (favGenre && favGenre.value) {
         const genreId = parseInt(favGenre.value);
         favs = favs.filter(f => Array.isArray(f.genre_ids) && f.genre_ids.includes(genreId));
@@ -507,7 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFavCount();
     loadGenres();
 
-    // SPA navigation via data-page (includes Start searching movies кнопка)
+    // SPA navigation via data-page
     if (nav) {
         nav.addEventListener('click', (e) => {
             const link = e.target.closest('[data-page]');
@@ -671,4 +671,3 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('home');
     }
 });
-
