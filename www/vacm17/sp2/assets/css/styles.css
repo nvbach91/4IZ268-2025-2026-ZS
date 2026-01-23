@@ -56,6 +56,10 @@ header button:hover {
     cursor: pointer;
 }
 
+header button.disabled {
+    cursor: not-allowed;
+}
+
 .loading {
     display: flex;
     justify-content: center;
@@ -74,6 +78,8 @@ header button:hover {
     font-family: var(--custom-font);
     font-size: 36px;
 }
+
+/* MAIN CSS */
 
 main {
     display: flex;
@@ -164,6 +170,7 @@ main {
     overflow-x: hidden;
 
     flex: 1;
+    max-height: 475px;
     padding: 10px;
 }
 

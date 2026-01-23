@@ -1,4 +1,4 @@
-/* BANNER */
+/* ----------------------------------- BANNER ------------------------------------------- */
 
 .no-items-banner, .items-banner {
     display: flex;
@@ -53,7 +53,7 @@
     background: #f1f1f1;
 }
 
-/* MODAL */
+/* ----------------------------------- MODAL WINDOW --------------------------------------- */
 
 .modal-overlay {
     position: fixed;
@@ -198,8 +198,9 @@
 
 .modal-error {
     color: #930e0e;
-    font-weight: bold;
     text-align: center;
+
+    font-size: 14px;
 
     width: 100%;
     padding-top: 10px;
@@ -227,12 +228,62 @@
 }
 
 .modal-action-btn:hover,
-.item-action-btn:hover {
+.item-compare-btn:hover,
+.item-edit-btn:hover,
+.compare-item-edit-btn:hover,
+.confirm-modal-actions button:hover {
     background: #1362ad;
     cursor: pointer;
 }
 
-/* CONTAINERS */
+.modal-action-btn.disabled {
+    background: #aba9a9;
+}
+
+.modal-action-btn.disabled:hover {
+    background: #aba9a9;
+    cursor: not-allowed;
+}
+
+/* ----------------------------------- CONFIRM MODAL WINDOW ----------------------------------- */
+
+.confirm-modal-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--custom-font);
+    font-size: 16px;
+
+    height: 40px;
+}
+
+.confirm-modal-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    height: 40px;
+    width: 100%;
+}
+
+.confirm-modal-actions button {
+    color: white;
+    background: dodgerblue;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+
+    font-family: var(--custom-font);
+    font-size: 14px;
+
+    height: 100%;
+    flex: 1;
+
+    transition: ease 0.4s;
+}
+
+/* ----------------------------------- COMP & PC CONTAINERS ----------------------------------- */
 
 .pc-container-window-item {
     display: flex;
@@ -246,7 +297,7 @@
     border-radius: 12px;
 
     width: 100%;
-    min-height: 280px;
+    height: auto;
     padding: 15px;
 }
 
@@ -322,7 +373,7 @@
     width: 100%;
     text-align: center;
     height: 60%;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .item-body-score {
@@ -331,7 +382,7 @@
     align-items: center;
 
     border-radius: 5px;
-    padding: 0 0 15px 0;
+    padding: 0 0 10px 0;
 
     height: 40%;
     width: 100%;
@@ -346,7 +397,13 @@
     height: 25%;
 }
 
-.item-action-btn {
+.item-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.item-compare-btn, .item-edit-btn, .compare-item-edit-btn {
     color: white;
     background: dodgerblue;
 
@@ -355,11 +412,16 @@
 
     border-radius: 10px;
     border: none;
-    cursor: pointer;
 
     height: 35px;
 
+    flex: 1;
     transition: ease 0.4s;
+}
+
+.compare-item-edit-btn {
+    margin-top: 10px;
+    max-height: 35px;
 }
 
 .item-close-btn:hover, .modal-close-btn:hover {
@@ -378,7 +440,6 @@
 
     height: 25%;
     padding: 8px;
-    margin-top: 10px;
 }
 
 .score-title {
@@ -398,7 +459,7 @@
     width: 100%;
 }
 
-/* POP-UP */
+/* ---------------------------------------- POP-UP WINDOW ---------------------------------------- */
 
 .pop-up-overlay {
     position: fixed;
@@ -438,6 +499,8 @@
     font-weight: bold;
 }
 
+/* MEDIA */
+
 @media screen and (max-width: 1080px) {
     .pc-container-window-item {
         min-width: 300px;
@@ -447,7 +510,7 @@
     }
 
     .comparator-container-window {
-        min-height: 500px;
+        min-height: 700px;
     }
 
     .items-banner-action-btn {

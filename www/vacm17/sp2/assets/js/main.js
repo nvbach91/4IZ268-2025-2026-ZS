@@ -2,28 +2,27 @@ import * as Data from "./data.js";
 import * as UI from "./ui.js";
 import * as Modal from "./modal.js";
 
-// --- INITIALIZATION ---
+//
+// ---------------------------------------- INITIALIZATION -----------------------------------------
+//
+
 async function initialize() {
-    const $loading = $("#loading");
+    const $loading = UI.elements.$loading;
 
     // Pre-load database
     $loading.removeClass("hidden");
 
     const data = await Data.fetchData();
 
-    try {
-
-    } catch (error) {
-
-        return;
-    }
-
     $loading.addClass("hidden");
     console.log("MAIN: initialize: Data fetched:", data);
 
     // Load items from localStorage
-    const items = Data.getLocalStorage();
-    items.forEach(item => UI.renderPcItem(item));
+    const pcItems = Data.getLocalStorage(Data.PC_STORAGE_KEY);
+    pcItems.forEach(item => UI.renderPcItem(item));
+
+    const compItems = Data.getLocalStorage(Data.COMP_STORAGE_KEY);
+    compItems.forEach(item => UI.renderComparatorItem(item));
 
     UI.updateBanners();
 }
@@ -33,16 +32,19 @@ initialize()
         console.log("MAIN: Application fully initialized.");
     });
 
+//
+// ---------------------------------------- EVENT LISTENERS -----------------------------------------
+//
+
+// --- Preload ---
 window.addEventListener("load", () => {
     document.body.classList.remove('preload');
 });
 
-// ----- EVENT LISTENERS -----
-
 // --- Search ---
-UI.elements.$search.on("input", (e) => {
-    UI.search(e);
-});
+// UPDATE: Debounced search
+const debouncedSearch = UI.debounce(UI.search, 300)
+UI.elements.$search.on("input", debouncedSearch);
 
 // --- WINDOW CONTAINERS ---
 
@@ -60,7 +62,9 @@ UI.elements.$pcWindow.on("click", (e) => {
 
 // Score calculation
 UI.elements.$compControlsCompare.on("click", UI.compareBtnClick);
-UI.elements.$compControlsClear.on("click", UI.clearBtnClick);
+UI.elements.$compControlsClear.on("click", () => {
+    Modal.toggleConfirmModal("Remove all items from comparison window?", UI.clearBtnClick)
+});
 UI.elements.$compControlsReset.on("click", UI.resetBtnClick);
 
 // --- MODAL ---
@@ -69,9 +73,8 @@ UI.elements.$pcControlsAdd.on("click", () => Modal.toggleModal(true));
 UI.elements.$modalClose.on("click", () => Modal.toggleModal(false));
 UI.elements.$modalAction.on("click", Modal.createItem);
 
-UI.elements.$inputs.on("input", async (e) => {
-    await Modal.displayList(e);
-});
+const debouncedAutoComplete = UI.debounce(async (e) => {await Modal.displayList(e)}, 300);
+UI.elements.$inputs.on("input", debouncedAutoComplete);
 
 UI.elements.$inputs.on("keydown", (e) => {
     Modal.keyAutoCompleteInput(e);
@@ -83,4 +86,4 @@ UI.elements.$inputs.on("change", async (e) => {
 
 // --- THEME ---
 
-$("#change-theme-btn").on("click", UI.setTheme);
+UI.elements.$changeTheme.on("click", UI.setTheme);

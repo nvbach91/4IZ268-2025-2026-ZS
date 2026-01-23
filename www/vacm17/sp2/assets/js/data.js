@@ -41,53 +41,76 @@ export function getComponentList(category) {
 // --- LOCAL STORAGE ---
 
 // Name for the local storage
-const STORAGE_KEY = "data";
+export const PC_STORAGE_KEY = "data"; // ID for PC items storage
+export const COMP_STORAGE_KEY = "comp"; // ID for items in comparator storage
 
-export function getLocalStorage() {
-    const items = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []
+// Returns local storage
+export function getLocalStorage(storage) {
+    const items = JSON.parse(localStorage.getItem(storage)) || []
     console.log("LOCAL: getLocalStorage: Local storage received:", items.length > 0 ? items : "None")
     return items;
 }
 
-export function getLocalItemById(id) {
-    const item = getLocalStorage().find(item => item.id === id);
+// Finds first item in local storage by ID
+export function getLocalItemById(id, storage) {
+    const item = getLocalStorage(storage).find(item => item.id === id);
     console.log("LOCAL: getLocalItemById: Local item received:", id);
     return item;
 }
 
-export function addLocalItem(item) {
-    const items = getLocalStorage();
+export function existsLocalItemById(id, storage) {
+    const item = getLocalStorage(storage).find(item => item.id === id);
+    if (item) {
+        console.log("LOCAL: existsLocalItemById: Local item exists:", id);
+        return true;
+
+    } else {
+        console.log("LOCAL: existsLocalItemById: Local item does not exist:", id);
+        return false;
+    }
+}
+
+// Adds a local item
+export function addLocalItem(item, storage) {
+    const items = getLocalStorage(storage);
     items.push(item);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    localStorage.setItem(storage, JSON.stringify(items));
     console.log(`LOCAL: addLocalItem: Item ${item.name} has been added to local storage.`);
 }
 
-export function removeLocalItem(id) {
-    const items = getLocalStorage();
+// Removes items by ID from local storage
+export function removeLocalItem(id, storage) {
+    const items = getLocalStorage(storage);
     const filteredItems = items.filter(item => item.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredItems));
+    localStorage.setItem(storage, JSON.stringify(filteredItems));
     console.log(`LOCAL: removeLocalItem: Item with id ${id} has been removed from local storage.`);
 }
 
 // --- LOGIC / FORMATTING ---
 
-export function createDataObject(name, inputs) {
-    const id = Date.now().toString();
-    let newItem = { id, name, score: 0 };
+export function createDataObject(name, inputs, id) {
+    // If id is unknown - it should be automatically created
+    const generatedID = crypto.randomUUID();
+    let newItem = { id: id ?? generatedID.toString(), name, score: 0 };
+
+    console.log("DATA: createDataObject: Received inputs:", inputs);
 
     let totalScore = 0;
     let componentCount = 0;
 
+    // Object.entries returns key (category) and value (componentName)
     for (const [category, componentName] of Object.entries(inputs)) {
         const dbItems = temporaryStorage[category];
         const match = dbItems.find(i => i.FullName.toLowerCase() === componentName.toLowerCase());
 
-        if (!match) return null; // Invalid component found
+        if (!match) {
+            console.warn(`DATA: createDataObject: Invalid component found ${componentName}. Item creation terminated.`)
+            return null;
+        }
 
-        // Store as object (Better structure)
         newItem[category] = {
             component: match.FullName,
-            score: match.Score
+            score: parseFloat(match.Score).toFixed(0)
         };
 
         totalScore += parseFloat(match.Score || 0);
@@ -96,6 +119,20 @@ export function createDataObject(name, inputs) {
 
     newItem.score = (totalScore / componentCount).toFixed(0);
 
-    console.log("DATA: createDataObject: New Item created.")
+    console.log(`DATA: createDataObject: Item with id=${newItem.id} created.`)
     return newItem;
+}
+
+export function changeCompID(id) {
+    const modifiedId = `comp-${id}`;
+
+    console.log(`DATA: changeCompID: id="${id} changed to id="${modifiedId}".`);
+    return modifiedId;
+}
+
+export function changePcID(id) {
+    const modifiedId = id.replace("comp-", "");
+
+    console.log(`DATA: changePcID: id="${id} changed to id=${modifiedId}".`);
+    return modifiedId;
 }

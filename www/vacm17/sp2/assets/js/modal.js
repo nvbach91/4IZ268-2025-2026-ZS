@@ -5,37 +5,78 @@ import * as UI from "./ui.js";
 
 export function createItem() {
     const inputs = {
-        cpu: $("#input-processor").val().trim(),
-        gpu: $("#input-graphics-card").val().trim(),
-        ram: $("#input-ram").val().trim(),
-        ssd: $("#input-drive").val().trim()
+        cpu: UI.elements.$inputProcessor.val().trim(),
+        gpu: UI.elements.$inputGraphics.val().trim(),
+        ram: UI.elements.$inputRam.val().trim(),
+        ssd: UI.elements.$inputDrive.val().trim()
     };
-    const name = $("#input-name").val().trim();
+    const name = UI.elements.$inputName.val().trim();
+    
+    const isEditPc = UI.elements.$modal.data("pcEditId") ?? null;
+    // const isEditComp = UI.elements.$modal.data("compEditId") ?? null;
 
     if (name.length > 20) {
         UI.showPopup("Name is too long (max 20 chars)", "red");
         return;
     }
 
-    if (Object.values(inputs).some(val => val.trim() === "") || name.trim() === "") {
+    if (Object.values(inputs).some(val => val === "") || name === "") {
         UI.showPopup("Please fill all fields", "red");
         return;
     }
 
-    const newItem = Data.createDataObject(name, inputs);
+    let item;
 
-    if (!newItem) {
+    if (isEditPc) {
+        item = Data.createDataObject(name, inputs, isEditPc);
+    }
+    else {
+        item = Data.createDataObject(name, inputs);
+    }
+
+    if (!item) {
         UI.showPopup("Invalid Component names. Please use autocomplete.", "red");
         return;
     }
 
-    Data.addLocalItem(newItem);
-    UI.renderPcItem(newItem);
+    // Toggling between modes
+    if (isEditPc) {
+        if (Data.existsLocalItemById(Data.changeCompID(item.id), Data.COMP_STORAGE_KEY)) {
+            const oldCompItem = Data.getLocalItemById(Data.changeCompID(item.id), Data.COMP_STORAGE_KEY);
+            console.log("MODAL: Comp Item detected.")
+            Data.removeLocalItem(oldCompItem.id, Data.COMP_STORAGE_KEY);
+            UI.removeItem(oldCompItem,"$compWindow");
+
+            const newCompItem = Data.createDataObject(name, inputs, oldCompItem.id)
+
+            Data.addLocalItem(newCompItem, Data.COMP_STORAGE_KEY);
+            UI.renderComparatorItem(newCompItem);
+
+            UI.compareBtnClick()
+        }
+        
+        Data.removeLocalItem(item.id, Data.PC_STORAGE_KEY);
+        UI.removeItem(item, "$pcWindow");
+        
+        Data.addLocalItem(item, Data.PC_STORAGE_KEY);
+        UI.renderPcItem(item);
+        
+        UI.showPopup("Computer updated", "green");
+        UI.elements.$modal.removeData("pcEditId");
+        console.log("MODAL: Action 'isEditPc' commited.")
+    }
+    else {
+        Data.addLocalItem(item, Data.PC_STORAGE_KEY);
+        UI.renderPcItem(item);
+        UI.showPopup(`Computer ${name} created`, "green");
+        console.log("MODAL: New pc created. No action commited.")
+    }
+
     UI.updateBanners();
     toggleModal(false);
-    UI.showPopup(`Computer ${name} created!`, "green");
 }
 
+// Toggles modal
 export function toggleModal(show) {
     const $modal = UI.elements.$modal;
 
@@ -46,6 +87,36 @@ export function toggleModal(show) {
     }
 }
 
+export function disableModal(errorMessage, error) {
+    const $modalActinBtn = UI.elements.$modalAction;
+
+    console.error(`MODAL: disableModal: ${errorMessage}`, error);
+    UI.showPopup(`${errorMessage}`, "red");
+    UI.elements.$modalContent.html(`<div class="modal-error">Initialization failed. Data did not load.</div>`);
+    $modalActinBtn
+        .prop("disabled", true)
+        .addClass("disabled");
+}
+
+// Sends data to modal window for editing
+export function sendDataToModal(id, storage) {
+    const item = Data.getLocalItemById(id, storage);
+
+    if (!item) {
+        return;
+    }
+
+    UI.elements.$inputName.val(item.name);
+    UI.elements.$inputProcessor.val(item.cpu.component);
+    UI.elements.$inputGraphics.val(item.gpu.component);
+    UI.elements.$inputRam.val(item.ram.component);
+    UI.elements.$inputDrive.val(item.ssd.component);
+
+    UI.elements.$modal.data("pcEditId", id);
+
+    console.log(`MODAL: Items sent to modal with id=${id}`);
+}
+
 // --- LIST OPERATIONS ---
 
 export async function displayList(event) {
@@ -54,7 +125,7 @@ export async function displayList(event) {
     const $list = $wrapper.find("ul");
     const $input = $wrapper.find("[data-item='input']");
 
-    const value = $input.val().toLowerCase();
+    const value = $input.val().toLowerCase().trim(); // UPDATE: Added trim() to user input
 
     if (value.length < 1) {
         $list.removeClass("active");
@@ -69,14 +140,16 @@ export async function displayList(event) {
     if (matches.length > 0) {
         $list.addClass("active");
 
-        const listItems = matches.slice(0, 5).map((match) => {
+        // UPDATE: Number of fetched element increased to 20.
+        const listItems = matches.slice(0, 20).map((match) => {
             const $li = $("<li>")
                 .attr("data-item", "list-item")
                 .text(match);
 
-            $li.on("click", () => {
+            $li.on("click", (e) => {
                 $input.val(match);
                 $list.removeClass("active");
+                checkInputValidity(e);
             });
 
             return $li;
@@ -113,10 +186,10 @@ export async function checkInputValidity(event) {
 
     if (list.includes(inputVal)) {
         $indicator.html("✔");
-        console.log(`BACKEND: checkInputValidity(): Input ${inputVal} is valid.`);
+        console.log(`MODAL: checkInputValidity(): Input ${inputVal} is valid.`);
     } else {
         $indicator.html("✖");
-        console.warn(`BACKEND: checkInputValidity(): Input ${inputVal} is invalid.`);
+        console.warn(`MODAL: checkInputValidity(): Input ${inputVal} is invalid.`);
     }
 }
 
@@ -126,11 +199,26 @@ export function closeList() {
     if ($lists.length === 0) return;
 
     $lists.removeClass("active");
-    console.log(`BACKEND: closeAutoCompleteList: ${$lists.length} lists removed.`);
+    console.log(`MODAL: closeAutoCompleteList: ${$lists.length} lists removed.`);
 }
 
-export function disableModal(errorMessage,error) {
-    console.error(`DATA: disableModal: ${errorMessage}`, error);
-    UI.showPopup("Failed to load application data.", "red");
-    UI.elements.$modaContent.html(`<div>Initialization failed. Data did not load.</div>`);
+// --- CONFIRM MODAL ---
+
+// Toggles confirmModal
+export function toggleConfirmModal(message, onConfirm) {
+    const $modal = UI.elements.$confirmModal;
+    const $text = UI.elements.$confirmText;
+
+    $text.text(message);
+    $modal.addClass("active");
+
+    // one() = one time listener
+    UI.elements.$confirmActionYes.one("click", () => {
+        $modal.removeClass("active");
+        onConfirm();
+    });
+
+    UI.elements.$confirmActionNo.one("click", () => {
+        $modal.removeClass("active");
+    });
 }

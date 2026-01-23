@@ -2,19 +2,40 @@ import * as Data from "./data.js";
 import * as Modal from "./modal.js";
 
 export const elements = {
+    // modal
     $modal: $("#modal"),
-    $modaContent: $("#modal-content"),
+    $modalContent: $("#modal-content"),
+    $modalAction: $("#modal-action-btn"),
+    $modalClose: $("#modal-close-btn"),
+    // confirm modal
+    $confirmModal: $("#confirm-modal"),
+    $confirmText: $("#confirm-text"),
+    $confirmActionYes: $("#modal-action-yes"),
+    $confirmActionNo: $("#modal-action-no"),
+    // pop-up
+    $popUpModal: $("#pop-up"),
+    $popUpText: $("#pop-up-text"),
+    $popUpBox: $("#pop-up-box"),
+    // inputs
+    $inputName: $("#input-name"),
+    $inputProcessor: $("#input-processor"),
+    $inputGraphics: $("#input-graphics-card"),
+    $inputRam: $("#input-ram"),
+    $inputDrive: $("#input-drive"),
+    $inputs: $("[data-item='input']"),
+    // main containers
     $search: $("#search-input"),
     $pcWindow: $("#pc-container-window"),
     $compWindow: $("#comparator-container-window"),
-    $pcControlsAdd: $("#pc-container-add-btn"),
+    // controls
     $compControlsClear: $("#comparator-clear-btn"),
     $compControlsReset: $("#comparator-reset-btn"),
     $compControlsCompare: $("#comparator-compare-btn"),
-    $modalAction: $("#modal-action-btn"),
-    $modalClose: $("#modal-close-btn"),
-    $inputs: $("[data-item='input']"),
-    $lists: $("[data-item='list']")
+    $pcControlsAdd: $("#pc-container-add-btn"),
+    // others
+    $lists: $("[data-item='list']"),
+    $loading: $("#loading"),
+    $changeTheme: $("#change-theme-btn")
 };
 
 // --- DOM GENERATION ---
@@ -28,12 +49,15 @@ export function renderPcItem(item) {
         <span data-action="remove" class="item-close-btn">✖</span>
         <div data-item="item-name" class="item-name">${item.name}</div>
         <div class="item-body">           
-            <div class="item-body-row">${item.cpu.component}</div>
-            <div class="item-body-row">${item.gpu.component}</div>
-            <div class="item-body-row">${item.ram.component}</div>
-            <div class="item-body-row">${item.ssd.component}</div>
+            <div class="item-body-row" data-item="item-data">${item.cpu.component}</div>
+            <div class="item-body-row" data-item="item-data">${item.gpu.component}</div>
+            <div class="item-body-row" data-item="item-data">${item.ram.component}</div>
+            <div class="item-body-row" data-item="item-data">${item.ssd.component}</div>
         </div>
-        <button data-action="compare" class="item-action-btn">Compare</button>
+        <div class="item-controls">
+            <button data-action="compare" class="item-compare-btn">Compare</button>
+            <button data-action="edit" class="item-edit-btn">Edit</button>
+        </div>    
     `);
 
     elements.$pcWindow.prepend($div);
@@ -41,10 +65,8 @@ export function renderPcItem(item) {
 }
 
 export function renderComparatorItem(item) {
-    if ($(`comp-${item.id}`).length > 0) return;
-
     const $div = $("<div>", {
-        id: `comp-${item.id}`,
+        id: item.id,
         "data-origin-id": item.id,
         "data-item": "item",
         class: "comparator-container-window-item"
@@ -73,6 +95,7 @@ export function renderComparatorItem(item) {
             <div class="score-title">Score</div>
             <div data-item="score" class="score-box"></div>
         </div> 
+        <button data-action="edit" class="compare-item-edit-btn">Edit</button>
     `);
 
     elements.$compWindow.prepend($div);
@@ -80,15 +103,34 @@ export function renderComparatorItem(item) {
     updateBanners();
 }
 
-export function displayScores(id, score) {
-    const $item = $(`#comp-${id}`);
+// Removes an item from a certain element (finds it by id)
+export function removeItem(item, elementKey) {
+    const $element = elements[elementKey];
+    
 
-    if ($item) {
-        $item.find("[data-item='score']").text(score);
+    if (!$element) {
+        console.warn(`UI: removeItem: Element ${$element} not found.`);
+        return;
     }
+    console.log(`UI: removeItem: Element ${$element} found.`);
+
+    const $item = $element.find(`#${item.id}`);
+
+    if (!$item.length) {
+        console.warn(`UI: removeItem: Item id=${item.id} not found.`);
+        return;
+    }
+
+    $item.remove();
+    console.warn(`UI: removeItem: Item id=${item.id} removed.`);
 }
 
-// --- OTHER ---
+// Displays scores in score boxes
+export function displayScores(id, score) {
+
+}
+
+// --- SEARCH ---
 
 // Main search function
 export function search(event) {
@@ -97,6 +139,7 @@ export function search(event) {
 
     const $items = elements.$pcWindow.find("[data-item='item']");
 
+    // Precaution
     if (!input) {
         $items.removeClass("hide");
         updateBanners();
@@ -107,22 +150,26 @@ export function search(event) {
         const $item = $(this);
         const name = $item.find("[data-item='item-name']").text().toLowerCase();
 
-        const matches = name.includes(input);
+        const isMatch = name.includes(input); // UPDATE: Changed name
 
-        $item.toggleClass("hide", !matches);
+        $item.toggleClass("hide", !isMatch);
     });
     updateBanners();
 }
 
+// --- POP-UP ---
+
 export function showPopup(text, color) {
-    const $popUp = $("#pop-up");
-    $("#pop-up-text").text(text);
-    $("#pop-up-box").css("background", color);
+    const $popUp = elements.$popUpModal;
+    elements.$popUpText.text(text);
+    elements.$popUpBox.css("background", color);
 
     $popUp.addClass("active");
     console.log("UI: showPopup: Pop-up window shown")
     setTimeout(() => $popUp.removeClass("active"), 2000);
 }
+
+// --- BANNER ---
 
 // Updating banners
 export function updateBanners() {
@@ -174,6 +221,8 @@ export function updateBanners() {
 // Counts items within windows (even the hidden ones)
 export function countItems($items) {
     let count = 0;
+
+    // Searches for hidden elements - these should not count
     $items.each(function() {
         if (!$(this).hasClass("hide")) count++;
     });
@@ -185,10 +234,26 @@ export function countItems($items) {
 // Comparator Container
 export function comparatorClick(event) {
     const $target = $(event.target);
+    const $item = $target.closest("[data-item='item']")
+    const id = $item.attr("id");
+
     const $btn = $target.closest("[data-action]");
+
     if ($btn && $btn.data("action") === "remove") {
-        $target.closest("[data-item='item']").remove();
-        updateBanners();
+        Modal.toggleConfirmModal("Would you like to remove this item?", () => {
+            
+            Data.removeLocalItem(id, Data.COMP_STORAGE_KEY);
+
+            $item.remove();
+
+            updateBanners();
+        });
+        return;
+    }
+    
+    if ($btn && $btn.data("action") === "edit") {
+        Modal.toggleModal(true)
+        Modal.sendDataToModal(Data.changePcID(id), Data.PC_STORAGE_KEY);
     }
 }
 
@@ -214,16 +279,41 @@ export function itemClick(event) {
     const id = $item.attr("id");
 
     if (action === "remove") {
-        Data.removeLocalItem(id);
-        $item.remove();
-        updateBanners();
-        showPopup("Item Removed", "red");
+        Modal.toggleConfirmModal("Would you like to remove this item?", () => {
+            const item = Data.getLocalItemById(Data.changeCompID(id), Data.COMP_STORAGE_KEY)
+
+            if (item) {
+                console.log("UI: itemClick: Comparator item found.", item.id)
+                removeItem(item, "$compWindow");
+                Data.removeLocalItem(Data.changeCompID(id), Data.COMP_STORAGE_KEY);
+            }
+
+            Data.removeLocalItem(id, Data.PC_STORAGE_KEY);
+
+            $item.remove();
+            updateBanners();
+            showPopup("Item Removed", "red");
+        });
         return;
     }
 
     if (action === "compare") {
-        const itemData = Data.getLocalItemById(id);
-        renderComparatorItem(itemData);
+        const itemData = Data.getLocalItemById(id, Data.PC_STORAGE_KEY);
+        itemData.id = `comp-${id}`;
+        const exists = !!Data.getLocalItemById(itemData.id, Data.COMP_STORAGE_KEY);
+
+        if (!exists) {
+            renderComparatorItem(itemData);
+            Data.addLocalItem(itemData, Data.COMP_STORAGE_KEY);
+        } else {
+            showPopup("This Item is already in comparison", "#af7632")
+        }
+        return;
+    }
+
+    if (action === "edit") {
+        Modal.toggleModal(true);
+        Modal.sendDataToModal(id, Data.PC_STORAGE_KEY);
     }
 }
 
@@ -233,47 +323,109 @@ export function itemClick(event) {
 export function compareBtnClick() {
     const $compItems = elements.$compWindow.find("[data-item='item']");
 
+    if (!$compItems) {
+        showPopup("Comparison window is empty", "red");
+        return;
+    }
+
+    let highestScore = 0;
+    let winner;
+
     $compItems.each(function() {
-        const id = $(this).data("originId");
-        const data = Data.getLocalItemById(String(id));
-        if(data) displayScores(id, data.score);
+        const id = $(this).attr("id");
+        const $item = elements.$compWindow.find(`#${id}`).find("[data-item='score']");
+        const data = Data.getLocalItemById(id, Data.COMP_STORAGE_KEY);
+        console.log(data.score)
+        
+        if(data) {
+            if($item.length) {
+                $item.text(data.score);
+            }
+        }
+
+        if(data.score >= highestScore) {
+            highestScore = Number(data.score);
+            winner = $item;
+        }
     });
+
+    winner.parent().css("background", "#5f9d4c")
+
     console.log("UI: compareBtnClick: Scores have been displayed.");
 }
 
 // clear function
 export function clearBtnClick() {
+    const $compItems = elements.$compWindow.find("[data-item='item']");
+
+    if (!$compItems) {
+        showPopup("Comparison window is empty", "red");
+        return;
+    }
+
+    $compItems.each(function() {
+        const id = $(this).attr("id");
+
+        Data.removeLocalItem(id, Data.COMP_STORAGE_KEY);
+    });
     elements.$compWindow.empty();
+
     console.log("UI: clearBtnClick: Comparator has been cleared.");
     updateBanners();
 }
 
 // reset scores function
 export function resetBtnClick() {
-    elements.$compWindow.find("[data-item='score']").text("");
+    const $compItems = elements.$compWindow.find("[data-item='score']");
+
+    if (!$compItems) {
+        showPopup("Comparison window is empty", "red");
+        return;
+    }
+
+    if ($compItems.text().length === 0) {
+        showPopup("Scores were not calculated yet", "red");
+        return;
+    }
+    
+    $compItems.text("");
+    $compItems.parent().css("background", "white");
+
     console.log("UI: resetBtnClick: All scores reset.");
 }
 
 // --- THEME ---
 
-const THEME = "theme";
+let theme = "light";
 
 export function setTheme() {
-    const currentTheme = localStorage.getItem(THEME);
     const $body = $("body");
-    const $button = $("#change-theme-btn");
+    const $button = elements.$changeTheme;
 
-    if (currentTheme === "white") {
+    if (theme === "light") {
         $body.addClass("dark");
         $button.text("☀︎")
 
-        localStorage.setItem(THEME, "dark");
+        theme = "dark"
         console.log("THEME: setTheme: Theme changed to 'dark'");
     } else {
         $body.removeClass("dark");
         $button.text("⭒.☾˚⭒")
 
-        localStorage.setItem(THEME, "white");
-        console.log("THEME: setTheme: Theme changed to 'white'");
+        theme = "light"
+        console.log("THEME: setTheme: Theme changed to 'light'");
     }
+}
+
+// --- DEBOUNCE ---
+
+export function debounce(func, delay = 300){
+    let timeout;
+
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(this, args);
+            }, delay);
+    };
 }
