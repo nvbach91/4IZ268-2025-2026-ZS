@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget tracker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="https://www.svgrepo.com/show/474298/piggy-bank.svg" type="image/svg+xml">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>Budget tracker</h1>
+        </div>
+    </header>
+
+    <!-- Summary -->
+    <div class="summary">
+        <div class="card">
+            <div class="label">TOTAL INCOME</div>
+            <div class="value" id="sumIncome">0</div>
+        </div>
+        <div class="card">
+            <div class="label">TOTAL EXPENSES</div>
+            <div class="value" id="sumExpense">0</div>
+        </div>
+        <div class="card">
+            <div class="label">CURRENT BALANCE</div>
+            <div class="value" id="sumBalance">0</div>
+        </div>
+    </div>
+
+    <!-- Currency -->
+    <div class="toolbar">
+        <div class="row">
+            <label for="currencySelect">Currency</label>
+            <select id="currencySelect"></select>
+
+            <button id="btnRefreshRate" type="button">Refresh rate</button>
+            <span class="muted" id="rateInfo">(rate not loaded)</span>
+        </div>
+    </div>
+
+    <!-- Main layout -->
+    <div class="grid">
+        <aside class="panel">
+            <h2>Filter</h2>
+
+            <label for="filterType">Type</label>
+            <select id="filterType">
+                <option value="all">All</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+
+            <label for="filterCategory">Category</label>
+            <select id="filterCategory">
+                <option value="all">All</option>
+            </select>
+
+            <label for="filterMonth">Month</label>
+            <input type="month" id="filterMonth">
+
+
+            <div class="btnRow">
+                <button id="btnApplyFilter" type="button">Apply</button>
+                <button id="btnClearFilter" type="button" class="ghost">Clear</button>
+            </div>
+
+            <hr>
+
+            <h3 class="h3">Graph of spendings</h3>
+            <div class="chartBox">
+                <canvas id="spendChart" width="400" height="250"></canvas>
+            </div>
+        </aside>
+
+        <main class="panel">
+            <div class="panelHead">
+                <h2>Table of records</h2>
+                <div class="muted small" id="recordsInfo">0 records</div>
+            </div>
+
+            <div class="tableWrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th class="right">Amount</th>
+                            <th>Note</th>
+                            <th class="center">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordsBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add transaction -->
+    <section class="panel">
+        <h2>Add transaction</h2>
+
+        <form id="txForm" class="form">
+            <div class="formRow">
+                <div class="field">
+                    <span class="label2">Type</span>
+                    <div class="radios">
+                        <label><input type="radio" name="type" value="income" required> Income</label>
+                        <label><input type="radio" name="type" value="expense" required> Expense</label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label2" for="amount">Amount</label>
+                    <input id="amount" name="amount" type="number" min="1" step="1" required placeholder="e.g. 1200">
+                </div>
+
+                <div class="field">
+                    <label class="label2" for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Choose</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label class="label2" for="date">Date</label>
+                    <input id="date" name="date" type="date" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label2" for="note">Note</label>
+                <textarea id="note" name="note" rows="3" placeholder="Optional"></textarea>
+            </div>
+
+            <div class="btnRow">
+                <button type="submit">Save</button>
+                <button type="reset" class="ghost">Reset</button>
+                <button id="btnClearAll" type="button" class="danger">Clear ALL</button>
+            </div>
+
+            <p class="muted small" id="formInfo"></p>
+        </form>
+    </section>
+
+    <footer class="footer muted small">
+        Budget Tracker SP2 Diana Vajsová
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
