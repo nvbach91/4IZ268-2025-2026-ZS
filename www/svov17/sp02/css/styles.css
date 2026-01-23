@@ -17,6 +17,9 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh; /*vyska pres celou obrazovku*/
+    /* VIEWPORT */
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 header {
@@ -43,8 +46,9 @@ h1 {
 
 main {
     background-color: var(--background-card);
-    padding: 50px;
-    margin: 40px auto;
+    /*abychom nemuseli scrollovat - zmena paddingu z 50 px, margin ze 40*/
+    padding: 10px;
+    margin: 20px auto;
     border-radius: 16px; 
     box-shadow: var(--shadow-hover);
     max-width: 700px;
@@ -77,13 +81,13 @@ h2 {
     color: var(--accent-color);
     margin-bottom: 10px;
 }
-
+/*image wrapper zmena height z 350, margin z 25*/
 
 #image-wrapper {
     width: 100%;
     max-width: 500px;
-    height: 350px;
-    margin: 25px auto;
+    height: 250px;
+    margin: 15px auto;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -96,19 +100,22 @@ h2 {
     object-fit: contain;
     transition: opacity 0.3s;
     display: none;
+    /* VIEWPORT */
+    max-width: 100%;
 }
 
+/*zmena margin top z 30, gap z 15*/
 #options-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
+    gap: 10px;
+    margin-top: 15px;
     width: 100%;
 }
 
-.option-btn {
-    padding: 18px 25px;
+.option-btn { /*uprava padding, pridani margin 0*/
+    padding: 10px 15px;
     border: 2px solid #bdc3c7;
     background-color: var(--background-card);
     color: var(--primary-color);
@@ -119,6 +126,7 @@ h2 {
     transition: all 0.2s ease-in-out;
     text-align: center;
     font-weight: 500;
+    margin: 0;
 }
 
 .option-btn:hover:not(:disabled) { /*najeti na tlacitko pokud jsme jeste nevybrali odpoved*/
@@ -206,7 +214,7 @@ button:disabled { /*po odevzdani odpovedi*/
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 8px;
-    margin: 30px 0;
+    margin: 10px 0;
     text-align: left;
     font-size: 18px;
 }
@@ -238,4 +246,34 @@ footer {
     text-align: center;
     font-size: 0.9em;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+#final-score, #time-taken {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+/*scrollovani doleva a doprava*/
+* {
+    box-sizing: border-box;
+}
+
+/*tlacitka na vymazani zaznamu*/
+.actions-column {
+    width: 40px;
+    padding: 0 0 0 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+.delete-row-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border: none;
 }
