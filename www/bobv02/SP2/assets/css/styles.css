@@ -1,0 +1,237 @@
+/* === BASIC STYLES === */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* === NAVBAR === */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link.active {
+    color: #fff !important;
+    background-color: rgba(13, 110, 253, 0.5);
+    border-radius: 4px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #0d6efd !important;
+    transition: color 0.3s ease;
+}
+
+/* === CONTAINER === */
+.container {
+    max-width: 1200px;
+}
+
+/* === PAGE ANIMATION === */
+.page-content {
+    animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* === FILM CARDS === */
+.film-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.film-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.film-card.is-favourite {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.3);
+}
+
+.film-poster {
+    width: 100%;
+    height: 250px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 1rem;
+    overflow: hidden;
+}
+
+.film-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-poster {
+    text-align: center;
+}
+
+.no-poster-detail {
+    width: 300px;
+    height: 450px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 2rem;
+    border-radius: 8px;
+}
+
+.film-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.film-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    word-break: break-word;
+    flex: 1;
+}
+
+.film-year {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.rating {
+    font-size: 1.1rem;
+    color: #f59e0b;
+}
+
+/* === SEARCH BOX === */
+.search-box {
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.search-box button {
+    border-radius: 4px;
+}
+
+/* === FILTERS === */
+.filters {
+    border: 1px solid #ddd;
+}
+
+.filters .form-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* === BUTTONS === */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0b5ed7;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+/* === FOOTER === */
+footer {
+    border-top: 1px solid #ddd;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .film-card {
+        margin-bottom: 20px;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box input {
+        margin-bottom: 10px;
+    }
+
+    .col-md-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .col-md-4,
+    .col-md-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
