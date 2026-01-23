@@ -1,0 +1,319 @@
+:root {
+    --light-grey: #B9B6B6;
+    --custom-font: "Kdam Thmor Pro", sans-serif;
+    --box-shadow: 0 0 0.4em #d9d9d9;
+    --box-shadow-dark: 0 0 0.4em #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #fafafa;
+    font-family: "Kdam Thmor Pro", sans-serif;
+    font-size: 13px;
+}
+
+.preload {
+    transition: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: var(--light-grey);
+
+    width: 100%;
+    height: 100px;
+    padding-left: 20px;
+}
+
+header button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--custom-font);
+
+    border: none;
+
+    border-radius: 15px;
+
+    margin-right: 20px;
+    width: 60px;
+    height: 60px;
+
+    transition: ease 0.4s;
+}
+
+header button:hover {
+    color: white;
+    background: #000000;
+    cursor: pointer;
+}
+
+header button.disabled {
+    cursor: not-allowed;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.app-header {
+    color: white;
+    font-family: var(--custom-font);
+    font-size: 36px;
+}
+
+/* MAIN CSS */
+
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    padding: 30px;
+    height: calc(100vh - 100px);
+}
+
+.pc-container, .comparator-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    height: 100%;
+}
+
+.pc-container {
+    width: 20%;
+}
+
+.comparator-container {
+    width: 80%;
+}
+
+.pc-container-search,  .pc-container-controls, .comparator-container-controls, .comparator-container-window {
+    border-radius: 15px;
+    border: solid black 2px;
+    box-shadow: var(--box-shadow);
+}
+
+.pc-container-window {
+    border-radius: 15px 0 0 15px;
+    border: solid black 2px;
+    box-shadow: var(--box-shadow);
+}
+
+.pc-container-search {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 50px;
+}
+
+.pc-container-search input {
+    border-radius: 12px;
+    border: none;
+
+    padding: 10px 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.pc-container-search input:focus {
+    outline: none;
+}
+
+.pc-container-search button {
+    color: white;
+    background: dodgerblue;
+    cursor: pointer;
+
+    font-size: 18px;
+    font-family: var(--custom-font);
+
+    border-radius: 0 12px 12px 0;
+    border: none;
+
+    height: 100%;
+    width: calc(20% + 1px);
+
+    transition: ease 0.4s;
+}
+
+.pc-container-search button:hover,
+.comparator-container-controls button:hover,
+.pc-container-controls button:hover{
+    background: #1362ad;
+    cursor: pointer;
+}
+
+.pc-container-window {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    flex: 1;
+    max-height: 475px;
+    padding: 10px;
+}
+
+.pc-container-window-controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    flex: 1;
+}
+
+.pc-container-controls, .comparator-container-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    padding: 5px;
+    flex: 0 0 80px;
+}
+
+.pc-container-controls button {
+    color: white;
+    background: dodgerblue;
+
+    font-size: 26px;
+
+    width: 100%;
+
+    border-radius: 12px;
+    border: none;
+
+    transition: ease 0.4s;
+}
+
+.comparator-container-window {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    flex: 1;
+    padding: 10px;
+}
+
+.comparator-container-controls {
+    flex: 0 0 80px;
+    justify-content: right;
+}
+
+.comparator-container-controls button {
+    color: white;
+    background: dodgerblue;
+    cursor: pointer;
+
+    font-family: var(--custom-font);
+    font-size: 16px;
+
+    width: 20%;
+
+    border-radius: 12px;
+    border: none;
+
+    transition: ease 0.4s;
+}
+
+/*
+ *      MEDIA QUERIES
+ */
+
+@media screen and (max-width: 1080px) {
+    main {
+        flex-direction: column;
+    }
+
+    .pc-container, .comparator-container {
+        width: 100%;
+    }
+
+    .pc-container-search {
+        height: 50px;
+        width: 100%;
+    }
+
+    .pc-container-window-controls-wrapper {
+        flex-direction: row;
+        gap: 20px;
+
+        width: 100%;
+    }
+
+    .pc-container-window, .pc-container-controls {
+        height: 350px;
+    }
+
+    .pc-container-controls {
+        flex-direction: column;
+    }
+
+    .pc-container-controls button {
+        width: 100%;
+        height: 100%;
+    }
+
+    .pc-container-window {
+        flex-direction: row;
+
+        overflow-y: hidden;
+        overflow-x: auto;
+
+        border-radius: 15px 15px 0 0;
+
+        width: 90%;
+    }
+
+    .pc-container-controls {
+        width: 10%;
+    }
+
+    .comparator-container-window {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .comparator-container-controls {
+        height: 80px;
+    }
+
+    .comparator-container-controls button {
+        width: calc(100% / 3);
+    }
+}
+
+@media (pointer: coarse) and (hover: none) {
+    .app-header {
+        font-size: 24px;
+    }
+
+    .pc-container-window {
+        width: 80%;
+    }
+
+    .pc-container-controls {
+        width: 20%;
+    }
+}
