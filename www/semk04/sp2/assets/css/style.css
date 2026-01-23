@@ -1,3 +1,4 @@
+/* 1. PROMĚNNÉ A GLOBÁLNÍ STYLY */
 :root {
     --primary: #333;
     --accent: #007bff;
@@ -6,6 +7,7 @@
     --success: green;
     --danger: #d9534f;
     --warning: #f0ad4e;
+    --white: #ffffff;
 }
 
 *, *::before, *::after {
@@ -20,16 +22,25 @@ body {
     color: var(--primary);
 }
 
+.readonly-input {
+    background-color: #e9ecef !important;
+    cursor: not-allowed;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
+    background: var(--white);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Header */
+h2, h3 {
+    margin: 0 0 20px 0;
+}
+
+/* 2. HEADER & LAYOUT */
 header {
     display: flex;
     justify-content: space-between;
@@ -39,30 +50,20 @@ header {
     padding-bottom: 10px;
 }
 
-.search-box input {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    width: 200px;
-}
-
-/* Main Layout */
 .main-content {
     display: flex;
     gap: 30px;
 }
 
-/* Left Column - Sidebar */
-h3, h2 {
-    margin: 0 0 20px 0;
-}
-
+/* 3. LEVÝ PANEL (FORMULÁŘ A STATISTIKY) */
 .left-panel {
     flex: 0 0 300px;
     padding-right: 20px;
     border-right: 1px solid var(--border);
 }
 
+
+/* Formulářové prvky */
 .form-group {
     margin-bottom: 15px;
 }
@@ -80,10 +81,9 @@ h3, h2 {
     padding: 8px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    box-sizing: border-box;
 }
 
-/* ISBN Search Group */
+/* ISBN & Speciální vyhledávání */
 .isbn-group {
     display: flex;
     gap: 10px;
@@ -93,107 +93,40 @@ h3, h2 {
     flex: 1; 
 }
 
-.btn-search {
-    padding: 8px 15px;
-    background-color: #6c757d;
-    color: white;
-    border: none;
+/* API Výsledky */
+.api-results-container {
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
     border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    display: none; 
+    background: var(--white);
 }
 
-.btn-search:hover {
-    background-color: #5a6268;
-}
-
-/* Loading Spinner */
-.hidden {
-    display: none !important;
-}
-
-#loading-indicator {
-    color: var(--accent);
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9em;
-}
-
-.spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #f3f3f3;
-    border-top: 2px solid var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.hint-text {
-    color: #666;
-    font-size: 0.8em;
-    display: block;
-    margin-top: 5px;
-}
-
-/* Add Button */
-button.btn-add {
-    width: 100%;
-    padding: 10px;
-    background-color: white;
-    border: 2px solid var(--primary);
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button.btn-add:hover {
-    background-color: var(--primary);
-    color: white;
-}
-
-/* Statistics */
-.stats-container {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 2px dashed var(--border);
-}
-
-.stats-container h3 {
-    margin-bottom: 15px;
-    font-size: 1.1em;
-    color: var(--primary);
-}
-
-.stat-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.95em;
-    padding: 5px 0;
+.api-result-item {
+    padding: 8px;
     border-bottom: 1px solid #eee;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: background-color 0.2s ease;
 }
 
-.stat-item strong {
-    font-size: 1.1em;
+.api-result-item:hover {
+    background: #f0f7ff;
 }
 
-/* Utility Classes for Colors */
-.text-success { color: var(--success); }
-.text-danger { color: var(--danger); }
-.text-warning { color: var(--warning); }
+.api-result-item strong {
+    display: block;
+    color: var(--accent);
+}
 
-/* Right Column - Book List */
+/* pravý panel */
 .right-panel {
     flex: 1;
 }
 
+/* filtry a řazení */
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -203,39 +136,52 @@ button.btn-add:hover {
 }
 
 .filter-btn {
-    padding: 6px 12px;
+    padding: 6px 15px;
+    min-width: 80px;
     border: 1px solid var(--primary);
-    background: white;
+    background: var(--white);
     border-radius: 15px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .filter-btn.active {
     background-color: var(--primary);
-    color: white;
-}
-
-.book-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    color: var(--white);
 }
 
 .sort-by {
     margin-left: auto;
 }
 
-.sort-by-select {
-    height: 30px;
+.search-box input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    width: 200px;
 }
 
-/* Book Card Component */
+/* Karta knihy */
+.book-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .book-card {
     display: flex;
+    flex-direction: column;
     border: 1px solid var(--primary);
     border-radius: 10px;
     padding: 15px;
-    background: white;
+    background: var(--white);
+}
+
+.clickable-area {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .book-cover {
@@ -253,10 +199,7 @@ button.btn-add:hover {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-}
-
-.book-details h3 {
-    margin: 0 0 5px 0;
+    justify-content: space-between;
 }
 
 .book-meta {
@@ -270,76 +213,159 @@ button.btn-add:hover {
     padding: 8px;
     border-radius: 4px;
     font-size: 0.9em;
-    margin-bottom: auto;
+}
+
+/* Akce v kartě */
+.card-footer {
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
 }
 
 .card-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    align-items: flex-end;
     gap: 10px;
 }
 
-.status-badge {
-    padding: 5px 10px;
-    border: 1px solid var(--primary);
-    border-radius: 5px;
-    font-size: 0.8em;
-    text-transform: capitalize;
+/* Tlačítka formuláře */
+.button-group {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-search {
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    background: white;
+}
+
+button.btn-add {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--white);
+    border: 2px solid var(--primary);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button.btn-add:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-save-mode {
+    background-color: #e0a800 !important;
+}
+
+.btn-favorite, .btn-delete, .btn-edit {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    height: 30px;
 }
 
 .btn-favorite {
-    cursor: pointer;
-    background: white;
+    background: var(--white);
     border: 1px solid var(--primary);
-    border-radius: 5px;
-    padding: 5px 10px;
 }
 
-.btn-favorite.is-fav {
-    background-color: gold;
+.btn-favorite.is-fav { background-color: gold; }
+
+.btn-delete { background: #ff4d4d; color: white; }
+.btn-delete:hover { background-color: #902b2b; }
+
+.btn-edit { background-color: rgb(90, 153, 201); color: white; }
+.btn-edit:hover { background-color: rgb(65, 110, 145); }
+
+/* Statistiky */
+.stats-container {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--border);
 }
 
-.btn-delete, .btn-edit {
-    color: white;
-    height: 30px;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Loading & Spinner */
+#loading-indicator {
+    display: none; 
+    color: var(--accent);
+    margin-top: 5px;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.custom-swal-image {
+    width: 150px !important;
+    height: auto;
+    object-fit: cover;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.status-select-input {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid var(--primary);
+    background: var(--white);
     cursor: pointer;
 }
 
-.btn-delete {
-    background: #ff4d4d;
-}
+/* pomocné třídy */
+.hidden { display: none !important; }
 
-.btn-edit {
-    background-color: rgb(90, 153, 201);
-}
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
 
-.btn-delete:hover {
-    background-color: #902b2b;
-}
-
-.btn-edit:hover {
-    background-color: rgb(65, 110, 145);
-}
-
-.toggle-icon {
-    display: none;
-    float: right;
+.hint-text {
+    color: #666;
     font-size: 0.8em;
-    transition: transform 0.3s ease;
+    display: block;
+    margin-top: 5px;
 }
 
-
-/* Responsive Design */
+/* responzivita */
 @media (max-width: 768px) {
     .main-content { flex-direction: column; }
-    .left-panel { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
-    .book-card { flex-direction: column; }
+    
+    .left-panel { 
+        flex: none;
+        width: 100%;
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+        padding-bottom: 20px; 
+    }
+
+    .clickable-area { flex-direction: column; }
     .book-cover { width: 100px; height: 140px; margin-bottom: 10px; }
     .book-details { margin-left: 0; }
 
@@ -349,34 +375,18 @@ button.btn-add:hover {
         padding: 10px;
         border: 1px solid var(--border);
         border-radius: 5px;
-        margin-bottom: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .toggle-icon {
-        display: inline-block;
-    }
+    .toggle-icon { display: inline-block; transition: transform 0.3s; }
+    #form-toggle.active .toggle-icon { transform: rotate(180deg); }
 
-    #add-book-form {
-        display: none;
-    }
-    
-    .stats-container {
-        display: none; 
-    }
-
-    #form-toggle.active .toggle-icon {
-        transform: rotate(180deg);
-    }
+    #add-book-form, .stats-container { display: none; }
 }
 
 @media (min-width: 769px) {
-    #add-book-form {
-        display: block !important;
-    }
-    .stats-container {
-        display: block !important;
-    }
+    #add-book-form, .stats-container { display: block !important; }
+    .toggle-icon { display: none; }
 }

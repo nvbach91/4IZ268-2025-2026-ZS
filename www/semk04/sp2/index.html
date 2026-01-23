@@ -10,6 +10,7 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="shortcut icon" href="https://i.pinimg.com/1200x/c2/89/6e/c2896e1102ff67c78e2a3c9fb83c14d5.jpg" type="image/jpg">
@@ -30,15 +31,25 @@
                 Přidat novou knihu 
                 <span class="toggle-icon">▼</span>
             </h2>
+            
+            <div class="form-group">
+                <label for="api-search-query">Název/Autor:</label>
+                <div class="isbn-group">
+                    <input type="text" id="api-search-query" placeholder="Zadej název knihy...">
+                    <button type="button" id="btn-api-search" class="btn-search">Hledat</button>
+                </div>
+                <div id="api-search-results" class="api-results-container"></div>
+            </div>
+
             <form id="add-book-form">
                 <div class="form-group">
-                    <label for="isbn">ISBN (Automatické vyplnění):</label>
+                    <label for="isbn">ISBN:</label>
                     <div class="isbn-group">
                         <input type="text" id="isbn" placeholder="Zadej ISBN...">
                         <button type="button" id="btn-search-isbn" class="btn-search">Hledat</button>
                     </div>
                     
-                    <div id="loading-indicator" class="hidden">
+                    <div id="loading-indicator">
                         <div class="spinner"></div> Načítám data...
                     </div>
                     
@@ -61,7 +72,7 @@
                     <label for="status">Stav:</label>
                     <select id="status">
                         <option value="not read">Nepřečteno</option>
-                        <option value="reading">Čtu</option>
+                        <option value="reading">Rozečteno</option>
                         <option value="read">Přečteno</option>
                     </select>
                 </div>
@@ -103,7 +114,7 @@
                 <button class="filter-btn active" data-filter="all">Vše</button>
                 <button class="filter-btn" data-filter="read">Přečteno</button>
                 <button class="filter-btn" data-filter="not read">Nepřečteno</button>
-                <button class="filter-btn" data-filter="reading">Čtu</button>
+                <button class="filter-btn" data-filter="reading">Rozečteno</button>
                 <button class="filter-btn" data-filter="favorites">Oblíbené</button>
                 
                 <div class="sort-by">
@@ -121,7 +132,7 @@
     </main>
 </div>
 
-<script src="./assets/js/main.js"></script>
+<script type="module" src="./assets/js/main.js"></script>
 
 </body>
 </html>
