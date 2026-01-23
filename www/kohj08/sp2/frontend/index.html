@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="cs">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +34,7 @@
           <label class="rtItem"><input type="checkbox" class="rt" value="3" checked> Bus</label>
           <label class="rtItem"><input type="checkbox" class="rt" value="1" checked> Metro</label>
           <label class="rtItem"><input type="checkbox" class="rt" value="2" checked> Train</label>
+          <button type="button" class="rtConfirmBtn" id="rtConfirm">Confirm</button>
         </div>
       </div>
 
@@ -54,6 +56,7 @@
       <label>
         Auto refresh (s)
         <input id="refreshSec" type="number" min="1" step="1" value="30">
+        <span id="refreshCountdown" class="muted small"></span>
       </label>
 
       <button id="btnApply" type="button">Apply</button>
@@ -73,21 +76,35 @@
         <h3>Overview</h3>
 
         <div class="kv">
-          <div class="k">Vehicles</div><div class="v" id="ovCount">-</div>
-          <div class="k">Avg delay</div><div class="v" id="ovAvg">-</div>
-          <div class="k">P95 delay</div><div class="v" id="ovP95">-</div>
-          <div class="k">Max delay</div><div class="v" id="ovMax">-</div>
+          <div class="k">Vehicles</div>
+          <div class="v" id="ovCount">-</div>
+          <div class="k">Avg delay</div>
+          <div class="v" id="ovAvg">-</div>
+          <div class="k">P95 delay</div>
+          <div class="v" id="ovP95">-</div>
+          <div class="k">Max delay</div>
+          <div class="v" id="ovMax">-</div>
         </div>
 
         <div class="divider"></div>
 
         <div class="wx">
-          <div class="wxTitle">Weather (Prague)</div>
+          <div class="wxTitle">
+            Weather (Prague)
+            <select id="tempUnit" class="unitSelect">
+              <option value="C">°C</option>
+              <option value="F">°F</option>
+            </select>
+          </div>
           <div class="kv">
-            <div class="k">Temp</div><div class="v" id="wxTemp">-</div>
-            <div class="k">Wind</div><div class="v" id="wxWind">-</div>
-            <div class="k">Precip</div><div class="v" id="wxPrecip">-</div>
-            <div class="k">Condition</div><div class="v" id="wxCond">-</div>
+            <div class="k">Temp</div>
+            <div class="v" id="wxTemp">-</div>
+            <div class="k">Wind</div>
+            <div class="v" id="wxWind">-</div>
+            <div class="k">Precip</div>
+            <div class="v" id="wxPrecip">-</div>
+            <div class="k">Condition</div>
+            <div class="v" id="wxCond">-</div>
           </div>
           <div class="muted small wxAt" id="wxAt">-</div>
         </div>
@@ -120,31 +137,8 @@
 
   <script src="./js/app.js"></script>
 
-  <script>
-    (function () {
-      const btn = document.getElementById("rtBtn");
-      const menu = document.getElementById("rtMenu");
-      const wrap = document.getElementById("routeTypes");
-      if (!btn || !menu || !wrap) return;
 
-      function close() {
-        wrap.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
-      }
 
-      btn.addEventListener("click", () => {
-        const open = wrap.classList.toggle("open");
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!wrap.contains(e.target)) close();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") close();
-      });
-    })();
-  </script>
 </body>
+
 </html>

@@ -1,4 +1,3 @@
-// backend/src/routes/weather.route.js
 import express from "express";
 import { fetchPragueWeather } from "../services/weather.service.js";
 
@@ -6,7 +5,7 @@ const router = express.Router();
 
 /**
  * GET /api/weather
- * Returns Prague current weather (Open-Meteo)
+ * returns prague current weather 
  */
 router.get("/", async (req, res) => {
   try {

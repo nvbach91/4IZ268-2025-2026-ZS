@@ -29,11 +29,11 @@ function extractText(json) {
     const url = "https://api.openai.com/v1/responses";
   
     const instructions =
-      "Napiš krátké shrnutí situace dopravy v Praze v češtině (max 6 vět). " +
-      "Použij jen data z JSON (traffic.summary, traffic.top_delays a weather). " +
-      "Zmiň: počet vozidel, průměr, p95 a max zpoždění a nejhorší linky. " +
-      "Pokud je počasí dostupné, jednou větou zmiň, jestli může situaci zhoršovat. " +
-      "Nevkládej JSON ani kód, nepiš žádné odrážky.";
+      "Write a short summary of the traffic situation in Prague in English (max 6 sentences). " +
+      "Use only data from the JSON (traffic.summary, traffic.top_delays and weather). " +
+      "Mention: number of vehicles, average, p95 and max delay, and the worst lines. " +
+      "If weather is available, mention in one sentence whether it could be worsening the situation. " +
+      "Do not include JSON or code, and do not write any bullet points.";
   
     const payload = {
       model: model || "gpt-4.1-mini",

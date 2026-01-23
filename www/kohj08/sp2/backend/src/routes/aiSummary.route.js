@@ -66,6 +66,28 @@ function percentile(nums, p) {
   return sorted[idx];
 }
 
+function parseBounds(req) {
+  const minLat = Number(req.query.minLat);
+  const maxLat = Number(req.query.maxLat);
+  const minLon = Number(req.query.minLon);
+  const maxLon = Number(req.query.maxLon);
+
+  if (
+    Number.isFinite(minLat) &&
+    Number.isFinite(maxLat) &&
+    Number.isFinite(minLon) &&
+    Number.isFinite(maxLon)
+  ) {
+    return { minLat, maxLat, minLon, maxLon };
+  }
+  return null;
+}
+
+function applyBoundsFilter(items, bounds) {
+  if (!items || !bounds) return items;
+  return items.filter((x) => inBbox(x.lat, x.lon, bounds));
+}
+
 /**
  * GET /api/ai-summary
  * Query params (same style as /api/delays/dashboard):
@@ -115,7 +137,7 @@ router.get("/", async (req, res) => {
       console.warn("Weather fetch failed:", results[1].reason?.message || results[1].reason);
     }
 
-    const items = applyPragueFilter(rawItems, pragueOnly);
+    const items = applyBoundsFilter(applyPragueFilter(rawItems, pragueOnly), parseBounds(req));
 
     const delaysAll = items.map((x) => x.delay).filter((d) => typeof d === "number");
     const delaysPositive = delaysAll.filter((d) => d > 0);

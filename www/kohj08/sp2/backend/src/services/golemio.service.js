@@ -23,7 +23,7 @@ function normalizeRouteTypes(routeTypes) {
  * - limit: number            (max počet bodů ve výstupu)
  *
  * (legacy)
- * - routeType: number | null  (pokud někde ještě posíláš routeType, pořád to vezmeme)
+ * - routeType: number | null  
  */
 export async function fetchVehicleDelayPoints({
   apiKey,

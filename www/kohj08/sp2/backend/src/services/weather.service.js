@@ -51,7 +51,7 @@ const PRAGUE = {
   
     const apiKey = requireEnv("OPENWEATHER_API_KEY");
   
-    // units=metric -> temp in °C, wind in m/s (OpenWeather default for metric is m/s)
+    // units=metric -> temp in °C, wind in m/s 
     const url =
       `https://api.openweathermap.org/data/2.5/weather` +
       `?lat=${encodeURIComponent(PRAGUE.lat)}` +
@@ -79,7 +79,7 @@ const PRAGUE = {
     const temp = data?.main?.temp;
     const wind = data?.wind?.speed;
   
-    // precip can be in rain/snow object, typically "1h" and/or "3h"
+    // precip can be in rain/snow object, "1h" and/or "3h"
     const rain1h = data?.rain?.["1h"];
     const snow1h = data?.snow?.["1h"];
     const precip1h =

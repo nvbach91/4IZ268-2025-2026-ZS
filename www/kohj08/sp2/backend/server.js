@@ -58,8 +58,7 @@ app.use((req, res, next) => {
 /* ------------------------------------- */
 
 // serve frontend (lokální režim)
-// Pozn.: Na ESO bude frontend servírovat Apache, ne Node.
-// Tohle je jen pro lokální vývoj, takže to necháváme.
+//
 app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 // routes
