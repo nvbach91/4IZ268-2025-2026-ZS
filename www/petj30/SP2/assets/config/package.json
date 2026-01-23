@@ -1,0 +1,19 @@
+{
+  "name": "sp2-task-master",
+  "version": "1.0.0",
+  "description": "Správce úkolů s integrací počasí z OpenWeatherMap API",
+  "type": "module",
+  "main": "../js/app.js",
+  "scripts": {
+    "start": "open index.html",
+    "dev": "http-server -p 8080"
+  },
+  "keywords": [
+    "tasks",
+    "todo",
+    "weather",
+    "openweathermap"
+  ],
+  "author": "",
+  "license": "MIT"
+}

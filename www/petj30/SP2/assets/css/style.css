@@ -1,0 +1,473 @@
+/* Styly */
+
+:root {
+  --primary: #3b82f6;
+  --secondary: #3b82f6;
+  --success: #3b82f6;
+  --danger: #3b82f6;
+  --dark: #1f2937;
+  --light: #f9fafb;
+  --border: #e5e7eb;
+}
+
+/* Základ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  color: #000000;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Karty */
+.card {
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  transition: none;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  border-color: #d0d0d0;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* Hlavička */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: none;
+}
+
+header .container {
+  padding: 20px 0;
+}
+
+/* Počasí */
+#weather-panel {
+  border-left: 4px solid #3b82f6;
+  background: #f5f5f5;
+}
+
+#weather-panel h2 {
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+#weather-location {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}
+
+#weather-desc {
+  font-size: 14px;
+  text-transform: capitalize;
+  color: #000000;
+  margin-top: 4px;
+}
+
+#weather-temp {
+  font-weight: 600;
+  margin-top: 12px;
+  color: #000000;
+}
+
+#weather-icon {
+  display: inline-block;
+  background: rgba(6, 182, 212, 0.1);
+  border-radius: 10px;
+  padding: 8px;
+  margin-right: 16px;
+}
+
+#weather-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+#weather-form {
+  gap: 12px;
+  align-items: flex-end;
+}
+
+#weather-form button {
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: none;
+}
+
+#weather-form button:hover {
+  background: #2563eb;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Formulář */
+#add-task {
+  border-left: 4px solid #3b82f6;
+  background: #f5f5f5;
+}
+
+#add-task h2 {
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+#task-form label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 6px;
+}
+
+#task-form input,
+#task-form select {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+#task-form input:focus,
+#task-form select:focus {
+  border-color: #3b82f6;
+  box-shadow: none;
+  outline: none;
+}
+
+#task-add-btn {
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 10px 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: none;
+}
+
+#task-add-btn:hover {
+  background: #2563eb;
+  transform: none;
+  box-shadow: none;
+}
+
+#task-add-btn:active {
+  transform: none;
+}
+
+/* Filtry */
+#filters {
+  margin: 20px 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#filters .btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+#filters .btn {
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  color: #000000;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: none;
+  min-width: 100px;
+}
+
+#filters .btn:hover {
+  border-color: #3b82f6;
+  background: #f5f5f5;
+}
+
+#filters .btn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: none;
+}
+
+#filters input[type="search"] {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 14px;
+  margin-left: auto;
+  flex: 0 1 200px;
+  transition: all 0.2s ease;
+}
+
+#filters input[type="search"]:focus {
+  border-color: #3b82f6;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Seznam úkolů */
+#task-list-section {
+  border-left: 4px solid #3b82f6;
+  background: #f5f5f5;
+}
+
+#task-list-section h2 {
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+#task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#task-list .list-group-item {
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: none;
+  cursor: pointer;
+}
+
+#task-list .list-group-item:hover {
+  background: #f9f9f9;
+  border-color: #d0d0d0;
+  box-shadow: none;
+  transform: none;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-title {
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 6px 0;
+}
+
+.task-category {
+  display: inline-block;
+  background: #3b82f6;
+  color: white;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 6px;
+  margin-left: 12px;
+}
+
+.task-actions button {
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: none;
+  font-weight: 600;
+}
+
+.task-actions button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.task-actions button[data-action="delete"]:hover {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.task-actions button[data-action="edit"]:hover {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* Prázdný stav */
+#task-list .text-muted {
+  text-align: center;
+  padding: 40px 20px;
+  color: #000000;
+  font-size: 14px;
+}
+
+/* Zprávy */
+.alert {
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  padding: 12px 16px;
+  animation: none;
+  box-shadow: none;
+}
+
+.alert-success {
+  background: #3b82f6;
+  color: white;
+}
+
+.alert-danger {
+  background: #3b82f6;
+  color: white;
+}
+
+.alert-warning {
+  background: #3b82f6;
+  color: white;
+}
+
+.alert-info {
+  background: #3b82f6;
+  color: white;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responzivita */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  .card-body {
+    padding: 18px;
+  }
+
+  #filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #filters input[type="search"] {
+    margin-left: 0;
+    flex: 1;
+    width: 100%;
+  }
+
+  #task-list .list-group-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .task-actions {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .task-actions button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  header .container {
+    padding: 16px 0;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .card {
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  #filters .btn-group {
+    width: 100%;
+    flex: 1;
+  }
+
+  #filters .btn {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  #weather-form {
+    flex-direction: column;
+  }
+
+  #weather-form button {
+    width: 100%;
+  }
+
+  #task-form .col-12,
+  #task-form .col-md-6,
+  #task-form .col-6,
+  #task-form .col-md-3 {
+    width: 100% !important;
+  }
+}
