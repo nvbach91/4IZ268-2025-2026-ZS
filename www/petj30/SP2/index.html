@@ -34,7 +34,7 @@
           </div>
         </form>
 
-        <div id="weather-result" class="mt-3">
+        <div id="weather-result" class="mt-3" style="display:none;">
           <div id="weather-loading" class="text-muted" style="display:none;">Načítám...</div>
 
           <div id="weather-content" class="d-none">
@@ -65,17 +65,20 @@
 
           <div class="col-6 col-md-3">
             <label for="task-category" class="form-label">Kategorie</label>
-            <select id="task-category" class="form-select">
-              <option value="">(bez kategorie)</option>
-              <option value="Práce">Práce</option>
-              <option value="Studium">Studium</option>
-              <option value="Domácnost">Domácnost</option>
-            </select>
+            <div class="input-group">
+              <select id="task-category" class="form-select">
+                <option value="">(bez kategorie)</option>
+                <option value="Práce">Práce</option>
+                <option value="Studium">Studium</option>
+                <option value="Domácnost">Domácnost</option>
+              </select>
+              <button type="button" id="add-category-btn" class="btn btn-outline-secondary" title="Přidat kategorii">+</button>
+            </div>
           </div>
 
           <div class="col-6 col-md-3">
             <label for="task-due" class="form-label">Termín</label>
-            <input id="task-due" class="form-control" type="date" />
+            <input id="task-due" class="form-control" type="date" required />
           </div>
 
           <div class="col-12 text-end">
@@ -94,6 +97,9 @@
           <button type="button" data-filter="done" class="btn btn-outline-secondary">Dokončené</button>
         </div>
 
+        <input id="filter-date-from" type="date" class="form-control" placeholder="Termín od" style="width:auto;" />
+        <input id="filter-date-to" type="date" class="form-control" placeholder="Termín do" style="width:auto;" />
+
         <div class="ms-auto">
           <input id="search-input" type="search" class="form-control" placeholder="Hledat..." style="width:260px;" />
         </div>
@@ -108,10 +114,55 @@
         <div id="task-list" class="list-group">
           <div class="text-muted">Žádné úkoly. Přidej první úkol pomocí formuláře výše.</div>
         </div>
+
+         <!--pridat strankovani ukolu  -->
+        <div id="pagination" class="d-flex justify-content-between align-items-center mt-3">
+          <button id="prev-page" class="btn btn-sm btn-outline-secondary">Předchozí</button>
+          <span id="page-info" class="text-muted"></span>
+          <button id="next-page" class="btn btn-sm btn-outline-secondary">Další</button>
+        </div>
       </div>
     </section>
 
   </main>
+
+  <!-- Modal pro editaci -->
+  <div class="modal fade" id="editTaskModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upravit úkol</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-task-form">
+            <input type="hidden" id="edit-task-id">
+            <div class="mb-3">
+              <label for="edit-task-title" class="form-label">Název úkolu</label>
+              <input type="text" class="form-control" id="edit-task-title" required>
+            </div>
+            <div class="mb-3">
+              <label for="edit-task-category" class="form-label">Kategorie</label>
+              <select class="form-select" id="edit-task-category">
+                <option value="">(bez kategorie)</option>
+                <option value="Práce">Práce</option>
+                <option value="Studium">Studium</option>
+                <option value="Domácnost">Domácnost</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="edit-task-due" class="form-label">Termín</label>
+              <input type="date" class="form-control" id="edit-task-due" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+          <button type="button" class="btn btn-primary" id="save-edit-btn">Uložit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="module" defer src="assets/js/app.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,10 +1,13 @@
 // Hlavní modul aplikace
 
-import { createTask, deleteTaskById, toggleComplete, getFilteredTasks } from './tasks.js';
+import { createTask, deleteTaskById, toggleComplete, getFilteredTasks, updateTaskById, getTaskById } from './tasks.js';
 import { getTasks } from './storage.js';
 import { getWeatherForCity } from './api.js';
 import { debounce } from './utils.js';
 import { renderTaskList, renderFilters, showWeatherLoading, renderWeather, showWeatherError, showToast } from './ui.js';
+
+const TASKS_PER_PAGE = 5;
+let currentPage = 1;
 
 // Inicializace
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,21 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTaskForm();
   bindTaskListEvents();
   bindFilters();
+  bindDateFilters();
   bindSearch();
   bindWeatherForm();
-
-  // Načti výchozí počasí (můžeš upravit město)
-  const defaultCity = "Prague";
-  document.getElementById("weather-city").value = defaultCity;
-  loadWeather(defaultCity);
+  bindPagination();
+  bindAddCategory();
+  bindEditModal();
 });
 
 // Načítí úkoly
 function initializeTasks() {
-  const tasks = getTasks();
-  const result = getFilteredTasks({ filter: "all" });
-  renderTaskList(result);
   renderFilters("all");
+  updateTaskList();  // pouziju updateTaskList co uz ma strankovani
 }
 
 // Přidání úkolu
@@ -41,6 +41,11 @@ function bindTaskForm() {
 
     if (!title) {
       showToast("Název úkolu nesmí být prázdný.", "danger");
+      return;
+    }
+// termin ukolu by mel byt povinny
+    if (!due) {
+      showToast("Termín úkolu je povinný.", "danger");
       return;
     }
 
@@ -61,7 +66,7 @@ function bindTaskForm() {
   });
 }
 
-// Smazní a přepínání úkolů
+// Smazání a přepínání úkolů
 function bindTaskListEvents() {
   const container = document.getElementById("task-list");
 
@@ -73,31 +78,47 @@ function bindTaskListEvents() {
     const id = btn.dataset.id;
     if (!action || !id) return;
 
+    let shouldRefresh = false;
+
     if (action === "toggle") {
       toggleComplete(id);
       showToast("Stav úkolu změněn.", "info");
+      shouldRefresh = true;
     }
-
+// kliknuti na edit otvori modal s aktualnima hodnotama
+    if (action === "edit") {
+      openEditModal(id);
+      return;
+    }
+// odstraneni polozek by melo pozadovat uzivatelske potvrzeni
     if (action === "delete") {
-      deleteTaskById(id);
-      showToast("Úkol odstraněn.", "warning");
+      if (confirm("Opravdu chcete odstranit tento úkol?")) {
+        deleteTaskById(id);
+        showToast("Úkol odstraněn.", "warning");
+        shouldRefresh = true;
+      }
     }
 
-    updateTaskList();
+    if (shouldRefresh) updateTaskList();
   });
 }
 
 // Filtrování
 function bindFilters() {
-  const group = document.querySelectorAll("#filters .btn-group .btn");
-
-  group.forEach((btn) => {
+  const filterButtons = Array.from(document.querySelectorAll("#filters .btn-group .btn"));
+  filterButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const filter = btn.getAttribute("data-filter");
       renderFilters(filter);
       updateTaskList();
     });
   });
+}
+
+// Filtrování podle data
+function bindDateFilters() {
+  document.getElementById('filter-date-from').onchange = () => updateTaskList();
+  document.getElementById('filter-date-to').onchange = () => updateTaskList();
 }
 
 // Vyhledávání
@@ -113,16 +134,29 @@ function bindSearch() {
 
 // Aktualizace seznamu
 function updateTaskList(currentFilter = null) {
-  const filterBtn = document.querySelector("#filters .btn-group .active");
+  const filterButtons = Array.from(document.querySelectorAll("#filters .btn-group .btn"));
+  const filterBtn = filterButtons.find((b) => b.classList.contains("active"));
   const activeFilter = currentFilter || (filterBtn ? filterBtn.dataset.filter : "all");
   const searchQuery = document.getElementById("search-input").value.trim();
+  // *
+  const dateFrom = document.getElementById("filter-date-from").value;
+  const dateTo = document.getElementById("filter-date-to").value;
 
-  const tasks = getFilteredTasks({
-    filter: activeFilter,
-    search: searchQuery
+  const allTasks = getFilteredTasks({ 
+    filter: activeFilter, 
+    search: searchQuery,
+    dueAfter: dateFrom || null,
+    dueBefore: dateTo || null
   });
-
-  renderTaskList(tasks);
+  const total = Math.ceil(allTasks.length / TASKS_PER_PAGE);
+  const start = (currentPage - 1) * TASKS_PER_PAGE;
+  
+  renderTaskList(allTasks.slice(start, start + TASKS_PER_PAGE));
+  
+  document.getElementById('pagination').style.display = 'flex';
+  document.getElementById('page-info').textContent = `Stránka ${currentPage} z ${total}`;
+  document.getElementById('prev-page').disabled = currentPage === 1;
+  document.getElementById('next-page').disabled = currentPage === total;
 }
 
 // Počasí
@@ -143,4 +177,75 @@ async function loadWeather(city) {
   } catch (err) {
     showWeatherError(err.message);
   }
+}
+
+// Stránkování
+function bindPagination() {
+  document.getElementById('prev-page').onclick = () => currentPage > 1 && (currentPage--, updateTaskList());
+  document.getElementById('next-page').onclick = () => {
+    const max = Math.ceil(getFilteredTasks({ filter: 'all', search: '' }).length / TASKS_PER_PAGE);
+    currentPage < max && (currentPage++, updateTaskList());
+  };
+}
+
+// Přidání vlastní kategorie
+function bindAddCategory() {
+  document.getElementById('add-category-btn').onclick = () => {
+    const name = prompt('Zadej název kategorie:');
+    if (name?.trim()) {
+      const select = document.getElementById('task-category');
+      const option = document.createElement('option');
+      option.value = name.trim();
+      option.textContent = name.trim();
+      select.appendChild(option);
+      select.value = name.trim();
+      showToast('Kategorie přidána.', 'success');
+    }
+  };
+}
+
+// Otevře edit modal s aktuálníma hodnotama
+function openEditModal(taskId) {
+  const task = getTaskById(taskId);
+  if (!task) return;
+  
+  document.getElementById('edit-task-id').value = task.id;
+  document.getElementById('edit-task-title').value = task.title;
+  document.getElementById('edit-task-category').value = task.category || '';
+  document.getElementById('edit-task-due').value = task.due_date || '';
+  
+  const modal = new bootstrap.Modal(document.getElementById('editTaskModal'));
+  modal.show();
+}
+
+// Uloží zmeny z edit modalu
+function bindEditModal() {
+  document.getElementById('save-edit-btn').onclick = () => {
+    const id = document.getElementById('edit-task-id').value;
+    const title = document.getElementById('edit-task-title').value.trim();
+    const category = document.getElementById('edit-task-category').value || null;
+    const due = document.getElementById('edit-task-due').value || null;
+    
+    if (!title) {
+      showToast('Název úkolu nesmí být prázdný.', 'danger');
+      return;
+    }
+    
+    if (!due) {
+      showToast('Termín úkolu je povinný.', 'danger');
+      return;
+    }
+    
+    try {
+      updateTaskById({ id, title, category, due_date: due });
+      updateTaskList();
+      
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editTaskModal'));
+      modal.hide();
+      
+      showToast('Úkol upraven.', 'success');
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  };
 }

@@ -19,9 +19,13 @@ export function createTask(data = {}) {
     meta: data.meta || {}
   };
 
-  // základní validace
+  // termin ukolu by mel byt povinny
   if (!task.title) {
     throw new Error('Název úkolu nemůže být prázdný.');
+  }
+
+  if (!task.due_date) {
+    throw new Error('Termín úkolu je povinný.');
   }
 
   addTask(task);
@@ -44,15 +48,19 @@ export function getTaskById(id) {
  * @returns {Object} updated task
  */
 export function updateTaskById(updated) {
-  if (!updated || !updated.id) throw new Error('updateTaskById očekává objekt s id.');
-
   const tasks = getTasks();
   const idx = tasks.findIndex(t => t.id === updated.id);
   if (idx === -1) throw new Error('Úkol nenalezen.');
 
+  const nextDue = updated.due_date !== undefined ? updated.due_date : tasks[idx].due_date;
+  if (!nextDue) {
+    throw new Error('Termín úkolu je povinný.');
+  }
+
   const merged = {
     ...tasks[idx],
     ...updated,
+    due_date: nextDue,
     updated_at: new Date().toISOString()
   };
 
