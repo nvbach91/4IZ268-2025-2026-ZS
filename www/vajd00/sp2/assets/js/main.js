@@ -3,10 +3,20 @@ console.log("Budget Tracker loaded");
 const STORAGE_KEY = "budget_transactions";
 const RATE_KEY = "budget_rate_cache";
 
+const FX = {
+    base: "CZK",
+    currencies: ["CZK", "EUR", "USD"],
+    endpoints: [
+        "https://api.frankfurter.app/latest",
+        "https://api.frankfurter.dev/v1/latest"
+    ],
+    ttlHours: 24
+};
+
 let state = {
-    currency: "CZK",
-    rates: { EUR: null, USD: null },
-    rateUpdatedAt: null,
+    currency: FX.base,
+    rates: {},
+    rateUpdatedAt: {},
 
     categories: {
         income: ["Salary", "Bonus", "Gift", "Refund", "Other income"],
@@ -17,7 +27,90 @@ let state = {
     chart: null
 };
 
-function $(id) { return document.getElementById(id); }
+const dom = Object.create(null);
+
+function $(id) { return dom[id]; }
+
+function cacheStaticDom() {
+    const ids = [
+        "sumIncome", "sumExpense", "sumBalance",
+        "currencySelect", "btnRefreshRate", "rateInfo",
+        "filterType", "filterCategory", "filterMonth",
+        "btnApplyFilter", "btnClearFilter",
+        "spendChart", "recordsInfo", "recordsBody",
+        "txForm", "category", "date",
+        "btnClearAll", "formInfo"
+    ];
+
+    for (const id of ids) {
+        dom[id] = document.getElementById(id);
+    }
+
+    dom.typeRadios = document.querySelectorAll('input[name="type"]');
+}
+
+const ui = {
+    async alert({ title = "Info", text = "", icon = "info" } = {}) {
+        await Swal.fire({ title, text, icon });
+    },
+
+    async confirm({
+        title = "Are you sure?",
+        text = "",
+        icon = "question",
+        confirmText = "OK",
+        cancelText = "Cancel"
+    } = {}) {
+        const res = await Swal.fire({
+            title,
+            text,
+            icon,
+            showCancelButton: true,
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            reverseButtons: true
+        });
+        return res.isConfirmed;
+    },
+
+    toast(message, icon = "success") {
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon,
+            title: message,
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true
+        });
+    }
+};
+
+function initRatesState() {
+    for (const c of FX.currencies) {
+        if (c === FX.base) continue;
+        if (!(c in state.rates)) state.rates[c] = null;
+        if (!(c in state.rateUpdatedAt)) state.rateUpdatedAt[c] = null;
+    }
+}
+
+function isRateFresh(code) {
+    const ts = state.rateUpdatedAt[code];
+    if (!ts) return false;
+    const hours = dayjs().diff(dayjs(ts), "hour", true);
+    return hours < FX.ttlHours;
+}
+
+function populateCurrencySelect() {
+    const sel = $("currencySelect");
+    const previous = sel.value || FX.base;
+
+    let html = "";
+    for (const c of FX.currencies) html += `<option value="${c}">${c}</option>`;
+    sel.innerHTML = html;
+
+    sel.value = FX.currencies.includes(previous) ? previous : FX.base;
+}
 
 /* ------ LocalStorage ------ */
 function loadTransactions() {
@@ -125,31 +218,43 @@ function clearFilterUI() {
     $("filterMonth").value = "";
     renderAll(loadTransactions());
 }
-
-/* ------- Frankfurter API ------ */
 function loadRateCache() {
     const raw = localStorage.getItem(RATE_KEY);
     if (!raw) return;
 
     try {
         const parsed = JSON.parse(raw);
+
+        if (parsed?.base && parsed.base !== FX.base) return;
+
         if (parsed?.rates && typeof parsed.rates === "object") {
-            if (typeof parsed.rates.EUR === "number") state.rates.EUR = parsed.rates.EUR;
-            if (typeof parsed.rates.USD === "number") state.rates.USD = parsed.rates.USD;
+            for (const [k, v] of Object.entries(parsed.rates)) {
+                if (typeof v === "number") state.rates[k] = v;
+            }
         }
-        if (typeof parsed.rateUpdatedAt === "string") state.rateUpdatedAt = parsed.rateUpdatedAt;
+
+        if (parsed?.rateUpdatedAt && typeof parsed.rateUpdatedAt === "object") {
+            for (const [k, v] of Object.entries(parsed.rateUpdatedAt)) {
+                if (typeof v === "string") state.rateUpdatedAt[k] = v;
+            }
+        }
+
+        if (typeof parsed?.rateUpdatedAt === "string") {
+            for (const k of Object.keys(state.rates)) state.rateUpdatedAt[k] = parsed.rateUpdatedAt;
+        }
     } catch { }
 }
 
 function saveRateCache() {
     localStorage.setItem(RATE_KEY, JSON.stringify({
+        base: FX.base,
         rates: state.rates,
         rateUpdatedAt: state.rateUpdatedAt
     }));
 }
 
 function renderRateInfo() {
-    if (state.currency === "CZK") {
+    if (state.currency === FX.base) {
         $("rateInfo").textContent = "(no rate needed)";
         return;
     }
@@ -160,31 +265,28 @@ function renderRateInfo() {
         return;
     }
 
-    const when = state.rateUpdatedAt ? dayjs(state.rateUpdatedAt).format("D.M.YYYY HH:mm") : "unknown";
-    $("rateInfo").textContent = `CZK→${state.currency}: ${rate.toFixed(4)} (updated ${when})`;
+    const ts = state.rateUpdatedAt[state.currency];
+    const when = ts ? dayjs(ts).format("D.M.YYYY HH:mm") : "unknown";
+    const stale = isRateFresh(state.currency) ? "" : " — stale, refresh";
+    $("rateInfo").textContent = `${FX.base}→${state.currency}: ${rate.toFixed(4)} (updated ${when})${stale}`;
 }
 
-async function fetchFrankfurterRates() {
-    const urls = [
-        "https://api.frankfurter.app/latest?base=CZK&symbols=EUR,USD",
-        "https://api.frankfurter.dev/v1/latest?base=CZK&symbols=EUR,USD"
-    ];
+
+async function fetchFrankfurterRateFor(code) {
+    if (code === FX.base) return;
 
     let lastErr = null;
 
-    for (const url of urls) {
+    for (const baseUrl of FX.endpoints) {
         try {
+            const url = `${baseUrl}?base=${encodeURIComponent(FX.base)}&symbols=${encodeURIComponent(code)}`;
             const resp = await axios.get(url, { timeout: 20000 });
-            const eur = resp?.data?.rates?.EUR;
-            const usd = resp?.data?.rates?.USD;
 
-            if (typeof eur !== "number" || typeof usd !== "number") {
-                throw new Error("Rates not found in response");
-            }
+            const rate = resp?.data?.rates?.[code];
+            if (typeof rate !== "number") throw new Error("Rate not found in response");
 
-            state.rates.EUR = eur;
-            state.rates.USD = usd;
-            state.rateUpdatedAt = new Date().toISOString();
+            state.rates[code] = rate;
+            state.rateUpdatedAt[code] = new Date().toISOString();
             saveRateCache();
             renderRateInfo();
             return;
@@ -199,28 +301,29 @@ async function fetchFrankfurterRates() {
 /* ------- Categories -------- */
 function populateFilterCategorySelect() {
     const filterSelect = $("filterCategory");
-    filterSelect.innerHTML = `<option value="all">All</option>`;
-
     const all = [...state.categories.income, ...state.categories.expense];
-    for (const cat of all) {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        filterSelect.appendChild(opt);
-    }
-}
 
+    let html = `<option value="all">All</option>`;
+    for (const cat of all) {
+        const safe = escapeHtml(cat);
+        html += `<option value="${safe}">${safe}</option>`;
+    }
+
+    // single DOM update
+    filterSelect.innerHTML = html;
+}
 function populateFormCategorySelectForType(type) {
     const formSelect = $("category");
     const list = (type === "income") ? state.categories.income : state.categories.expense;
 
-    formSelect.innerHTML = `<option value="" disabled selected>Choose</option>`;
+    let html = `<option value="" disabled selected>Choose</option>`;
     for (const cat of list) {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        formSelect.appendChild(opt);
+        const safe = escapeHtml(cat);
+        html += `<option value="${safe}">${safe}</option>`;
     }
+
+    // single DOM update
+    formSelect.innerHTML = html;
 }
 
 /* ------ Table ----- */
@@ -233,41 +336,88 @@ function escapeHtml(str) {
         .replaceAll("'", "&#039;");
 }
 
+function txTimestamp(tx) {
+    const d = dayjs(tx?.date);
+    if (d.isValid()) return d.valueOf();
+    const parsed = Date.parse(String(tx?.date || ""));
+    return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function sortTransactionsNewestFirst(list) {
+    // podla datumu
+    return list
+        .map((t, idx) => ({ t, idx }))
+        .sort((a, b) => {
+            const ta = txTimestamp(a.t);
+            const tb = txTimestamp(b.t);
+            if (tb !== ta) return tb - ta;
+            return a.idx - b.idx;
+        })
+        .map(x => x.t);
+}
+
 function renderTable(filteredList) {
     const tbody = $("recordsBody");
-    tbody.innerHTML = "";
 
-    $("recordsInfo").textContent = `${filteredList.length} records`;
+    const sorted = sortTransactionsNewestFirst(filteredList);
+    $("recordsInfo").textContent = `${sorted.length} records`;
 
-    for (const tx of filteredList) {
-        const tr = document.createElement("tr");
-
+    const rows = [];
+    for (const tx of sorted) {
         const typeLabel = tx.type === "income" ? "Income" : "Expense";
-        const dateLabel = dayjs(tx.date).isValid() ? dayjs(tx.date).format("DD.MM.YYYY") : tx.date;
+        const dateLabel = dayjs(tx.date).isValid()
+            ? dayjs(tx.date).format("DD.MM.YYYY")
+            : String(tx.date ?? "");
+        const rowClass = tx.type === "income" ? "tx-income" : "tx-expense";
+        const signedAmount =
+            tx.type === "expense"
+                ? `-${safeDisplayAmount(tx.amountCZK)}`
+                : safeDisplayAmount(tx.amountCZK);
 
-        tr.innerHTML = `
-      <td>${dateLabel}</td>
-      <td>${escapeHtml(tx.category)}</td>
-      <td>${typeLabel}</td>
-      <td class="right">${safeDisplayAmount(tx.amountCZK)}</td>
-      <td>${escapeHtml(tx.note || "")}</td>
-      <td class="center">
-        <button class="deleteBtn" data-id="${tx.id}" type="button" title="Delete">🗑</button>
-      </td>
-    `;
 
-        tbody.appendChild(tr);
+        rows.push(`
+        <tr data-id="${tx.id}" class="${rowClass}">
+
+        <td>${escapeHtml(dateLabel)}</td>
+        <td>${escapeHtml(tx.category)}</td>
+        <td>${typeLabel}</td>
+        <td class="right">${signedAmount}</td>
+        <td>${escapeHtml(tx.note || "")}</td>
+        <td class="center">
+          <button class="deleteBtn" data-id="${tx.id}" type="button" title="Delete">🗑</button>
+        </td>
+      </tr>
+    `);
     }
 
-    tbody.querySelectorAll(".deleteBtn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            const id = e.currentTarget.getAttribute("data-id");
+    // single DOM update
+    tbody.innerHTML = rows.join("");
+
+    if (!tbody.dataset.boundDelete) {
+        tbody.addEventListener("click", (e) => {
+            const btn = e.target.closest?.(".deleteBtn");
+            if (!btn) return;
+
+            const id = btn.getAttribute("data-id");
+            if (!id) return;
+
+            const row = btn.parentNode.parentNode;
+
             const current = loadTransactions();
             const next = current.filter(t => t.id !== id);
             saveTransactions(next);
-            renderAll(next);
+
+            // Remove one row
+            if (row) row.remove();
+
+            const filteredNext = applyFilter(next);
+            $("recordsInfo").textContent = `${filteredNext.length} records`;
+            renderSummary(filteredNext);
+            renderChart(filteredNext);
         });
-    });
+
+        tbody.dataset.boundDelete = "1";
+    }
 }
 
 /* ----- Chart ------ */
@@ -342,33 +492,72 @@ function renderAll(list) {
 }
 
 /* ------ Events ------ */
+function applyFilterLive() {
+    state.filter = getFilterFromUI();
+    renderAll(loadTransactions());
+}
+
 function initEvents() {
-    $("currencySelect").addEventListener("change", () => {
+    $("currencySelect").addEventListener("change", async () => {
         state.currency = $("currencySelect").value;
+
+        try {
+            if (state.currency !== FX.base && (!isRateFresh(state.currency) || typeof state.rates[state.currency] !== "number")) {
+                $("rateInfo").textContent = "(loading...)";
+                await fetchFrankfurterRateFor(state.currency);
+            }
+        } catch (err) {
+            $("rateInfo").textContent = "(failed to load rate)";
+            await ui.alert({ title: "Failed to load exchange rates", text: "Please try again.", icon: "error" });
+            console.error(err);
+        }
+
         renderAll(loadTransactions());
     });
 
     $("btnRefreshRate").addEventListener("click", async () => {
         try {
             $("rateInfo").textContent = "(loading...)";
-            await fetchFrankfurterRates();
+            if (state.currency === FX.base) {
+                ui.toast("No rate needed for CZK", "info");
+            } else {
+                await fetchFrankfurterRateFor(state.currency);
+            }
+
             renderAll(loadTransactions());
         } catch (err) {
             $("rateInfo").textContent = "(failed to load rate)";
-            alert("Failed to load exchange rates. Please try again.");
+            await ui.alert({
+                title: "Failed to load exchange rates",
+                text: "Please try again.",
+                icon: "error"
+            });
             console.error(err);
         }
     });
 
     // Filter
-    $("btnApplyFilter").addEventListener("click", applyFilterFromUI);
+    $("filterType").addEventListener("change", applyFilterLive);
+    $("filterCategory").addEventListener("change", applyFilterLive);
+    $("filterMonth").addEventListener("input", applyFilterLive);
+    $("filterMonth").addEventListener("change", applyFilterLive);
+
     $("btnClearFilter").addEventListener("click", clearFilterUI);
 
-    $("btnClearAll").addEventListener("click", () => {
-        const ok = confirm("Really delete ALL transactions?");
+
+    $("btnClearAll").addEventListener("click", async () => {
+        const ok = await ui.confirm({
+            title: "Delete ALL transactions?",
+            text: "This cannot be undone.",
+            icon: "warning",
+            confirmText: "Delete all",
+            cancelText: "Cancel"
+        });
         if (!ok) return;
+
         localStorage.removeItem(STORAGE_KEY);
         renderAll([]);
+        ui.toast("All transactions deleted", "success");
     });
 
     // update category
@@ -435,6 +624,10 @@ function initEvents() {
 
 /* ----- Boot ------ */
 document.addEventListener("DOMContentLoaded", () => {
+    cacheStaticDom();
+    populateCurrencySelect();
+    initRatesState();
+
     state.currency = $("currencySelect").value;
 
     setTodayDefault();

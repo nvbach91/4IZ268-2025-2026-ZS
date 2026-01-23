@@ -18,6 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body>
@@ -47,11 +50,7 @@
     <div class="toolbar">
         <div class="row">
             <label for="currencySelect">Currency</label>
-            <select id="currencySelect">
-                <option value="CZK">CZK</option>
-                <option value="EUR">EUR</option>
-                <option value="USD">USD</option>
-            </select>
+            <select id="currencySelect"></select>
 
             <button id="btnRefreshRate" type="button">Refresh rate</button>
             <span class="muted" id="rateInfo">(rate not loaded)</span>

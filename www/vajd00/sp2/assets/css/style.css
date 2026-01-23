@@ -223,16 +223,27 @@ h2 {
     font-size: 12px;
 }
 
-.table tr:hover {
-    background: rgba(37, 100, 235, 0.189);
-}
-
 .right {
     text-align: right;
 }
 
 .center {
     text-align: center;
+}
+
+/* table income vs expense */
+
+tr.tx-income td {
+    background: rgba(34, 197, 94, 0.3);
+}
+
+tr.tx-expense td {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.table tr.tx-income:hover td,
+.table tr.tx-expense:hover td {
+    background: rgba(37, 99, 235, 0.08);
 }
 
 /* ===== FORM ===== */
