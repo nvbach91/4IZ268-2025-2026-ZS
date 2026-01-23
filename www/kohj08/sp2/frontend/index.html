@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prague HEAT!</title>
+
+  <!-- Leaflet (CDN) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Leaflet.heat (CDN) -->
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <strong>Prague HEAT!</strong>
+      <span class="muted">heatmap prototype</span>
+    </div>
+
+    <div class="controls">
+      <div class="rtDropdown" id="routeTypes">
+        <button type="button" class="rtBtn" id="rtBtn" aria-haspopup="true" aria-expanded="false">
+          Route types <span class="rtArrow">▾</span>
+        </button>
+
+        <div class="rtMenu" id="rtMenu" role="menu">
+          <label class="rtItem"><input type="checkbox" class="rt" value="0" checked> Tram</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="3" checked> Bus</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="1" checked> Metro</label>
+          <label class="rtItem"><input type="checkbox" class="rt" value="2" checked> Train</label>
+          <button type="button" class="rtConfirmBtn" id="rtConfirm">Confirm</button>
+        </div>
+      </div>
+
+      <label>
+        Only delay greater than: (s)
+        <input id="minDelay" type="number" min="0" step="10" value="0">
+      </label>
+
+      <label class="wide">
+        Radius: <span id="radiusVal" class="muted">45</span>
+        <input id="radius" type="range" min="10" max="60" step="1" value="45">
+      </label>
+
+      <label class="wide">
+        Blur: <span id="blurVal" class="muted">1</span>
+        <input id="blur" type="range" min="1" max="50" step="1" value="1">
+      </label>
+
+      <label>
+        Auto refresh (s)
+        <input id="refreshSec" type="number" min="1" step="1" value="30">
+        <span id="refreshCountdown" class="muted small"></span>
+      </label>
+
+      <button id="btnApply" type="button">Apply</button>
+      <button id="btnRefresh" type="button">Refresh</button>
+
+      <span id="status" class="status muted">idle</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="mapWrap">
+      <div id="map"></div>
+    </section>
+
+    <aside class="side">
+      <div class="card">
+        <h3>Overview</h3>
+
+        <div class="kv">
+          <div class="k">Vehicles</div>
+          <div class="v" id="ovCount">-</div>
+          <div class="k">Avg delay</div>
+          <div class="v" id="ovAvg">-</div>
+          <div class="k">P95 delay</div>
+          <div class="v" id="ovP95">-</div>
+          <div class="k">Max delay</div>
+          <div class="v" id="ovMax">-</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="wx">
+          <div class="wxTitle">
+            Weather (Prague)
+            <select id="tempUnit" class="unitSelect">
+              <option value="C">°C</option>
+              <option value="F">°F</option>
+            </select>
+          </div>
+          <div class="kv">
+            <div class="k">Temp</div>
+            <div class="v" id="wxTemp">-</div>
+            <div class="k">Wind</div>
+            <div class="v" id="wxWind">-</div>
+            <div class="k">Precip</div>
+            <div class="v" id="wxPrecip">-</div>
+            <div class="k">Condition</div>
+            <div class="v" id="wxCond">-</div>
+          </div>
+          <div class="muted small wxAt" id="wxAt">-</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>AI overview</h3>
+        <div class="aiRow">
+          <button id="aiBtn" type="button">Generate AI overview</button>
+          <span id="aiStatus" class="muted small">idle</span>
+        </div>
+        <div id="aiOut" class="aiOut muted">-</div>
+      </div>
+
+      <div class="card">
+        <h3>Top delays</h3>
+        <ol id="topList" class="topList"></ol>
+        <p class="muted small">Click an item to zoom.</p>
+      </div>
+
+      <div class="card">
+        <h3>Legend</h3>
+        <p class="muted small">
+          Heat uses only vehicles inside Prague bbox (to keep it focused).
+          Negative delays are treated as 0 for heat.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="./js/app.js"></script>
+
+
+
+</body>
+
+</html>
