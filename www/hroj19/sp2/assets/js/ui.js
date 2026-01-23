@@ -1,3 +1,10 @@
+const els = {
+  results: document.getElementById("results"),
+  detail: document.getElementById("detail"),
+  resultsInfo: document.getElementById("resultsInfo"),
+};
+
+
 // SPINNER
 // api response wait
 export function getSpinnerHtml(text = "Loading...") {
@@ -12,7 +19,7 @@ export function getSpinnerHtml(text = "Loading...") {
 // RESULTS placeholder
 // errors or no results
 export function showResultsMessage(text, iconClass) {
-  const resultsEl = document.getElementById("results");
+  const resultsEl = els.results;
   resultsEl.classList.add("d-flex", "flex-column", "align-items-center", "justify-content-center", "text-center"); // centers the message
   // replace results content
   resultsEl.innerHTML = `
@@ -26,7 +33,7 @@ export function showResultsMessage(text, iconClass) {
 // DETAIL placeholder
 // nothing selected or error
 export function showDetailMessage(text, iconClass) {
-  const detailEl = document.getElementById("detail");
+  const detailEl = els.detail;
   detailEl.classList.add("d-flex", "flex-column", "justify-content-center", "align-items-center", "text-center");
   detailEl.innerHTML = `
     <div class="text-muted">
@@ -39,7 +46,7 @@ export function showDetailMessage(text, iconClass) {
 // RESULTS loading state
 // before search request, turns off when finished
 export function setResultsLoading(isLoading) {
-  const resultsEl = document.getElementById("results");
+  const resultsEl = els.results;
   if (!resultsEl) return;
 
   if (isLoading) {
@@ -51,7 +58,7 @@ export function setResultsLoading(isLoading) {
 // DETAIL loading state
 // before detail fetch
 export function setDetailLoading(isLoading) {
-  const detailEl = document.getElementById("detail");
+  const detailEl = els.detail;
   if (!detailEl) return;
 
   if (isLoading) {
@@ -62,14 +69,14 @@ export function setDetailLoading(isLoading) {
 
 // RESULTS header helper text
 export function showResultsInfo(text) {
-  const el = document.getElementById("resultsInfo");
+  const el = els.resultsInfo;
   if (!el) return;
   el.textContent = text;
 }
 
 // RESULTS header helper text clear
 export function clearResultsInfo() {
-  const el = document.getElementById("resultsInfo");
+  const el = els.resultsInfo;
   if (!el) return;
   el.textContent = "";
 }
@@ -91,26 +98,54 @@ export function extractIngredients(drink) {
 }
 
 // DETAIL render
-export function renderDetail(drink) {
-  const detailEl = document.getElementById("detail");
+export function renderDetail(drink, { isFavourite, onToggleFavourite, lang = "en", onChangeLang } = {}) {
+  const detailEl = els.detail;
   detailEl.classList.remove("d-flex", "flex-column", "justify-content-center", "align-items-center", "text-center"); // remove centering for placeholder
   detailEl.innerHTML = ""; // clear panel
 
   const ingredients = extractIngredients(drink);
+  const getInstructions = (d, l) => {
+    const map = {
+      en: d.strInstructions,
+      es: d.strInstructionsES,
+      de: d.strInstructionsDE,
+      fr: d.strInstructionsFR,
+      it: d.strInstructionsIT,
+    };
+
+    return map[l] || d.strInstructions || "No instructions available.";
+  };
+
+  const instructions = getInstructions(drink, lang);
+
+  const fav = isFavourite ? isFavourite(drink.idDrink) : false;
 
   const header = document.createElement("div"); // header block
   header.className = "d-flex gap-3 align-items-start mb-3";
   header.innerHTML = `
     <img src="${drink.strDrinkThumb}" alt="${drink.strDrink}" width="140" height="140"
-         class="rounded" style="object-fit: cover;">
+         class="object-fit-cover border rounded">
     <div class="flex-grow-1">
-      <h3 class="h5 mb-1">${drink.strDrink}</h3>
+      <h3 class="h5 mb-1 d-flex align-items-center gap-2">${drink.strDrink}
+        <!-- <button type="button"
+          class="btn btn-sm ${fav ? "btn-warning" : "btn-outline-warning"} fav-detail-btn">
+          <i class="${fav ? "fa-solid" : "fa-regular"} fa-star"></i>
+          ${fav ? "Remove from favourites" : "Add to favourites"}
+        </button> -->
+      </h3>
       <div class="text-muted small">
         ${drink.strAlcoholic || ""}${drink.strGlass ? " • " + drink.strGlass : ""}
       </div>
       ${drink.strCategory ? `<div class="text-muted small">${drink.strCategory}</div>` : ""}
     </div>
   `;
+
+  const favBtn = header.querySelector(".fav-detail-btn");
+  favBtn?.addEventListener("click", () => {
+    onToggleFavourite?.(drink.idDrink);
+  });
+
+
 
   // ingredients
   const ingBlock = document.createElement("div");
@@ -124,13 +159,39 @@ export function renderDetail(drink) {
 
   // instructions
   const instrBlock = document.createElement("div");
+  instrBlock.className = "mb-3";
   instrBlock.innerHTML = `
     <h4 class="h6">Recipe</h4>
-    <p class="mb-0">${drink.strInstructions || "No instructions available."}</p>
+    <p class="mb-0">${instructions}</p>
   `;
+
+
+  // language
+  const langBlock = document.createElement("div");
+  langBlock.className = "mb-2";
+  langBlock.innerHTML = `
+    <h4 class="h6">Language</h4>
+    <div class="btn-group btn-group-sm" role="group" aria-label="Recipe language">
+      <button type="button" class="btn ${lang === "en" ? "btn-danger" : "btn-outline-danger"} lang-btn" data-lang="en">EN</button>
+      <button type="button" class="btn ${lang === "es" ? "btn-danger" : "btn-outline-danger"} lang-btn" data-lang="es">ES</button>
+      <button type="button" class="btn ${lang === "de" ? "btn-danger" : "btn-outline-danger"} lang-btn" data-lang="de">DE</button>
+      <button type="button" class="btn ${lang === "fr" ? "btn-danger" : "btn-outline-danger"} lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="btn ${lang === "it" ? "btn-danger" : "btn-outline-danger"} lang-btn" data-lang="it">IT</button>
+    </div>
+  `;
+
+  langBlock.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const next = btn.dataset.lang;
+      onChangeLang?.(next);
+    });
+  });
+
+
 
   // DETAIL add blocks
   detailEl.appendChild(header);
   detailEl.appendChild(ingBlock);
   detailEl.appendChild(instrBlock);
+  detailEl.appendChild(langBlock);
 }
