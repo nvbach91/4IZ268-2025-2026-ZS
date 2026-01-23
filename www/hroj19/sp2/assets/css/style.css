@@ -1,0 +1,82 @@
+/* page layout */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* no global scrollbar - specific containers only */
+}
+
+/* vertical flex container */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* main app area */
+.app-main {
+    flex: 1;
+    min-height: 0;
+    /* allows flex children to shrink; otherwise scroll wouldnt work */
+    display: flex;
+}
+
+/* bootstrap row with two panels */
+.app-row {
+    flex: 1;
+    min-height: 0;
+    /* needed for scroll containers, nested flex */
+    width: 100%;
+    margin: 0;
+}
+
+/* each panel vertical flex column - L: search + results, R: detail */
+.panel-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+/* cards as flex containers - header stays on top, body grows/shrinks and scrolls */
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* vertical scroll enabled */
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    /* scrollbar enabled */
+    min-height: 0;
+}
+
+/* force cards to respect panel height */
+.panel-column .card.flex-grow-1,
+.panel-column .card.h-100 {
+    min-height: 0;
+    height: 100%;
+    /* prevents cards from overgrowing outside the panel */
+}
+
+/* results/detail default display
+d-flex for placeholders/spinners
+block for normal scrolling */
+#results,
+#detail {
+    display: block;
+    /* Placeholder v JS pak může přepnout na d-flex, ale pro scroll je lepší block */
+}
+
+/* favouritesBtn active state */
+#favouritesBtn.is-active {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #212529;
+}
+
+#favouritesBtn.is-active i {
+    color: #212529;
+}
