@@ -1,10 +1,14 @@
-import { fetchQuestions } from "./api.js";
+import { fetchQuestions, fetchCategories } from "./api.js";
 import {
   getBestScore,
   saveBestScore,
   addAttempt,
   getAttempts,
   clearAttempts,
+  saveLastConfig,
+  getActiveQuiz,
+  saveActiveQuiz,
+  clearActiveQuiz,
 } from "./storage.js";
 import { readParams, writeParams, clearParams } from "./router.js";
 import {
@@ -14,7 +18,6 @@ import {
   evaluateAnswer,
   goNext,
   getAttemptStats,
-  categoryMap,
 } from "./game.js";
 import {
   renderStartScreen,
@@ -29,7 +32,11 @@ import {
   showNextButton,
   renderSummary,
   escapeHtml,
+  renderStatsPanel,
 } from "./ui.js";
+
+let autoNextTimeout = null;
+let autoNextInterval = null;
 
 /**
  * root = jediný “container”, do kterého vždycky vykresluje celá obrazovka.
@@ -48,20 +55,26 @@ init();
 
 /**
  * Základní start:
- *   když je v URL category & difficulty -> rovnou spustí kvíz (funguje i po refreshi)
- *   když ne -> ukáže menu
+ * Načte parametry, nastaví state a ukáže menu s předvybranými hodnotami.
  */
-function init() {
-  const { category, difficulty } = readParams();
+async function init() {
+  const params = readParams();
 
-  if (category && difficulty) {
-    // Uživatel přišel přes link nebo refreshnul stránku ve hře
-    state.selectedCategory = category;
-    state.selectedDifficulty = difficulty;
-    startQuizFromUrl();
-  } else {
-    // Normální start bez parametrů -> menu
+  try {
+    renderLoading(root);
+    const cats = await fetchCategories();
+    state.categories = cats;
+
+    if (params.category) state.selectedCategory = params.category;
+    if (params.difficulty) state.selectedDifficulty = params.difficulty;
+
+    state.selectedType = params.type || state.selectedType || "";
+
+    saveLastConfig(state.selectedCategory, state.selectedDifficulty, state.selectedType);
+
     showMenu();
+  } catch (e) {
+    renderError(root, "Could not load categories.");
   }
 }
 
@@ -71,21 +84,44 @@ function init() {
  * listenery je potřeba po každém renderu připojit znovu
  */
 function showMenu() {
-  renderStartScreen(root, state);
+  const activeQuiz = getActiveQuiz();
+  renderStartScreen(root, state, activeQuiz);
+
+  if (activeQuiz) {
+    const resumeBtn = root.querySelector("#resumeBtn");
+    if (resumeBtn) {
+      resumeBtn.addEventListener("click", () => {
+        Object.assign(state, activeQuiz); 
+        showQuestion();
+      });
+    }
+  }
+
+  const diffContainer = root.querySelector(".row");
+  if (diffContainer) {
+    diffContainer.addEventListener("click", (e) => {
+      const btn = e.target.closest(".diff-btn");
+      if (btn) {
+        state.selectedDifficulty = btn.dataset.diff;
+        setActiveDiff(root, state.selectedDifficulty);
+        saveLastConfig(state.selectedCategory, state.selectedDifficulty, state.selectedType);
+        writeParams(state);
+      }
+    });
+  }
+
+  root.querySelector("#typeSelect").addEventListener("change", (e) => {
+    state.selectedType = e.target.value;
+    saveLastConfig(state.selectedCategory, state.selectedDifficulty, state.selectedType);
+    writeParams(state);
+  });
 
   // Kategorie: select změna -> uloží se do state
   root.querySelector("#categorySelect").addEventListener("change", (e) => {
     state.selectedCategory = e.target.value;
-  });
 
-  // Obtížnost: tlačítka easy/medium/hard
-  root.querySelectorAll(".diff-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      state.selectedDifficulty = btn.dataset.diff;
-
-      // Jen vizuální highlight, ať je jasné co je vybrané
-      setActiveDiff(root, state.selectedDifficulty);
-    });
+    saveLastConfig(state.selectedCategory, state.selectedDifficulty, state.selectedType);
+    writeParams(state);
   });
 
   /**
@@ -95,10 +131,6 @@ function showMenu() {
    * pak rovnou načte otázky
    */
   root.querySelector("#startBtn").addEventListener("click", () => {
-    writeParams({
-      category: state.selectedCategory,
-      difficulty: state.selectedDifficulty,
-    });
     startQuizFromUrl();
   });
 
@@ -114,22 +146,50 @@ function showMenu() {
  * je to “zdroj pravdy” (když někdo změní URL ručně / jde zpět v historii)
  */
 async function startQuizFromUrl() {
-  const { category, difficulty } = readParams();
+  const params = readParams();
 
-  // Když jsou parametry, přepíše state (ať je to konzistentní)
-  if (category) state.selectedCategory = category;
-  if (difficulty) state.selectedDifficulty = difficulty;
+  const selectedDiff = params.difficulty || state.selectedDifficulty || "easy";
+  const selectedCat = params.category || state.selectedCategory || "9";
+  const selectedType = params.type || state.selectedType || "";
 
-  const amount = 10; // počet otázek na jeden kvíz
+  const categoryExists = state.categories.some(c => String(c.id) === String(selectedCat));
+  const validDiffs = ["easy", "medium", "hard"];
+  const validTypes = ["multiple", "boolean", ""];
 
-  // Složení API URL
-  const url =
-    `https://opentdb.com/api.php?amount=${amount}` +
-    `&type=multiple` +
-    `&category=${state.selectedCategory}` +
-    `&difficulty=${state.selectedDifficulty}`;
+  console.log("Validating:", { selectedCat, categoryExists, selectedDiff, selectedType });
 
-  // UI ukáže “Loading…”
+  if (!categoryExists || !validDiffs.includes(selectedDiff) || !validTypes.includes(selectedType)) {
+    renderError(root, "Invalid quiz parameters. Please check your selection.");
+    
+    const homeBtn = root.querySelector("#homeBtn");
+    if (homeBtn) {
+      homeBtn.addEventListener("click", () => {
+        clearParams(); 
+        location.reload(); 
+      });
+    }
+    return;
+  }
+
+  // aktualizace stavu parametru
+  state.selectedCategory = selectedCat;
+  state.selectedDifficulty = selectedDiff;
+  state.selectedType = selectedType;
+
+  // zapis url
+  writeParams({
+    category: state.selectedCategory,
+    difficulty: state.selectedDifficulty,
+    type: state.selectedType,
+  });
+
+  // nacitani otazek
+  const amount = 3; 
+  let url = `https://opentdb.com/api.php?amount=${amount}&category=${state.selectedCategory}&difficulty=${state.selectedDifficulty}`;
+  if (state.selectedType) {
+    url += `&type=${state.selectedType}`;
+  }
+
   renderLoading(root);
 
   try {
@@ -157,12 +217,19 @@ async function startQuizFromUrl() {
 
     // Start nového pokusu: uloží otázky + vynuluje skóre + nastaví start time
     startNewAttempt(state, qs);
+    saveActiveQuiz(state); 
 
     // Zobrazení první otázku
     showQuestion();
   } catch (e) {
-    // Síť / API error
-    renderError(root, "Failed to load questions from the API.");
+    console.error("API Error:", e);
+    
+    let errorMsg = "Failed to load questions from the API.";
+    if (e.message.includes("429")) {
+      errorMsg = "Too many requests. Please wait 5 seconds before starting again.";
+    }
+
+    renderError(root, errorMsg);
 
     root.querySelector("#homeBtn").addEventListener("click", () => {
       clearParams();
@@ -175,8 +242,45 @@ async function startQuizFromUrl() {
  * Zobrazí aktuální otázku + nastaví klikání na odpovědi a tlačítka.
  */
 function showQuestion() {
+  if (autoNextTimeout) clearTimeout(autoNextTimeout);
+  if (autoNextInterval) clearInterval(autoNextInterval);
+
   const q = getCurrentQuestion(state);
   renderQuestionScreen(root, state, q);
+
+  if (state.answered) {
+    highlightCorrect(root, q.correct_answer);
+    disableAnswers(root);
+    showNextButton(root);
+    startAutoNext(); 
+  }
+
+  const answersContainer = root.querySelector(".answers");
+  
+  if (answersContainer) {
+    answersContainer.addEventListener("click", (e) => {
+      const btn = e.target.closest(".answer-btn");
+      
+      if (!btn || btn.disabled || state.answered) return;
+
+      const result = evaluateAnswer(state, btn.dataset.answer);
+      if (result.ignored) return;
+
+      highlightCorrect(root, result.correctAnswer);
+
+      if (result.isCorrect) {
+        showFeedback(root, "Correct");
+      } else {
+        highlightWrong(btn);
+        showFeedback(root, "Wrong");
+      }
+
+      saveActiveQuiz(state); 
+      disableAnswers(root);
+      showNextButton(root);
+      startAutoNext();
+    });
+  }
 
   /**
    * MENU během hry:
@@ -189,46 +293,57 @@ function showQuestion() {
   });
 
   /**
-   * Kliknutí na odpověď:
-   * evaluateAnswer řeší logiku (správně/špatně + update state)
-   * UI jen ukáže feedback (barvy + text)
-   */
-  root.querySelectorAll(".answer-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const result = evaluateAnswer(state, btn.dataset.answer);
-
-      // Ochrana proti doubleclick / změně odpovědi
-      if (result.ignored) return;
-
-      // Vždy se ukáže správná odpověď
-      highlightCorrect(root, result.correctAnswer);
-
-      if (result.isCorrect) {
-        showFeedback(root, "✅ Correct!");
-      } else {
-        highlightWrong(btn);
-        showFeedback(root, "❌ Wrong.");
-      }
-
-      // Zamknou se odpovědi, ať nejde odpověď překliknout
-      disableAnswers(root);
-
-      // NEXT se ukáže až po odpovědi
-      showNextButton(root);
-    });
-  });
-
-  /**
    * NEXT:
    * posune otázku
    * pokud existuje další -> render další
    * pokud ne -> souhrn + uložení do historie
    */
   root.querySelector("#nextBtn").addEventListener("click", () => {
+    if (autoNextTimeout) clearTimeout(autoNextTimeout);
+    if (autoNextInterval) clearInterval(autoNextInterval);
     const hasNext = goNext(state);
+    saveActiveQuiz(state);  
     if (hasNext) showQuestion();
     else showSummaryScreen();
   });
+
+  const stopBtn = root.querySelector("#stopAutoBtn");
+  if (stopBtn) {
+    stopBtn.addEventListener("click", () => {
+      clearTimeout(autoNextTimeout);
+      clearInterval(autoNextInterval);
+      stopBtn.remove();
+      showFeedback(root, "Auto-advance stopped.");
+    });
+  }
+}
+
+function startAutoNext() {
+  let secondsLeft = 5;
+  const feedback = root.querySelector("#feedback");
+
+  const updateText = (s) => {
+    if (feedback) {
+      const statusText = state.answered && state.score > state.correctCount - 1 ? "Correct" : "Wrong";
+      feedback.innerHTML = `${statusText}<br><small>Next question in <strong>${s}s</strong>...</small>`;
+    }
+  };
+  updateText(secondsLeft);
+
+  autoNextInterval = setInterval(() => {
+    secondsLeft -= 1;
+    if (secondsLeft > 0) {
+      updateText(secondsLeft);
+    } else {
+      clearInterval(autoNextInterval);
+    }
+  }, 1000);
+
+  autoNextTimeout = setTimeout(() => {
+    const hasNext = goNext(state);
+    if (hasNext) showQuestion();
+    else showSummaryScreen();
+  }, 5000);
 }
 
 /**
@@ -241,15 +356,21 @@ function showQuestion() {
 function showSummaryScreen() {
   const { total, durationSec, accuracy } = getAttemptStats(state);
 
+  clearActiveQuiz();
+
   // Best score se aktualizuje jen když je nové skóre lepší
   const best = getBestScore();
   if (state.score > best) saveBestScore(state.score);
+
+  // Získání názvu kategorie z načteného pole
+  const currentCat = state.categories.find(c => String(c.id) === String(state.selectedCategory));
+  const categoryName = currentCat ? currentCat.name : "Unknown Category";
 
   // Uloží se pokus do historie
   addAttempt({
     timestamp: new Date().toISOString(),
     categoryId: state.selectedCategory,
-    categoryName: categoryMap[state.selectedCategory] || "Unknown",
+    categoryName: categoryName,
     difficulty: state.selectedDifficulty,
     total,
     score: state.score,
@@ -265,17 +386,19 @@ function showSummaryScreen() {
   const attempts = getAttempts();
   const attemptsHtml = attempts.length
     ? attempts
+        .slice()
+        .reverse()
         .slice(0, 3)
-        .map(
-          (a) => `
-        <div class="summary-line">
-          ${escapeHtml(a.categoryName)} | ${escapeHtml(a.difficulty)} |
-          ${a.score}/${a.total} | ${a.accuracy}% | ${a.durationSec ?? "-"} s
-        </div>
-      `,
-        )
-        .join("")
-    : `<p class="center" style="font-weight:700;">No attempts yet.</p>`;
+        .map((a) => {
+        const date = a.timestamp ? new Date(a.timestamp).toLocaleDateString() : "Unknown date";
+        return `
+          <div class="summary-line">
+            ${date} | ${escapeHtml(a.categoryName)} | ${a.score}/${a.total} | ${a.accuracy}%
+          </div>
+        `;
+      })
+      .join("")
+  : `<p class="center">No attempts yet.</p>`;
 
   // Render finálního souhrnu
   renderSummary(root, {
@@ -308,15 +431,16 @@ function toggleStatsPanel() {
   const panel = root.querySelector("#statsPanel");
   const btn = root.querySelector("#statsBtn");
 
-  if (panel.style.display === "block") {
-    panel.style.display = "none";
-    btn.textContent = "VIEW STATS";
-    return;
-  }
+  const isHidden = panel.classList.contains("hidden");
 
-  renderStats();
-  panel.style.display = "block";
-  btn.textContent = "HIDE STATS";
+  if (!isHidden) {
+    panel.classList.add("hidden");
+    btn.textContent = "VIEW STATS";
+  } else {
+    updateStatsUI();
+    panel.classList.remove("hidden");
+    btn.textContent = "HIDE STATS";
+  }
 }
 
 /**
@@ -327,72 +451,25 @@ function toggleStatsPanel() {
  * posledních 5 pokusů
  * možnost vymazat historii
  */
-function renderStats() {
+function updateStatsUI() {
   const attempts = getAttempts();
   const panel = root.querySelector("#statsPanel");
+  
+  // Zavoláme UI funkci pro vykreslení
+  renderStatsPanel(panel, attempts);
 
-  // Když nic není uložené, ukáže "No attempts yet."
-  if (!attempts.length) {
-    panel.innerHTML = `
-      <div class="title-box">STATS</div>
-      <p class="center" style="font-weight:700;">No attempts yet.</p>
-    `;
-    return;
+  // Napojíme event listener na tlačítko, které se právě vytvořilo
+  const clearBtn = panel.querySelector("#clearHistoryBtn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", async () => {
+      const result = await Swal.fire({
+        title: "Clear all saved attempts?",
+        showCancelButton: true,
+      }) 
+      if (result.isConfirmed) {
+        clearAttempts();
+        updateStatsUI();
+      }
+    });
   }
-
-  const games = attempts.length;
-
-  // Nalezen9 nejlepšího pokusu podle score
-  const bestAttempt = attempts.reduce(
-    (best, a) => (a.score > best.score ? a : best),
-    attempts[0],
-  );
-
-  // Průměry
-  const avgAccuracy = Math.round(
-    attempts.reduce((sum, a) => sum + (Number(a.accuracy) || 0), 0) / games,
-  );
-  const avgScore = Math.round(
-    attempts.reduce((sum, a) => sum + (Number(a.score) || 0), 0) / games,
-  );
-
-  // Posledních 5 pokusů (nejnovější jsou na začátku díky unshift)
-  const last5Html = attempts
-    .slice(0, 5)
-    .map(
-      (a) => `
-    <div class="summary-line">
-      ${escapeHtml(a.categoryName)} | ${escapeHtml(a.difficulty)} |
-      ${a.score}/${a.total} | ${a.accuracy}% | ${a.durationSec ?? "-"} s
-    </div>
-  `,
-    )
-    .join("");
-
-  panel.innerHTML = `
-    <div class="title-box">STATS</div>
-
-    <div class="summary-line">Games played: ${games}</div>
-    <div class="summary-line">Average score: ${avgScore}</div>
-    <div class="summary-line">Average accuracy: ${avgAccuracy}%</div>
-    <div class="summary-line">
-      Best attempt: ${escapeHtml(bestAttempt.categoryName)} (${escapeHtml(bestAttempt.difficulty)})
-      — ${bestAttempt.score}/${bestAttempt.total}
-    </div>
-
-    <div style="height:14px;"></div>
-    <div class="title-box">RECENT ATTEMPTS</div>
-    ${last5Html}
-
-    <div class="actions">
-      <button id="clearHistoryBtn" class="btn">CLEAR HISTORY</button>
-    </div>
-  `;
-
-  // Clear history s potvrzením
-  panel.querySelector("#clearHistoryBtn").addEventListener("click", () => {
-    if (!confirm("Clear all saved attempts?")) return;
-    clearAttempts();
-    renderStats(); // po smazání se překreslí panel
-  });
 }

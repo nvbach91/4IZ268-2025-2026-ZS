@@ -5,14 +5,17 @@ export function readParams() {
   return {
     category: params.get("category"),
     difficulty: params.get("difficulty"),
+    type: params.get("type"),
   };
 }
 
 // Zapíše aktuální nastavení do URL bez reloadu stránky
-export function writeParams({ category, difficulty }) {
+export function writeParams({ category, difficulty, type }) {
   const params = new URLSearchParams();
-  params.set("category", category);
-  params.set("difficulty", difficulty);
+  
+  if (category) params.set("category", category);
+  if (difficulty) params.set("difficulty", difficulty);
+  if (type) params.set("type", type);
   history.pushState({}, "", `?${params.toString()}`);
 }
 

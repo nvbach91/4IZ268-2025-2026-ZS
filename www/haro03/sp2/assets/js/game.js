@@ -1,20 +1,16 @@
 // Mapuje ID kategorií z API na lidsky čitelné názvy
-// Používá se ve statistikách a souhrnu hry
-export const categoryMap = {
-  9: "General Knowledge",
-  21: "Sports",
-  23: "History",
-  17: "Science & Nature",
-  22: "Geography",
-  11: "Entertainment: Film",
-};
+
+import { getLastConfig } from "./storage.js";
 
 // Vytvoří počáteční stav aplikace
 // Tento objekt reprezentuje jednu herní relaci
 export function createInitialState() {
+  const lastConfig = getLastConfig();
   return {
-    selectedCategory: "9", // výchozí kategorie
-    selectedDifficulty: "easy", // výchozí obtížnost
+    selectedCategory: lastConfig.category, // výchozí kategorie
+    selectedDifficulty: lastConfig.difficulty,
+    selectedType: lastConfig.type || "",
+    categories: [],
 
     questions: [], // pole načtených otázek
     currentQuestion: 0, // index aktuální otázky

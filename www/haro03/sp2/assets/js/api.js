@@ -15,3 +15,10 @@ export async function fetchQuestions(url) {
   // Vrácení kompletní odpovědi (obsahuje otázky i response_code)
   return data;
 }
+
+export async function fetchCategories() {
+  const res = await fetch("https://opentdb.com/api_category.php");
+  if (!res.ok) throw new Error("Failed to fetch categories");
+  const data = await res.json();
+  return data.trivia_categories;
+}

@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -6,12 +7,6 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f3f3f3;
-}
-
-h1 {
-  margin: 24px;
-  font-size: 48px;
-  font-weight: 700;
 }
 
 #app {
@@ -65,7 +60,6 @@ h1 {
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 10px;
 }
 
 .btn {
@@ -149,28 +143,6 @@ h1 {
   justify-content: center;
 }
 
-.actions .btn {
-  min-width: 200px;
-}
-
-@media (max-width: 520px) {
-  .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .pill {
-    min-width: 0;
-    flex: 1 1 140px;
-  }
-
-  #homeBtnInGame.btn {
-    min-width: 0;
-    flex: 1 1 140px;
-  }
-}
-
 .spinner {
   width: 48px;
   height: 48px;
@@ -182,11 +154,25 @@ h1 {
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
+
+
+.h-14 { height: 14px; }
+.h-16 { height: 16px; }
+.h-18 { height: 18px; }
+.h-22 { height: 22px; }
+
+.mt-12 { margin-top: 12px; }
+.mt-14 { margin-top: 14px; }
+.mt-18 { margin-top: 18px; }
+.mt-22 { margin-top: 22px; }
+.mt-32 { margin-top: 32px; }
+
+.w-260 { min-width: 260px; }
+.w-120 { min-width: 120px; }
+
+.hidden { display: none; }
+.inline-block { display: inline-block; }
+.bold-700 { font-weight: 700; }
