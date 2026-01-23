@@ -43,11 +43,29 @@ const App = {
         // najde tlačítko pro přidání knihy
         this.$btnAdd = $('.btn-add');
 
+        this.$apiSearchForm = $('#api-search-form');
+
         // pole API kniha/autor
         this.$apiSearchInput = $('#api-search-query');
         // dynamicky se zobrazí výsledky z API - výběr konkrétní knihy
         this.$apiSearchResults = $('#api-search-results');
         
+        // ruční spuštění vyhledávání ISBN
+        this.$btnSearchIsbn = $('#btn-search-isbn');
+        // hledání u autora/název
+        this.$btnApiSearch = $('#btn-api-search');
+        // vysouvací seznam - při mobilním rozhraní
+        this.$formToggle = $('#form-toggle');
+        // ukládá číselné hodnoty
+        this.$statTotal = $('#stat-total');
+        this.$statRead = $('#stat-read');
+        this.$statNotRead = $('#stat-not-read');
+        this.$statReading = $('#stat-reading');
+        
+        
+
+        this.$statsContainer = $('.stats-container');
+
         // všechny pole formuláře u sebe - jedno jméno = jedno políčko
         this.formInputs = {
             title: $('#title'),
@@ -56,7 +74,8 @@ const App = {
             status: $('#status'),
             note: $('#note'),
             isbn: $('#isbn'),
-            cover: $('#cover-url')
+            cover: $('#cover-url'),
+            description: $('#description'),
         };
     },
 
@@ -68,22 +87,29 @@ const App = {
 
         // API Search - blur - opustí políčko - aplikace i tak stáhne data automaticky
         this.$isbnInput.on('blur', (e) => this.fetchBookData(e));
-        $('#btn-search-isbn').on('click', () => this.$isbnInput.trigger('blur'));
+        this.$btnSearchIsbn.on('click', () => this.$isbnInput.trigger('blur'));
 
         // aktivace tlačítka hledat - název/autor
-        $('#btn-api-search').on('click', () => this.searchBooksByKeywords());
+        this.$btnApiSearch.on('click', () => this.searchBooksByKeywords());
         // možnost vybrat si konkrétní knihu
         this.$apiSearchResults.on('click', '.api-result-item', (e) => this.selectApiBook(e));
 
+        
+        // úkol č. 12 - Obsluha odeslání vyhledávacího formuláře
+        this.$apiSearchForm.on('submit', (e) => {
+            e.preventDefault();             // Zabrání znovunačtení stránky
+            this.searchBooksByKeywords();   // Spustí vyhledávání
+        });
+        
         // přepínání filtrů - kategorie
         this.$filterBtns.on('click', (e) => this.handleFilter(e));
         
-        // Úkol č. 10: Implementace Debounce na vyhledávání
+        // Úkol č. 10 - Implementace Debounce na vyhledávání
         this.$searchInput.on('keyup', () => {
             clearTimeout(this.searchTimeout);
             this.searchTimeout = setTimeout(() => {
                 this.render();
-            }, 300); // Počká 300ms po dopsání, než překreslí seznam
+            }, 800); // Počká 800ms po dopsání, než překreslí seznam
         });
         
         // rozevírací seznam
@@ -95,14 +121,17 @@ const App = {
         this.$container.on('click', '.btn-favorite', (e) => this.toggleFavorite(e));
         this.$container.on('change', '.status-select-input', (e) => this.handleStatusChange(e));
         
-        // Úkol č. 7: Kliknutí na kartu pro zobrazení detailu (modální okno)
+        // Úkol č. 7 - Kliknutí na kartu pro zobrazení detailu (modální okno)
         this.$container.on('click', '.clickable-area', (e) => this.showBookDetail(e));
         
-        // mobilní zobrazení pro formulář a statistiky
-        $('#form-toggle').on('click', function() {
+
+        // Mobilní zobrazení - uložené reference - úkol č. 9
+        this.$formToggle.on('click', (e) => {
             if ($(window).width() <= 768) {
-                $('#add-book-form, .stats-container').slideToggle();
-                $(this).toggleClass('active');
+                // Použijeme uložený $form a $statsContainer
+                this.$form.slideToggle();
+                this.$statsContainer.slideToggle();
+                $(e.currentTarget).toggleClass('active');
             }
         });
     },
@@ -110,7 +139,7 @@ const App = {
     loadData() {
         // lokální data
         const stored = localStorage.getItem(this.storageKey);
-        // zkontroluj zda již něco existuje
+        // zkontroluje zda již něco existuje
         if (stored) {
             try {
                 // JSON.parse - převede textový řetězec back  na pole objektů
@@ -128,7 +157,7 @@ const App = {
         localStorage.setItem(this.storageKey, JSON.stringify(this.data));
     },
 
-    // Úkol č. 2: Vzhledávání na základě textu
+    // Úkol č. 2 - Vzhledávání na základě textu
     async searchBooksByKeywords() {
         // načtení textu
         const query = this.$apiSearchInput.val().trim();
@@ -143,7 +172,7 @@ const App = {
         this.$apiSearchResults.empty().hide();
 
         try {
-            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=5`);
+            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=10`);
             
             if (response.data.totalItems > 0) {
                 const items = response.data.items.map(item => {
@@ -153,8 +182,10 @@ const App = {
                     const title = info.title || 'Bez názvu';
                     const authors = info.authors ? info.authors.join(', ') : 'Neznámý autor';
                     const isbn = info.industryIdentifiers ? info.industryIdentifiers[0].identifier : '';
-                    const cover = info.imageLinks ? info.imageLinks.thumbnail : '';
+                    const cover = info.imageLinks ? info.imageLinks.thumbnail.replace('http://', 'https://') :'https://placehold.co/120x160?text=No+Cover';
                     const genre = info.categories ? info.categories[0] : '';
+                    // úkol č. 7
+                    const description = info.description || 'Popis není k dispozici.';
 
                     return `
                         <div class="api-result-item" 
@@ -162,9 +193,16 @@ const App = {
                              data-author="${this.escapeHtml(authors)}"
                              data-isbn="${this.escapeHtml(isbn)}"
                              data-cover="${this.escapeHtml(cover)}"
-                             data-genre="${this.escapeHtml(genre)}">
-                            <strong>${this.escapeHtml(title)}</strong>
-                            <small>${this.escapeHtml(authors)}</small>
+                             data-genre="${this.escapeHtml(genre)}"
+                            data-description="${this.escapeHtml(description)}"> 
+                            <img src="${this.escapeHtml(cover)}" 
+                                alt="Obal" 
+                                class="api-thumb"
+                                onerror="this.src='https://placehold.co/120x160?text=No+Cover'; this.onerror=null;">
+                            <div class="api-result-info">
+                                <strong>${this.escapeHtml(title)}</strong>
+                                <small>${this.escapeHtml(authors)}</small>
+                            </div>
                         </div>`;
                 }).join('');
 
@@ -188,6 +226,7 @@ const App = {
         this.formInputs.isbn.val($item.data('isbn'));
         this.formInputs.cover.val($item.data('cover'));
         this.formInputs.genre.val($item.data('genre'));
+        this.formInputs.description.val($item.data('description'));
 
         // uzamknutí pro název, autora a ISBN
         this.toggleInputsReadonly(true);
@@ -219,7 +258,7 @@ const App = {
                 this.formInputs.genre.val(bookInfo.categories ? bookInfo.categories[0] : '');
                 
                 if (bookInfo.imageLinks && bookInfo.imageLinks.thumbnail) {
-                    this.formInputs.cover.val(bookInfo.imageLinks.thumbnail);
+                    this.formInputs.cover.val(bookInfo.imageLinks.thumbnail.replace('http://', 'https://'));
                 }
                 
                 this.showNotification('Data successfully loaded.', 'success');
@@ -259,7 +298,7 @@ const App = {
             if (index !== -1) {
                 const originalBook = this.data[index];
                 
-                // Úkol č. 6: Pokud je kniha z API, vynutíme původní hodnoty
+                // Úkol č. 6 - Pokud je kniha z API, vynutíme původní hodnoty
                 const updatedBook = {
                     ...originalBook,
                     title: originalBook.isFromApi ? originalBook.title : titleVal,
@@ -278,8 +317,7 @@ const App = {
             this.$btnAdd.text('PŘIDAT KNIHU').removeClass('btn-save-mode');
 
         } else {
-            // --- PŘIDÁVÁNÍ NOVÉ KNIHY ---
-            
+            // přidání nové knihy
             // Úkol č. 1: Kontrola duplicit
             const isDuplicate = this.data.some(book => {
                 if (isbnVal && book.isbn === isbnVal) return true;
@@ -305,8 +343,9 @@ const App = {
                 isbn: isbnVal,
                 genre: this.formInputs.genre.val().trim(),
                 status: this.formInputs.status.val(),
+                description: this.formInputs.description.val().trim() || 'Popis není k dispozici.',
                 note: this.formInputs.note.val().trim(),
-                cover: this.formInputs.cover.val().trim() || 'https://via.placeholder.com/120x160?text=No+Cover'
+                cover: this.formInputs.cover.val().trim() || 'https://placehold.co/120x160?text=No+Cover'
             });
             this.showNotification('Kniha byla úspěšně přidána.', 'success');
         }
@@ -360,11 +399,11 @@ const App = {
         });
 
         if (result.isConfirmed) {
-            // 1. Odstranit z datového pole
+            // Odstranit z datového pole
             this.data = this.data.filter(b => b.id !== id);
             this.saveData();
             
-            // 2. Odstranit přímo z HTML bez volání render()
+            // Odstranit přímo z HTML bez volání render()
             $card.fadeOut(400, () => {
                 $card.remove();
                 // Poté jen aktualizujeme počty v filtrech
@@ -405,20 +444,32 @@ const App = {
         const id = $(e.currentTarget).closest('.book-card').data('id');
         const book = this.data.find(b => b.id === id);
         if (!book) return;
+        
+        // Mapování stavu na čitelný text
+        const statusMap = {
+            'read': 'Přečteno',
+            'reading': 'Rozečteno',
+            'not read': 'Nepřečteno'
+        };
 
         Swal.fire({
             title: book.title,
             html: `
-                <div style="text-align: left;">
+                <div>
                     <p><strong>Autor:</strong> ${this.escapeHtml(book.author)}</p>
                     <p><strong>ISBN:</strong> ${this.escapeHtml(book.isbn) || 'Neuvedeno'}</p>
                     <p><strong>Žánr:</strong> ${this.escapeHtml(book.genre) || 'Neuvedeno'}</p>
+                    <p><strong>Obsah knihy:</strong></p>
+                    <div class="book-description-container">
+                        ${this.escapeHtml(book.description) || 'Obsah nebyl nalezen.'}
+                    </div>
+                    <p><strong>Stav:</strong> ${statusMap[book.status] || 'Neznámý'}</p>
                     <p><strong>Poznámka:</strong> ${this.escapeHtml(book.note) || '<em>Bez poznámky</em>'}</p>
                     <p><small>V katalogu od: ${new Date(book.dateAdded).toLocaleDateString()}</small></p>
                 </div>
             `,
             imageUrl: book.cover,
-            custonClass: {
+            customClass: {
                 image: 'custom-swal-image'
             },
             confirmButtonText: 'Zavřít'
@@ -445,7 +496,7 @@ const App = {
         this.render();
     },
 
-    // aktualizace číselných )dajů - bez nutnosti vykreslovat celý seznam znovu
+    // aktualizace číselných údajů - bez nutnosti vykreslovat celý seznam znovu
     updateFilterCounts() {
         const counts = {
             all: this.data.length,
@@ -462,11 +513,7 @@ const App = {
             $btn.text(`${baseText} (${counts[type] || 0})`);
         });
 
-        // statistiky
-        $('#stat-total').text(counts.all);
-        $('#stat-read').text(counts.read);
-        $('#stat-not-read').text(counts['not read']);
-        $('#stat-reading').text(counts.reading);
+
     },
 
     render() {
@@ -491,7 +538,7 @@ const App = {
             return new Date(b.dateAdded) - new Date(a.dateAdded); 
         });
 
-        // Úkol č. 3: Výpočet počtů pro filtry
+        // Úkol č. 3 - Výpočet počtů pro filtry
         const counts = {
             all: this.data.length,
             read: this.data.filter(b => b.status === 'read').length,
@@ -519,11 +566,11 @@ const App = {
             $btn.text(`${baseText} (${count})`);
         });
 
-        // statistiky - počítáno ze všech knih
-        $('#stat-total').text(this.data.length);
-        $('#stat-read').text(this.data.filter(b => b.status === 'read').length);
-        $('#stat-not-read').text(this.data.filter(b => b.status === 'not read').length);
-        $('#stat-reading').text(this.data.filter(b => b.status === 'reading').length);
+        // statistiky - počítáno ze všech kniy - úkol č. 10
+        this.$statTotal.text(this.data.length);
+        this.$statRead.text(this.data.filter(b => b.status === 'read').length);
+        this.$statNotRead.text(this.data.filter(b => b.status === 'not read').length);
+        this.$statReading.text(this.data.filter(b => b.status === 'reading').length);
 
         
         // generování HTML
@@ -539,7 +586,10 @@ const App = {
             return `
             <div class="book-card" data-id="${book.id}">
                 <div class="clickable-area">
-                    <img src="${this.escapeHtml(book.cover)}" alt="Cover" class="book-cover">
+                    <img src="${this.escapeHtml(book.cover)}" 
+                        alt="Cover" 
+                        class="book-cover"
+                        onerror="this.src='https://placehold.co/120x160?text=No+Cover'; this.onerror=null;">
                     <div class="book-details">
                         <h3>${this.escapeHtml(book.title)}</h3>
                         <p class="book-meta"><strong>Autor:</strong> ${this.escapeHtml(book.author)}</p>
@@ -570,7 +620,7 @@ const App = {
         this.$container.html(htmlContent);
     },
 
-    // notifikace - zobrazí se v levím horním rohu
+    // notifikace - zobrazí se v pravém horním rohu
     showNotification(message, type = 'info') {
         // Definice Toastu (malé vyskakovací okno v rohu)
         const Toast = Swal.mixin({

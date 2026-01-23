@@ -32,14 +32,14 @@
                 <span class="toggle-icon">▼</span>
             </h2>
             
-            <div class="form-group">
+            <form id="api-search-form" class="form-group">
                 <label for="api-search-query">Název/Autor:</label>
                 <div class="isbn-group">
                     <input type="text" id="api-search-query" placeholder="Zadej název knihy...">
-                    <button type="button" id="btn-api-search" class="btn-search">Hledat</button>
+                    <button type="submit" id="btn-api-search" class="btn-search">Hledat</button>
                 </div>
                 <div id="api-search-results" class="api-results-container"></div>
-            </div>
+            </form>
 
             <form id="add-book-form">
                 <div class="form-group">
@@ -80,6 +80,12 @@
                     <label for="note">Poznámka:</label>
                     <textarea id="note" rows="3"></textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="description">Obsah knihy:</label>
+                    <textarea id="description" rows="5" placeholder="Popis knihy se načte automaticky z vyhledávání..."></textarea>
+                </div>
+
                 <div class="form-group">
                     <label for="cover-url">URL obálky:</label>
                     <input type="text" id="cover-url" placeholder="http://...">
