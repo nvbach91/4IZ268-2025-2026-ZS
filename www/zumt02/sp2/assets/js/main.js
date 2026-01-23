@@ -1,7 +1,7 @@
-import { buttonSearch, button2Watch, buttonSeen, buttonOrderRelevance, buttonOrderNewest, buttonOrderRating, buttonOrderPopularity, OrderEnum, setOrder, filtersContainer, appContainer, loadingImg, buttonApply } from "./elements.js";
-import { deselectOrder, renderAnime, renderCategories, renderIdList } from "./renders.js";
+import { buttonSearch, button2Watch, buttonSeen, buttonOrderRelevance, buttonOrderNewest, buttonOrderRating, buttonOrderPopularity, OrderEnum, setOrder, filtersContainer, appContainer, loadingImg, buttonApply, buttonRated } from "./elements.js";
+import { deselectOrder, renderAnime, renderCategories, renderList } from "./renders.js";
 import { getAnime, getCategories, getSelectedCategories } from "./network.js";
-import { cleanParams, get2Watch, getSeen, loadCategories, loadList, loadOrder, loadSearch, push2WatchToURL, pushSeenToURL, saveCategories, saveOrder, saveSearch } from "./storage.js";
+import { cleanParams, get2Watch, getRatings, getSeen, loadCategories, loadList, loadOrder, loadSearch, push2WatchToURL, pushRatedToURL, pushSeenToURL, saveCategories, saveOrder, saveSearch } from "./storage.js";
 
 const preload = loadingImg;
 
@@ -30,7 +30,7 @@ button2Watch.on('click', async () => {
   push2WatchToURL();
 
   filtersContainer.hide();
-  renderIdList(toWatch, 0, 10);
+  renderList(toWatch, 0, 10);
 });
 
 buttonSeen.on('click', async () => {
@@ -39,7 +39,17 @@ buttonSeen.on('click', async () => {
   pushSeenToURL();
 
   filtersContainer.hide();
-  renderIdList(seen, 0, 10);
+  renderList(seen, 0, 10);
+});
+
+buttonRated.on('click', async () => {
+  const ratings = getRatings();
+  const ratedAnimes = Array.from(ratings.values()).map(r => r.anime);
+  //console.log(ratedAnimes);
+  pushRatedToURL();
+
+  filtersContainer.hide();
+  renderList(ratedAnimes, 0, 10);
 });
 
 buttonOrderRelevance.on('click', () => {
@@ -97,6 +107,13 @@ window.addEventListener('popstate', async () => {
       filtersContainer.hide();
       const toWatch = get2Watch();
       renderIdList(toWatch, 0, 10);
+      break;
+
+    case 'rated':
+      filtersContainer.hide();
+      const ratings = getRatings();
+      const ratedAnimes = Array.from(ratings.values()).map(r => r.anime);
+      renderList(ratedAnimes, 0, 10);
       break;
 
     default:

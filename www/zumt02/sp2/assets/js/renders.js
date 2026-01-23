@@ -1,4 +1,4 @@
-import { appContainer, buttonOrderNewest, buttonOrderPopularity, buttonOrderRating, buttonOrderRelevance, categoryContainer, categoryList, emptyCategoryList, loadingImg, order, OrderEnum } from "./elements.js";
+import { appContainer, button2Watch, buttonOrderNewest, buttonOrderPopularity, buttonOrderRating, buttonOrderRelevance, buttonRated, buttonSeen, categoryContainer, categoryList, emptyCategoryList, loadingImg, order, OrderEnum } from "./elements.js";
 import { getAnimeById, makeRequest } from "./network.js";
 import { addRating, get2Watch, getRatings, getSeen, loadCategories, loadOrder, removeFrom2Watch, removeFromSeen, saveTo2Watch, saveToSeen } from "./storage.js";
 
@@ -125,107 +125,105 @@ const renderNav = (classType, links) => {
     return navbar;
 };
 
-const clickBehaviour2Watch = (toWatch, id, button2Watch) => {
+const update2WatchCount = (toWatch) => {
+    button2Watch.text(`To Watch (${toWatch.length})`);
+}
+
+const updateSeenCount = (seen) => {
+    buttonSeen.text(`Seen (${seen.length})`);
+}
+
+const updateRatedCount = (rated) => {
+    buttonRated.text(`Rated (${rated.size})`);
+}
+
+const clickBehaviour2Watch = (toWatch, anime, button2Watch, buttonSeen) => {
     button2Watch.off();
-    if (toWatch.includes(id)) {
+    //console.log(toWatch);
+    //console.log(anime);
+    //console.log(toWatch.some(a => a.id === anime.id));
+    if (toWatch.some(a => a.id === anime.id)) {
         button2Watch.text("Remove from To Watch list");
         button2Watch.on("click", () => {
-            removeFrom2Watch(id);
+            removeFrom2Watch(anime);
             button2Watch.text("Add to my To Watch list");
-            button2Watch.on("click", clickBehaviour2Watch(get2Watch(), id, button2Watch));
+            button2Watch.on("click", clickBehaviour2Watch(get2Watch(), anime, button2Watch, buttonSeen));
         });
     } else {
         button2Watch.text("Add to my To Watch list");
         button2Watch.on("click", () => {
-            saveTo2Watch(id);
+            saveTo2Watch(anime);
             button2Watch.text("Remove from To Watch list");
-            button2Watch.on("click", clickBehaviour2Watch(get2Watch(), id, button2Watch));
+            clickBehaviourSeen(getSeen(), anime, buttonSeen, button2Watch);
+            button2Watch.on("click", clickBehaviour2Watch(get2Watch(), anime, button2Watch, buttonSeen));
         });
     }
+    update2WatchCount(toWatch);
 };
 
-const clickBehaviourSeen = (seen, id, buttonSeen, button2Watch) => {
+const clickBehaviourSeen = (seen, anime, buttonSeen, button2Watch) => {
     buttonSeen.off();
-    if (seen.includes(id)) {
+    if (seen.some(a => a.id === anime.id)) {
         buttonSeen.text("Remove from Seen");
         buttonSeen.on("click", () => {
-            removeFromSeen(id);
+            removeFromSeen(anime);
             buttonSeen.text("Add to Seen");
-            buttonSeen.on("click", clickBehaviourSeen(getSeen(), id, buttonSeen, button2Watch));
+            buttonSeen.on("click", clickBehaviourSeen(getSeen(), anime, buttonSeen, button2Watch));
         });
     } else {
         buttonSeen.text("Add to Seen");
         buttonSeen.on("click", () => {
-            saveToSeen(id);
+            saveToSeen(anime);
             buttonSeen.text("Remove from Seen");
-            clickBehaviour2Watch(get2Watch(), id, button2Watch);
-            buttonSeen.on("click", clickBehaviourSeen(getSeen(), id, buttonSeen, button2Watch));
+            clickBehaviour2Watch(get2Watch(), anime, button2Watch, buttonSeen);
+            buttonSeen.on("click", clickBehaviourSeen(getSeen(), anime, buttonSeen, button2Watch));
         });
     }
+    updateSeenCount(seen);
 };
 
-const clickBehaviourStars = (animeElement, id, myRatings) => {
-    let stars = myRatings.get(id);
+const clickBehaviourStars = (animeElement, anime, myRatings) => {
+    let stars = myRatings.get(anime.id)?.stars;
     for (let index = 1; index <= 5; index++) {
-        const button = animeElement.find(`#${id}-${index}-star`);
+        const button = animeElement.find(`#${anime.id}-${index}-star`);
         button.removeClass("star-glowing");
         button.off();
         button.on("click", () => {
             //console.log(`Click! add rating ${id}-${index}`);
-            addRating(id, index);
+            addRating(anime, index);
             //console.log(id + "-" + getRatings().get(id));
-            clickBehaviourStars(animeElement, id, getRatings());
+            clickBehaviourStars(animeElement, anime, getRatings());
         });
     }
     if (stars != undefined) {
         for (let index = 1; index <= stars; index++) {
-            const button = animeElement.find(`#${id}-${index}-star`);
+            const button = animeElement.find(`#${anime.id}-${index}-star`);
             button.addClass("star-glowing");
         }
     }
+    updateRatedCount(myRatings);
 };
 
-export const renderAnime = async (resp) => {
-    if (resp === null) {
-        return;
-    }
+const renderAnimeDetail = (anime, studio, toWatch, seen, myRatings, resp) => {
+    const { id, attributes } = anime;
+    const { canonicalTitle, posterImage, averageRating, description, episodeCount, startDate, status, subtype, titles } = attributes;
+    const { small, tiny } = posterImage;
 
-    const animeList = resp.data.data;
-    const studios = getStudios(resp.data.included);
-    const producers = getProducers(resp.data.included);
-
-    const toWatch = get2Watch();
-    const seen = getSeen();
-    const myRatings = getRatings();
-    //console.log(myRatings);
-
-    let index = 0;
-    const animeElements = [];
-
-    animeElements.push(renderNav("page-nav-top", resp.data.links));
-
-    for (const anime of animeList) {
-        const { id, attributes, relationships } = anime;
-        const { canonicalTitle, posterImage, averageRating, description, episodeCount, startDate, status, subtype, titles } = attributes;
-        const { small } = posterImage;
-        const studio = getStudioName(relationships.productions.data, studios, producers, index);
-        index++;
-
-        //console.log(canonicalTitle);
-        const animeElement = $(`
-        <div class="anime">
-            <h2>${canonicalTitle}</h2>
-            <h3>${(titles.en && titles.en !== canonicalTitle) ? titles.en : ""}</h3>
-            <h3>${titles.ja_jp ? titles.ja_jp : ""}</h3>
-            <h3>Season: ${formatSeason(startDate)}</h3>
-            <div class="flex-row">
+    //console.log(canonicalTitle);
+    const animeElement = $(`
+    <div class="anime">
+        <h2>${canonicalTitle}</h2>
+        <h3>${(titles.en && titles.en !== canonicalTitle) ? titles.en : ""}</h3>
+        <h3>${titles.ja_jp ? titles.ja_jp : ""}</h3>
+        <h3>Season: ${formatSeason(startDate)}</h3>
+        <div class="flex-row">
             <div class="flex-col">
                 <img src="${small}" alt="poster image">
                 <div class="flex-row">
                 <div>${subtype.toUpperCase()}</div>
                 <div>${status.toUpperCase()}</div>
                 </div>
-                <div>Episodes: ${episodeCount}</div>
+                <div>Episodes: ${episodeCount ? episodeCount : "unknown"}</div>
                 <div>Studio: ${studio}</div>
                 <div>Rating: ${printStars(averageRating)} ${averageRating ? (averageRating + " %") : "No ratings"}</div>
             </div>
@@ -243,16 +241,84 @@ export const renderAnime = async (resp) => {
                         <button id="${id}-5-star"><i class="fas fa-star"></i></button>
                     </div>
                 </div>
-            </div>
+                <div class="flex-row">
+                    <button id="${id}-button-go-back">Go back</button>
+                </div>
             </div>
         </div>
-        `);
-        const button2Watch = animeElement.find(`#${id}-button-add-2watch`);
-        clickBehaviour2Watch(toWatch, id, button2Watch);
-        const buttonSeen = animeElement.find(`#${id}-button-add-seen`);
-        clickBehaviourSeen(seen, id, buttonSeen, button2Watch);
-        clickBehaviourStars(animeElement, id, myRatings);
-        animeElements.push(animeElement);
+    </div>
+    `);
+    const button2Watch = animeElement.find(`#${id}-button-add-2watch`);
+    const buttonSeen = animeElement.find(`#${id}-button-add-seen`);
+    clickBehaviour2Watch(toWatch, { id, canonicalTitle, tiny, averageRating }, button2Watch, buttonSeen);
+    clickBehaviourSeen(seen, { id, canonicalTitle, tiny, averageRating }, buttonSeen, button2Watch);
+    clickBehaviourStars(animeElement, { id, canonicalTitle, tiny, averageRating }, myRatings);
+    const buttonGoBack = animeElement.find(`#${id}-button-go-back`);
+    buttonGoBack.on("click", () => {
+        appContainer.empty();
+        renderAnime(resp);
+    });
+    return animeElement;
+};
+
+const renderAnimeSmall = (anime, studios, producers, toWatch, seen, myRatings, index, resp) => {
+    const { id, attributes, relationships } = anime;
+    const { canonicalTitle, posterImage, averageRating } = attributes;
+    const { tiny } = posterImage;
+    const studio = getStudioName(relationships.productions.data, studios, producers, index);
+    index++;
+
+    //console.log(canonicalTitle);
+    const animeElement = $(`
+    <div class="anime">
+        <div class="flex-row">
+            <div class="flex-col">
+                <img src="${tiny}" alt="poster image">
+                <button id="${id}-button-detail">View Detail</button>
+            </div>
+            <div class="flex-col">
+                <h2>${canonicalTitle}</h2>
+                <div>Rating: ${printStars(averageRating)} ${averageRating ? (averageRating + " %") : "No ratings"}</div>
+            </div>
+        </div>
+        <br>
+    </div>
+    `);
+    const buttonDetail = animeElement.find(`#${id}-button-detail`);
+    buttonDetail.on("click", () => {
+        appContainer.empty();
+        appContainer.append(renderAnimeDetail(anime, studio, toWatch, seen, myRatings, resp));
+    });
+
+    return animeElement;
+};
+
+export const renderAnime = async (resp) => {
+    if (resp === null) {
+        return;
+    }
+
+    const animeList = resp.data.data;
+    const studios = getStudios(resp.data.included);
+    const producers = getProducers(resp.data.included);
+
+    const toWatch = get2Watch();
+    const seen = getSeen();
+    const myRatings = getRatings();
+    //console.log(myRatings);
+
+    update2WatchCount(toWatch);
+    updateSeenCount(seen);
+    updateRatedCount(myRatings);
+
+    let index = 0;
+    const animeElements = [];
+
+    animeElements.push(renderNav("page-nav-top", resp.data.links));
+
+    for (const anime of animeList) {
+        
+        animeElements.push(renderAnimeSmall(anime, studios, producers, toWatch, seen, myRatings, index, resp));
     };
 
     animeElements.push(renderNav("page-nav-bottom", resp.data.links));
@@ -315,8 +381,8 @@ export const renderCategories = async (resp) => {
     categoryContainer.append(categoryElements);
 };
 
-const renderNavId = (classType, idList, from) => {
-    if (typeof idList === "undefined") {
+const renderNavId = (classType, list, from) => {
+    if (typeof list === "undefined") {
         return null;
     };
 
@@ -330,27 +396,27 @@ const renderNavId = (classType, idList, from) => {
     `);
 
     navbar.find(".button-first").on("click", async () => {
-        renderIdList(idList, 0, 10);
+        renderList(list, 0, 10);
     });
 
     if (from < 10) {
         navbar.find(".button-prev").remove();
     } else {
         navbar.find(".button-prev").on("click", async () => {
-            renderIdList(idList, from - 10, from);
+            renderList(list, from - 10, from);
         });
     }
 
-    if (from + 10 > idList.length) {
+    if (from + 10 > list.length) {
         navbar.find(".button-next").remove();
     } else {
         navbar.find(".button-next").on("click", async () => {
-            renderIdList(idList, from + 10, from + 20);
+            renderList(list, from + 10, from + 20);
         });
     }
 
     navbar.find(".button-last").on("click", async () => {
-        const last = idList.length;
+        const last = list.length;
         if (last < 0) {
             last = 0;
         }
@@ -359,28 +425,128 @@ const renderNavId = (classType, idList, from) => {
             start = 0;
         }
         //console.log(`${start} - ${last}`);
-        renderIdList(idList, start, last);
+        renderList(list, start, last);
     });
 
     return navbar;
 };
 
-export const renderIdList = async (idList, from, to) => {
+const renderAnimeDetailById = (resp, list, from, to) => {
+    const anime = resp.data.data;
+    const { id, attributes } = anime;
+    const { canonicalTitle, posterImage, averageRating, description, episodeCount, startDate, status, subtype, titles } = attributes;
+    const { small, tiny } = posterImage;
+
+    const studios = getStudios(resp.data.included);
+    const producers = getProducers(resp.data.included);
+    const studio = getStudioName(resp.data.data.relationships.productions.data, studios, producers, 0);
+
+    const toWatch = get2Watch();
+    const seen = getSeen();
+    const myRatings = getRatings();
+
+    //console.log(canonicalTitle);
+    const animeElement = $(`
+    <div class="anime">
+        <h2>${canonicalTitle}</h2>
+        <h3>${(titles.en && titles.en !== canonicalTitle) ? titles.en : ""}</h3>
+        <h3>${titles.ja_jp ? titles.ja_jp : ""}</h3>
+        <h3>Season: ${formatSeason(startDate)}</h3>
+        <div class="flex-row">
+            <div class="flex-col">
+                <img src="${small}" alt="poster image">
+                <div class="flex-row">
+                <div>${subtype.toUpperCase()}</div>
+                <div>${status.toUpperCase()}</div>
+                </div>
+                <div>Episodes: ${episodeCount ? episodeCount : "unknown"}</div>
+                <div>Studio: ${studio}</div>
+                <div>Rating: ${printStars(averageRating)} ${averageRating ? (averageRating + " %") : "No ratings"}</div>
+            </div>
+            <div class="flex-col anime-desc">
+                <p>${description}</p>
+                <div class="flex-row">
+                    <button id="${id}-button-add-2watch">Add to my To Watch list</button>
+                    <button id="${id}-button-add-seen">Add to Seen</button>
+                    <div>
+                        <label>My rating: </label>
+                        <button id="${id}-1-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-2-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-3-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-4-star"><i class="fas fa-star"></i></button>
+                        <button id="${id}-5-star"><i class="fas fa-star"></i></button>
+                    </div>
+                </div>
+                <div class="flex-row">
+                    <button id="${id}-button-go-back">Go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `);
+    const button2Watch = animeElement.find(`#${id}-button-add-2watch`);
+    const buttonSeen = animeElement.find(`#${id}-button-add-seen`);
+    clickBehaviour2Watch(toWatch, { id, canonicalTitle, tiny, averageRating }, button2Watch, buttonSeen);
+    clickBehaviourSeen(seen, { id, canonicalTitle, tiny, averageRating }, buttonSeen, button2Watch);
+    clickBehaviourStars(animeElement, { id, canonicalTitle, tiny, averageRating }, myRatings);
+    const buttonGoBack = animeElement.find(`#${id}-button-go-back`);
+    buttonGoBack.on("click", () => {
+        appContainer.empty();
+        renderList(list, from, to);
+    });
+    return animeElement;
+};
+
+export const renderList = async (list, from, to) => {
     appContainer.empty();
-    if (!idList?.length) {
+    if (!list?.length) {
         return;
     }
-    const idListSlice = idList.slice(from, to);
-    const animePromises = idListSlice.map(id => getAnimeById(id));
+    const listSlice = list.slice(from, to);
+    //console.log(listSlice);
+    /*const animePromises = listSlice.map(id => getAnimeById(id));
     const animes = await Promise.all(animePromises);
     const merged = mergeAxiosJsonApiResponses(animes);
     //console.log(merged);
-    renderAnime(merged);
-    appContainer.prepend(renderNavId("page-nav-top", idList, from));
-    appContainer.append(renderNavId("page-nav-bottom", idList, from));
+    renderAnime(merged);*/
+    const animeElements = [];
+    for (const anime of listSlice) {
+        const {  id, canonicalTitle, tiny, averageRating } = anime;
+        const animeElement = $(`
+        <div class="anime">
+            <div class="flex-row">
+                <div class="flex-col">
+                    <img src="${tiny}" alt="poster image">
+                    <button id="${id}-button-detail">View Detail</button>
+                </div>
+                <div class="flex-col">
+                    <h2>${canonicalTitle}</h2>
+                    <div>Rating: ${printStars(averageRating)} ${averageRating ? (averageRating + " %") : "No ratings"}</div>
+                </div>
+            </div>
+            <br>
+        </div>
+        `);
+        const buttonDetail = animeElement.find(`#${id}-button-detail`);
+        buttonDetail.on("click", async () => {
+            appContainer.empty();
+            appContainer.append(loadingImg.clone());
+            const resp = await getAnimeById(id);
+            appContainer.empty();
+
+            update2WatchCount(get2Watch());
+            updateSeenCount(getSeen());
+            appContainer.append(renderAnimeDetailById(resp, list, from, to));
+        });
+        animeElements.push(animeElement);
+    }
+    appContainer.empty();
+    appContainer.append(animeElements);
+    appContainer.prepend(renderNavId("page-nav-top", list, from));
+    appContainer.append(renderNavId("page-nav-bottom", list, from));
 };
 
-const mergeAxiosJsonApiResponses = (responses) => {
+/*const mergeAxiosJsonApiResponses = (responses) => {
     return {
         data: {
             data: responses.flatMap(r => r.data.data),
@@ -393,4 +559,4 @@ const mergeAxiosJsonApiResponses = (responses) => {
             )
         }
     };
-};
+};*/

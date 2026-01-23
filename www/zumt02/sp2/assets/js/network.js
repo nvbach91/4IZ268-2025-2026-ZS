@@ -10,7 +10,7 @@ export const makeRequest = async (url) => {
         //console.log("Status:", resp.status);
         //console.log("Headers:", resp.headers);
         //console.log("Body:", resp.data);
-        console.log(resp.data.data);
+        //console.log(resp.data.data);
         //console.log(resp.data.included);
     } catch (e) {
         console.error("Axios error:", e);

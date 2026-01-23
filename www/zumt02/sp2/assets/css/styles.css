@@ -74,6 +74,7 @@ footer {
 .flex-col {
     display: flex;
     flex-direction: column;
+    gap: 2%;
 }
 
 .buttons-right {

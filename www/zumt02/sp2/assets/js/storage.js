@@ -16,17 +16,18 @@ export const get2Watch = () => {
     return json;
 };
 
-export const saveTo2Watch = (id) => {
+export const saveTo2Watch = (anime) => {
     let toWatch = get2Watch();
-    if (!toWatch.includes(id)) {
-        toWatch.push(id);
+    if (!toWatch.some(a => a.id === anime.id)) {
+        toWatch.push(anime);
         localStorage.setItem("toWatch", JSON.stringify(toWatch));
     }
+    removeFromSeen(anime);
 };
 
-export const removeFrom2Watch = (id) => {
+export const removeFrom2Watch = (anime) => {
     let toWatch = get2Watch();
-    const index = toWatch.indexOf(id);
+    const index = toWatch.findIndex(a => a.id === anime.id);
     if (index !== -1) {
         toWatch.splice(index, 1);
         localStorage.setItem("toWatch", JSON.stringify(toWatch));
@@ -49,18 +50,18 @@ export const getSeen = () => {
     return json;
 };
 
-export const saveToSeen = (id) => {
+export const saveToSeen = (anime) => {
     let seen = getSeen();
-    if (!seen.includes(id)) {
-        seen.push(id);
+    if (!seen.some(a => a.id === anime.id)) {
+        seen.push(anime);
         localStorage.setItem("seen", JSON.stringify(seen));
     }
-    removeFrom2Watch(id);
+    removeFrom2Watch(anime);
 };
 
-export const removeFromSeen = (id) => {
+export const removeFromSeen = (anime) => {
     let seen = getSeen();
-    const index = seen.indexOf(id);
+    const index = seen.findIndex(a => a.id === anime.id);
     if (index !== -1) {
         seen.splice(index, 1);
         localStorage.setItem("seen", JSON.stringify(seen));
@@ -69,37 +70,36 @@ export const removeFromSeen = (id) => {
 
 export const getRatings = () => {
     const stored = localStorage.getItem("ratings");
-    const newEmptyMap = new Map();
-    if (stored === null) {
-        return newEmptyMap;
-    }
-    let json;
+    if (!stored) return new Map();
+
     try {
-        json = new Map(JSON.parse(stored));
-    } catch (error) {
-        console.error(error);
-        return newEmptyMap;
-    }
-    return json;
-};
-
-export const addRating = (id, stars) => {
-    let ratings = getRatings();
-    if (ratings.get(id) === stars) {
-        removeRating(id);
-    } else {
-        ratings.set(id, stars);
-        localStorage.setItem("ratings", JSON.stringify([...ratings]));
+        return new Map(JSON.parse(stored));
+    } catch (e) {
+        console.error(e);
+        return new Map();
     }
 };
 
-export const removeRating = (id) => {
-    let ratings = getRatings();
-    if (ratings.has(id)) {
+export const addRating = (anime, stars) => {
+    const ratings = getRatings();
+    const id = anime.id;
+
+    if (ratings.get(id)?.stars === stars) {
         ratings.delete(id);
-        localStorage.setItem("ratings", JSON.stringify([...ratings]));
+    } else {
+        ratings.set(id, {anime, stars});
     }
+
+    localStorage.setItem("ratings", JSON.stringify([...ratings]));
 };
+
+
+export const removeRating = (anime) => {
+    const ratings = getRatings();
+    ratings.delete(anime.id);
+    localStorage.setItem("ratings", JSON.stringify([...ratings]));
+};
+
 
 const updateUrl = (params, replace = false) => {
     const url = `${location.pathname}?${params.toString()}`;
@@ -129,6 +129,10 @@ export const pushSeenToURL = (replace = false) => {
 
 export const push2WatchToURL = (replace = false) => {
     saveListURL('toWatch', replace);
+};
+
+export const pushRatedToURL = (replace = false) => {
+    saveListURL('rated', replace);
 };
 
 export const loadList = () => {
