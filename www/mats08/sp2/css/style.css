@@ -1,0 +1,256 @@
+:root {
+    --bg-color: #f4f7f6;    
+    --header-bg: #2c3e50;    
+    --card-bg: #ffffff;    
+    --primary: #3498db; 
+    --text-main: #333333;      
+    --text-light: #7f8c8d;   
+    --accent: #e74c3c;
+    
+    --radius: 16px; 
+    --shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Hlavička */
+header {
+    background: var(--header-bg);
+    color: white;
+    position: fixed;
+    top: 0; width: 100%; z-index: 100;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+.logo i { margin-right: 10px; color: var(--primary); }
+
+.search-box {
+    flex-grow: 1;
+    max-width: 500px;
+    margin-left: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    padding-right: 50px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: 0.3s;
+}
+
+input[type="text"]::placeholder { color: rgba(255,255,255,0.6); }
+
+input[type="text"]:focus {
+    background: white;
+    color: #333;
+    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.search-btn:hover { background: #2980b9; }
+
+/* Layout */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+main { flex: 1; padding-top: 30px; }
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+h2 { margin: 0; font-size: 1.5rem; color: #2c3e50; }
+.text-red { color: var(--accent); }
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.divider { border: 0; height: 1px; background: #ddd; margin: 40px 0; }
+
+/* Karty filmů */
+.movie-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    color: var(--text-main);
+}
+
+.movie-year {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.fav-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #eef2f7;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+
+.fav-btn:hover { background: var(--primary); color: white; }
+
+.remove-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ffebee;
+    border-radius: 8px;
+    background: white;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove-btn:hover { background: var(--accent); color: white; }
+
+.btn-clear {
+    background: none; border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+.btn-clear:hover { color: var(--accent); }
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    color: #bdc3c7;
+}
+.empty-state i { font-size: 4rem; margin-bottom: 15px; display: block; }
+
+.spinner {
+    width: 40px; height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #2c3e50; color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+    animation: fadeIn 0.3s;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.hidden { display: none !important; }
+.error { color: var(--accent); text-align: center; margin-top: 20px; }
+
+footer {
+    background: white;
+    border-top: 1px solid #eee;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: auto;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .header-content { flex-direction: column; gap: 15px; }
+    .search-box { width: 100%; margin: 0; }
+    body { padding-top: 140px; }
+}
