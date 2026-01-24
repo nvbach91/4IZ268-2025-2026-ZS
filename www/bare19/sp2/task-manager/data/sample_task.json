@@ -1,0 +1,4 @@
+[
+  { "id": 1, "title": "Ukázkový úkol", "completed": false },
+  { "id": 2, "title": "Druhý úkol", "completed": true }
+]
