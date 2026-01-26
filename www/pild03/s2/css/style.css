@@ -1,4 +1,3 @@
-/* --- Globální proměnné a reset --- */
 :root {
     --primary-color: #0088A8;
     --secondary-color: #00CC99;
@@ -25,14 +24,13 @@ body {
     padding: 0 0 40px 0;
 }
 
-/* --- Typografie a hlavička --- */
 header {
     background: linear-gradient(135deg, var(--primary-color), #005f73);
     color: white;
     padding: 60px 20px;
     text-align: center;
     margin-bottom: 40px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -40,7 +38,6 @@ header h1 {
     margin-bottom: 10px;
 }
 
-/* --- Layout --- */
 main {
     max-width: 1400px;
     margin: 0 auto;
@@ -64,7 +61,6 @@ h2 {
     gap: 10px;
 }
 
-/* --- Vyhledávání a Recepty --- */
 .search-controls {
     display: flex;
     gap: 15px;
@@ -103,7 +99,7 @@ input[type="text"]:focus {
 
 .recipe-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .recipe-card img {
@@ -118,7 +114,6 @@ input[type="text"]:focus {
     text-align: center;
 }
 
-/* --- Týdenní Plánovač (8 sloupců) --- */
 #meal-planner-grid {
     display: grid;
     grid-template-columns: 100px repeat(7, 1fr);
@@ -149,11 +144,6 @@ input[type="text"]:focus {
     background-color: white;
     min-height: 100px;
     padding: 8px;
-    transition: var(--transition);
-}
-
-.meal-slot:hover {
-    background-color: #f9f9f9;
 }
 
 .planned-recipe {
@@ -163,7 +153,6 @@ input[type="text"]:focus {
     font-size: 0.8rem;
     position: relative;
     border-radius: 4px;
-    animation: fadeIn 0.3s ease;
 }
 
 .remove-btn {
@@ -177,7 +166,17 @@ input[type="text"]:focus {
     font-weight: bold;
 }
 
-/* --- Tlačítka --- */
+.planner-actions, .list-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.list-actions {
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
 .btn-primary, .btn-secondary, .btn-danger, #search-button {
     padding: 12px 24px;
     border-radius: var(--border-radius);
@@ -185,70 +184,43 @@ input[type="text"]:focus {
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition);
+    font-size: 0.95rem;
 }
 
-.btn-primary, #search-button { background-color: var(--secondary-color); color: white; }
-.btn-primary:hover, #search-button:hover { filter: brightness(0.9); }
+.btn-primary, #search-button {
+    background-color: var(--secondary-color);
+    color: white;
+}
 
-.btn-secondary { background-color: #b2bec3; color: white; }
-.btn-danger { background-color: var(--accent-color); color: white; }
+.btn-secondary {
+    background-color: #b2bec3;
+    color: white;
+}
 
-/* --- Pomocné třídy --- */
+.btn-danger {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-danger:hover, #search-button:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .hidden { display: none !important; }
 
-/* --- Loading Spinner --- */
 #loader {
     text-align: center;
     padding: 20px;
-    font-weight: bold;
     color: var(--primary-color);
+    font-weight: bold;
 }
 
-#loader::before {
-    content: "";
-    display: inline-block;
-    width: 20px; height: 20px;
-    border: 3px solid rgba(0, 136, 168, 0.3);
-    border-top-color: var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* --- Toast Notifikace --- */
-.toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px 30px;
-    border-radius: 8px;
-    color: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 9999;
-    animation: slideIn 0.5s ease-out;
-}
-
-.toast-info { background: var(--primary-color); }
-.toast-error { background: var(--accent-color); }
-
-@keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-/* --- Responzivita --- */
 @media (max-width: 1024px) {
     #meal-planner-grid {
-        grid-template-columns: 1fr; /* Stack on mobile */
+        grid-template-columns: 1fr;
     }
     .grid-header { display: none; }
-    .type-cell { width: 100%; border-bottom: 1px solid #eee; }
+    .planner-actions { flex-direction: column; }
 }

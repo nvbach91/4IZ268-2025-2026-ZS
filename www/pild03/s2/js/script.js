@@ -27,7 +27,6 @@ const MealApp = {
         this.attachEventListeners();
     },
 
-    // --- API & SEARCH ---
    async searchRecipes(query) {
         if (!query || query.trim() === "") return;
         
@@ -38,8 +37,6 @@ const MealApp = {
         const q = query.trim().toLowerCase();
 
         try {
-            // Paralelní volání endpointů: Název, Kategorie, Oblast
-            // Poznámka: TheMealDB nepodporuje search v kompletně všech ingrediencích najednou
             const [nameRes, catRes, areaRes] = await Promise.all([
                 fetch(`${this.API_BASE}search.php?s=${encodeURIComponent(q)}`),
                 fetch(`${this.API_BASE}filter.php?c=${encodeURIComponent(q)}`),
@@ -52,19 +49,16 @@ const MealApp = {
 
             const combinedMeals = new Map();
 
-            // 1. Přidání výsledků podle názvu (obsahuje nejvíce dat)
             if (nameData.meals) {
                 nameData.meals.forEach(meal => combinedMeals.set(meal.idMeal, meal));
             }
 
-            // 2. Přidání výsledků podle kategorie (např. Seafood, Vegan)
             if (catData.meals) {
                 catData.meals.forEach(meal => {
                     if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
                 });
             }
 
-            // 3. Přidání výsledků podle oblasti (např. Italian, French)
             if (areaData.meals) {
                 areaData.meals.forEach(meal => {
                     if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
@@ -76,7 +70,6 @@ const MealApp = {
             if (finalMeals.length > 0) {
                 this.renderSearchResults(finalMeals);
             } else {
-                // Poslední pokus: zkusit to jako hlavní ingredienci (filter.php?i=)
                 const ingRes = await fetch(`${this.API_BASE}filter.php?i=${encodeURIComponent(q)}`);
                 const ingData = await ingRes.json();
                 
@@ -121,9 +114,7 @@ const MealApp = {
         });
     },
 
-    // --- VYLEPŠENÝ DETAIL RECEPTU ---
 async showRecipeDetail(id) {
-        // Prevence duplicity
         $('.recipe-detail-overlay').remove();
 
         this.toggleLoader(true);
@@ -132,7 +123,6 @@ async showRecipeDetail(id) {
 
         if (!recipe) return;
 
-        // Formátování ingrediencí do buněk
         let ingredientsHtml = '';
         for (let i = 1; i <= 20; i++) {
             const ing = recipe[`strIngredient${i}`];
@@ -146,10 +136,9 @@ async showRecipeDetail(id) {
             }
         }
 
-        // Formátování instrukcí - rozdělení na odstavce podle konců řádků
         const formattedInstructions = recipe.strInstructions
             .split('\n')
-            .filter(para => para.trim() !== '') // Odstraní prázdné řádky
+            .filter(para => para.trim() !== '') 
             .map(para => `<p style="margin-bottom: 20px;">${para.trim()}</p>`)
             .join('');
 
@@ -167,7 +156,7 @@ async showRecipeDetail(id) {
                 
                 <div style="width: 30%; background: #f4f7f9; padding: 45px 30px; border-right: 1px solid #e1e8ed; overflow-y: auto;">
                     <h3 style="color: #0088A8; font-size: 24px; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #00CC99; padding-bottom: 10px;">
-                        <span>🛒</span> Ingredients
+                        Ingredients
                     </h3>
                     <div style="display: flex; flex-direction: column;">
                         ${ingredientsHtml}
@@ -182,7 +171,7 @@ async showRecipeDetail(id) {
                     </div>
 
                     <h3 style="color: #0088A8; font-size: 26px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
-                        <span>👨‍🍳</span> Preparation Method
+                         Preparation Method
                     </h3>
                     
                     <div style="line-height: 1.9; color: #333; font-size: 18px; text-align: justify; background: #fff; border-radius: 15px;">
@@ -203,7 +192,7 @@ async showRecipeDetail(id) {
         $(detailContainer).find('.close-detail-btn').on('click', close);
         $(detailContainer).on('click', (e) => { if (e.target === detailContainer) close(); });
     },
-    // --- GRID RENDERING ---
+
     renderGrid() {
         const $grid = $('#meal-planner-grid');
         $grid.empty();
@@ -231,7 +220,7 @@ async showRecipeDetail(id) {
             </div>
         `);
         
-        // Kliknutí na název receptu v kalendáři otevře detail
+    
         $el.find('.recipe-name-click').on('click', (e) => {
             e.stopPropagation();
             this.showRecipeDetail(item.id);
@@ -247,7 +236,7 @@ async showRecipeDetail(id) {
         $slot.html($el);
     },
 
- // --- GENERATOR S LOGIKOU PRO SPOJOVÁNÍ VAJEC ---
+
     async generateList() {
         const recipeIds = [...new Set(Object.values(this.state.mealPlan).map(item => item.id))];
         if (recipeIds.length === 0) return;
@@ -259,7 +248,6 @@ async showRecipeDetail(id) {
             const recipe = await this.getRecipeDetails(id);
             if (!recipe) continue;
 
-            // Dočasný objekt pro aktuální recept, abychom párovali bílky/žloutky v rámci jednoho jídla
             let recipeIngredients = [];
 
             for (let i = 1; i <= 20; i++) {
@@ -273,26 +261,20 @@ async showRecipeDetail(id) {
                 }
             }
 
-            // --- LOGIKA PRO SPOJENÍ VAJEC ---
-            // Najdeme bílky a žloutky v tomto receptu
             let whites = recipeIngredients.find(ing => ing.name === 'Egg Whites' && ing.unit === 'pcs');
             let yolks = recipeIngredients.find(ing => ing.name === 'Egg Yolks' && ing.unit === 'pcs');
 
             if (whites && yolks) {
-                // Počet celých vajec je minimum z bílků a žloutků (obvykle jsou stejné, např. 3 a 3)
-                let wholeEggsCount = Math.min(whites.value, yolks.value);
+                let wholeEggsCount = Math.max(whites.value, yolks.value);
                 
-                // Přidáme celá vejce
                 recipeIngredients.push({ name: 'Eggs', value: wholeEggsCount, unit: 'pcs' });
                 
-                // Odečteme je z původních hromádek
                 whites.value -= wholeEggsCount;
                 yolks.value -= wholeEggsCount;
             }
 
-            // --- ULOŽENÍ DO CELKOVÉHO SEZNAMU ---
             recipeIngredients.forEach(ing => {
-                if (ing.value <= 0) return; // Pokud jsme všechno spotřebovali na celá vejce, přeskočíme
+                if (ing.value <= 0) return; 
                 
                 if (!totals[ing.name]) totals[ing.name] = {};
                 if (!totals[ing.name][ing.unit]) totals[ing.name][ing.unit] = 0;
@@ -304,30 +286,23 @@ async showRecipeDetail(id) {
         this.toggleLoader(false);
     },
 
-    // --- NORMALIZACE (Ponecháme bílky/žloutky pro generator) ---
     getNormalizedName(name) {
         if (!name) return "";
         let lower = name.toLowerCase().trim();
-        
-        if (lower.includes('yolk')) return 'Egg Yolks';
-        if (lower.includes('white')) return 'Egg Whites';
-
-        const modifiers = ['melted', 'softened', 'cold', 'unsalted', 'salted', 'frozen', 'fresh', 'chopped', 'minced', 'large', 'small'];
-        modifiers.forEach(mod => {
-            lower = lower.replace(new RegExp(`\\b${mod}\\b`, 'g'), '');
+        const stopWords = ['melted', 'softened', 'cold', 'unsalted', 'salted', 'frozen', 'fresh', 'chopped', 'minced', 'large', 'small', 'tinned', 'canned'];
+        stopWords.forEach(word => {
+            lower = lower.replace(new RegExp(`\\b${word}\\b`, 'g'), '');
         });
 
-        lower = lower.trim();
-        if (lower.includes('butter')) return 'Butter';
-        if (lower.includes('egg')) return 'Eggs';
-        if (lower.includes('onion')) return 'Onion';
-        if (lower.includes('garlic')) return 'Garlic';
-        if (lower.includes('flour')) return 'Flour';
-        if (lower.includes('sugar')) return 'Sugar';
+        lower = lower.replace(/(\w+)(es|s)\b/g, '$1').trim();
+
+        if (lower.includes('passata') || lower.includes('puree') || (lower.includes('tomato') && lower.includes('sauce'))) {
+            return 'Tomato Puree/Passata';
+        }
+
 
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     },
-
 
     parseMeasure(text) {
         if (!text) return { value: 0, unit: 'pcs' };
