@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmový Prehliadač (4IZ268 SP2)</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div id="logo">Filmový Prehliadač</div>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Zadajte názov filmu/seriálu..." required>
+            <button type="submit">HĽADAŤ</button>
+        </form>
+    </header>
+
+    <main id="app-container">
+        <section id="favorites-list">
+            <h2>⭐ Moje obľúbené tituly</h2>
+            <div id="favorites-content" class="results-grid">
+                <p>Zatiaľ nemáte žiadne obľúbené tituly.</p>
+            </div>
+        </section>
+
+        <section id="dynamic-content">
+            <h2>Dynamické hľadanie</h2>
+            <p>Použite vyhľadávací formulár vyššie.</p>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+</html>
