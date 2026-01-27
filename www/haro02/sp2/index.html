@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music app</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<div id="app">
+    <header class="top-bar">
+        <div class="title-row">
+            <h1>Music app</h1>
+            <div class="spinner"></div>
+        </div>
+
+        <div class="search-controls">
+            <label for="search-input">Search users or songs:</label>
+            <input id="search-input" type="search" placeholder="Search users or songs...">
+            <button id="find-combined">Find by query</button>
+            <button id="find-top-songs">Top rated songs</button>
+            <button id="find-favorite-songs">Favorites songs</button>
+        </div>
+    </header>
+    <div id="info"></div>
+    <div class="content-container">
+        <div class="column-wrapper">
+            <h2 class="column-header">Users</h2>
+            <div id="user-list" class="scroll-area"></div>
+        </div>
+
+        <div class="column-wrapper">
+            <h2 class="column-header">Songs</h2>
+            <div id="song-list" class="scroll-area"></div>
+        </div>
+
+        <div class="column-wrapper">
+            <h2 class="column-header">Details</h2>
+            <div id="song-details" class="scroll-area"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
