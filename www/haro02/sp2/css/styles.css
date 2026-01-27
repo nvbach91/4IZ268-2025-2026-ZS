@@ -1,0 +1,167 @@
+
+body, html {
+    margin: 0;                       
+    padding: 0;                      
+    height: 100%;                    
+    font-family: sans-serif;         
+    overflow: hidden;                
+}
+
+button {
+    padding: 5px 10px;               
+    background: #fff;                
+    border: 1px solid #999;          
+    cursor: pointer;                 
+    font-size: 13px;                 
+}
+
+#app {
+    display: flex;                   
+    flex-direction: column;          
+    height: 100%;                   
+}
+
+
+.top-bar {
+    background: #a39321;             
+    color: black;                    
+    padding: 20px;                   
+    border-bottom: 1px solid #ccc;   
+}
+
+.title-row {
+    display: flex;                   
+    align-items: center;             
+    gap: 15px;                       
+    margin-bottom: 15px;             
+}
+
+.title-row h1 {
+    margin: 0;                       
+    line-height: 1;                  
+}
+
+
+.spinner {
+    width: 25px;
+    height: 25px;
+    animation: spinning 1s linear infinite;
+    border: 2px solid #eee;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spinning 1s linear infinite;
+    display: none;
+}
+
+@keyframes spinning {
+    0% { transform: rotate(0deg); }   
+    100% { transform: rotate(360deg); } 
+}
+
+#info {
+    padding-left: 20px;              
+    width: 100%;                     
+    height: 32px;                    
+    line-height: 32px;               
+}
+
+
+.search-controls {
+    display: flex;                   
+    gap: 10px;                       
+    align-items: center;             
+}
+
+
+.content-container {
+    display: flex;                   
+    flex: 1;                         
+    overflow: hidden;                
+}
+
+
+
+.column-wrapper {
+    flex: 1;                         
+    display: flex;                   
+    flex-direction: column;          
+    border-right: 1px solid #eee;    
+}
+
+.column-wrapper:last-child {
+    border-right: none;              
+}
+
+.column-header {
+    margin: 0;                       
+    padding: 15px;                   
+    border-bottom: 1px solid #eee;   
+}
+
+.scroll-area {
+    flex: 1;                         
+    overflow-y: auto;                
+    padding: 15px;                   
+}
+
+
+.entity-row {
+    display: flex;                   
+    flex-direction: row;             
+    align-items: center;             
+    gap: 15px;                       
+    width: 100%;                     
+    padding: 10px 0;                 
+    border-bottom: 1px solid #eee;   
+}
+
+.entity-name {
+    flex: 1;                         
+    margin: 0;                       
+}
+
+.entity-row img, button {
+    flex-shrink: 0;                  
+}
+
+
+#song-details {
+    padding: 15px;                   
+}
+
+.details-content {
+    display: flex;                   
+    flex-direction: column;          
+    gap: 12px;                       
+}
+
+.top-actions {
+    display: flex;                   
+    gap: 10px;                       
+    width: 100%;                     
+}
+
+.top-actions button:hover,
+.show-user-songs:hover {
+    background: #eee;                
+}
+
+.remove-favorite {
+    color: #b00;                     
+}
+
+.add-favorite {
+    color: #060;                     
+}
+
+.song-title {
+    font-weight: bold;               
+    margin-top: 5px;                 
+}
+
+#song-details iframe {
+    width: 100%;                     
+    height: 500px;                   
+    border: 1px solid #ccc;          
+    display: block;                  
+}
