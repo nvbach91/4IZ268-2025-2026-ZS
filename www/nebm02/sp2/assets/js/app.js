@@ -152,7 +152,6 @@ App.updateUrl = () => {
     if (App.currentView === 'library') {
         params.set('view', 'library');
     } else {
-        params.set('view', 'search');
         if (App.searchState.searchedGame) params.set('search', App.searchState.searchedGame);
         if (App.searchState.platform) params.set('platforms', App.searchState.platform);
         if (App.searchState.genre) params.set('genres', App.searchState.genre);
@@ -174,6 +173,7 @@ App.loadStateFromUrl = () => {
     const params = new URLSearchParams(window.location.search);
     
     const view = params.get('view');
+
 
     if (view === 'library') {
         App.currentView = 'library';
@@ -211,6 +211,7 @@ App.loadStateFromUrl = () => {
         genre.split(',').forEach(id => $(`#filter-genres input[value="${id}"]`).prop('checked', true));
     }
 
+    // If the URL is empty (homepage), clear the results without pushing to history
     if (!searchedGame && !platform && !genre && !ordering && page === 1) {
         App.resetToEmptyState(false);
         return;
@@ -241,7 +242,7 @@ App.displaySearchResults = (games) => {
 
     $.each(games, function (i, game) {
 
-        const image = game.background_image ? game.background_image : 'https://placehold.net/default.svg';
+        const image = App.getOptimizedImageUrl(game.background_image);
 
         const gameItem = $(`
             <div class="game-card">
@@ -254,6 +255,9 @@ App.displaySearchResults = (games) => {
 
         gameItem.attr('data-id', game.id);
         gameItem.attr('data-name', game.name);
+        
+        // We store the original high-res URL for the modal
+        gameItem.attr('data-original-img', game.background_image); 
 
         gameItem.find('.game-title').text(game.name);
         gameItem.find('img').attr('src', image);
@@ -302,6 +306,8 @@ App.renderLibrary = () => {
         const statusLabel = statuses[game.status];
         const ratingDisplay = game.rating ? `<div class="rating-display">⭐ ${game.rating}%</div>` : '';
 
+        const optimizedImage = App.getOptimizedImageUrl(game.image);
+
         const gameItem = $(`
             <div class="game-card">
                 <img>
@@ -320,9 +326,9 @@ App.renderLibrary = () => {
 
         gameItem.attr('data-id', game.id);
         gameItem.attr('data-name', game.name);
-        gameItem.attr('data-img', game.image);
+        gameItem.attr('data-img', game.image); // Keep original high-res for modal
 
-        gameItem.find('img').attr('src', game.image);
+        gameItem.find('img').attr('src', optimizedImage);
         gameItem.find('img').attr('alt', game.name);
         gameItem.find('.game-title').text(game.name);
         gameItem.find('.game-status').html(statusLabel + ratingDisplay);
@@ -399,6 +405,7 @@ App.removeFromLibrary = (id) => {
 App.openModal = async (gameData) => {
 
     modalTitle.text(gameData.name);
+    
     modalImg.attr('src', gameData.image);
 
     modalGameId.val(gameData.id);
@@ -505,14 +512,31 @@ App.showToast = (message, type = 'info') => {
 };
 
 /**
+ * Helper function to optimize image URL from RAWG
+ * @param {string} url Original image URL
+ * @returns {string} Optimized image URL
+ */
+App.getOptimizedImageUrl = (url) => {
+    if (!url) return 'https://placehold.net/default.svg';
+    
+    // Only optimize if it comes from RAWG media
+    if (url.includes('media.rawg.io')) {
+        return url.replace('/media/', '/media/crop/600/400/');
+    }
+    
+    return url;
+};
+
+/**
  * Clears search results, resets state/URL and shows empty state message
- * @param {boolean} updateUrl - if we are to push new state to history (default true)
+ * @param {boolean} updateUrl - whether to push new state to history (default true)
  */
 App.resetToEmptyState = (updateUrl = true) => {
     App.searchState.searchedGame = '';
     App.searchState.platform = '';
     App.searchState.genre = '';
     
+    // Only update the URL if explicitly requested (to avoid history loops during navigation)
     if (updateUrl) {
         App.updateUrl();
     }
@@ -610,11 +634,13 @@ App.init = () => {
         App.closeModal();
     });
     
-    // Modal open
+    // Modal open logic - UPDATED to handle original image retrieval
     $(document).on('click', '.game-card', function () {
         const id = $(this).attr('data-id');
         const name = $(this).attr('data-name');
-        let image = $(this).find('img').attr('src');
+        
+        // Try to get the original high-res image if we stored it, otherwise use the (potentially cropped) src
+        let image = $(this).attr('data-original-img') || $(this).attr('data-img') || $(this).find('img').attr('src');
 
         App.openModal({
             id: id,
