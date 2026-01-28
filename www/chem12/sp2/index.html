@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Můj Herní Backlog</title>
-    
+    <title>VeoGamesLog</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🎮%3C/text%3E%3C/svg%3E">
 </head>
+
 <body>
 
     <header>
         <div class="container header-content">
-            <h1>🎮 Můj Herní Backlog</h1>
+            <h1> VeoGamesLog</h1>
             <nav>
-                <button id="nav-search" class="active">Vyhledávání</button>
-                <button id="nav-backlog">Můj Backlog</button>
+                <button id="nav-search" class="active" aria-label="Přejít na vyhledávání">Vyhledávání</button>
+                <button id="nav-backlog" aria-label="Přejít na můj backlog">Můj Backlog</button>
             </nav>
         </div>
     </header>
@@ -23,9 +25,13 @@
         <div id="app"></div>
     </main>
 
+    <div id="toast-container"></div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
+
 </body>
+
 </html>
