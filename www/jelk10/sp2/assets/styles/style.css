@@ -1,0 +1,8 @@
+.custom-card {
+    width: 22rem;
+}
+
+.custom-card-text {
+    max-height: 100px;
+    overflow-y: auto;
+}
