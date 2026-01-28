@@ -211,7 +211,6 @@ App.loadStateFromUrl = () => {
         genre.split(',').forEach(id => $(`#filter-genres input[value="${id}"]`).prop('checked', true));
     }
 
-    // If the URL is empty (homepage), clear the results without pushing to history
     if (!searchedGame && !platform && !genre && !ordering && page === 1) {
         App.resetToEmptyState(false);
         return;
@@ -256,7 +255,6 @@ App.displaySearchResults = (games) => {
         gameItem.attr('data-id', game.id);
         gameItem.attr('data-name', game.name);
         
-        // We store the original high-res URL for the modal
         gameItem.attr('data-original-img', game.background_image); 
 
         gameItem.find('.game-title').text(game.name);
@@ -326,7 +324,7 @@ App.renderLibrary = () => {
 
         gameItem.attr('data-id', game.id);
         gameItem.attr('data-name', game.name);
-        gameItem.attr('data-img', game.image); // Keep original high-res for modal
+        gameItem.attr('data-img', game.image);
 
         gameItem.find('img').attr('src', optimizedImage);
         gameItem.find('img').attr('alt', game.name);
@@ -519,7 +517,6 @@ App.showToast = (message, type = 'info') => {
 App.getOptimizedImageUrl = (url) => {
     if (!url) return 'https://placehold.net/default.svg';
     
-    // Only optimize if it comes from RAWG media
     if (url.includes('media.rawg.io')) {
         return url.replace('/media/', '/media/crop/600/400/');
     }
@@ -536,7 +533,6 @@ App.resetToEmptyState = (updateUrl = true) => {
     App.searchState.platform = '';
     App.searchState.genre = '';
     
-    // Only update the URL if explicitly requested (to avoid history loops during navigation)
     if (updateUrl) {
         App.updateUrl();
     }
@@ -564,7 +560,6 @@ App.init = () => {
         }
     });
 
-    // Search function call and passing params from form
     $('#search-btn').click((e) => {
         e.preventDefault();
 
@@ -634,12 +629,11 @@ App.init = () => {
         App.closeModal();
     });
     
-    // Modal open logic - UPDATED to handle original image retrieval
+    // Modal open
     $(document).on('click', '.game-card', function () {
         const id = $(this).attr('data-id');
         const name = $(this).attr('data-name');
         
-        // Try to get the original high-res image if we stored it, otherwise use the (potentially cropped) src
         let image = $(this).attr('data-original-img') || $(this).attr('data-img') || $(this).find('img').attr('src');
 
         App.openModal({
