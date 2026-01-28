@@ -2,8 +2,7 @@
 
 import { elements, toggleSpinner } from './elements.js';
 import { formatDate } from './date.js';
-
-const OPENWEATHER_API_KEY = '7b9dbb0fbf5b8e615f8bb39dabec07af';
+import { OPENWEATHER_API_KEY } from './config.js';
 const GEO_BASE_URL = 'https://api.openweathermap.org/geo/1.0/direct';
 const ONECALL_DAY_SUMMARY_URL = 'https://api.openweathermap.org/data/3.0/onecall/day_summary';
 
