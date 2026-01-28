@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="contents"
+        content="Movie in a second is a web application that helps you find movies to watch based on your preferences.">
+    <meta name="keywords"
+        content="movie, movie generator, movie recommendations, film finder, movie suggestions, watch movie, movie database, film recommendations, movie search, streaming platforms">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/brite/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="icon" type="image/png" href="./assets/img/android-chrome-192x192.png">
+    <title>Movie in a second</title>
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg bg-primary mb-2" data-bs-theme="light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><b>🎬 Movie in a second</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="generate-page">⚙️ Generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="favorites-page">❤️ Favorites</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input id="search-text" class="form-control me-sm-2" type="search" placeholder="Spider Man">
+                    <button id="search-button" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <div class="dropdown ml-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="language-dropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Language
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="language-dropdown">
+                        <a class="dropdown-item">🇬🇧 EN</a>
+                        <a class="dropdown-item">🇨🇿 CZ</a>
+                        <a class="dropdown-item">🇩🇪 DE</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="app-container" class="container-fluid text-center justify-content-center"></div>
+
+
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="./assets/js/main.js" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
