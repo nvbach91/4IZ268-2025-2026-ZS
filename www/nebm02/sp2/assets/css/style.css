@@ -1,3 +1,6 @@
+/* =========================================
+   1. BASE
+   ========================================= */
 * {
     box-sizing: border-box;
 }
@@ -11,11 +14,38 @@ body {
     overflow: hidden;
 }
 
+/* =========================================
+   2. APP LAYOUT
+   ========================================= */
 .app-layout {
     display: flex;
     height: 100vh;
 }
 
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 40px 60px;
+}
+
+.module-header {
+    margin-bottom: 40px;
+}
+
+.module-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+    color: #111;
+}
+
+.module-header p {
+    margin: 0;
+    color: #6c757d;
+}
+
+/* =========================================
+   3. SIDEBAR
+   ========================================= */
 .sidebar {
     width: 260px;
     background-color: #ffffff;
@@ -95,27 +125,9 @@ body {
     color: #dee2e6;
 }
 
-.main-content {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 40px 60px;
-}
-
-.module-header {
-    margin-bottom: 40px;
-}
-
-.module-header h1 {
-    margin: 0 0 10px 0;
-    font-size: 2rem;
-    color: #111;
-}
-
-.module-header p {
-    margin: 0;
-    color: #6c757d;
-}
-
+/* =========================================
+   4. SEARCH SECTION & FILTERS
+   ========================================= */
 .search-box-container {
     display: flex;
     align-items: center;
@@ -159,10 +171,92 @@ body {
     background-color: #333;
 }
 
+.search-filters-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.filter-category {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444;
+    min-width: 80px;
+}
+
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-checkbox {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #666;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tag-checkbox input {
+    display: none;
+}
+
+.tag-checkbox:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
+}
+
+.tag-checkbox:has(input:checked) {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+.filter-select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #555;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: #007bff;
+    color: #333;
+}
+
+/* =========================================
+   5. GAME GRID & CARDS
+   ========================================= */
 .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 25px;
+    gap: 20px;
     padding-bottom: 40px;
 }
 
@@ -213,15 +307,15 @@ body {
 
 .game-title {
     color: white;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     margin: 0;
     display: -webkit-box;
-    line-clamp: 3;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 .click-hint {
@@ -247,10 +341,9 @@ body {
     color: #e9ecef;
 }
 
-.hidden {
-    display: none !important;
-}
-
+/* =========================================
+   6. UI COMPONENTS (Loader, Pagination)
+   ========================================= */
 @keyframes spin {
     from {
         transform: rotate(0deg);
@@ -270,4 +363,336 @@ body {
     animation: spin 0.8s linear infinite;
     margin: 40px auto;
     display: none;
+}
+
+.loaderModal {
+    display: block;
+    margin: 0 auto;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    padding-bottom: 40px;
+}
+
+.btn-pagination {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-pagination:hover:not(:disabled) {
+    background-color: #f1f3f5;
+    border-color: #ccc;
+}
+
+.btn-pagination:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f8f9fa;
+}
+
+#current-page-display {
+    font-weight: 700;
+    color: #555;
+}
+
+/* =========================================
+   7. MODAL STYLES
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content.large-modal {
+    max-width: 900px;
+    width: 95%;
+    padding: 0;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+.modal-header {
+    padding: 20px 30px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-modal {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.modal-grid {
+    display: flex;
+    flex-direction: row;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.game-info-column {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+    border-right: 1px solid #eee;
+}
+
+#modal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.game-meta-tags {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.game-platforms {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.platform-badge {
+    background: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #495057;
+}
+
+.game-description-box h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#modal-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#modal-description img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.user-entry-column {
+    flex: 0 0 350px;
+    padding: 30px;
+    background-color: #fcfcfc;
+}
+
+.user-entry-column h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   8. FORM ELEMENTS
+   ========================================= */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.user-entry-column input[type="text"],
+.user-entry-column input[type="number"],
+.user-entry-column input[type="date"],
+.user-entry-column select,
+.user-entry-column textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.user-entry-column input:focus,
+.user-entry-column select:focus,
+.user-entry-column textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.user-entry-column textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* =========================================
+   9. BUTTONS
+   ========================================= */
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.right-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #dde2e6;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+}
+
+/* =========================================
+   10. UTILITIES & STATUS COLORS
+   ========================================= */
+.hidden {
+    display: none !important;
+}
+
+.want-to-play {
+    color: #aaa;
+}
+
+.playing {
+    color: #007bff;
+}
+
+.completed {
+    color: #ffc107;
+}
+
+.dropped {
+    color: #dc3545;
+}
+
+.rating-display {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #ffc107;
+}
+
+.game-status {
+    margin-top: 15px;
+    color: #eee;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   11. RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+    .modal-grid {
+        flex-direction: column;
+    }
+
+    .game-info-column {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .user-entry-column {
+        flex: auto;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
 }
