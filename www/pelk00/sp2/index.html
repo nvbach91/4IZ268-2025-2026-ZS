@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online deníček</title>
+    <link rel="icon" href="png/diary.png" type="image/png">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
@@ -19,57 +21,71 @@
 <body>
     <header>
         <h1>Online deníček</h1>
-        <button id="authorize_button" style="display: none;">Přihlásit do Google</button>
-        <button id="signout_button" style="display: none;">Odhlásit z Google</button>
+        <div class="auth-controls">
+            <button id="authorize_button" title="Přihlásit do Google"><i class="fa-brands fa-google"></i> Přihlásit do
+                Google</button>
+            <button id="signout_button" title="Odhlásit z Google"><i class="fa-solid fa-right-from-bracket"></i>
+                Odhlásit z Google</button>
+        </div>
     </header>
 
     <div class="main-content-wrapper">
         <main class="left-panel">
-            <div class="record-panel">
-                <h2>Moje záznamy</h2>
-                <button id="show-form-btn" class="add-btn-large">Přidat záznam</button>
-
+            <section class="record-panel">
+                <div class="panel-header">
+                    <h2>Moje záznamy</h2>
+                    <button id="show-form-btn" class="add-btn-large" title="Přidat záznam"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+                <p id="entries-info">Momentálně nemáte žádné záznamy.</p>
                 <div class="entry-form">
-                    <!-- formulář se bude zobrazovat až pomocí js a jednotlive zaznamy se budou ukladat pomoci Browser API -->
+                    <!-- formulář pro přidání záznamu -->
                 </div>
                 <div class="entries-panel">
                     <!-- záznamy se budou načítat pomocí js -->
                 </div>
-            </div>
+            </section>
 
-            <div class="quote-container">
-                <h2>Citát dne</h2>
+            <section class="quote-container">
+                <h2>Citát</h2>
                 <div id="quote-display">
-                    Načítání citátu...
+                    <div class="loader"><i class="fas fa-spinner"></i></div>
                 </div>
-            </div>
+            </section>
         </main>
 
         <aside class="right-panel">
-            <div class="calendar-container">
-                <div id="current-date" class="current-date">
-                    <!-- aktuální datum se zobrazí zde -->
+            <section class="calendar-container">
+                <div class="panel-header">
+                    <div id="current-date" class="current-date">
+                        <!-- aktuální datum se zobrazí zde -->
+                    </div>
+                    <button id="add-event-btn" class="add-btn-small" title="Přidat událost"><i
+                            class="fa-regular fa-calendar-plus"></i></button>
                 </div>
                 <p id="events-info">Události se zobrazí po přihlášení do Google.</p>
+                <div class="event-form">
+                    <!-- formulář pro přidání události -->
+                </div>
                 <div id="calendar">
                     <!-- události z Google kalendáře se zobrazí zde -->
                 </div>
-            </div>
+            </section>
 
-            <div class="todo-list-container">
-                <h2>To-Do List</h2>
-                <button id="add-task-btn" class="add-btn-small">Přidat úkol</button>
-                <ul id="todo-list">
-                    <li>
-                        <input type="checkbox" id="task-1">
-                        <label for="task-1">Úkol 1</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="task-2">
-                        <label for="task-2">Úkol 2</label>
-                    </li>
-                </ul>
-            </div>
+            <section class="todo-list-container">
+                <div class="panel-header">
+                    <h2>To-Do List</h2>
+                    <button id="add-task-btn" class="add-btn-small" title="Přidat úkol"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="todo-info">Úkoly se zobrazí po přihlášení do Google.</div>
+                <div class="task-form">
+                    <!-- formulář pro přidání úkolu -->
+                </div>
+                <div id="todo-list">
+                    <!-- úkoly z Google Tasks se zobrazí zde -->
+                </div>
+            </section>
         </aside>
 
     </div>
