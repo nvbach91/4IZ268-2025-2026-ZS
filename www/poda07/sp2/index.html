@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO LIST</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="./favicon.png">
+</head>
+<body>
+    <h1 class="h1">TO DO LIST</h1>
+
+    <header class="header">
+        <div class="datetime"></div>
+        <div class="namesday"></div>
+    </header>
+
+    <div class="app">
+        <aside class="sidebar">
+            <button class="btn addTaskButton">Přidat Úkol</button>
+
+            <div class="stats">
+                <h3 class="h3">Statistiky</h3>
+                <p>Celkem: <span class="statTotal">0</span></p>
+                <p>Hotové: <span class="statDone">0</span></p>
+
+                <div class="pieWrapper">
+                    <div class="piePercent">
+                        <span class="pieLabel">0%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="taskHeader">
+                <h2>Seznam úkolů</h2>
+                <button class="btn filterButton" data-filter="all">Vše</button>
+                <button class="btn filterButton" data-filter="active">Aktivní</button>
+                <button class="btn filterButton" data-filter="done">Hotové</button>
+                <button class="btn deleteButton">Smaž hotové</button>
+            </div>
+
+            <ul class="taskList"></ul>
+
+            <form class="taskForm">
+                <h3 class="h3">Nový úkol</h3>
+                <input type="text" class="taskTitle" placeholder="Název úkolu" required>
+                <textarea class="taskDsc" placeholder="Popis úkolu"></textarea>
+
+                <select class="taskCategory">
+                    <option value="skola">Škola</option>
+                    <option value="prace">Práce</option>
+                    <option value="domacnost">Domácnost</option>
+                </select>
+
+                <div class="taskFormActions">
+                    <button type="submit" class="btn saveButton">Uložit</button>
+                    <button type="button" class="btn cancelButton">Zrušit</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
