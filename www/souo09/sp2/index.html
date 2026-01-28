@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Aplikace pro plánování výletů - spravujte místa, která chcete navštívit">
+    <meta name="description" content="Trip planning app: Manage the places you want to visit">
     <meta name="author" content="Ondřej Soukup">
     <title>TRIP PLANNER</title>
     <link rel="stylesheet" href="./assets/css/styles.css">
@@ -29,9 +29,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="place-date">Date</label>
-                        <input type="date" id="place-date" name="date">
-                        <span class="error-message" id="date-error"></span>
+                        <label for="place-arrival">Arrival date</label>
+                        <input type="date" id="place-arrival" name="arrivalDate">
+                        <span class="error-message" id="arrival-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place-departure">Departure date</label>
+                        <input type="date" id="place-departure" name="departureDate">
+                        <span class="error-message" id="departure-error"></span>
                     </div>
 
                     <div class="form-group">
@@ -53,41 +59,53 @@
                     <!-- PLACES added here -->
                 </div>
                 <div id="empty-state" class="empty-state" style="display: none;">
-                    <p>Zatím nemáte přidaná žádná místa.</p>
+                    <p>You have not added any places yet.</p>
                 </div>
-                <button id="delete-btn" class="btn-delete-list">Delete</button>
+                <button id="delete-btn" class="btn-delete-list">Delete all places</button>
             </section>
         </main>
 
         <section class="details-section">
-            <h2>Place Details</h2>
-            <div class="details-content">
-                <div class="details-info">
-                    <ul id="details-list">
-                        <li>Destination: <span id="detail-name">-</span></li>
-                        <li>Date: <span id="detail-date">-</span></li>
-                        <li>Notes: <span id="detail-notes">-</span></li>
-                    </ul>
-                    <button id="weather-btn" class="btn-weather">Show Weather</button>
+                <h2>Place Details</h2>
+                <div class="details-content">
+                    <div class="details-info">
+                        <ul id="details-list" class="details-list">
+                            <li>
+                                <span class="detail-label">Destination</span>
+                                <span class="detail-value" id="detail-name">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Arrival</span>
+                                <span class="detail-value" id="detail-arrival">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Departure</span>
+                                <span class="detail-value" id="detail-departure">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Notes</span>
+                                <span class="detail-value" id="detail-notes">-</span>
+                            </li>
+                        </ul>
+                        <button id="weather-btn" class="btn-weather">Show Weather</button>
+                    </div>
+                    <div class="weather-result" id="weather-result">
+                        *Weather API Result Here*
+                    </div>
                 </div>
-                <div class="weather-result" id="weather-result">
-                    *API Result Here*
-                </div>
-            </div>
-        </section>
+            </section>
     </div>
 
     <!-- Spinner overlay -->
     <div id="spinner-overlay" class="spinner-overlay" style="display: none;">
         <div class="spinner"></div>
-        <p>Načítám data...</p>
+        <p>Loading data...</p>
     </div>
 
     <!-- Hidden file input for import -->
     <input type="file" id="import-input" accept=".json" style="display: none;">
 
     <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/uuid@9.0.1/dist/umd/uuid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/validator@13.11.0/validator.min.js"></script>
     
     <!-- Application Scripts -->
