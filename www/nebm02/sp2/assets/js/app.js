@@ -5,12 +5,20 @@ App.BASE_API_URL = 'https://api.rawg.io/api/games';
 App.LOCAL_STORAGE_KEY = 'myGames';
 
 //Main selectors
+const htmlBody = $('html, body');
 const searchResults = $('#search-results');
 const libraryList = $('#library-list');
 const searchInput = $('#search-input');
 const searchOrdering = $('#search-ordering');
 const spinner = $('#loading-spinner');
 const tagCheckboxes = $('.tag-checkbox input');
+const searchBtn = $('#search-btn');
+const platformInputs = $('#filter-platforms input');
+const genreInputs = $('#filter-genres input');
+const libraryCountSubtitle = $('#library-count');
+const paginationNumbers = $('#pagination-numbers');
+const libraryFilterStatus = $('#lib-filter-status');
+const librarySortOrder = $('#lib-sort-order');
 
 //Navigation selectors
 const navSearch = $('#nav-search');
@@ -41,6 +49,9 @@ const modalDeleteBtn = $('#btn-delete-modal');
 const modalGameId = $('#modal-game-id');
 const modalGameName = $('#modal-game-name');
 const modalGameImg = $('#modal-game-img');
+const modalBtnDelete = $('#btn-delete-modal');
+const modalBtnCancel = $('#btn-cancel-modal');
+const modalCloseButton = $('#close-modal');
 
 
 App.searchState = {
@@ -50,6 +61,12 @@ App.searchState = {
     ordering: '',
     page: 1,
     page_size: 10
+};
+
+
+App.libraryState = {
+    status: 'all',
+    sortBy: 'rating-desc'
 };
 
 App.currentView = 'search';
@@ -104,120 +121,61 @@ App.fetchGameDetails = async (id) => {
 };
 
 /**
- * Executes the search based on current search state and calls displaySearchResults function
+ * Generates pagination coresponding to total items found
+ * @param {number} totalItems Total number of games found
  */
-App.executeSearch = async () => {
-    searchResults.empty();
-    spinner.show();
-    pagination.addClass('hidden');
+App.renderPagination = (totalItems) => {
+    paginationNumbers.empty();
 
-    try {
-        const data = await App.fetchGames();
-        App.displaySearchResults(data.results);
+    const paginationHardCap = 500;
 
-        pagination.removeClass('hidden');
-        pagination_text.text(`Page ${App.searchState.page}`);
+    const realTotalPages = Math.ceil(totalItems / App.searchState.page_size);
+    const totalPages = Math.min(realTotalPages, paginationHardCap);
 
-        pagination_prev.prop('disabled', App.searchState.page === 1);
-        
-        if (data.next) {
-             pagination_next.prop('disabled', false);
-        } else {
-             pagination_next.prop('disabled', true);
-        }
-        
-        if (data.results.length === 0) {
-            pagination.addClass('hidden');
-        }
+    const currentPage = App.searchState.page;
 
-    } catch (err) {
-        console.error(err);
-        App.showToast('There was an error fetching data.', 'error');
-    } finally {
-        spinner.hide();
-        if (App.searchState.page > 1) {
-            $('html, body').animate({
-                scrollTop: sectionSearch.offset().top
-            }, 500);
-        }
+    if (totalPages <= 1) return;
+    let paginationElements = [];
+    const range = 2;
+    paginationElements.push(App.createPaginationButton(1));
+
+    if (currentPage - range > 2) {
+        paginationElements.push('<span class="pagination-dots">...</span>');
     }
+
+    let start = Math.max(2, currentPage - range);
+    let end = Math.min(totalPages - 1, currentPage + range);
+
+    for (let i = start; i <= end; i++) {
+        paginationElements.push(App.createPaginationButton(i));
+    }
+
+    if (currentPage + range < totalPages - 1) {
+        paginationElements.push('<span class="pagination-dots">...</span>');
+    }
+
+    if (totalPages > 1) {
+        paginationElements.push(App.createPaginationButton(totalPages));
+    }
+
+    paginationNumbers.append(paginationElements);
 };
 
 /**
- * Updates the browser URL based on current search state
+ * Creates a pagination button element
+ * @param {number} pageNumber Page number
+ * @returns button element
  */
-App.updateUrl = () => {
-    const params = new URLSearchParams();
-
-    if (App.currentView === 'library') {
-        params.set('view', 'library');
-    } else {
-        if (App.searchState.searchedGame) params.set('search', App.searchState.searchedGame);
-        if (App.searchState.platform) params.set('platforms', App.searchState.platform);
-        if (App.searchState.genre) params.set('genres', App.searchState.genre);
-        if (App.searchState.ordering) params.set('ordering', App.searchState.ordering);
-        if (App.searchState.page > 1) params.set('page', App.searchState.page);
-    }
-
-    const queryString = params.toString();
-    const newUrl = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
-
-    window.history.pushState(App.searchState, '', newUrl);
-};
-
-/**
- * Reads URL parameters and restores the application state
- * @return nothing
- */
-App.loadStateFromUrl = () => {
-    const params = new URLSearchParams(window.location.search);
-    
-    const view = params.get('view');
-
-
-    if (view === 'library') {
-        App.currentView = 'library';
-        
-        sectionSearch.hide();
-        sectionLibrary.removeClass('hidden');
-        navLibrary.addClass('active');
-        navSearch.removeClass('active');
-        
-        App.renderLibrary();
-        return;
-    }
-
-    App.currentView = 'search';
-    
-    sectionSearch.show();
-    sectionLibrary.addClass('hidden');
-    navSearch.addClass('active');
-    navLibrary.removeClass('active');
-
-    const searchedGame = params.get('search') || '';
-    const platform = params.get('platforms') || '';
-    const genre = params.get('genres') || '';
-    const ordering = params.get('ordering') || '';
-    const page = parseInt(params.get('page')) || 1;
-
-    searchInput.val(searchedGame);
-    searchOrdering.val(ordering);
-    
-    $('.tag-checkbox input').prop('checked', false);
-    if (platform) {
-        platform.split(',').forEach(id => $(`#filter-platforms input[value="${id}"]`).prop('checked', true));
-    }
-    if (genre) {
-        genre.split(',').forEach(id => $(`#filter-genres input[value="${id}"]`).prop('checked', true));
-    }
-
-    if (!searchedGame && !platform && !genre && !ordering && page === 1) {
-        App.resetToEmptyState(false);
-        return;
-    }
-
-    App.updateSearchState(searchedGame, platform, genre, ordering, page, App.getDynamicPageSize());
-    App.executeSearch();
+App.createPaginationButton = (pageNumber) => {
+    const btn = $(`<div class="page-number ${pageNumber === App.searchState.page ? 'active' : ''}">${pageNumber}</div>`);
+    btn.click(() => {
+        if (pageNumber !== App.searchState.page) {
+            App.searchState.page = pageNumber;
+            App.updateUrl();
+            App.executeSearch();
+        }
+    });
+    return btn;
 };
 
 /**
@@ -240,102 +198,72 @@ App.displaySearchResults = (games) => {
     let gamesList = [];
 
     $.each(games, function (i, game) {
-
-        const image = App.getOptimizedImageUrl(game.background_image);
+        const optimizedImage = App.getOptimizedImageUrl(game.background_image);
 
         const gameItem = $(`
             <div class="game-card">
-                <img>
-                <div class="game-overlay">
-                <h3 class="game-title"></h3> 
-                <span class="click-hint">Klikni pro přidání</span>
+                <div class="img-container">
+                    <img>
+                    <div class="game-overlay">
+                        <span class="click-hint">Add to library</span>
+                    </div>
                 </div>
+                <h3 class="game-title"></h3>
             </div>`);
 
         gameItem.attr('data-id', game.id);
         gameItem.attr('data-name', game.name);
-        
-        gameItem.attr('data-original-img', game.background_image); 
+        gameItem.attr('data-original-img', game.background_image);
 
-        gameItem.find('.game-title').text(game.name);
-        gameItem.find('img').attr('src', image);
+        gameItem.find('img').attr('src', optimizedImage);
         gameItem.find('img').attr('alt', game.name);
+        gameItem.find('h3').text(game.name);
 
         gamesList.push(gameItem);
     });
-
-    if (gamesList.length === 0 && games.length > 0) {
-        searchResults.html('<div class="empty-state">No relevant games found.</div>');
-        return;
-    }
 
     searchResults.append(gamesList);
 };
 
 /**
- * Renders games from localStorage library to the library section in html   
- * @returns returns nothing if no games in library were found, otherwise displays games from library
+ * Executes the search based on current search state and calls displaySearchResults function
  */
-App.renderLibrary = () => {
-    const library = App.getLibraryData();
-    libraryList.empty();
+App.executeSearch = async () => {
+    searchResults.empty();
+    spinner.show();
     pagination.addClass('hidden');
 
-    if (library.length === 0) {
-        libraryList.html(`
-            <div class="empty-state">
-                <i class="fa-solid fa-gamepad"></i><br>
-                It's so empty here. <br> Add some games to your library!
-            </div>
-        `);
-        return;
+    try {
+        const data = await App.fetchGames();
+        App.displaySearchResults(data.results);
+
+        pagination.removeClass('hidden');
+
+        App.renderPagination(data.count);
+
+        pagination_prev.prop('disabled', App.searchState.page === 1);
+
+        if (data.next) {
+            pagination_next.prop('disabled', false);
+        } else {
+            pagination_next.prop('disabled', true);
+        }
+
+        if (data.results.length === 0) {
+            pagination.addClass('hidden');
+        }
+
+    } catch (err) {
+        console.error(err);
+        App.showToast('There was an error fetching data.', 'error');
+    } finally {
+        spinner.hide();
+        if (App.searchState.page > 1) {
+            htmlBody.animate({
+                scrollTop: sectionSearch.offset().top
+            }, 500);
+        }
     }
-
-    const statuses = {
-        'want-to-play': '<i class="fa-regular fa-calendar want-to-play"></i> Want to play',
-        'playing': '<i class="fa-solid fa-gamepad playing"></i> Playing',
-        'completed': '<i class="fa-solid fa-trophy completed"></i> Finished',
-        'dropped': '<i class="fa-solid fa-ban dropped"></i> Dropped'
-    };
-
-    let libraryItems = [];
-
-    $.each(library, function (i, game) {
-        const statusLabel = statuses[game.status];
-        const ratingDisplay = game.rating ? `<div class="rating-display">⭐ ${game.rating}%</div>` : '';
-
-        const optimizedImage = App.getOptimizedImageUrl(game.image);
-
-        const gameItem = $(`
-            <div class="game-card">
-                <img>
-                <div class="game-overlay">
-                    <h3 class="game-title"></h3>
-                    
-                    <div class="game-status">
-                    </div>
-
-                    <span class="click-hint">
-                        <i class="fa-solid fa-pen"></i> Edit
-                    </span>
-                </div>
-            </div>
-        `);
-
-        gameItem.attr('data-id', game.id);
-        gameItem.attr('data-name', game.name);
-        gameItem.attr('data-img', game.image);
-
-        gameItem.find('img').attr('src', optimizedImage);
-        gameItem.find('img').attr('alt', game.name);
-        gameItem.find('.game-title').text(game.name);
-        gameItem.find('.game-status').html(statusLabel + ratingDisplay);
-
-
-        libraryItems.push(gameItem);
-    });
-
-    libraryList.append(libraryItems);
 };
 
 /**
@@ -348,6 +276,110 @@ App.getLibraryData = () => {
     } catch (e) {
         return [];
     }
+};
+
+/**
+ * Renders games from localStorage library to the library section in html   
+ * @returns returns nothing if no games in library were found, otherwise displays games from library
+ */
+App.renderLibrary = () => {
+    const library = App.getLibraryData();
+    libraryList.empty();
+
+    pagination.addClass('hidden');
+
+    const filtredLibrary = App.filterSortLibrary(library);
+
+    if (filtredLibrary.length === 0) {
+        if (library.length > 0) {
+            libraryList.html(`
+                <div class="empty-state">
+                    <i class="fa-solid fa-filter"></i><br>
+                    No games match these filters.
+                </div>
+            `);
+        } else {
+            libraryList.html(`
+                <div class="empty-state">
+                    <i class="fa-solid fa-gamepad"></i><br>
+                    It's so empty here. <br> Add some games to your library!
+                </div>
+            `);
+        }
+        return;
+    }
+
+    let libraryItems = [];
+
+    $.each(filtredLibrary, function (i, game) {
+        const optimizedImage = App.getOptimizedImageUrl(game.image);
+
+        let badge = '';
+        if (game.rating) {
+            badge = `<div class="rating-badge badge">${game.rating}</div>`;
+        }
+
+        const gameItem = $(`
+            <div class="game-card">
+                <div class="img-container">
+                    <img>
+                    <div class="game-overlay">
+                        <span class="click-hint">Edit</span>
+                    </div>
+                </div>
+                <h3 class="game-title"></h3>
+            </div>
+        `);
+
+        gameItem.attr('data-id', game.id);
+        gameItem.attr('data-name', game.name);
+        gameItem.attr('data-img', game.image);
+
+        gameItem.find('img').attr('src', optimizedImage);
+        gameItem.find('img').attr('alt', game.name);
+        gameItem.find('h3').text(game.name);
+
+        gameItem.find('img').after(badge);
+
+        libraryItems.push(gameItem);
+    });
+    libraryCountSubtitle.text(`Showing ${filtredLibrary.length} game${filtredLibrary.length !== 1 ? 's' : ''} (Total: ${library.length}).`);
+    libraryList.append(libraryItems);
+};
+
+/**
+ * Filters and sorts library data based on App.libraryState
+ * @param {Array} games Raw library data
+ * @returns {Array} Processed data
+ */
+App.filterSortLibrary = (games) => {
+    let result = [...games];
+
+    if (App.libraryState.status !== 'all') {
+        result = result.filter(game => game.status === App.libraryState.status);
+    }
+
+    result.sort((a, b) => {
+        switch (App.libraryState.sortBy) {
+            case 'rating-desc':
+                return (b.rating || -1) - (a.rating || -1);
+
+            case 'rating-asc':
+                return (a.rating || -1) - (b.rating || -1);
+
+            case 'finished-desc':
+                const dateA = a.dateFinished ? new Date(a.dateFinished).getTime() : 0;
+                const dateB = b.dateFinished ? new Date(b.dateFinished).getTime() : 0;
+                return dateB - dateA;
+
+            case 'finished-asc':
+                const dateA2 = a.dateFinished ? new Date(a.dateFinished).getTime() : Infinity;
+                const dateB2 = b.dateFinished ? new Date(b.dateFinished).getTime() : Infinity;
+                return dateA2 - dateB2;
+        }
+    });
+
+    return result;
 };
 
 /**
@@ -388,7 +420,7 @@ App.removeFromLibrary = (id) => {
 
     App.closeModal();
 
-    if (!$('#section-library').hasClass('hidden')) {
+    if (!sectionLibrary.hasClass('hidden')) {
         App.renderLibrary();
     }
 
@@ -403,7 +435,7 @@ App.removeFromLibrary = (id) => {
 App.openModal = async (gameData) => {
 
     modalTitle.text(gameData.name);
-    
+
     modalImg.attr('src', gameData.image);
 
     modalGameId.val(gameData.id);
@@ -510,17 +542,95 @@ App.showToast = (message, type = 'info') => {
 };
 
 /**
+ * Updates the browser URL based on current search state
+ */
+App.updateUrl = () => {
+    const params = new URLSearchParams();
+
+    if (App.currentView === 'library') {
+        params.set('view', 'library');
+    } else {
+        if (App.searchState.searchedGame) params.set('search', App.searchState.searchedGame);
+        if (App.searchState.platform) params.set('platforms', App.searchState.platform);
+        if (App.searchState.genre) params.set('genres', App.searchState.genre);
+        if (App.searchState.ordering) params.set('ordering', App.searchState.ordering);
+        if (App.searchState.page > 1) params.set('page', App.searchState.page);
+    }
+
+    const queryString = params.toString();
+    const newUrl = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+
+    window.history.pushState(App.searchState, '', newUrl);
+};
+
+/**
+ * Reads URL parameters and restores the application state
+ * @return nothing
+ */
+App.loadStateFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+
+    const view = params.get('view');
+
+
+    if (view === 'library') {
+        App.currentView = 'library';
+
+        sectionSearch.hide();
+        sectionLibrary.removeClass('hidden');
+        navLibrary.addClass('active');
+        navSearch.removeClass('active');
+
+        App.renderLibrary();
+        return;
+    }
+
+    App.currentView = 'search';
+
+    sectionSearch.show();
+    sectionLibrary.addClass('hidden');
+    navSearch.addClass('active');
+    navLibrary.removeClass('active');
+
+    const searchedGame = params.get('search') || '';
+    const platform = params.get('platforms') || '';
+    const genre = params.get('genres') || '';
+    const ordering = params.get('ordering') || '';
+    const page = parseInt(params.get('page')) || 1;
+
+    searchInput.val(searchedGame);
+    searchOrdering.val(ordering);
+
+    tagCheckboxes.prop('checked', false);
+
+    if (platform) {
+        platform.split(',').forEach(id => platformInputs.filter(`[value="${id}"]`).prop('checked', true));
+    }
+    if (genre) {
+        genre.split(',').forEach(id => genreInputs.filter(`[value="${id}"]`).prop('checked', true));
+    }
+
+    if (!searchedGame && !platform && !genre && !ordering && page === 1) {
+        App.resetToEmptyState(false);
+        return;
+    }
+
+    App.updateSearchState(searchedGame, platform, genre, ordering, page, App.getDynamicPageSize());
+    App.executeSearch();
+};
+
+/**
  * Helper function to optimize image URL from RAWG
  * @param {string} url Original image URL
  * @returns {string} Optimized image URL
  */
 App.getOptimizedImageUrl = (url) => {
     if (!url) return 'https://placehold.net/default.svg';
-    
+
     if (url.includes('media.rawg.io')) {
         return url.replace('/media/', '/media/crop/600/400/');
     }
-    
+
     return url;
 };
 
@@ -532,7 +642,7 @@ App.resetToEmptyState = (updateUrl = true) => {
     App.searchState.searchedGame = '';
     App.searchState.platform = '';
     App.searchState.genre = '';
-    
+
     if (updateUrl) {
         App.updateUrl();
     }
@@ -554,29 +664,32 @@ App.resetToEmptyState = (updateUrl = true) => {
 App.init = () => {
 
     // Search by enter
-    $('#search-input').on('keypress', function (e) {
+    searchInput.on('keypress', function (e) {
         if (e.which === 13) {
-            $('#search-btn').click();
+            searchBtn.click();
         }
     });
 
-    $('#search-btn').click((e) => {
+    // Search function call and passing params from form
+    searchBtn.click((e) => {
         e.preventDefault();
 
         App.currentView = 'search';
 
-        let platforms = [];
-        document.querySelectorAll('#filter-platforms input:checked').forEach(input => {
-            platforms.push(input.value);
-        });
+        let platforms = platformInputs.filter(':checked').map(function () {
+            return this.value;
+        }).get();
 
-        let genres = [];
-        document.querySelectorAll('#filter-genres input:checked').forEach(input => {
-            genres.push(input.value);
-        });
-
-        App.updateSearchState(searchInput.val().trim(), platforms.join(','), genres.join(','), searchOrdering.val(), 1, App.getDynamicPageSize());
-
+        let genres = genreInputs.filter(':checked').map(function () {
+            return this.value;
+        }).get();
+        const searchedTerm = searchInput.val().trim();
+        let ordering = searchOrdering.val();
+        if (!searchedTerm && !ordering) {
+            ordering = '-added';
+            searchOrdering.val(ordering);
+        }
+        App.updateSearchState(searchedTerm, platforms.join(','), genres.join(','), searchOrdering.val(), 1, App.getDynamicPageSize());
         if (App.searchState.searchedGame || App.searchState.platform || App.searchState.genre) {
             App.updateUrl();
             App.executeSearch();
@@ -588,32 +701,42 @@ App.init = () => {
     //Pagination - next
     pagination_next.click(() => {
         App.searchState.page++;
-        App.updateUrl(); 
+        App.updateUrl();
         App.executeSearch();
     });
 
     //Pagination - prev
     pagination_prev.click(() => {
         App.searchState.page--;
-        App.updateUrl(); 
+        App.updateUrl();
         App.executeSearch();
     });
 
     // search when ordering changes
-    searchOrdering.change(function() {
-        $('#search-btn').click();
+    searchOrdering.change(function () {
+        searchBtn.click();
     });
 
     // search when any tag changes
-    tagCheckboxes.change(function() {
+    tagCheckboxes.change(function () {
         const hasText = searchInput.val().trim().length > 0;
         const hasCheckedTags = tagCheckboxes.is(':checked');
 
         if (!hasText && !hasCheckedTags) {
             App.resetToEmptyState();
         } else {
-            $('#search-btn').click();
+            searchBtn.click();
         }
+    });
+    // filter library when status changes
+    libraryFilterStatus.change(function () {
+        App.libraryState.status = $(this).val();
+        App.renderLibrary();
+    });
+    // sort library when order changes
+    librarySortOrder.change(function () {
+        App.libraryState.sortBy = $(this).val();
+        App.renderLibrary();
     });
 
     // delete results and show empty state when input is cleared
@@ -623,17 +746,17 @@ App.init = () => {
         }
     });
 
-    // handle browser navigation (back/forward)
-    window.addEventListener("popstate", (event) => {
+    // Handle browser navigation (back/forward)
+    $(window).on("popstate", (event) => {
         App.loadStateFromUrl();
         App.closeModal();
     });
-    
-    // Modal open
+
+    // Open modal when clicking on a game card
     $(document).on('click', '.game-card', function () {
         const id = $(this).attr('data-id');
         const name = $(this).attr('data-name');
-        
+
         let image = $(this).attr('data-original-img') || $(this).attr('data-img') || $(this).find('img').attr('src');
 
         App.openModal({
@@ -648,20 +771,20 @@ App.init = () => {
         e.preventDefault();
 
         const gameObj = {
-            id: $('#modal-game-id').val(),
-            name: $('#modal-game-name').val(),
-            image: $('#modal-game-img').val(),
-            status: $('#modal-status').val(),
-            rating: $('#modal-rating').val(),
-            dateFinished: $('#modal-date').val(),
-            note: $('#modal-note').val()
+            id: modalGameId.val(),
+            name: modalGameName.val(),
+            image: modalGameImg.val(),
+            status: modalStatus.val(),
+            rating: modalRating.val(),
+            dateFinished: modalDate.val(),
+            note: modalNote.val()
         };
 
         App.addToLibrary(gameObj);
     });
 
     // Delete from library
-    $('#btn-delete-modal').click(function () {
+    modalBtnDelete.click(function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "This action is irreversible!",
@@ -673,14 +796,19 @@ App.init = () => {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
-                const id = $('#modal-game-id').val();
+                const id = modalGameId.val();
                 App.removeFromLibrary(id);
             }
         });
     });
 
     //Modal close via button
-    $('.close-modal, #btn-cancel-modal').click(function () {
+    modalBtnCancel.click(function () {
+        App.closeModal();
+    });
+
+    //Modal close via X button
+    modalCloseButton.click(function () {
         App.closeModal();
     });
 
@@ -695,12 +823,15 @@ App.init = () => {
     navSearch.click(function () {
         if (App.currentView !== 'search') {
             App.currentView = 'search';
-            
+
             sectionSearch.show();
             sectionLibrary.addClass('hidden');
             $(this).addClass('active');
             navLibrary.removeClass('active');
-            
+            if (App.searchState.searchedGame || App.searchState.platform || App.searchState.genre) {
+                pagination.removeClass('hidden');
+            }
+
             App.updateUrl();
         }
     });
@@ -709,12 +840,12 @@ App.init = () => {
     navLibrary.click(function () {
         if (App.currentView !== 'library') {
             App.currentView = 'library';
-            
+
             sectionSearch.hide();
             sectionLibrary.removeClass('hidden');
             $(this).addClass('active');
             navSearch.removeClass('active');
-            
+
             App.updateUrl();
             App.renderLibrary();
         }

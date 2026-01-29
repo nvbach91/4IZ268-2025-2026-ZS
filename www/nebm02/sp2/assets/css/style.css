@@ -255,33 +255,37 @@ body {
    ========================================= */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 30px;
     padding-bottom: 40px;
 }
 
 .game-card {
+    cursor: pointer;
+}
+
+.img-container {
     position: relative;
-    background: #222;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
     aspect-ratio: 3/4;
+
+    background-color: #222;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.game-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-    z-index: 10;
-}
-
-.game-card img {
+.img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.game-card:hover .img-container {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .game-overlay {
@@ -290,41 +294,42 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    text-align: center;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s;
 }
 
 .game-card:hover .game-overlay {
     opacity: 1;
 }
 
-.game-title {
+.click-hint {
     color: white;
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.3;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 20px;
 }
 
-.click-hint {
-    color: #adb5bd;
-    font-size: 0.75rem;
-    margin-top: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+.game-title {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #111;
+    text-align: center;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .empty-state {
@@ -339,6 +344,43 @@ body {
     font-size: 3rem;
     margin-bottom: 20px;
     color: #e9ecef;
+}
+
+.game-card .game-status {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 1);
+    color: #007bff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.game-status.want-to-play {
+    color: #6c757d;
+}
+
+.game-status.playing {
+    color: #007bff;
+}
+
+.game-status.completed {
+    color: #28a745;
+}
+
+.game-status.dropped {
+    color: #dc3545;
 }
 
 /* =========================================
@@ -407,6 +449,47 @@ body {
 #current-page-display {
     font-weight: 700;
     color: #555;
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.page-number {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.page-number:hover {
+    background-color: #f1f3f5;
+    border-color: #ccc;
+    color: #333;
+}
+
+.page-number.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination-dots {
+    color: #999;
+    padding: 0 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 /* =========================================
@@ -694,5 +777,15 @@ body {
 
     .main-content {
         padding: 20px;
+    }
+
+    .page-number {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .pagination-container {
+        gap: 10px;
     }
 }

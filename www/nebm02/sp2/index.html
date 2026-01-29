@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="description" content="Organize your video game collection, track your backlog, and discover new games using the RAWG database. Keep track of what you want to play, are playing, or have finished."> 
-    <meta name="author" content="Michal Nebeský"> 
+
+    <meta name="description"
+        content="Organize your video game collection, track your backlog, and discover new games using the RAWG database. Keep track of what you want to play, are playing, or have finished.">
+    <meta name="author" content="Michal Nebeský">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://eso.vse.cz/~nebm02/sp2/"> 
+    <meta property="og:url" content="https://eso.vse.cz/~nebm02/sp2/">
     <meta property="og:title" content="My Gaming Backlog">
-    <meta property="og:description" content="The best place to organize your video game library and track your progress.">
+    <meta property="og:description"
+        content="The best place to organize your video game library and track your progress.">
     <meta name="theme-color" content="#ffffff">
 
     <title>My Gaming Backlog</title>
@@ -56,7 +58,7 @@
                     <button id="search-btn">Search</button>
                 </div>
 
-                <div class="search-filters-wrapper">
+                <div class="search-filters-wrapper search-filters">
 
                     <div class="filter-category">
                         <span class="filter-label">Platforms: </span>
@@ -129,12 +131,13 @@
                 </div>
             </section>
 
+
             <div id="pagination-controls" class="pagination-container hidden">
                 <button id="prev-page" class="btn-pagination" disabled>
                     <i class="fa-solid fa-chevron-left"></i> Previous
                 </button>
 
-                <span id="current-page-display">Page 1</span>
+                <div id="pagination-numbers" class="pagination-numbers"></div>
 
                 <button id="next-page" class="btn-pagination">
                     Next <i class="fa-solid fa-chevron-right"></i>
@@ -144,8 +147,31 @@
             <section id="section-library" class="content-module hidden">
                 <header class="module-header">
                     <h1>My Library</h1>
-                    <p>Your gaming backlog</p>
+                    <p id="library-count">Your gaming backlog currently has 0 games.</p>
                 </header>
+
+                <div class="search-filters-wrapper">
+                    <div class="filter-category">
+                        <span class="filter-label">Status: </span>
+                        <select id="lib-filter-status" class="filter-select">
+                            <option value="all">All Games</option>
+                            <option value="want-to-play">Want to Play</option>
+                            <option value="playing">Currently Playing</option>
+                            <option value="completed">Completed</option>
+                            <option value="dropped">Dropped</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-category">
+                        <span class="filter-label">Sort by: </span>
+                        <select id="lib-sort-order" class="filter-select">
+                            <option value="rating-desc">My Rating (Descending)</option>
+                            <option value="rating-asc">My Rating (Ascending)</option>
+                            <option value="finished-desc">Date Finished (Newest)</option>
+                            <option value="finished-asc">Date Finished (Oldest)</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div id="library-list" class="game-grid"></div>
             </section>
@@ -157,7 +183,7 @@
 
             <div class="modal-header">
                 <h2 id="modal-title">Game Title</h2>
-                <span class="close-modal">&times;</span>
+                <span class="close-modal" id="close-modal">&times;</span>
             </div>
 
             <div class="modal-grid">
