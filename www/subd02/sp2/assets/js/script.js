@@ -2,7 +2,7 @@ class WeatherApp {
     constructor() {
         this.geoApiUrl = "https://geocoding-api.open-meteo.com/v1/search";
         this.weatherApiUrl = "https://api.open-meteo.com/v1/forecast";
-        this.maxSuggestions = 5;
+        this.maxSuggestions = 50;
 
         this.selectors = {
             searchInput: "#city-input",
@@ -23,8 +23,14 @@ class WeatherApp {
             daily: null,
             hourly: null
         };
+        this.chartMode = 'temperature';
 
         this.selectedCity = null;
+        this.lastWeatherData = null;
+
+        this.isLoading = false;
+        this.sortState = 'default';
+
         this.init();
     }
 
@@ -77,15 +83,33 @@ class WeatherApp {
             const li = $(this).closest(".fav-item");
             const cityLabel = li.data("label");
 
-            let favorites = app.getFavorites();
-            favorites = favorites.filter(city => city.label !== cityLabel);
-            localStorage.setItem("favorites", JSON.stringify(favorites));
+            app.showConfirmModal(`Are you sure you want to remove ${cityLabel} from favorites?`, () => {
+                let favorites = app.getFavorites();
+                favorites = favorites.filter(city => city.label !== cityLabel);
+                localStorage.setItem("favorites", JSON.stringify(favorites));
 
-            app.renderFavoritesList();
-            app.showAlert(`Removed ${cityLabel} from favorites`);
+                app.renderFavoritesList();
+                app.showAlert(`Removed ${cityLabel} from favorites.`);
 
-            if (app.selectedCity && app.selectedCity.label === cityLabel) {
-                $(".btn-fav i").removeClass("fa-solid").removeClass("favorite").addClass("fa-regular");
+                if (app.selectedCity && app.selectedCity.label === cityLabel) {
+                    $(".btn-fav i").removeClass("fa-solid").removeClass("favorite").addClass("fa-regular");
+                }
+            });
+        });
+
+        $(document).on("click", ".chart-tab", (e) => {
+            if (this.isLoading) return;
+
+            const target = $(e.currentTarget);
+            const mode = target.data("mode");
+
+            this.chartMode = mode;
+
+            $(".chart-tab").removeClass("active");
+            target.addClass("active");
+
+            if (this.lastWeatherData) {
+                this.renderCharts(this.lastWeatherData);
             }
         });
 
@@ -101,6 +125,10 @@ class WeatherApp {
 
         $("#btn-close").on("click", () => {
             this.closeMenu();
+        });
+
+        $("#sort-btn").on("click", () => {
+            this.toggleSort();
         });
     }
 
@@ -248,6 +276,10 @@ class WeatherApp {
     }
 
     handleCitySelect(cityData, updateHistory = true) {
+        if (this.isLoading) {
+            return;
+        }
+
         this.selectedCity = cityData;
         $(this.selectors.searchInput).val(cityData.label);
 
@@ -261,6 +293,8 @@ class WeatherApp {
     }
 
     getWeather(cityData) {
+        this.setLoadingState(true);
+
         $(this.selectors.mainContent).html(`
             <div class="spinner-container">
                 <i class="fa-solid fa-spinner fa-spin spinner"></i>
@@ -279,36 +313,44 @@ class WeatherApp {
             dataType: "json",
             data: params,
             success: (data) => {
-                this.renderWeather(cityData.label, data);
+                this.lastWeatherData = data;
+                this.renderWeather(cityData, data);
                 this.renderCharts(data);
             },
             error: (xhr, status, error) => {
                 this.showAlert("Unable to load data");
+            },
+            complete: () => {
+                this.setLoadingState(false);
             }
         })
     }
 
-    renderWeather(cityName, apiData) {
+    renderWeather(cityData, apiData) {
+        console.log(apiData)
         const current = apiData.current;
         const units = apiData.current_units;
         const dateString = apiData.current.time.split('T')[1];
 
         let favButtonHtml = '';
-        if (cityName != "Your location") {
-            const isFav = this.isFavorite(cityName);
+        let locationCountry = '';
+        if (cityData.label != "Your location") {
+            const isFav = this.isFavorite(cityData.label);
             const iconClass = isFav ? "fa-solid favorite" : "fa-regular";
             favButtonHtml = `
                 <button class="btn-fav" id="favorite-btn" title="Add to favorites">
                     <i class="${iconClass} fa-heart"></i>
                 </button>
             `;
+
+            locationCountry = `, <small>${cityData.country}</small>`;
         }
 
         const html = `
             <section class="card">
                 <div class="weather-header">
                     <div class="city-headline">
-                        <h2>${cityName}</h2>
+                        <h2>${cityData.label}${locationCountry}</h2>
                         <span class="date-info">${dateString}</span>
                     </div>
                     ${favButtonHtml}
@@ -316,36 +358,28 @@ class WeatherApp {
 
                 <div class="weather-grid">
                     <div class="weather-detail-item">
-                        <div class="weather-icon-box">
-                            <i class="fa-solid fa-temperature-three-quarters"></i>
-                        </div>
+                        <div class="weather-icon-box"><i class="fa-solid fa-temperature-three-quarters"></i></div>
                         <div class="weather-info">
                             <h4>Temperature</h4>
                             <p>${current.temperature_2m} ${units.temperature_2m}</p>
                         </div>
                     </div>
                     <div class="weather-detail-item">
-                        <div class="weather-icon-box">
-                            <i class="fa-solid fa-person-rays"></i>
-                        </div>
+                        <div class="weather-icon-box"><i class="fa-solid fa-person-rays"></i></div>
                         <div class="weather-info">
                             <h4>Feels Like</h4>
                             <p>${current.apparent_temperature} ${units.apparent_temperature}</p>
                         </div>
                     </div>
                     <div class="weather-detail-item">
-                        <div class="weather-icon-box">
-                            <i class="fa-solid fa-droplet">
-                        </i></div>
+                        <div class="weather-icon-box"><i class="fa-solid fa-droplet"></i></div>
                         <div class="weather-info">
                             <h4>Precipitation</h4>
                             <p>${current.precipitation} ${units.precipitation}</p>
                         </div>
                     </div>
                     <div class="weather-detail-item">
-                        <div class="weather-icon-box">
-                            <i class="fa-solid fa-wind"></i>
-                        </div>
+                        <div class="weather-icon-box"><i class="fa-solid fa-wind"></i></div>
                         <div class="weather-info">
                             <h4>Wind Speed</h4>
                             <p>${current.wind_speed_10m} ${units.wind_speed_10m}</p>
@@ -353,6 +387,12 @@ class WeatherApp {
                     </div>
                 </div>
             </section>
+
+            <div class="chart-controls">
+                <button class="chart-tab ${this.chartMode === 'temperature' ? 'active' : ''}" data-mode="temperature">Temperature</button>
+                <button class="chart-tab ${this.chartMode === 'precipitation' ? 'active' : ''}" data-mode="precipitation">Precipitation</button>
+            </div>
+
             <section class="card">
                 <h3 class="chart-header">24 Hour Forecast</h3>
                 <div class="chart-placeholder">
@@ -372,81 +412,124 @@ class WeatherApp {
     renderCharts(apiData) {
         const currentHour = parseInt(apiData.current.time.split('T')[1].split(':')[0]);
         const hourlyTime = apiData.hourly.time.slice(currentHour, currentHour + 24).map(t => t.split('T')[1]);
-        const hourlyTemp = apiData.hourly.temperature_2m.slice(currentHour, currentHour + 24);
-        const hourlyPrec = apiData.hourly.precipitation_probability.slice(currentHour, currentHour + 24);
-
         const dailyTime = apiData.daily.time.map(t => new Date(t).toLocaleDateString('en-US', { weekday: 'short' }));
-        const dailyData = apiData.daily.time.map((date, index) => [apiData.daily.temperature_2m_min[index], apiData.daily.temperature_2m_max[index]]);
-        const dailyPrecMean = apiData.daily.precipitation_probability_mean;
 
         const colorBlue = '#2563eb';
         const colorPrecip = 'rgba(131, 171, 234, 1)';
 
+        let hourlyDataset, dailyDataset;
+        let yAxisLabel;
+        let yMin = undefined;
+        let yMax = undefined;
+
+        if (this.chartMode === 'temperature') {
+            yAxisLabel = '°C';
+            const hourlyTemp = apiData.hourly.temperature_2m.slice(currentHour, currentHour + 24);
+            hourlyDataset = [
+                {
+                    type: 'line',
+                    label: 'Temperature (°C)',
+                    data: hourlyTemp,
+                    order: 1,
+                    yAxisID: 'y',
+                    borderColor: colorBlue,
+                    backgroundColor: colorBlue,
+                    borderWidth: 3,
+                    tension: 0.3
+                }
+            ];
+
+            const dailyData = apiData.daily.time.map((date, index) => [apiData.daily.temperature_2m_min[index], apiData.daily.temperature_2m_max[index]]);
+            dailyDataset = [
+                {
+                    type: 'bar',
+                    label: 'Temperature (°C)',
+                    data: dailyData, order: 1,
+                    yAxisID: 'y',
+                    backgroundColor: colorBlue,
+                    barThickness: 20
+                }
+            ];
+        }
+        else if (this.chartMode === 'precipitation') {
+            yAxisLabel = '%';
+            yMin = 0;
+            yMax = 100;
+
+            const hourlyPrec = apiData.hourly.precipitation_probability.slice(currentHour, currentHour + 24);
+            hourlyDataset = [
+                {
+                    type: 'line', label: 'Precipitation (%)', data: hourlyPrec, order: 2, yAxisID: 'y',
+                    borderColor: colorPrecip, backgroundColor: colorPrecip, stepped: true, pointStyle: false, fill: 'start'
+                }
+            ];
+
+            const dailyPrecMean = apiData.daily.precipitation_probability_mean;
+            dailyDataset = [
+                {
+                    type: 'line', label: 'Precipitation (%)', data: dailyPrecMean, order: 2, yAxisID: 'y',
+                    backgroundColor: colorPrecip, borderColor: colorPrecip, stepped: true, fill: 'start', pointStyle: false
+                }
+            ];
+        }
+
         const hourlyChart = document.getElementById('hourly-chart');
         const dailyChart = document.getElementById('daily-chart');
 
+        const yScalesConfig = {
+            position: 'left',
+            ticks: { callback: v => `${v}${yAxisLabel}` },
+            min: yMin,
+            max: yMax
+        };
+
         if (hourlyChart) {
-            if (this.charts.hourly) this.charts.hourly.destroy();
+            if (this.charts.hourly) {
+                this.charts.hourly.destroy();
+            }
+
             this.charts.hourly = new Chart(hourlyChart, {
                 data: {
                     labels: hourlyTime,
-                    datasets: [
-                        {
-                            type: 'line', label: 'Temperature (°C)', data: hourlyTemp, order: 1, yAxisID: 'y',
-                            borderColor: colorBlue, backgroundColor: colorBlue, borderWidth: 3, tension: 0.3,
-                        },
-                        {
-                            type: 'line', label: 'Precipitation (%)', data: hourlyPrec, order: 2, yAxisID: 'y1',
-                            borderColor: colorPrecip, backgroundColor: colorPrecip, stepped: true, pointStyle: false, fill: 'start'
-                        }
-                    ]
+                    datasets: hourlyDataset
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
                     scales: {
                         x: { grid: { display: false }, offset: false },
-                        y: { position: 'left', ticks: { callback: v => `${v}°C` } },
-                        y1: { grid: { display: false }, position: 'right', min: 0, max: 100, ticks: { callback: v => `${v}%` } }
+                        y: yScalesConfig
                     },
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: ctx => ctx.dataset.label.includes('Temperature') ? `Temperature: ${ctx.raw}°C` : `Precipitation: ${ctx.raw}%`
-                            }, yAlign: 'center'
-                        }
-                    }
+                    interaction: { intersect: false, mode: 'index' }
                 }
             });
         }
 
         if (dailyChart) {
-            if (this.charts.daily) this.charts.daily.destroy();
+            if (this.charts.daily) {
+                this.charts.daily.destroy();
+            }
+
             this.charts.daily = new Chart(dailyChart, {
                 data: {
                     labels: dailyTime,
-                    datasets: [
-                        {
-                            type: 'bar', label: 'Temperature (°C)', data: dailyData, order: 1, yAxisID: 'y', backgroundColor: colorBlue, barThickness: 20,
-                        },
-                        {
-                            type: 'line', label: 'Precipitation (%)', data: dailyPrecMean, order: 2, yAxisID: 'y1',
-                            backgroundColor: colorPrecip, borderColor: colorPrecip, stepped: true, fill: 'start', pointStyle: false
-                        }
-                    ]
+                    datasets: dailyDataset
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
                     scales: {
                         x: { grid: { display: false } },
-                        y: { position: 'left', ticks: { callback: v => `${v}°C` } },
-                        y1: { grid: { display: false }, position: 'right', min: 0, max: 100, ticks: { callback: v => `${v}%` } }
+                        y: yScalesConfig
                     },
                     interaction: { intersect: false, mode: 'index' },
                     plugins: {
                         tooltip: {
                             callbacks: {
-                                label: ctx => ctx.dataset.label.includes('Temperature') ? `Temperature: Min: ${ctx.raw[0]}°C Max: ${ctx.raw[1]}°C` : `Precipitation: ${ctx.raw}%`
+                                label: ctx => {
+                                    if (Array.isArray(ctx.raw)) {
+                                        return `Max: ${ctx.raw[1]}${yAxisLabel} Min: ${ctx.raw[0]}${yAxisLabel}`;
+                                    }
+                                    return `${ctx.dataset.label}: ${ctx.raw}${yAxisLabel}`;
+                                }
                             }, yAlign: 'center'
                         }
                     }
@@ -484,9 +567,21 @@ class WeatherApp {
     }
 
     renderFavoritesList() {
-        const favorites = this.getFavorites();
+        const rawFavorites = this.getFavorites();
+        let displayList = [...rawFavorites];
+
+        if (this.sortState === 'asc') {
+            displayList.sort((a, b) => a.label.localeCompare(b.label));
+        }
+        else if (this.sortState === 'desc') {
+            displayList.sort((a, b) => b.label.localeCompare(a.label));
+        }
+
         $(this.selectors.favList).empty();
-        favorites.forEach(city => {
+
+        let favoritesHtml = '';
+
+        displayList.forEach(city => {
             const li = `
                 <li class="fav-item" data-label="${city.label}">
                     <span class="fav-name">${city.label}</span>
@@ -495,14 +590,74 @@ class WeatherApp {
                     </button>
                 </li>
             `;
-            $(this.selectors.favList).append(li);
+            favoritesHtml += li;
         });
+
+        $(this.selectors.favList).append(favoritesHtml);
     }
 
     closeMenu() {
         $("aside").removeClass("active");
         $(".menu-overlay").removeClass("active");
         $("body").css("overflow", "");
+    }
+
+    setLoadingState(loading) {
+        this.isLoading = loading;
+
+        const elementsToDisable = $(this.selectors.favList).add('.search-wrapper').add('.btn-menu').add('.btn-sort').add('chart-tab');
+
+        if (loading) {
+            elementsToDisable.addClass('ui-disable');
+        }
+        else {
+            elementsToDisable.removeClass('ui-disable');
+        }
+    }
+
+    toggleSort() {
+        const icon = $("#sort-btn i");
+
+
+        if (this.sortState === 'default') {
+            this.sortState = 'asc';
+            icon.attr("class", "fa-solid fa-arrow-down-a-z");
+            this.showAlert("Sorted: A-Z");
+        }
+        else if (this.sortState === 'asc') {
+            this.sortState = 'desc';
+            icon.attr("class", "fa-solid fa-arrow-up-a-z");
+            this.showAlert("Sorted: Z-A");
+        }
+        else {
+            this.sortState = 'default';
+            icon.attr("class", "fa-regular fa-clock");
+            this.showAlert("Sorted: By time added");
+        }
+
+        this.renderFavoritesList();
+    }
+
+    showConfirmModal(message, onConfirmCallback) {
+        const modal = $("#confirm-modal");
+        const yesBtn = $("#confirm-yes");
+        const cancelBtn = $("#confirm-cancel");
+
+        $("#confirm-message").text(message);
+
+        modal.addClass("active");
+
+        yesBtn.off("click");
+        cancelBtn.off("click");
+
+        yesBtn.on("click", () => {
+            onConfirmCallback();
+            modal.removeClass("active");
+        });
+
+        cancelBtn.on("click", () => {
+            modal.removeClass("active");
+        });
     }
 }
 

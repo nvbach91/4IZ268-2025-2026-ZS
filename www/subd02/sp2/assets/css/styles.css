@@ -217,7 +217,6 @@ main {
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
     border: 1px solid rgba(0, 0, 0, 0.03);
-    animation: fadeIn 0.4s ease-out;
 }
 
 .weather-header {
@@ -347,6 +346,33 @@ aside {
     font-weight: 700;
 }
 
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+
+.sidebar-title {
+    margin-bottom: 0;
+}
+
+.btn-sort {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s, transform 0.2s;
+    padding: 5px;
+    background-color: var(--bg-body);
+    border-radius: 4px;
+}
+
+.btn-sort:hover {
+    background-color: rgba(147, 167, 189, 0.546);
+}
+
 .btn-menu {
     display: none;
     background: none;
@@ -398,6 +424,128 @@ aside {
     opacity: 0;
     transform: translateX(100%);
 }
+
+.ui-disable {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(2px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    text-align: center;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-title {
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.modal-text {
+    color: var(--text-light);
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+    min-width: 100px;
+}
+
+.btn-modal:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(147, 167, 189, 0.546);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background-color: #c82121;
+}
+
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.chart-tab {
+    background-color: var(--white);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 8px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.chart-tab.active {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+.chart-tab:hover:not(.active) {
+    background-color: var(--primary-light);
+    color: var(--primary-blue);
+}
+
 
 footer {
     text-align: center;

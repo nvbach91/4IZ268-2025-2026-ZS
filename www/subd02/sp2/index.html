@@ -37,9 +37,14 @@
 
     <div class="content-wrapper">
         <aside>
-            <p class="sidebar-title">MY CITIES</p>
+            <div class="sidebar-header">
+                <div class="sidebar-title">MY CITIES</div>
+                <button id="sort-btn" class="btn-sort" title="Change sorting">
+                    <i class="fa-regular fa-clock"></i>
+                </button>
+            </div>
+
             <ul class="city-list" id="fav-list"></ul>
-            <i class="fa-solid fa-times" id="btn-close"></i>
         </aside>
 
         <main id="main-content"></main>
@@ -47,6 +52,16 @@
 
     <div id="alert-container"></div>
     <div class="menu-overlay"></div>
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="modal-title">Confirm Action</h3>
+            <p id="confirm-message" class="modal-text">Are you sure?</p>
+            <div class="modal-buttons">
+                <button id="confirm-cancel" class="btn-modal btn-secondary">Cancel</button>
+                <button id="confirm-yes" class="btn-modal btn-danger">Remove</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>Made by: David Subhan. Powered by <a href="https://open-meteo.com/">Open-Meteo API</a></p>
