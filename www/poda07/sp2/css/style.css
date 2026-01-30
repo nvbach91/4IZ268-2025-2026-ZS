@@ -278,3 +278,46 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.pages {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.pageInfo {
+    font-size: small;
+    color: var(--text2);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modalBG{
+    background: var(--cardTasks);
+    padding-inline: 50px;
+    border-radius: 30px;
+    width: 600px;
+    padding-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deadlineNameday {
+    color: var(--text2);
+    font-size: small;
+}
+
+

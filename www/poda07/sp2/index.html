@@ -15,6 +15,7 @@
     <header class="header">
         <div class="datetime"></div>
         <div class="namesday"></div>
+        <div class="namesdayT"></div>
     </header>
 
     <div class="app">
@@ -25,12 +26,18 @@
                 <h3 class="h3">Statistiky</h3>
                 <p>Celkem: <span class="statTotal">0</span></p>
                 <p>Hotové: <span class="statDone">0</span></p>
+                <p>Zbývá: <span class="statTBD">0</span></p>
 
                 <div class="pieWrapper">
                     <div class="piePercent">
                         <span class="pieLabel">0%</span>
                     </div>
                 </div>
+                
+                <p>Škola: <span class="catSkola">0</span></p>
+                <p>Práce: <span class="catPrace">0</span></p>
+                <p>Domácnost: <span class="catDomacnost">0</span></p>
+                
             </div>
         </aside>
 
@@ -45,22 +52,36 @@
 
             <ul class="taskList"></ul>
 
-            <form class="taskForm">
-                <h3 class="h3">Nový úkol</h3>
-                <input type="text" class="taskTitle" placeholder="Název úkolu" required>
-                <textarea class="taskDsc" placeholder="Popis úkolu"></textarea>
+            <div class="pages">
+                <button class="btn pagePrev">Předchozí</button>
+                <span class="pageInfo">Strana 1/1</span>
+                <button class="btn pageNext">Další</button>
+            </div>
+            <div class="modal">
+                <div class="modalBG">
+                    <form class="taskForm">
+                        <h2 class="h2">Nový úkol</h2>
+                        <input type="text" class="taskTitle" placeholder="Název úkolu" required>
+                        <textarea class="taskDsc" placeholder="Popis úkolu"></textarea>
+                        <label>
+                            Deadline
+                            <input type="datetime-local" class="taskDeadline" required>
+                            <div class="deadlineNameday"></div>
+                        </label>
 
-                <select class="taskCategory">
-                    <option value="skola">Škola</option>
-                    <option value="prace">Práce</option>
-                    <option value="domacnost">Domácnost</option>
-                </select>
+                        <select class="taskCategory">
+                            <option value="skola">Škola</option>
+                            <option value="prace">Práce</option>
+                            <option value="domacnost">Domácnost</option>
+                        </select>
 
-                <div class="taskFormActions">
-                    <button type="submit" class="btn saveButton">Uložit</button>
-                    <button type="button" class="btn cancelButton">Zrušit</button>
+                        <div class="taskFormActions">
+                            <button type="submit" class="btn saveButton">Uložit</button>
+                            <button type="button" class="btn cancelButton">Zrušit</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </main>
     </div>
 
