@@ -3,7 +3,7 @@
     grid-template-rows: repeat(6, 1fr);
     gap: 8px;
     justify-content: center;
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 #game-board .row {
@@ -50,7 +50,7 @@
 #keyboard {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
     align-items: center;
 }
 

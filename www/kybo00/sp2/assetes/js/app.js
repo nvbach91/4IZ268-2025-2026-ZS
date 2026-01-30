@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const keys = document.querySelectorAll('.key');
-    const rows = document.querySelectorAll('#game-board .row');
+    
 
     const played = document.getElementById('played');
     const wins = document.getElementById('wins');
@@ -14,11 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resetButton = document.getElementById('reset-button');
 
+    const boardContainer = document.getElementById('game-board');
+
+
     let currentRowIndex = 0;
     let currentTileIndex = 0;
     const wordLength = 5;
+    const maxGuesses = 6;
 
-    let secretWord = "";
+    let secretWord = '';
     let isLoading = true;
 
     let timerInterval = null;
@@ -26,50 +29,112 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGameStarted = false;
     let isGameOver = false;
 
+
+
+    function createGameBoard() {
+        boardContainer.innerHTML = '';
+
+        for (let i = 0; i < maxGuesses; i++) {
+
+            const row = document.createElement('div');
+            row.className = 'row';
+
+            for (let j = 0; j < wordLength; j++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                row.appendChild(cell);
+            }
+
+            boardContainer.appendChild(row);
+        }
+    }
+
+    createGameBoard();
+
+
+    const keys = document.querySelectorAll('.key');
+    const rows = document.querySelectorAll('#game-board .row');
+
     resetButton.addEventListener('click', () => {
         if (!isGameOver && (isGameStarted || currentTileIndex > 0)) {
 
-            if (!confirm("Hra je rozehraná. Opravdu chceš začít znovu?")) {
-                return;
-            }
+            Swal.fire({
+                title: 'Začít znovu?',
+                text: "Hra je rozehraná. Opravdu chceš resetovat hru?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ano, resetovat',
+                cancelButtonText: 'Ne, hrát dál',
+                background: '#fff',
+                color: '#333'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    initGame();
+                }
+            });
+
+        } else {
+            initGame();
         }
-        window.location.reload();
     });
 
 
-
     newWordButton.addEventListener('click', async () => {
-        const text = newWord.value.trim().toUpperCase();
+        const text = newWord.value.trim().toUpperCase(); 
 
         if (text.length !== 5) {
-            alert("Slovo musí mít přesně 5 písmen!");
+            Swal.fire({
+                title: 'Chyba',
+                text: 'Slovo musí mít přesně 5 písmen!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
             return;
         }
 
+        if (/^[a-zA-ZěščřžýáíéóúůďňťĚŠČŘŽÝÁÍÉÓÚŮĎŇŤ]+$/.test(text) === false){
+            Swal.fire({
+                title: 'Chyba',
+                text: 'Slovo musí obsahovat pouze české znaky bez čísel',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
+            return;
+        }
+        
+
         newWordButton.disabled = true;
-        newWordButton.textContent = "Ověřuji...";
+        newWordButton.textContent = 'Ověřuji...';
 
         try {
-            const getResponse = await fetch('https://lab.betalix.cz/api/words');
-
-            if (!getResponse.ok) {
-                throw new Error("Nepodařilo se stáhnout seznam slov.");
+           
+            const getResponse = await fetch(`http://localhost:3000/api/words/test/${encodeURIComponent(text)}`);
+            const wordExists = await getResponse.json();
+            if (wordExists !== true) {
+                console.log(`Slovo ${text} ve slovníku není - je možno přidat`);
+            } else {
+                console.log(`Slovo ${text} existuje`);
             }
-
-            const allWords = await getResponse.json();
-
-            const wordExists = allWords.some(item => item.word.toUpperCase() === text);
+    
 
             if (wordExists) {
-                alert(`Slovo "${text}" už v databázi je! Zkus jiné.`);
+           
+                Swal.fire({
+                    title: "Chyba",
+                    text: `Slovo '${text}' už v databázi je! Zkus jiné.`,
+                    icon: "error"
+                });
                 newWordButton.disabled = false;
-                newWordButton.textContent = "Přidat";
+                newWordButton.textContent = 'Přidat';
                 return;
             }
 
-            newWordButton.textContent = "Odesílám...";
+            newWordButton.textContent = 'Odesílám...';
 
-            const postResponse = await fetch('https://lab.betalix.cz/api/words', {
+            const postResponse = await fetch('http://localhost:3000/api/words', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -78,18 +143,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (postResponse.status === 201) {
-                alert(`Super! Slovo "${text}" bylo úspěšně přidáno.`);
+                Swal.fire({
+                    title: "Super!",
+                    text: `Slovo '${text}' bylo úspěšně přidáno.`,
+                    icon: "success"
+                });
                 newWord.value = '';
             } else {
-                alert("Něco se pokazilo při ukládání slova.");
+                Swal.fire({
+                title: 'Chyba',
+                text: 'Něco se pokazilo při ukládání slova.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
+
             }
 
         } catch (error) {
-            console.error("Chyba:", error);
-            alert("Chyba komunikace se serverem.");
+            console.error('Chyba:', error);
+            
+            Swal.fire({
+                title: 'Chyba',
+                text: 'Chyba komunikace se serverem.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
+
         } finally {
             newWordButton.disabled = false;
-            newWordButton.textContent = "Přidat";
+            newWordButton.textContent = 'Přidat';
         }
     });
 
@@ -114,13 +196,41 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('wordleStats', JSON.stringify(stats));
     }
 
+
+    function resetBoard() {
+        rows.forEach(row => {
+            Array.from(row.children).forEach(cell => {
+                cell.textContent = '';
+                cell.className = 'cell'; 
+            });
+        });
+
+        keys.forEach(key => {
+            key.classList.remove('correct', 'present', 'absent');
+        });
+
+        currentRowIndex = 0;
+        currentTileIndex = 0;
+        isGameOver = false;
+        
+        stopTimer();
+        timer.textContent = '00:00';
+        isGameStarted = false;
+        
+        isLoading = true;
+    }
+
+
+
     const initGame = async () => {
+        resetBoard();
+
         try {
-            const response = await fetch('https://lab.betalix.cz/api/words/random');
+            const response = await fetch('http://localhost:3000/api/words/random');
             const data = await response.json();
             const candidateWord = data.word.toUpperCase();
 
-            if (stats.wordHistory.includes(candidateWord) && stats.wordHistory.length < 100) {
+            if (stats.wordHistory.includes(candidateWord) && stats.wordHistory.length < 50) {
                 console.log(`Slovo ${candidateWord} už bylo, hledám nové...`);
                 initGame();
                 return;
@@ -128,19 +238,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             secretWord = candidateWord;
             isLoading = false;
-            console.log("Tajné slovo (nápověda):", secretWord);
+            console.log('Tajné slovo (nápověda):', secretWord);
 
         } catch (error) {
-            console.error("Chyba:", error);
-            alert("Nepodařilo se načíst slovo.");
+            console.error('Chyba:', error);
+
+            Swal.fire({
+                title: 'Chyba',
+                text: 'Nepodařilo se načíst slovo.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            })
+            
         }
         stopTimer();
-        timer.textContent = "00:00";
+        timer.textContent = '00:00';
         isGameStarted = false;
 
     };
-
-    initGame();
 
 
     function startTimer() {
@@ -153,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const now = moment();
             const diff = now.diff(startTime);
 
-            timer.textContent = moment.utc(diff).format("mm:ss");
+            timer.textContent = moment.utc(diff).format('mm:ss');
         }, 1000);
     }
 
@@ -166,7 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     keys.forEach(key => {
         key.addEventListener('click', () => {
-            handleInput(key.textContent);
+            const value = key.dataset.key; 
+            handleInput(value);
         });
     });
 
@@ -177,14 +293,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const key = e.key.toUpperCase();
         if (key === 'ENTER') handleInput('ENTER');
-        else if (key === 'BACKSPACE') handleInput('⌫');
+        else if (key === 'BACKSPACE') handleInput('BACKSPACE');
         else if (key.length === 1 && /^[A-ZĚŠČŘŽÝÁÍÉÓÚŮĎŇŤ]$/.test(key)) handleInput(key);
     });
 
     function handleInput(letter) {
         if (isLoading) return;
 
-        if (!isGameStarted && letter !== 'ENTER' && letter !== '⌫' && letter !== 'BACKSPACE') {
+        if (!isGameStarted && letter !== 'ENTER' && letter !== 'BACKSPACE') {
             startTimer();
         }
 
@@ -192,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitRow();
             return;
         }
-        if (letter === '⌫' || letter === 'BACKSPACE') {
+        if (letter === 'BACKSPACE') {
             deleteLetter();
             return;
         }
@@ -205,7 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentRow = rows[currentRowIndex];
         const currentTile = currentRow.children[currentTileIndex];
         currentTile.textContent = letter;
-        currentTile.setAttribute('data-letter', letter);
         currentTileIndex++;
     }
 
@@ -216,7 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentRow = rows[currentRowIndex];
         const currentTile = currentRow.children[currentTileIndex];
         currentTile.textContent = '';
-        currentTile.removeAttribute('data-letter');
     }
 
     function updateGameStats(isWin) {
@@ -238,7 +352,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function submitRow() {
         if (currentTileIndex !== wordLength) {
-            alert("Slovo je příliš krátké!");
+            
+            setTimeout(() => Swal.fire({
+                title: 'Pozor!',
+                text: 'Slovo je příliš krátké!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            }), 100);
+            
+
             return;
         }
 
@@ -283,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, i * 300);
         }
 
-        console.log("Hráč:", guessedWord, "| Tajné:", secretWord);
+        console.log('Hráč:', guessedWord, '| Tajné:', secretWord);
 
         setTimeout(() => {
             if (guessedWord === secretWord) {
@@ -293,7 +415,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateGameStats(true);
 
                 isGameOver = true;
-                setTimeout(() => alert("Gratuluji! Vyhrál jsi!"), 100);
+                setTimeout(() => Swal.fire({
+                title: '',
+                text: 'Gratuluji! Vyhrál jsi!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }), 100);
                 isLoading = true;
                 return;
             }
@@ -308,7 +435,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateGameStats(false);
 
                     isGameOver = true;
-                    alert(`Konec hry! Tajné slovo bylo: ${secretWord}`);
+                    Swal.fire({
+                        title: '',
+                        text: `Konec hry! Tajné slovo bylo: ${secretWord}`,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    })
                     isLoading = true;
                 }
             }
