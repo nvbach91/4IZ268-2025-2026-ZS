@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">-->
+    <title>Online deníček</title>
+    <link rel="icon" href="png/diary.png" type="image/png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+    <script src="js/main.js" type="module"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Online deníček</h1>
+        <div class="auth-controls">
+            <button id="authorize_button" title="Přihlásit do Google"><i class="fa-brands fa-google"></i> Přihlásit do
+                Google</button>
+            <button id="signout_button" title="Odhlásit z Google"><i class="fa-solid fa-right-from-bracket"></i>
+                Odhlásit z Google</button>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+        <main class="left-panel">
+            <section class="record-panel">
+                <div class="panel-header">
+                    <h2>Moje záznamy</h2>
+                    <button id="show-form-btn" class="add-btn-large" title="Přidat záznam"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+                <p id="entries-info">Momentálně nemáte žádné záznamy.</p>
+                <!--modal-->
+                <div id="modal-form" class="modal">
+                    <div class="modal-content">
+                        <h3>Přidat nový záznam</h3>
+                        <div class="entry-form">
+                            <!-- formulář pro přidání záznamu -->
+                        </div>
+                    </div>
+                </div>
+                    <div class="entries-panel">
+                        <!-- záznamy se budou načítat pomocí js -->
+                    </div>
+            </section>
+
+            <section class="quote-container">
+                <h2>Citát</h2>
+                <div id="quote-display">
+                    <div class="loader"><i class="fas fa-spinner"></i></div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-panel">
+            <section class="calendar-container">
+                <div class="panel-header">
+                    <div id="current-date" class="current-date">
+                        <!-- aktuální datum se zobrazí zde -->
+                    </div>
+                    <button id="add-event-btn" class="add-btn-small" title="Přidat událost"><i
+                            class="fa-regular fa-calendar-plus"></i></button>
+                </div>
+                <input type="date" id="calendar-date-selector" class="entry-input">
+                <p id="events-info">Události se zobrazí po přihlášení do Google.</p>
+                <div class="event-form">
+                    <!-- formulář pro přidání události -->
+                </div>
+                <div id="calendar">
+                    <!-- události z Google kalendáře se zobrazí zde -->
+                </div>
+            </section>
+
+            <section class="todo-list-container">
+                <div class="panel-header">
+                    <h2>To-Do List</h2>
+                    <button id="add-task-btn" class="add-btn-small" title="Přidat úkol"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="todo-info">Úkoly se zobrazí po přihlášení do Google.</div>
+                <div class="task-form">
+                    <!-- formulář pro přidání úkolu -->
+                </div>
+                <div id="todo-list">
+                    <!-- úkoly z Google Tasks se zobrazí zde -->
+                </div>
+            </section>
+        </aside>
+
+    </div>
+</body>
+
+</html>
