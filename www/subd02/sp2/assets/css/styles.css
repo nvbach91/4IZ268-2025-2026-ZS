@@ -179,6 +179,13 @@ header {
     background-color: rgba(147, 167, 189, 0.546);
 }
 
+.fav-item.active {
+    background-color: #2563eb;
+}
+.fav-item.active > :is(span, button){
+    color: var(--white);
+}
+
 .fav-name {
     font-weight: 500;
     color: var(--text-dark);
@@ -195,7 +202,7 @@ header {
 }
 
 .btn-remove-fav:hover {
-    color: var(--danger);
+    color: var(--danger) !important;
 }
 
 #btn-close {

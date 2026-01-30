@@ -4,14 +4,6 @@ class WeatherApp {
         this.weatherApiUrl = "https://api.open-meteo.com/v1/forecast";
         this.maxSuggestions = 50;
 
-        this.selectors = {
-            searchInput: "#city-input",
-            locateBtn: "#locate-btn",
-            mainContent: "#main-content",
-            favList: "#fav-list",
-            alertContainer: "#alert-container"
-        };
-
         this.weatherParams = {
             current: "temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m",
             daily: "temperature_2m_min,temperature_2m_max,precipitation_probability_mean",
@@ -29,14 +21,14 @@ class WeatherApp {
         this.lastWeatherData = null;
 
         this.isLoading = false;
-        this.sortState = 'default';
+        this.sortState = localStorage.getItem("favorites-sorting");
 
         this.elements = {
-            searchInput: $(this.selectors.searchInput),
-            locateBtn: $(this.selectors.locateBtn),
-            mainContent: $(this.selectors.mainContent),
-            favList: $(this.selectors.favList),
-            alertContainer: $(this.selectors.alertContainer),
+            searchInput: $("#city-input"),
+            locateBtn: $("#locate-btn"),
+            mainContent: $("#main-content"),
+            favList: $("#fav-list"),
+            alertContainer: $("#alert-container"),
             menuToggle: $("#menu-toggle"),
             btnSearch: $(".btn-search"),
             searchWrapper: $(".search-wrapper"),
@@ -56,6 +48,10 @@ class WeatherApp {
     }
 
     init() {
+        if (localStorage.getItem("favorites-sorting") === null) {
+            localStorage.setItem("favorites-sorting", "default");
+        }
+
         this.initSearch();
         this.bindEvents();
         this.renderFavoritesList();
@@ -158,12 +154,20 @@ class WeatherApp {
         const cityParam = urlParams.get('city');
 
         if (cityParam) {
-            this.fetchCities(cityParam, (results) => {
-                if (results && results.length > 0) {
-                    const bestMatch = results[0];
-                    this.handleCitySelect(bestMatch, false);
-                }
-            });
+            if (cityParam === "Your location") {
+                this.handleGeoLocation();
+            }
+            else {
+                this.fetchCities(cityParam, (results) => {
+                    if (results && results.length > 0) {
+                        const bestMatch = results[0];
+                        this.handleCitySelect(bestMatch, false);
+                    }
+                });
+            }
+        }
+        else {
+            this.handleGeoLocation();
         }
     }
 
@@ -304,6 +308,9 @@ class WeatherApp {
         this.selectedCity = cityData;
         this.elements.searchInput.val(cityData.label);
 
+        this.elements.favList.find(".fav-item").removeClass("active");
+        this.elements.favList.find(`.fav-item[data-label="${cityData.label}"]`).addClass("active");
+
         if (updateHistory) {
             const newUrl = new URL(window.location);
             newUrl.searchParams.set('city', cityData.label);
@@ -371,7 +378,7 @@ class WeatherApp {
                 <div class="weather-header">
                     <div class="city-headline">
                         <h2>${cityData.label}${locationCountry}</h2>
-                        <span class="date-info">${dateString}</span>
+                        <span class="date-info">${dateString} (${apiData.timezone.replace("_", " ")}, ${apiData.timezone_abbreviation})</span>
                     </div>
                     ${favButtonHtml}
                 </div>
@@ -435,6 +442,7 @@ class WeatherApp {
         const dailyTime = apiData.daily.time.map(t => new Date(t).toLocaleDateString('en-US', { weekday: 'short' }));
 
         const colorBlue = '#2563eb';
+        const colorRed = '#ef4444';
         const colorPrecip = 'rgba(131, 171, 234, 1)';
 
         let hourlyDataset, dailyDataset;
@@ -445,6 +453,7 @@ class WeatherApp {
         if (this.chartMode === 'temperature') {
             yAxisLabel = '°C';
             const hourlyTemp = apiData.hourly.temperature_2m.slice(currentHour, currentHour + 24);
+
             hourlyDataset = [
                 {
                     type: 'line',
@@ -459,15 +468,29 @@ class WeatherApp {
                 }
             ];
 
-            const dailyData = apiData.daily.time.map((date, index) => [apiData.daily.temperature_2m_min[index], apiData.daily.temperature_2m_max[index]]);
+            const dailyTempMin = apiData.daily.temperature_2m_min;
+            const dailyTempMax = apiData.daily.temperature_2m_max;
+
             dailyDataset = [
                 {
-                    type: 'bar',
-                    label: 'Temperature (°C)',
-                    data: dailyData, order: 1,
+                    type: 'line',
+                    label: 'Min Temperature (°C)',
+                    data: dailyTempMin,
                     yAxisID: 'y',
+                    borderColor: colorBlue,
                     backgroundColor: colorBlue,
-                    barThickness: 20
+                    borderWidth: 3,
+                    tension: 0.3
+                },
+                {
+                    type: 'line',
+                    label: 'Max Temperature (°C)',
+                    data: dailyTempMax,
+                    yAxisID: 'y',
+                    borderColor: colorRed,
+                    backgroundColor: colorRed,
+                    borderWidth: 3,
+                    tension: 0.3
                 }
             ];
         }
@@ -540,19 +563,7 @@ class WeatherApp {
                         x: { grid: { display: false } },
                         y: yScalesConfig
                     },
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: ctx => {
-                                    if (Array.isArray(ctx.raw)) {
-                                        return `Min: ${ctx.raw[0]}${yAxisLabel} Max: ${ctx.raw[1]}${yAxisLabel}`;
-                                    }
-                                    return `${ctx.dataset.label}: ${ctx.raw}${yAxisLabel}`;
-                                }
-                            }, yAlign: 'center'
-                        }
-                    }
+                    interaction: { intersect: false, mode: 'index' }
                 }
             });
         }
@@ -590,19 +601,28 @@ class WeatherApp {
         const rawFavorites = this.getFavorites();
         let displayList = [...rawFavorites];
 
+        const icon = this.elements.sortIcon;
+
         if (this.sortState === 'asc') {
             displayList.sort((a, b) => a.label.localeCompare(b.label));
+            icon.attr("class", "fa-solid fa-arrow-down-a-z");
+
         }
         else if (this.sortState === 'desc') {
             displayList.sort((a, b) => b.label.localeCompare(a.label));
+            icon.attr("class", "fa-solid fa-arrow-up-a-z");
+        } else {
+            icon.attr("class", "fa-regular fa-clock");
         }
 
         this.elements.favList.empty();
 
         let favoritesHtml = '';
         displayList.forEach(city => {
+            const isActive = this.selectedCity && this.selectedCity.label === city.label ? 'active' : '';
+
             const li = `
-                <li class="fav-item" data-label="${city.label}">
+                <li class="fav-item ${isActive}" data-label="${city.label}">
                     <span class="fav-name">${city.label}</span>
                     <button class="btn-remove-fav" title="Remove">
                         <i class="fa-solid fa-trash"></i>
@@ -657,6 +677,7 @@ class WeatherApp {
             this.showAlert("Sorted: By time added");
         }
 
+        localStorage.setItem("favorites-sorting", this.sortState);
         this.renderFavoritesList();
     }
 
