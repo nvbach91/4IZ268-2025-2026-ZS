@@ -321,7 +321,7 @@ App.renderLibrary = () => {
     pagination.addClass('hidden');
 
     const filtredLibrary = App.filterSortLibrary(library);
-
+    libraryCountSubtitle.text(`Showing ${filtredLibrary.length} game${filtredLibrary.length !== 1 ? 's' : ''} (Total: ${library.length}).`);
     if (filtredLibrary.length === 0) {
         if (library.length > 0) {
             libraryList.html(`
@@ -435,7 +435,7 @@ App.addToLibrary = (gameObj) => {
 
     App.closeModal();
 
-    if (!sectionLibrary.hasClass('hidden')) {
+    if (App.currentView === 'library') {
         App.renderLibrary();
     }
 };
@@ -452,14 +452,11 @@ App.removeFromLibrary = (id) => {
 
     App.closeModal();
 
-    if (!sectionLibrary.hasClass('hidden')) {
+    if (App.currentView === 'library') {
         App.renderLibrary();
     }
 
-    App.renderLibrary();
-
     App.showToast('Game removed from library.', 'success');
-
 };
 
 
