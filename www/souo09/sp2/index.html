@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trip planning app: Manage the places you want to visit">
+    <meta name="author" content="Ondřej Soukup">
+    <title>TRIP PLANNER</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>TRIP PLANNER</h1>
+            <div class="header-actions">
+                <button id="import-btn" class="btn-import">Import JSON</button>
+                <button id="export-btn" class="btn-export">Export JSON</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="form-section">
+                <h2>Add Place</h2>
+                <form id="place-form">
+                    <div class="form-group form-group-destination">
+                        <label for="place-name">Destination</label>
+                        <div class="destination-autocomplete">
+                            <input type="text" id="place-name" name="name" autocomplete="off">
+                            <div id="destination-suggestions" class="destination-suggestions" role="listbox" aria-label="Destination suggestions" hidden></div>
+                        </div>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place-arrival">Arrival date</label>
+                        <input type="date" id="place-arrival" name="arrivalDate">
+                        <span class="error-message" id="arrival-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place-departure">Departure date</label>
+                        <input type="date" id="place-departure" name="departureDate">
+                        <span class="error-message" id="departure-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place-description">Notes</label>
+                        <textarea id="place-description" name="description" rows="4"></textarea>
+                        <span class="error-message" id="description-error"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="submit-btn" class="btn-add">Add</button>
+                        <button type="button" id="cancel-btn" class="btn-cancel" style="display: none;">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="places-section">
+                <h2>List of Places</h2>
+                <div id="places-filter" class="places-filter" role="group" aria-label="Show trips">
+                    <button type="button" class="filter-btn active" data-filter="all">All</button>
+                    <button type="button" class="filter-btn" data-filter="upcoming">Upcoming journeys</button>
+                    <button type="button" class="filter-btn" data-filter="past">Past journeys</button>
+                </div>
+                <div id="places-list" class="places-list">
+                    <!-- PLACES added here -->
+                </div>
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <p>You have not added any places yet.</p>
+                </div>
+                <button id="delete-btn" class="btn-delete-list">Delete all places</button>
+            </section>
+        </main>
+
+        <section class="details-section">
+                <h2>Place Details</h2>
+                <div class="details-content">
+                    <div class="details-info">
+                        <ul id="details-list" class="details-list">
+                            <li>
+                                <span class="detail-label">Destination</span>
+                                <span class="detail-value" id="detail-name">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Arrival</span>
+                                <span class="detail-value" id="detail-arrival">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Departure</span>
+                                <span class="detail-value" id="detail-departure">-</span>
+                            </li>
+                            <li>
+                                <span class="detail-label">Notes</span>
+                                <span class="detail-value" id="detail-notes">-</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="weather-result" id="weather-result">
+                        *Weather API Result Here*
+                    </div>
+                </div>
+            </section>
+    </div>
+
+    <!-- Spinner overlay -->
+    <div id="spinner-overlay" class="spinner-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading data...</p>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="import-input" accept=".json" style="display: none;">
+
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/validator@13.11.0/validator.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
