@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/img/logo.svg" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/8879ad9f16.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>MeteoRadar</title>
+</head>
+
+<body>
+
+    <header>
+        <div id="menu-toggle" class="btn-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <div class="logo">
+            <i class="fa-solid fa-cloud-sun-rain"></i>
+            MeteoRadar
+        </div>
+
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="city-input" placeholder="Search for cities...">
+            <button class="btn-locate" id="locate-btn"><i class="fa-solid fa-location-crosshairs"></i></button>
+            <button class="btn-search" id="search-btn">Search</button>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <aside>
+            <div class="sidebar-header">
+                <div class="sidebar-title">MY CITIES</div>
+                <button id="sort-btn" class="btn-sort" title="Change sorting">
+                    <i class="fa-regular"></i>
+                </button>
+            </div>
+
+            <ul class="city-list" id="fav-list"></ul>
+        </aside>
+
+        <main id="main-content"></main>
+    </div>
+
+    <div id="alert-container"></div>
+    <div class="menu-overlay"></div>
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="modal-title">Confirm Action</h3>
+            <p id="confirm-message" class="modal-text">Are you sure?</p>
+            <div class="modal-buttons">
+                <button id="confirm-cancel" class="btn-modal btn-secondary">Cancel</button>
+                <button id="confirm-yes" class="btn-modal btn-danger">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made by: David Subhan. Powered by <a href="https://open-meteo.com/">Open-Meteo API</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"
+        integrity="sha256-9zljDKpE/mQxmaR4V2cGVaQ7arF3CcXxarvgr7Sj8Uc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
