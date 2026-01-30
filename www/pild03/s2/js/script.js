@@ -1,13 +1,13 @@
 /**
  * 4IZ268 - MealPlanner Application
- * Namespace: MealApp
+ * Namespace: MealApp 
  */
 
 const MealApp = {
     API_BASE: 'https://www.themealdb.com/api/json/v1/1/',
     DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     MEAL_TYPES: ['Breakfast', 'Lunch', 'Dinner'],
-   UNIT_MAP: {
+    UNIT_MAP: {
         'g': 'g', 'gram': 'g', 'grams': 'g',
         'kg': 'kg', 'kilogram': 'kg',
         'ml': 'ml', 'l': 'l', 'liter': 'l',
@@ -16,211 +16,268 @@ const MealApp = {
         'tsp': 'tsp', 'teaspoon': 'tsp', 'teaspoons': 'tsp',
         'pcs': 'pcs', 'piece': 'pcs', 'unit': 'pcs', 'egg': 'pcs', 'eggs': 'pcs'
     },
+
     state: {
-        mealPlan: {},
-        recipeCache: {}
+        mealPlan: {}
     },
 
+    ui: {},
+
     init() {
+        this.cacheElements();
         this.loadFromStorage();
         this.renderGrid();
         this.attachEventListeners();
     },
 
-   async searchRecipes(query) {
+    cacheElements() {
+        this.ui.$results = $('#search-results');
+        this.ui.$loader = $('#loader');
+        this.ui.$searchInput = $('#recipe-search-input');
+        this.ui.$grid = $('#meal-planner-grid');
+        this.ui.$shoppingListSection = $('#shopping-list-section');
+        this.ui.$shoppingListContent = $('#shopping-list-content');
+    },
+
+
+    getRecipeDetails(id) {
+        return $.getJSON(`${this.API_BASE}lookup.php?i=${id}`)
+            .then(data => (data.meals ? data.meals[0] : null));
+    },
+
+    searchRecipes(query) {
         if (!query || query.trim() === "") return;
-        
-        const $results = $('#search-results');
+
         this.toggleLoader(true);
-        $results.empty();
+        this.ui.$results.empty();
 
-        const q = query.trim().toLowerCase();
+        const q = encodeURIComponent(query.trim().toLowerCase());
 
-        try {
-            const [nameRes, catRes, areaRes] = await Promise.all([
-                fetch(`${this.API_BASE}search.php?s=${encodeURIComponent(q)}`),
-                fetch(`${this.API_BASE}filter.php?c=${encodeURIComponent(q)}`),
-                fetch(`${this.API_BASE}filter.php?a=${encodeURIComponent(q)}`)
-            ]);
 
-            const nameData = await nameRes.json();
-            const catData = await catRes.json();
-            const areaData = await areaRes.json();
-
+        $.when(
+            $.getJSON(`${this.API_BASE}search.php?s=${q}`),
+            $.getJSON(`${this.API_BASE}filter.php?c=${q}`),
+            $.getJSON(`${this.API_BASE}filter.php?a=${q}`)
+        ).done((resName, resCat, resArea) => {
             const combinedMeals = new Map();
 
-            if (nameData.meals) {
-                nameData.meals.forEach(meal => combinedMeals.set(meal.idMeal, meal));
-            }
 
-            if (catData.meals) {
-                catData.meals.forEach(meal => {
-                    if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
-                });
-            }
-
-            if (areaData.meals) {
-                areaData.meals.forEach(meal => {
-                    if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
-                });
-            }
+            [resName[0].meals, resCat[0].meals, resArea[0].meals].forEach(mealArray => {
+                if (mealArray) {
+                    mealArray.forEach(meal => {
+                        if (!combinedMeals.has(meal.idMeal)) combinedMeals.set(meal.idMeal, meal);
+                    });
+                }
+            });
 
             const finalMeals = Array.from(combinedMeals.values());
 
             if (finalMeals.length > 0) {
                 this.renderSearchResults(finalMeals);
+                this.toggleLoader(false);
             } else {
-                const ingRes = await fetch(`${this.API_BASE}filter.php?i=${encodeURIComponent(q)}`);
-                const ingData = await ingRes.json();
-                
-                if (ingData.meals) {
-                    this.renderSearchResults(ingData.meals);
-                } else {
-                    $results.html('<p>No recipes found. Try searching for "Chicken", "Italian", or "Seafood".</p>');
-                }
+                $.getJSON(`${this.API_BASE}filter.php?i=${q}`).done(ingData => {
+                    if (ingData.meals) {
+                        this.renderSearchResults(ingData.meals);
+                    } else {
+                        this.ui.$results.html('<p>No recipes found.</p>');
+                    }
+                    this.toggleLoader(false);
+                });
             }
-        } catch (error) {
-            this.showNotification("Search failed. Please check your connection.", "error");
-        } finally {
+        }).fail(() => {
+            this.showNotification("Search failed.", "error");
             this.toggleLoader(false);
-        }
-    },
-
-    getNormalizedName(name) {
-        if (!name) return "";
-        const lower = name.toLowerCase().trim();
-        if (lower.includes('egg')) return 'Eggs';
-        if (lower.includes('onion')) return 'Onion';
-        if (lower.includes('garlic')) return 'Garlic';
-        if (lower.includes('chicken')) return 'Chicken';
-        if (lower.includes('flour')) return 'Flour';
-        if (lower.includes('sugar')) return 'Sugar';
-        return name.charAt(0).toUpperCase() + name.slice(1);
-    },
-
-    renderSearchResults(meals) {
-        const $results = $('#search-results');
-        $results.empty();
-        meals.slice(0, 10).forEach(meal => {
-            const $card = $(`
-                <div class="recipe-card" draggable="true" data-id="${meal.idMeal}" data-name="${meal.strMeal}">
-                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                    <h4>${meal.strMeal}</h4>
-                </div>
-            `);
-            $card.on('dragstart', (e) => this.handleDragStart(e));
-            $card.on('click', () => this.showRecipeDetail(meal.idMeal));
-            $results.append($card);
         });
     },
 
-async showRecipeDetail(id) {
-        $('.recipe-detail-overlay').remove();
+    renderSearchResults(meals) {
+        let html = '';
 
-        this.toggleLoader(true);
-        const recipe = await this.getRecipeDetails(id);
-        this.toggleLoader(false);
 
-        if (!recipe) return;
-
-        let ingredientsHtml = '';
-        for (let i = 1; i <= 20; i++) {
-            const ing = recipe[`strIngredient${i}`];
-            const msr = recipe[`strMeasure${i}`];
-            if (ing && ing.trim()) {
-                ingredientsHtml += `
-                    <div style="background: white; padding: 15px; margin-bottom: 12px; border-radius: 10px; border-left: 5px solid #00CC99; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                        <div style="font-weight: bold; color: #333; font-size: 17px; margin-bottom: 4px;">${ing.charAt(0).toUpperCase() + ing.slice(1)}</div>
-                        <div style="color: #0088A8; font-size: 15px; font-weight: 600;">${msr}</div>
-                    </div>`;
-            }
-        }
-
-        const formattedInstructions = recipe.strInstructions
-            .split('\n')
-            .filter(para => para.trim() !== '') 
-            .map(para => `<p style="margin-bottom: 20px;">${para.trim()}</p>`)
-            .join('');
-
-        const detailContainer = document.createElement('div');
-        detailContainer.className = 'recipe-detail-overlay';
-        detailContainer.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0, 0, 0, 0.8); z-index: 2500; display: flex; 
-            justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(8px);
+        meals.forEach(meal => {
+            html += `
+            <div class="recipe-card" draggable="true" data-id="${meal.idMeal}" data-name="${meal.strMeal}">
+                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                <h4>${meal.strMeal}</h4>
+            </div>
         `;
+        });
 
-        detailContainer.innerHTML = `
-            <div style="background: white; border-radius: 25px; max-width: 1200px; width: 95%; height: 90vh; display: flex; overflow: hidden; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.6); animation: fadeIn 0.3s ease;">
-                <button class="close-detail-btn" style="position: absolute; top: 20px; right: 25px; font-size: 35px; background: white; width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; z-index: 20; color: #444; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; transition: 0.2s;">&times;</button>
-                
-                <div style="width: 30%; background: #f4f7f9; padding: 45px 30px; border-right: 1px solid #e1e8ed; overflow-y: auto;">
-                    <h3 style="color: #0088A8; font-size: 24px; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #00CC99; padding-bottom: 10px;">
-                        Ingredients
-                    </h3>
-                    <div style="display: flex; flex-direction: column;">
-                        ${ingredientsHtml}
-                    </div>
-                </div>
+        this.ui.$results.html(html);
 
-                <div style="width: 70%; padding: 50px 60px; overflow-y: auto; scroll-behavior: smooth;">
-                    <h2 style="margin-top: 0; color: #222; font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 25px;">${recipe.strMeal}</h2>
+
+        this.ui.$results.find('.recipe-card').each((index, el) => {
+            const $card = $(el);
+            $card.on('dragstart', (e) => this.handleDragStart(e));
+            $card.on('click', () => this.showRecipeDetail($card.data('id')));
+        });
+    },
+
+    showRecipeDetail(id) {
+        $('.recipe-detail-overlay').remove();
+        this.toggleLoader(true);
+
+        this.getRecipeDetails(id).then(recipe => {
+            this.toggleLoader(false);
+            if (!recipe) return;
+
+            let ingredientsHtml = '';
+            for (let i = 1; i <= 20; i++) {
+                const ing = recipe[`strIngredient${i}`];
+                const msr = recipe[`strMeasure${i}`];
+                if (ing && ing.trim()) {
+                    ingredientsHtml += `
+                    <div class="ingredient-item">
+                        <div class="ing-name">${ing.charAt(0).toUpperCase() + ing.slice(1)}</div>
+                        <div class="ing-measure">${msr}</div>
+                    </div>`;
+                }
+            }
+
+            const formattedInstructions = recipe.strInstructions
+                .split('\n')
+                .filter(para => para.trim() !== '')
+                .map(para => `<p>${para.trim()}</p>`)
+                .join('');
+
+
+            let dayOptions = this.DAYS.map(d => `<option value="${d}">${d}</option>`).join('');
+            let typeOptions = this.MEAL_TYPES.map(t => `<option value="${t}">${t}</option>`).join('');
+
+
+            const detailHtml = `
+            <div class="recipe-detail-overlay">
+                <div class="recipe-detail-modal">
+                    <button class="close-detail-btn">&times;</button>
                     
-                    <div style="margin-bottom: 40px;">
-                        <img src="${recipe.strMealThumb}" style="width: 100%; height: 450px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.2);">
+                    <div class="recipe-detail-sidebar">
+                        <h3>Ingredients</h3>
+                        <div class="ingredients-list">${ingredientsHtml}</div>
                     </div>
 
-                    <h3 style="color: #0088A8; font-size: 26px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
-                         Preparation Method
-                    </h3>
-                    
-                    <div style="line-height: 1.9; color: #333; font-size: 18px; text-align: justify; background: #fff; border-radius: 15px;">
-                        ${formattedInstructions}
+                    <div class="recipe-detail-main">
+                        <div class="recipe-meta">
+                            <span class="badge">${recipe.strCategory}</span>
+                            <span class="badge">${recipe.strArea}</span>
+                        </div>
+                        <h2>${recipe.strMeal}</h2>
+                        <div class="recipe-image-container">
+                            <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}">
+                        </div>
+                        <h3>Preparation Method</h3>
+                        <div class="instructions-content">${formattedInstructions}</div>
+
+                        <div class="add-to-plan-footer">
+                            <h4>Add this recipe to your Weekly Plan</h4>
+                            <div class="plan-controls-row">
+                                <label for="select-day">Day:</label>
+                                <select id="select-day">${dayOptions}</select>
+                                
+                                <label for="select-type">Meal:</label>
+                                <select id="select-type">${typeOptions}</select>
+                                
+                                <button id="add-from-detail-btn">Add to Calendar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         `;
 
-        document.body.appendChild(detailContainer);
+            const $detail = $(detailHtml).hide().appendTo('body').fadeIn(300);
 
-        const close = () => {
-            $(detailContainer).fadeOut(200, function() { 
-                $(this).remove(); 
+
+            $detail.find('#add-from-detail-btn').on('click', () => {
+                const day = $detail.find('#select-day').val();
+                const type = $detail.find('#select-type').val();
+                const slotKey = `${day}-${type}`;
+
+
+                const performSave = () => {
+                    this.state.mealPlan[slotKey] = {
+                        id: recipe.idMeal,
+                        name: recipe.strMeal
+                    };
+
+                    this.saveToStorage();
+                    this.renderGrid();
+                    this.showNotification(`Added to ${day} ${type}`, "success");
+
+
+                    $detail.fadeOut(200, () => $detail.remove());
+                };
+
+
+                if (this.state.mealPlan[slotKey]) {
+                    Swal.fire({
+                        title: 'Slot occupied!',
+                        text: `You already have "${this.state.mealPlan[slotKey].name}" planned. Replace it?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#00CC99',
+                        cancelButtonColor: '#FF5733',
+                        confirmButtonText: 'Yes, replace',
+                        target: $detail[0]
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            performSave();
+                        }
+                    });
+                } else {
+                    performSave();
+                }
             });
-        };
 
-        $(detailContainer).find('.close-detail-btn').on('click', close);
-        $(detailContainer).on('click', (e) => { if (e.target === detailContainer) close(); });
+            const close = () => { $detail.fadeOut(200, () => $detail.remove()); };
+            $detail.find('.close-detail-btn').on('click', close);
+            $detail.on('click', (e) => { if (e.target === $detail[0]) close(); });
+        });
     },
 
     renderGrid() {
-        const $grid = $('#meal-planner-grid');
-        $grid.empty();
-        $grid.append('<div class="grid-header">Time</div>');
-        this.DAYS.forEach(day => $grid.append(`<div class="grid-header">${day}</div>`));
+        let html = '<div class="grid-header">Time</div>';
+        this.DAYS.forEach(day => { html += `<div class="grid-header">${day}</div>`; });
 
         this.MEAL_TYPES.forEach(type => {
-            $grid.append(`<div class="type-cell">${type}</div>`);
+            html += `<div class="type-cell">${type}</div>`;
             this.DAYS.forEach(day => {
                 const slotKey = `${day}-${type}`;
-                const $slot = $(`<div class="meal-slot" data-slot="${slotKey}"></div>`);
-                $slot.on('dragover', (e) => e.preventDefault());
-                $slot.on('drop', (e) => this.handleDrop(e));
-                if (this.state.mealPlan[slotKey]) this.renderPlannedItem($slot, this.state.mealPlan[slotKey]);
-                $grid.append($slot);
+                html += `<div class="meal-slot" data-slot="${slotKey}"></div>`;
             });
+        });
+
+        this.ui.$grid.html(html);
+
+        this.ui.$grid.find('.meal-slot').each((index, el) => {
+            const $slot = $(el);
+            const slotKey = $slot.data('slot');
+            $slot.on('dragover', (e) => e.preventDefault());
+            $slot.on('drop', (e) => this.handleDrop(e));
+
+            if (this.state.mealPlan[slotKey]) {
+                this.renderPlannedItem($slot, this.state.mealPlan[slotKey]);
+            }
         });
     },
 
     renderPlannedItem($slot, item) {
         const $el = $(`
-            <div class="planned-recipe" style="cursor: pointer;">
-                <span class="recipe-name-click">${item.name}</span>
-                <button class="remove-btn">×</button>
-            </div>
-        `);
-        
-    
+        <div class="planned-recipe" draggable="true">
+            <span class="recipe-name-click">${item.name}</span>
+            <button class="remove-btn">×</button>
+        </div>
+    `);
+        $el.on('dragstart', (e) => {
+            const transferData = {
+                id: item.id,
+                name: item.name,
+                fromSlot: $slot.data('slot')
+            };
+
+            e.originalEvent.dataTransfer.setData('application/json', JSON.stringify(transferData));
+        });
+
         $el.find('.recipe-name-click').on('click', (e) => {
             e.stopPropagation();
             this.showRecipeDetail(item.id);
@@ -236,71 +293,62 @@ async showRecipeDetail(id) {
         $slot.html($el);
     },
 
+    generateList() {
+    const plannedItems = Object.values(this.state.mealPlan);
 
-    async generateList() {
-        const recipeIds = [...new Set(Object.values(this.state.mealPlan).map(item => item.id))];
-        if (recipeIds.length === 0) return;
+    if (plannedItems.length === 0) {
+        Swal.fire({
+            title: 'Empty Calendar',
+            text: "Please add some meals to your plan first!",
+            icon: 'info',
+            confirmButtonColor: '#00CC99'
+        });
+        return;
+    }
 
-        this.toggleLoader(true);
-        const totals = {}; 
+    this.toggleLoader(true);
+    const totals = {};
+    let completedRequests = 0;
 
-        for (const id of recipeIds) {
-            const recipe = await this.getRecipeDetails(id);
-            if (!recipe) continue;
+    plannedItems.forEach(item => {
+        $.getJSON(`${this.API_BASE}lookup.php?i=${item.id}`)
+            .done(data => {
+                const recipe = data.meals ? data.meals[0] : null;
 
-            let recipeIngredients = [];
+                if (recipe) {
+                    for (let i = 1; i <= 20; i++) {
+                        const name = recipe[`strIngredient${i}`];
+                        const msr = recipe[`strMeasure${i}`];
 
-            for (let i = 1; i <= 20; i++) {
-                const name = recipe[`strIngredient${i}`];
-                const msr = recipe[`strMeasure${i}`];
+                        if (name && name.trim()) {
+                            const unifiedName = this.getNormalizedName(name);
+                            const parsed = this.parseMeasure(msr);
 
-                if (name && name.trim()) {
-                    const unifiedName = this.getNormalizedName(name);
-                    const parsed = this.parseMeasure(msr);
-                    recipeIngredients.push({ name: unifiedName, value: parsed.value, unit: parsed.unit });
+                            if (!totals[unifiedName]) totals[unifiedName] = {};
+                            if (!totals[unifiedName][parsed.unit]) totals[unifiedName][parsed.unit] = 0;
+                            totals[unifiedName][parsed.unit] += parsed.value;
+                        }
+                    }
                 }
-            }
-
-            let whites = recipeIngredients.find(ing => ing.name === 'Egg Whites' && ing.unit === 'pcs');
-            let yolks = recipeIngredients.find(ing => ing.name === 'Egg Yolks' && ing.unit === 'pcs');
-
-            if (whites && yolks) {
-                let wholeEggsCount = Math.max(whites.value, yolks.value);
-                
-                recipeIngredients.push({ name: 'Eggs', value: wholeEggsCount, unit: 'pcs' });
-                
-                whites.value -= wholeEggsCount;
-                yolks.value -= wholeEggsCount;
-            }
-
-            recipeIngredients.forEach(ing => {
-                if (ing.value <= 0) return; 
-                
-                if (!totals[ing.name]) totals[ing.name] = {};
-                if (!totals[ing.name][ing.unit]) totals[ing.name][ing.unit] = 0;
-                totals[ing.name][ing.unit] += ing.value;
+            })
+            .always(() => {
+                completedRequests++;
+                if (completedRequests === plannedItems.length) {
+                    this.renderShoppingList(totals);
+                    this.toggleLoader(false);
+                }
             });
-        }
-
-        this.renderShoppingList(totals);
-        this.toggleLoader(false);
-    },
+    });
+},
 
     getNormalizedName(name) {
         if (!name) return "";
         let lower = name.toLowerCase().trim();
-        const stopWords = ['melted', 'softened', 'cold', 'unsalted', 'salted', 'frozen', 'fresh', 'chopped', 'minced', 'large', 'small', 'tinned', 'canned'];
+        const stopWords = ['melted', 'softened', 'cold', 'unsalted', 'salted', 'frozen', 'fresh', 'chopped', 'minced', 'large', 'small'];
         stopWords.forEach(word => {
             lower = lower.replace(new RegExp(`\\b${word}\\b`, 'g'), '');
         });
-
         lower = lower.replace(/(\w+)(es|s)\b/g, '$1').trim();
-
-        if (lower.includes('passata') || lower.includes('puree') || (lower.includes('tomato') && lower.includes('sauce'))) {
-            return 'Tomato Puree/Passata';
-        }
-
-
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     },
 
@@ -318,7 +366,7 @@ async showRecipeDetail(id) {
             }
         } else { value = 1; }
 
-        let normalizedUnit = 'untracked'; 
+        let normalizedUnit = 'untracked';
         for (const [key, val] of Object.entries(this.UNIT_MAP)) {
             if (new RegExp(`\\b${key}\\b`).test(lower)) {
                 normalizedUnit = val;
@@ -332,9 +380,7 @@ async showRecipeDetail(id) {
     },
 
     renderShoppingList(totals) {
-        const $content = $('#shopping-list-content');
-        let listHtml = '<ul style="list-style:none; padding:0;">';
-        
+        let listHtml = '<ul class="shopping-list-ul">';
         Object.entries(totals).sort().forEach(([name, units]) => {
             const measureStrings = Object.entries(units).map(([unit, amount]) => {
                 if (amount <= 0) return null;
@@ -344,11 +390,6 @@ async showRecipeDetail(id) {
                 if (unit === 'g' && amount >= 1000) {
                     displayAmount = (amount / 1000).toFixed(2).replace(/\.?0+$/, '');
                     displayUnit = 'kg';
-                } else if (unit === 'ml' && amount >= 1000) {
-                    displayAmount = (amount / 1000).toFixed(2).replace(/\.?0+$/, '');
-                    displayUnit = 'l';
-                } else if (unit === 'pcs') {
-                    displayAmount = Math.ceil(amount);
                 } else {
                     displayAmount = Math.round(amount * 100) / 100;
                 }
@@ -357,60 +398,78 @@ async showRecipeDetail(id) {
 
             if (measureStrings.length > 0) {
                 listHtml += `
-                    <li style="padding:12px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; font-size:18px;">
-                        <span style="font-weight:bold;">${name}</span>
-                        <span style="color:#0088A8;">${measureStrings.join(', ')}</span>
+                    <li class="shopping-item-li">
+                        <span class="shopping-item-name">${name}</span>
+                        <span class="shopping-item-val">${measureStrings.join(', ')}</span>
                     </li>`;
             }
         });
-
         listHtml += '</ul>';
-        $content.html(listHtml);
-        $('#shopping-list-section').fadeIn().removeClass('hidden');
-    },
-
-   
-    async getRecipeDetails(id) {
-        if (this.state.recipeCache[id]) return this.state.recipeCache[id];
-        const response = await fetch(`${this.API_BASE}lookup.php?i=${id}`);
-        const data = await response.json();
-        if (data.meals) {
-            this.state.recipeCache[id] = data.meals[0];
-            this.saveToStorage();
-            return data.meals[0];
-        }
-        return null;
+        this.ui.$shoppingListContent.html(listHtml);
+        this.ui.$shoppingListSection.fadeIn().removeClass('hidden');
     },
 
     attachEventListeners() {
-        $('#search-button').on('click', () => this.searchRecipes($('#recipe-search-input').val()));
-        $('#recipe-search-input').on('keypress', (e) => { if(e.key === 'Enter') this.searchRecipes($(e.target).val()); });
+        $('#search-button').on('click', () => this.searchRecipes(this.ui.$searchInput.val()));
+        this.ui.$searchInput.on('keypress', (e) => { if (e.key === 'Enter') this.searchRecipes($(e.target).val()); });
         $('#generate-list-btn').on('click', () => this.generateList());
-        $('#hide-list-btn').on('click', () => $('#shopping-list-section').hide());
-        $('#clear-plan-btn').on('click', () => { if(confirm("Clear plan?")) { this.state.mealPlan = {}; this.saveToStorage(); this.renderGrid(); } });
+        $('#hide-list-btn').on('click', () => this.ui.$shoppingListSection.hide());
+
+        $('#clear-plan-btn').on('click', () => {
+            Swal.fire({
+                title: 'Clear full plan?',
+                text: "This will remove all scheduled meals!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#00CC99',
+                cancelButtonColor: '#FF5733',
+                confirmButtonText: 'Yes, clear it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.state.mealPlan = {};
+                    this.saveToStorage();
+                    this.renderGrid();
+                }
+            });
+        });
     },
 
     handleDragStart(e) {
         const $target = $(e.currentTarget);
-        e.originalEvent.dataTransfer.setData('application/json', JSON.stringify({id: $target.data('id'), name: $target.data('name')}));
+        e.originalEvent.dataTransfer.setData('application/json', JSON.stringify({ id: $target.data('id'), name: $target.data('name') }));
     },
 
     handleDrop(e) {
         e.preventDefault();
         const data = JSON.parse(e.originalEvent.dataTransfer.getData('application/json'));
-        const slotKey = $(e.currentTarget).data('slot');
-        this.state.mealPlan[slotKey] = data;
+        const $targetSlot = $(e.currentTarget);
+        const targetSlotKey = $targetSlot.data('slot');
+
+        if (this.state.mealPlan[targetSlotKey]) {
+            this.showNotification("This slot is already occupied!", "warning");
+            return;
+        }
+        if (data.fromSlot) {
+            delete this.state.mealPlan[data.fromSlot];
+            $(`[data-slot="${data.fromSlot}"]`).empty();
+        }
+        this.state.mealPlan[targetSlotKey] = { id: data.id, name: data.name };
         this.saveToStorage();
-        this.renderPlannedItem($(e.currentTarget), data);
+        this.renderPlannedItem($targetSlot, this.state.mealPlan[targetSlotKey]);
     },
 
-    toggleLoader(show) { $('#loader').toggleClass('hidden', !show); },
+    toggleLoader(show) { this.ui.$loader.toggleClass('hidden', !show); },
     saveToStorage() { localStorage.setItem('mealPlanner_v2', JSON.stringify(this.state)); },
     loadFromStorage() { const saved = localStorage.getItem('mealPlanner_v2'); if (saved) this.state = JSON.parse(saved); },
     showNotification(msg, type) {
-        const $toast = $(`<div class="toast toast-${type}">${msg}</div>`);
-        $('body').append($toast);
-        setTimeout(() => $toast.fadeOut(() => $toast.remove()), 3000);
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: type,
+            title: msg,
+            showConfirmButton: false,
+            timer: 3000
+        });
     }
 };
 
