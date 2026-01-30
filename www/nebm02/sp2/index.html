@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Organize your video game collection, track your backlog, and discover new games using the RAWG database. Keep track of what you want to play, are playing, or have finished.">
+    <meta name="author" content="Michal Nebeský">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eso.vse.cz/~nebm02/sp2/">
+    <meta property="og:title" content="My Gaming Backlog">
+    <meta property="og:description"
+        content="The best place to organize your video game library and track your progress.">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>My Gaming Backlog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3408/3408506.png">
+</head>
+
+<body>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-gamepad"></i>My Gaming Backlog
+            </div>
+
+            <nav class="sidebar-nav">
+                <button id="nav-search" class="nav-item active">
+                    <span class="icon-wrapper"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <span class="nav-text">Search</span>
+                </button>
+
+                <button id="nav-library" class="nav-item">
+                    <span class="icon-wrapper"><i class="fa-solid fa-layer-group"></i></span>
+                    <span class="nav-text">Library</span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <section id="section-search" class="content-module">
+                <header class="module-header">
+                    <h1>Search</h1>
+                    <p>Search the database and add a game to your list.</p>
+                </header>
+
+                <div class="search-box-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon-input"></i>
+                    <input type="text" id="search-input" placeholder="Enter game name...">
+                    <button id="search-btn">Search</button>
+                </div>
+
+                <div class="search-filters-wrapper search-filters">
+
+                    <div class="filter-category">
+                        <span class="filter-label">Platforms: </span>
+                        <div class="filter-tags" id="filter-platforms">
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="4"> PC
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="187"> PS5
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="18"> PS4
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="186"> Xbox Series X/S
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="7"> Switch 1/2
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-category">
+                        <span class="filter-label">Genres: </span>
+                        <div class="filter-tags" id="filter-genres">
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="action"> Action
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="adventure"> Adventure
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="role-playing-games-rpg"> RPG
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="strategy"> Strategy
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="shooter"> FPS
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="racing"> Racing
+                            </label>
+                            <label class="tag-checkbox">
+                                <input type="checkbox" value="indie"> Indie
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-category">
+                        <span class="filter-label">Order by: </span>
+                        <select id="search-ordering" class="filter-select">
+                            <option value="">Relevance (Best match)</option>
+                            <option value="-added">Popularity</option>
+                            <option value="-released">Release date (newest first)</option>
+                            <option value="-metacritic">Rating</option>
+                            <option value="name">Alphabetically</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="loading-spinner" class="loader"></div>
+
+                <div id="search-results" class="game-grid">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-ghost"></i><br>
+                        It's a bit empty here...<br>
+                        Try searching for a game!
+                    </div>
+                </div>
+            </section>
+
+
+            <div id="pagination-controls" class="pagination-container hidden">
+                <button id="prev-page" class="btn-pagination" disabled>
+                    <i class="fa-solid fa-chevron-left"></i> Previous
+                </button>
+
+                <div id="pagination-numbers" class="pagination-numbers"></div>
+
+                <button id="next-page" class="btn-pagination">
+                    Next <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <section id="section-library" class="content-module hidden">
+                <header class="module-header">
+                    <h1>My Library</h1>
+                    <p id="library-count">Your gaming backlog currently has 0 games.</p>
+                </header>
+
+                <div class="search-filters-wrapper">
+                    <div class="filter-category">
+                        <span class="filter-label">Status: </span>
+                        <select id="lib-filter-status" class="filter-select">
+                            <option value="all">All Games</option>
+                            <option value="want-to-play">Want to Play</option>
+                            <option value="playing">Currently Playing</option>
+                            <option value="completed">Completed</option>
+                            <option value="dropped">Dropped</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-category">
+                        <span class="filter-label">Sort by: </span>
+                        <select id="lib-sort-order" class="filter-select">
+                            <option value="rating-desc">My Rating (Descending)</option>
+                            <option value="rating-asc">My Rating (Ascending)</option>
+                            <option value="finished-desc">Date Finished (Newest)</option>
+                            <option value="finished-asc">Date Finished (Oldest)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="library-list" class="game-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="game-modal" class="modal-overlay hidden">
+        <div class="modal-content large-modal">
+
+            <div class="modal-header">
+                <h2 id="modal-title">Game Title</h2>
+                <span class="close-modal" id="close-modal">&times;</span>
+            </div>
+
+            <div class="modal-grid">
+                <div class="game-info-column">
+
+                    <div id="modal-game-gallery" class="modal-gallery">
+                        <i id="galleryArrowLeft" class="fa-solid fa-angle-left hidden arrow arrow-left"></i>
+                        <img id="modal-img" src="https://placehold.co/400" alt="Cover">
+                        <i id="galleryArrowRight" class="fa-solid fa-angle-right arrow arrow-right"></i>
+                    </div>
+
+                    <div class="game-meta-tags">
+                        <span id="modal-released" class="meta-tag"><i class="fa-regular fa-calendar"></i> ?</span>
+                        <span id="modal-metacritic" class="meta-tag"><i class="fa-solid fa-star"></i> ?</span>
+                    </div>
+
+                    <div class="game-genres" id="modal-genres">
+                    </div>
+
+                    <div class="game-platforms" id="modal-platforms">
+                    </div>
+
+                    <div class="game-description-box">
+                        <h3>About</h3>
+                        <div id="modal-description">
+                            Loading information...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-entry-column">
+                    <h3>My Record</h3>
+                    <form id="modal-form">
+                        <input type="hidden" id="modal-game-id">
+                        <input type="hidden" id="modal-game-name">
+                        <input type="hidden" id="modal-game-img">
+
+                        <div class="form-group">
+                            <label for="modal-status">Status</label>
+                            <select id="modal-status">
+                                <option value="want-to-play">Want to Play</option>
+                                <option value="playing">Currently Playing</option>
+                                <option value="completed">Completed</option>
+                                <option value="dropped">Dropped</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modal-rating">Rating (0-100)</label>
+                            <input type="number" id="modal-rating" min="0" max="100" placeholder="-">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modal-date">Completion Date</label>
+                            <input type="date" id="modal-date">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modal-note">Note</label>
+                            <textarea id="modal-note" rows="5" placeholder="Your review..."></textarea>
+                        </div>
+
+                        <div class="modal-actions">
+                            <button type="button" id="btn-delete-modal" class="btn-danger hidden">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            <div class="right-btns">
+                                <button type="button" id="btn-cancel-modal" class="btn-secondary">Close</button>
+                                <button type="submit" class="btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
