@@ -31,6 +31,27 @@ class WeatherApp {
         this.isLoading = false;
         this.sortState = 'default';
 
+        this.elements = {
+            searchInput: $(this.selectors.searchInput),
+            locateBtn: $(this.selectors.locateBtn),
+            mainContent: $(this.selectors.mainContent),
+            favList: $(this.selectors.favList),
+            alertContainer: $(this.selectors.alertContainer),
+            menuToggle: $("#menu-toggle"),
+            btnSearch: $(".btn-search"),
+            searchWrapper: $(".search-wrapper"),
+            btnMenu: $(".btn-menu"),
+            aside: $("aside"),
+            menuOverlay: $(".menu-overlay"),
+            btnClose: $("#btn-close"),
+            sortBtn: $("#sort-btn"),
+            sortIcon: $("#sort-btn i"),
+            confirmModal: $("#confirm-modal"),
+            confirmYes: $("#confirm-yes"),
+            confirmCancel: $("#confirm-cancel"),
+            confirmMessage: $("#confirm-message")
+        };
+
         this.init();
     }
 
@@ -42,19 +63,19 @@ class WeatherApp {
     }
 
     bindEvents() {
-        $(this.selectors.locateBtn).on("click", () => {
+        this.elements.locateBtn.on("click", () => {
             this.handleGeoLocation();
         });
 
-        $(".btn-search").on("click", () => {
+        this.elements.btnSearch.on("click", () => {
             this.manualSearch();
         });
 
-        $(this.selectors.searchInput).on("keypress", (e) => {
+        this.elements.searchInput.on("keypress", (e) => {
             if (e.which === 13) {
                 this.manualSearch();
                 e.preventDefault();
-                $(this.selectors.searchInput).autocomplete("close");
+                this.elements.searchInput.autocomplete("close");
             }
         });
 
@@ -113,21 +134,21 @@ class WeatherApp {
             }
         });
 
-        $("#menu-toggle").on("click", () => {
-            $("aside").addClass("active");
-            $(".menu-overlay").addClass("active");
+        this.elements.menuToggle.on("click", () => {
+            this.elements.aside.addClass("active");
+            this.elements.menuOverlay.addClass("active");
             $("body").css("overflow", "hidden");
         });
 
-        $(".menu-overlay").on("click", () => {
+        this.elements.menuOverlay.on("click", () => {
             this.closeMenu();
         });
 
-        $("#btn-close").on("click", () => {
+        this.elements.btnClose.on("click", () => {
             this.closeMenu();
         });
 
-        $("#sort-btn").on("click", () => {
+        this.elements.sortBtn.on("click", () => {
             this.toggleSort();
         });
     }
@@ -147,7 +168,7 @@ class WeatherApp {
     }
 
     showAlert(message) {
-        const $container = $(this.selectors.alertContainer);
+        const $container = this.elements.alertContainer;
         const alertHtml = `
             <div class="alert">
                 <i class="fa-solid fa-circle-info"></i>
@@ -191,7 +212,7 @@ class WeatherApp {
     }
 
     manualSearch() {
-        const term = $(this.selectors.searchInput).val();
+        const term = this.elements.searchInput.val();
 
         if (term.length < 2) {
             this.showAlert("Enter at least 2 characters");
@@ -202,7 +223,7 @@ class WeatherApp {
             if (results && results.length > 0) {
                 const bestMatch = results[0];
                 this.handleCitySelect(bestMatch);
-                $(this.selectors.searchInput).autocomplete("close");
+                this.elements.searchInput.autocomplete("close");
             } else {
                 this.showAlert("City '" + term + "' wasn't found.");
             }
@@ -210,7 +231,7 @@ class WeatherApp {
     }
 
     initSearch() {
-        const $input = $(this.selectors.searchInput);
+        const $input = this.elements.searchInput;
         if ($input.length === 0) return;
 
         const app = this;
@@ -281,7 +302,7 @@ class WeatherApp {
         }
 
         this.selectedCity = cityData;
-        $(this.selectors.searchInput).val(cityData.label);
+        this.elements.searchInput.val(cityData.label);
 
         if (updateHistory) {
             const newUrl = new URL(window.location);
@@ -295,7 +316,7 @@ class WeatherApp {
     getWeather(cityData) {
         this.setLoadingState(true);
 
-        $(this.selectors.mainContent).html(`
+        this.elements.mainContent.html(`
             <div class="spinner-container">
                 <i class="fa-solid fa-spinner fa-spin spinner"></i>
             </div>
@@ -327,7 +348,6 @@ class WeatherApp {
     }
 
     renderWeather(cityData, apiData) {
-        console.log(apiData)
         const current = apiData.current;
         const units = apiData.current_units;
         const dateString = apiData.current.time.split('T')[1];
@@ -406,7 +426,7 @@ class WeatherApp {
                 </div>
             </section>
         `;
-        $(this.selectors.mainContent).html(html);
+        this.elements.mainContent.html(html);
     }
 
     renderCharts(apiData) {
@@ -526,7 +546,7 @@ class WeatherApp {
                             callbacks: {
                                 label: ctx => {
                                     if (Array.isArray(ctx.raw)) {
-                                        return `Max: ${ctx.raw[1]}${yAxisLabel} Min: ${ctx.raw[0]}${yAxisLabel}`;
+                                        return `Min: ${ctx.raw[0]}${yAxisLabel} Max: ${ctx.raw[1]}${yAxisLabel}`;
                                     }
                                     return `${ctx.dataset.label}: ${ctx.raw}${yAxisLabel}`;
                                 }
@@ -577,10 +597,9 @@ class WeatherApp {
             displayList.sort((a, b) => b.label.localeCompare(a.label));
         }
 
-        $(this.selectors.favList).empty();
+        this.elements.favList.empty();
 
         let favoritesHtml = '';
-
         displayList.forEach(city => {
             const li = `
                 <li class="fav-item" data-label="${city.label}">
@@ -593,31 +612,34 @@ class WeatherApp {
             favoritesHtml += li;
         });
 
-        $(this.selectors.favList).append(favoritesHtml);
+        this.elements.favList.append(favoritesHtml);
     }
 
     closeMenu() {
-        $("aside").removeClass("active");
-        $(".menu-overlay").removeClass("active");
+        this.elements.aside.removeClass("active");
+        this.elements.menuOverlay.removeClass("active");
         $("body").css("overflow", "");
     }
 
     setLoadingState(loading) {
         this.isLoading = loading;
 
-        const elementsToDisable = $(this.selectors.favList).add('.search-wrapper').add('.btn-menu').add('.btn-sort').add('chart-tab');
+        const elementsToDisable = this.elements.favList
+            .add(this.elements.searchWrapper)
+            .add(this.elements.btnMenu)
+            .add(this.elements.sortBtn)
+            .add('.chart-tab');
 
         if (loading) {
-            elementsToDisable.addClass('ui-disable');
+            elementsToDisable.addClass('ui-disabled');
         }
         else {
-            elementsToDisable.removeClass('ui-disable');
+            elementsToDisable.removeClass('ui-disabled');
         }
     }
 
     toggleSort() {
-        const icon = $("#sort-btn i");
-
+        const icon = this.elements.sortIcon;
 
         if (this.sortState === 'default') {
             this.sortState = 'asc';
@@ -639,12 +661,12 @@ class WeatherApp {
     }
 
     showConfirmModal(message, onConfirmCallback) {
-        const modal = $("#confirm-modal");
-        const yesBtn = $("#confirm-yes");
-        const cancelBtn = $("#confirm-cancel");
+        const modal = this.elements.confirmModal;
+        const yesBtn = this.elements.confirmYes;
+        const cancelBtn = this.elements.confirmCancel;
+        const msgEl = this.elements.confirmMessage;
 
-        $("#confirm-message").text(message);
-
+        msgEl.text(message);
         modal.addClass("active");
 
         yesBtn.off("click");
