@@ -7,7 +7,11 @@ import { showToast } from './utils.js';
 // Interní stav aplikace 
 const state = {
     backlog: [],
-    currentView: 'search'
+    currentView: 'search',
+    lastSearch: {
+        query: '',
+        results: []
+    }   
 };
 
 
@@ -63,7 +67,9 @@ export const addToBacklog = (game) => {
         name: game.name,
         background_image: game.background_image,
         released: game.released,
-        rating: game.rating
+        rating: game.rating,
+        metacritic: game.metacritic,
+        playtime: game.playtime
     };
     state.backlog.push(savedGame);
     saveData();
@@ -78,3 +84,29 @@ export const removeFromBacklog = (id) => {
 
 export const getCurrentView = () => state.currentView;
 export const setCurrentView = (view) => { state.currentView = view; };
+
+
+// last search 
+export const setLastSearch = (query, results) => {
+    state.lastSearch = {
+        query,
+        results
+    };
+};
+export const getLastSearch = () => state.lastSearch;
+
+
+// data na formular 
+export const updateGameUserData = (gameId, rating, note) => {
+    
+    const index = state.backlog.findIndex(g => g.id === gameId);
+    
+    if (index !== -1) {
+       
+        state.backlog[index].userRating = rating;
+        state.backlog[index].userNote = note;
+        saveData(); 
+        return true;
+    }
+    return false;
+};
