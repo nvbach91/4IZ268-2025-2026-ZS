@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">-->
     <title>Online deníček</title>
     <link rel="icon" href="png/diary.png" type="image/png">
     <link rel="stylesheet" href="css/main.css">
@@ -38,12 +39,18 @@
                             class="fa-solid fa-plus"></i></button>
                 </div>
                 <p id="entries-info">Momentálně nemáte žádné záznamy.</p>
-                <div class="entry-form">
-                    <!-- formulář pro přidání záznamu -->
+                <!--modal-->
+                <div id="modal-form" class="modal">
+                    <div class="modal-content">
+                        <h3>Přidat nový záznam</h3>
+                        <div class="entry-form">
+                            <!-- formulář pro přidání záznamu -->
+                        </div>
+                    </div>
                 </div>
-                <div class="entries-panel">
-                    <!-- záznamy se budou načítat pomocí js -->
-                </div>
+                    <div class="entries-panel">
+                        <!-- záznamy se budou načítat pomocí js -->
+                    </div>
             </section>
 
             <section class="quote-container">
@@ -63,6 +70,7 @@
                     <button id="add-event-btn" class="add-btn-small" title="Přidat událost"><i
                             class="fa-regular fa-calendar-plus"></i></button>
                 </div>
+                <input type="date" id="calendar-date-selector" class="entry-input">
                 <p id="events-info">Události se zobrazí po přihlášení do Google.</p>
                 <div class="event-form">
                     <!-- formulář pro přidání události -->

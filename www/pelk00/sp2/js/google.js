@@ -12,11 +12,13 @@ const $calendar = $('#calendar');
 const $todoList = $('#todo-list');
 const $eventsInfo = $('#events-info');
 const $todoInfo = $('#todo-info');
+const $dateSelector = $('#calendar-date-selector');
 
-let tokenClient;
-let gapiInited = false;
+let tokenClient; // klient pro OAuth 2.0 tokeny
+let gapiInited = false; 
 let gisInited = false;
 
+// zobrazení tlačítek podle stavu inicializace a přihlášení
 function showButtons() {
     if (gapiInited && gisInited) {
         if (localStorage.getItem('isLoggedIn') === 'true') {
@@ -28,6 +30,7 @@ function showButtons() {
     }
 }
 
+// přihlášení uživatele
 function handleAuthClick() {
     if (gapi.client.getToken() === null) {
         tokenClient.requestAccessToken({ prompt: 'consent' });
@@ -36,6 +39,7 @@ function handleAuthClick() {
     }
 }
 
+// odhlášení uživatele
 function handleSignoutClick() {
     const token = gapi.client.getToken();
     if (token !== null) {
@@ -52,9 +56,11 @@ function handleSignoutClick() {
         $todoList.empty();
         $eventsInfo.show();
         $todoInfo.show();
+        $dateSelector.hide();
     }
 }
 
+// inicializace Google API klienta a OAuth 2.0 klienta
 function startGoogle() {
     gapi.load('client', async () => {
         await gapi.client.init({
@@ -85,6 +91,7 @@ function startGoogle() {
             $signoutBtn.show();
             $addEventBtn.show();
             $addTaskBtn.show();
+            $dateSelector.show();
             loadTodayEvents();
             loadTasks();
         }
@@ -93,18 +100,19 @@ function startGoogle() {
     showButtons();
 }
 
-async function loadTodayEvents() {
+// načtení dnešních událostí z Google Kalendáře
+async function loadTodayEvents(targetDate = null) {
     $eventsInfo.hide();
     const calendarDiv = $calendar;
 
-    const today = new Date();
-
     calendarDiv.html(`<div class="loader"><i class="fas fa-spinner"></i></div>`);
 
-    const startDay = new Date(today);
+    const baseDate = targetDate ? new Date(targetDate) : new Date();
+
+    const startDay = new Date(baseDate);
     startDay.setHours(0, 0, 0, 0);
 
-    const endDay = new Date(today);
+    const endDay = new Date(baseDate);
     endDay.setHours(23, 59, 59, 999);
     try {
         const response = await gapi.client.calendar.events.list({
@@ -152,6 +160,7 @@ async function loadTodayEvents() {
     }
 }
 
+// přidání nové události do Google Kalendáře
 async function addEvent(title, startStr) {
     if (!title || !startStr) return;
 
@@ -174,6 +183,7 @@ async function addEvent(title, startStr) {
     }
 }
 
+// smazání události z Google Kalendáře
 async function deleteEvent(eventId) {
     try {
         await gapi.client.calendar.events.delete({
@@ -186,6 +196,7 @@ async function deleteEvent(eventId) {
     }
 }
 
+// načtení úkolů z Google Tasks
 async function loadTasks() {
     $todoInfo.hide();
     const todoList = $todoList;
@@ -206,10 +217,16 @@ async function loadTasks() {
                 const status = task.status === 'completed' ? '<s>' : '';
                 const statusEnd = task.status === 'completed' ? '</s>' : '';
 
+                let dateHtml = '';
+                if (task.due) {
+                    const dueDate = new Date(task.due).toLocaleDateString('cs-CZ');
+                    dateHtml = ` <small class="task-date">(Deadline: ${dueDate})</small>`;
+                }
+
                 htmlContent += `
                     <li class="api-item">
                         <span class="task-title item-text" data-id="${task.id}" data-status="${task.status}">
-                                                ${status}${task.title}${statusEnd}
+                                                ${status}${task.title}${statusEnd}${dateHtml}
                         </span>
                         <div class="actions-wrapper">
                             <button class="delete-btn delete-task-btn" data-task-id="${task.id}" title="Smazat úkol"><i class="fas fa-trash"></i></button>
@@ -227,13 +244,19 @@ async function loadTasks() {
     }
 }
 
-async function addTask(title) {
+// přidání nového úkolu do Google Tasks
+async function addTask(title, date) {
     if (!title) return;
+
+    const resource = { 'title': title };
+    if (date) {
+        resource.due = new Date(date).toISOString();
+    }
 
     try {
         await gapi.client.tasks.tasks.insert({
             'tasklist': '@default',
-            'resource': { 'title': title }
+            'resource': resource
         });
         loadTasks();
     } catch (error) {
@@ -241,6 +264,7 @@ async function addTask(title) {
     }
 }
 
+// smazání úkolu z Google Tasks
 async function deleteTask(taskId) {
     try {
         await gapi.client.tasks.tasks.delete({
@@ -253,6 +277,7 @@ async function deleteTask(taskId) {
     }
 }
 
+// přepnutí stavu úkolu v Google Tasks
 async function toggleTaskStatus(taskId, currentStatus) {
     const newStatus = currentStatus === 'completed' ? 'needsAction' : 'completed';
     try {
@@ -267,4 +292,4 @@ async function toggleTaskStatus(taskId, currentStatus) {
     }
 }
 
-export { startGoogle, handleAuthClick, handleSignoutClick, addEvent, deleteEvent, addTask, deleteTask, toggleTaskStatus };
+export { startGoogle, handleAuthClick, handleSignoutClick, addEvent, deleteEvent, addTask, deleteTask, toggleTaskStatus, loadTodayEvents };
