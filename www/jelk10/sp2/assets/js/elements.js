@@ -8,7 +8,7 @@ export const createSpinner = () => {
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="mt-2 ml-2"><b>${getTranslation('Loading')}</b></div>
+      <div class="mt-2 ml-2"><strong>${getTranslation('Loading')}</strong></div>
     </div>`
     )
     return spinner
@@ -51,12 +51,11 @@ export const createFavoritesContainer = () => {
 export const createFavoriteMovieCard = (movie) => {
     const { poster_path, original_title, overview, vote_average, original_language, id, title } = movie
     return $(
-        `<div class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center mb-4">
+        `<div id="favorite-movie-card-${id}" class="col-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center mb-4">
         <div class="card custom-card">
           <img class="card-img-top" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${original_title} poster">
           <div class="card-body">
-            <h5 class="card-title h3">${title}</h5>
-            <p class="card-text custom-card-text">${overview}</p>
+            <h5 class="card-title h3">${original_title}</h5>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">★ ${vote_average.toFixed(1)}/10</li>
@@ -140,17 +139,41 @@ export const createMovieDetailModal = (id) => {
     `)
 }
 
-export const createMovieDetailModalBody = (movie) => {
-    const { original_title, overview, release_date, runtime, genres, backdrop_path, title } = movie
+export const createMovieDetailModalBody = async (movie) => {
+    const { original_title, overview, release_date, runtime, genres, backdrop_path, title, id } = movie
     return $(`
         <div class="text-center">
           <img src="https://image.tmdb.org/t/p/w780/${backdrop_path}" alt="${original_title} poster" class="img-fluid mb-3"/>
           <h3>${title} ${release_date ? `(${release_date.split('-')[0]})` : ''}</h3>
-          <p><strong>⏱️ Runtime:</strong> ${runtime} minutes</p>
-          <p><strong>🎭 Genres:</strong> ${genres.map(g => g.name).join(', ')}</p>
-          <p>${overview}</p>
+          <p>${original_title !== title ? `<em>(${original_title})</em>` : ''}</p>
+          <p>${runtime ? `<strong>⏱️ Runtime:</strong> ${runtime} minutes` : ''}</p>
+          <p>${genres.length ? `<strong>🎭 Genres:</strong> ${genres.map(g => g.name).join(', ')}` : ''}</p>
+          <p>${(await appendPlatformsForMovie(id)).length ? `📺 ${(await appendPlatformsForMovie(id)).map(provider => provider).join(', ')}` : ''}</p>
+          <p>${overview ? overview : ''}</p>
         </div>
       `)
+}
+
+export const createDeleteConfirmationModal = (type) => {
+    return $(`<div class="modal fade" id="deleteConfirmationModal-${type}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">${getTranslation('DeleteConfirmation')}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>${type === 'single' ? getTranslation('DeleteSingleConfirmationMessage') : getTranslation('DeleteConfirmationMessage')}</p>
+      </div>
+      <div class="modal-footer">
+        <button id="delete-button" type="button" class="btn btn-primary btn-danger">${getTranslation('Delete')}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">${getTranslation('Close')}</button>
+      </div>
+    </div>
+  </div>
+</div>`)
 }
 
 export const createTinderButtons = () => {
@@ -165,6 +188,7 @@ export const createTinderButtons = () => {
 
 export const createTinderCard = async (movie) => {
     const { poster_path, original_title, overview, vote_average, original_language, id, title } = movie
+    const providers = await appendPlatformsForMovie(id)
     return $(
         `<div class="d-flex justify-content-center">
           <div class="card custom-card">
@@ -176,7 +200,7 @@ export const createTinderCard = async (movie) => {
             <ul class="list-group list-group-flush">
               <li class="list-group-item">★ ${vote_average.toFixed(1)}/10</li>
               <li class="list-group-item">🖌️${original_language.toUpperCase()}</li>
-              <li class="list-group-item">📺 ${(await appendPlatformsForMovie(id)).map(provider => provider).join(', ')}</li>
+              ${providers.length ? `<li class="list-group-item">📺 ${providers.join(', ')}</li>` : ''}
             </ul>
           </div>
         </div>`)

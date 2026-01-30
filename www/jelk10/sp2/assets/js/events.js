@@ -33,6 +33,6 @@ export const setupNavigation = () => {
         setLanguage(selectedLanguage);
         setRegion(selectedLanguage);
         console.log(`Language set to: ${selectedLanguage}`);
-        location.reload();
+        init();
     });
 }

@@ -32,7 +32,8 @@ import {
     createRemoveAllFavoritesButton,
     createContainer,
     createSearchResultMovieCard,
-    createNoSearchResultsAlert
+    createNoSearchResultsAlert,
+    createDeleteConfirmationModal
 } from "./elements.js"
 import {
     getMovieDetail,
@@ -50,13 +51,20 @@ import {
     selectedPlatforms,
     getRegion,
     getSeenMovies,
-    addSeenMovie
+    addSeenMovie,
 } from "./storage.js"
+
+export let currentPage = 0
+window.currentPage = currentPage
+export let totalPages = 1
+window.totalPages = totalPages
+export let results = []
+window.results = results
 
 export const showMovieDetailModal = async (movie_id) => {
     const modalElement = createMovieDetailModal(movie_id)
     const movie = await getMovieDetail(movie_id)
-    const modalBody = createMovieDetailModalBody(movie)
+    const modalBody = await createMovieDetailModalBody(movie)
     modalElement.find('.modal-body').append(modalBody)
     appContainer().append(modalElement)
     closeModalButton().on('click', () => hideMovieDetailModal(movie_id))
@@ -116,19 +124,29 @@ export const renderGenerateButton = () => {
         genreContainer().remove()
         generateButtonContainer.remove()
 
-        let pageNumber = 1
         let movie = null
 
-        while (!movie) {
-            const result = await searchByGenresAndPlatforms(pageNumber)
-            if (!result.results.length) {
-                break
+        const seenMovies = getSeenMovies()
+
+        while (!movie && currentPage < totalPages) {
+            if (results.length === 0) {
+                const resultData = await searchByGenresAndPlatforms(currentPage + 1);
+                if (!resultData || resultData.results.length === 0) {
+                    break
+                }
+                results = resultData.results;
+
+                if (currentPage === 0) {
+                    totalPages = resultData.total_pages || totalPages;
+                }
             }
-            const seenMovies = getSeenMovies()
-            movie = result.results.find(
-                m => !seenMovies.includes(Number(m.id))
-            )
-            pageNumber++
+
+            movie = results.find(m => !seenMovies.includes(Number(m.id)));
+
+            if (!movie) {
+                currentPage++;
+                results = [];
+            }
         }
 
         if (!movie) {
@@ -150,17 +168,30 @@ export const renderSpinner = () => {
 export const nextMovie = async () => {
     movieContainer().empty()
     renderSpinner()
-    let seenMovies = getSeenMovies()
-    let pageNumber = 1
     let movie = null
 
-    while (!movie) {
-        const results = (await searchByGenresAndPlatforms(pageNumber)).results
-        if (!results.length) break
-        movie = results.find(m => !seenMovies.includes(Number(m.id)))
-        pageNumber++
-    }
+    const seenMovies = getSeenMovies()
 
+    while (!movie && currentPage < totalPages) {
+        if (results.length === 0) {
+            const resultData = await searchByGenresAndPlatforms(currentPage + 1);
+            if (!resultData || resultData.results.length === 0) {
+                break
+            }
+            results = resultData.results;
+
+            if (currentPage === 0) {
+                totalPages = resultData.total_pages || totalPages;
+            }
+        }
+
+        movie = results.find(m => !seenMovies.includes(Number(m.id)));
+
+        if (!movie) {
+            currentPage++;
+            results = [];
+        }
+    }
     if (!movie) {
         movieContainer().empty()
         movieContainer().append(createNoResultsAlert())
@@ -174,8 +205,6 @@ export const nextMovie = async () => {
 export const renderMovieSearchResults = async (movies) => {
     favoritePage().removeClass('border-bottom border-5 border-black')
     generatePage().removeClass('border-bottom border-5 border-black')
-    appContainer().empty()
-    renderSpinner()
     const movieContainer = createButtongroupContainer('movie')
     if (movies.results.length === 0) {
         const noResultsElement = createNoSearchResultsAlert()
@@ -193,12 +222,12 @@ export const renderMovieSearchResults = async (movies) => {
         )
         if (getFavorites().includes(movie.id)) {
             card.find(`#remove-button-${movie.id}`).on('click', () => {
-                removeFromFavorites(movie.id)
+                showDeleteConfirmationModal('single', movie.id)
                 renderMovieSearchResults(movies)
             })
         } else {
             card.find(`#like-button-${movie.id}`).on('click', () => {
-                addToFavorites(movie.id)
+                addToFavorites(movie)
                 renderMovieSearchResults(movies)
             })
         }
@@ -222,7 +251,7 @@ export const renderSwipingMechanism = async (movie) => {
     backButton().on('click', () => { init() })
     nextButton().on('click', () => { nextMovie() })
     favoriteButton().on('click', async () => {
-        addToFavorites(movie.id)
+        addToFavorites(movie)
         await nextMovie()
     })
     spinner().remove()
@@ -243,15 +272,12 @@ export const renderFavorites = async () => {
         const noFavoritesElement = createNoFavoritesAlert()
         movieContainer.append(noFavoritesElement)
     } else {
-        for (const movieId of favorites) {
-            const movie = await getMovieDetail(movieId)
+        for (const movie of favorites) {
             const card = createFavoriteMovieCard(movie)
-
             favoritesContainer.append(card)
-            card.find(`#detail-button-${movieId}`).on('click', () => showMovieDetailModal(movieId))
-            card.find(`#remove-button-${movieId}`).on('click', () => {
-                removeFromFavorites(movieId)
-                renderFavorites()
+            card.find(`#detail-button-${movie.id}`).on('click', () => showMovieDetailModal(movie.id))
+            card.find(`#remove-button-${movie.id}`).on('click', () => {
+                showDeleteConfirmationModal('single', movie.id)
             })
         }
         movieContainer.append(favoritesContainer)
@@ -259,10 +285,14 @@ export const renderFavorites = async () => {
     appContainer().empty()
     appContainer().append(removeButton)
     removeAllFavoritesButton().on('click', () => {
-        clearFavorites()
-        renderFavorites()
+        showDeleteConfirmationModal('all')
     })
     appContainer().append(movieContainer)
+}
+
+export const removeMovieFromFavorites = (movie_id) => {
+    const movieElement = $(`#favorite-movie-card-${movie_id}`)
+    movieElement.remove()
 }
 
 export const renderPlatforms = async (platforms, numberOfPlatforms) => {
@@ -299,6 +329,29 @@ export const renderPlatforms = async (platforms, numberOfPlatforms) => {
     appContainer().append(platformContainer)
 }
 
+export const showDeleteConfirmationModal = (type, movieId) => {
+    const modal = createDeleteConfirmationModal(type)
+    appContainer().append(modal)
+    const modalElementSelector = document.getElementById(`deleteConfirmationModal-${type}`)
+    const bootstrapModal = new bootstrap.Modal(modalElementSelector)
+    bootstrapModal.show()
+    modal.find('.modal-footer #delete-button').on('click', () => {
+        if (type === 'all') {
+            clearFavorites()
+            renderFavorites()
+        } else if (type === 'single') {
+            removeFromFavorites(movieId)
+            removeMovieFromFavorites(movieId)
+        }
+        bootstrapModal.hide()
+        modalElementSelector.remove()
+    })
+    modal.find('.modal-footer #cancel-button').on('click', () => {
+        bootstrapModal.hide()
+        modalElementSelector.remove()
+    })
+}
+
 export const init = async () => {
     appContainer().empty()
     renderSpinner()
@@ -311,6 +364,8 @@ export const init = async () => {
 }
 
 searchButton().on('click', async (e) => {
+    appContainer().empty()
+    appContainer().append(createSpinner())
     e.preventDefault()
     searchButton().blur()
     const query = searchText().val()

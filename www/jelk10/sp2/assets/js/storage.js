@@ -20,10 +20,10 @@ export const removeFromFavorites = (movie_id) => {
  * Adds a movie to favorites in localStorage
  * @param {number} movie_id 
  */
-export const addToFavorites = (movie_id) => {
+export const addToFavorites = (movie) => {
     let favorites = JSON.parse(localStorage.getItem('favorites')) || []
-    if (!favorites.includes(movie_id)) {
-        favorites.push(movie_id)
+    if (!favorites.some(fav => fav.id === movie.id)) {
+        favorites.push(movie)
         localStorage.setItem('favorites', JSON.stringify(favorites))
     }
 }

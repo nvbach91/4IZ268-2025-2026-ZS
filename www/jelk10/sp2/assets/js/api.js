@@ -3,7 +3,16 @@ import { getLanguage, getRegion } from "./storage.js";
 
 export const API_BASE_URL = 'https://api.themoviedb.org'
 export const API_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNGFkYzAwZDFmY2UwNzg5YTUzOTAxZTUwZWM0YjkxYSIsIm5iZiI6MTc2NTcxMzY4Mi45MzkwMDAxLCJzdWIiOiI2OTNlYTcxMmIzZmNiZDVlM2U5OTk1NmMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.0CVI2wvbGl7vkakdL2O9ymIMS22NfEbqRtO6kZWUlG4'
-
+export const defaultHeaders = {
+  headers: {
+    Authorization: `Bearer ${API_TOKEN}`,
+    'Content-Type': 'application/json',
+  }
+}
+export const justHeaders = {
+  Authorization: `Bearer ${API_TOKEN}`,
+  'Content-Type': 'application/json',
+}
 
 /**
  * Fetches detailed information about a movie by its ID
@@ -14,12 +23,7 @@ export const getMovieDetail = async (movieId) => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/3/movie/${movieId}?language=${getLanguage()}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        }
-      }
+      defaultHeaders
     );
     return response.data;
   } catch (error) {
@@ -37,12 +41,7 @@ export const searchByText = async (text) => {
   text = text.replace(' ', '%20')
   const response = await axios.get(
     `${API_BASE_URL}/3/search/movie?query=${text}&include_adult=false&language=${getLanguage()}&page=1`,
-    {
-      headers: {
-        Authorization: `Bearer ${API_TOKEN}`,
-        'Content-Type': 'application/json',
-      }
-    }
+    defaultHeaders
   );
   console.log(response.data)
   return response.data;
@@ -56,12 +55,7 @@ export const getGenres = async () => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/3/genre/movie/list?language=${getLanguage()}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        }
-      }
+      defaultHeaders
     );
     return response.data;
   } catch (error) {
@@ -78,12 +72,7 @@ export const getPlatforms = async () => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/3/watch/providers/movie?language=${getLanguage()}`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        }
-      }
+      defaultHeaders
     );
     return response.data;
   } catch (error) {
@@ -101,12 +90,7 @@ export const getPlatformsForMovie = async (movieId) => {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/3/movie/${movieId}/watch/providers`,
-      {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
-        }
-      }
+      defaultHeaders
     );
     return response.data;
   } catch (error) {
@@ -126,33 +110,24 @@ export const getPlatformsForMovie = async (movieId) => {
 
 export const searchByGenresAndPlatforms = async (pageNumber) => {
   let constructedUrl =
-    `${API_BASE_URL}/3/discover/movie` +
-    '?include_adult=false&' +
-    'include_video=false&' +
-    `language=${getLanguage()}&` +
-    'sort_by=popularity.desc' +
-    `&page=${pageNumber}`
-  if (selectedGenres.length > 0) {
-    constructedUrl += `&with_genres=${selectedGenres.join('|')}`
-  }
-  if (getRegion()) {
-    constructedUrl += `&watch_region=${getRegion()}`
-  }
-  if (selectedPlatforms.length > 0) {
-    constructedUrl += `&with_watch_providers=${selectedPlatforms.join('|')}`
-  }
-
+    `${API_BASE_URL}/3/discover/movie`
   try {
     const response = await axios.get(
       constructedUrl,
       {
-        headers: {
-          Authorization: `Bearer ${API_TOKEN}`,
-          'Content-Type': 'application/json',
+        headers: justHeaders,
+        params: {
+          include_adult: false,
+          include_video: false,
+          language: getLanguage(),
+          sort_by: 'popularity.desc',
+          page: pageNumber,
+          ...(selectedGenres.length > 0 && { with_genres: selectedGenres.join('|') }),
+          ...(getRegion() && { watch_region: getRegion() }),
+          ...(selectedPlatforms.length > 0 && { with_watch_providers: selectedPlatforms.join('|') }),
         }
       }
     );
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching movies by genres and platforms:', error);

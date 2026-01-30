@@ -76,6 +76,31 @@ export const Translations = {
         'cs-CZ': '⚠ Nebyly nalezeny žádné filmy odpovídající vašemu vyhledávání. Zkuste prosím jiný dotaz',
         'de-DE': '⚠ Es wurden keine Filme gefunden, die Ihrer Suche entsprechen. Bitte versuchen Sie es mit anderen Schlüsselwörtern.',
     },
+    DeleteConfirmation: {
+        'en-US': 'Delete Confirmation',
+        'cs-CZ': 'Potvrzení odstranění',
+        'de-DE': 'Löschbestätigung',
+    },
+    DeleteConfirmationMessage: {
+        'en-US': 'Are you sure you want to remove all favorite movies?',
+        'cs-CZ': 'Opravdu chcete odstranit všechny oblíbené filmy?',
+        'de-DE': 'Möchten Sie wirklich alle Lieblingsfilme entfernen?',
+    },
+    DeleteSingleConfirmationMessage: {
+        'en-US': 'Are you sure you want to remove this movie from your favorites?',
+        'cs-CZ': 'Opravdu chcete odstranit tento film z oblíbených?',
+        'de-DE': 'Möchten Sie diesen Film wirklich aus Ihren Favoriten entfernen?',
+    },
+    Delete: {
+        'en-US': '🗑️ Delete',
+        'cs-CZ': '🗑️ Odstranit',
+        'de-DE': '🗑️ Löschen',
+    },
+    Close: {
+        'en-US': 'Close',
+        'cs-CZ': 'Zavřít',
+        'de-DE': 'Schließen',
+    },
 }
 
 export const getTranslation = (key) => {
