@@ -3,11 +3,19 @@
 import { elements, createPlaceElement } from './elements.js';
 import { formatDate } from './date.js';
 
-export const renderPlaces = (places) => {
+const EMPTY_ALL = 'You have not added any places yet.';
+const EMPTY_FILTER = 'No trips in this category.';
+
+export const renderPlaces = (places, options = {}) => {
+  const { totalCount = 0 } = options;
   elements.placesList.innerHTML = '';
 
   if (!places.length) {
     elements.emptyState.style.display = 'block';
+    const emptyParagraph = elements.emptyState.querySelector('p');
+    if (emptyParagraph) {
+      emptyParagraph.textContent = totalCount > 0 ? EMPTY_FILTER : EMPTY_ALL;
+    }
     return;
   }
 
@@ -46,7 +54,7 @@ export const renderDetails = (place) => {
   elements.details.arrival.textContent = formatDate(place.arrivalDate);
   elements.details.departure.textContent = formatDate(place.departureDate);
   elements.details.notes.textContent = place.description || '-';
-  elements.weatherResult.textContent = '*API Result Here*';
+  elements.weatherResult.textContent = 'Loading weather…'; // ISSUE #1 - FIX
 };
 
 export const fillFormForEdit = (place) => {

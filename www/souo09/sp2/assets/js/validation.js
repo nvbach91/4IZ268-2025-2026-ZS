@@ -31,8 +31,6 @@ export const validatePlace = ({ name, arrivalDate, departureDate, description })
     arrivalDateObj = new Date(arrivalDate);
     if (Number.isNaN(arrivalDateObj.getTime())) {
       errors.arrivalDate = 'Arrival date is not valid.';
-    } else if (arrivalDateObj < today) {
-      errors.arrivalDate = 'Arrival date cannot be in the past.';
     }
   }
 
@@ -42,8 +40,6 @@ export const validatePlace = ({ name, arrivalDate, departureDate, description })
     departureDateObj = new Date(departureDate);
     if (Number.isNaN(departureDateObj.getTime())) {
       errors.departureDate = 'Departure date is not valid.';
-    } else if (departureDateObj < today) {
-      errors.departureDate = 'Departure date cannot be in the past.';
     }
   }
 

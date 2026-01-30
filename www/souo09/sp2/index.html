@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +22,12 @@
             <section class="form-section">
                 <h2>Add Place</h2>
                 <form id="place-form">
-                    <div class="form-group">
+                    <div class="form-group form-group-destination">
                         <label for="place-name">Destination</label>
-                        <input type="text" id="place-name" name="name">
+                        <div class="destination-autocomplete">
+                            <input type="text" id="place-name" name="name" autocomplete="off">
+                            <div id="destination-suggestions" class="destination-suggestions" role="listbox" aria-label="Destination suggestions" hidden></div>
+                        </div>
                         <span class="error-message" id="name-error"></span>
                     </div>
 
@@ -55,6 +58,11 @@
 
             <section class="places-section">
                 <h2>List of Places</h2>
+                <div id="places-filter" class="places-filter" role="group" aria-label="Show trips">
+                    <button type="button" class="filter-btn active" data-filter="all">All</button>
+                    <button type="button" class="filter-btn" data-filter="upcoming">Upcoming journeys</button>
+                    <button type="button" class="filter-btn" data-filter="past">Past journeys</button>
+                </div>
                 <div id="places-list" class="places-list">
                     <!-- PLACES added here -->
                 </div>
@@ -87,7 +95,6 @@
                                 <span class="detail-value" id="detail-notes">-</span>
                             </li>
                         </ul>
-                        <button id="weather-btn" class="btn-weather">Show Weather</button>
                     </div>
                     <div class="weather-result" id="weather-result">
                         *Weather API Result Here*

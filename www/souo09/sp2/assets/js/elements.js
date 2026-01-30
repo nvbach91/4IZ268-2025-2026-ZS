@@ -6,12 +6,14 @@ export const elements = {
   app: document.getElementById('app'),
   form: document.getElementById('place-form'),
   nameInput: document.getElementById('place-name'),
+  destinationSuggestions: document.getElementById('destination-suggestions'),
   arrivalDateInput: document.getElementById('place-arrival'),
   departureDateInput: document.getElementById('place-departure'),
   descriptionInput: document.getElementById('place-description'),
   submitBtn: document.getElementById('submit-btn'),
   cancelBtn: document.getElementById('cancel-btn'),
   deleteListBtn: document.getElementById('delete-btn'),
+  placesFilter: document.getElementById('places-filter'),
   placesList: document.getElementById('places-list'),
   emptyState: document.getElementById('empty-state'),
   detailsSection: document.querySelector('.details-section'),
@@ -21,7 +23,6 @@ export const elements = {
     departure: document.getElementById('detail-departure'),
     notes: document.getElementById('detail-notes'),
   },
-  weatherBtn: document.getElementById('weather-btn'),
   weatherResult: document.getElementById('weather-result'),
   importBtn: document.getElementById('import-btn'),
   exportBtn: document.getElementById('export-btn'),
@@ -77,5 +78,3 @@ export const toggleSpinner = (visible) => {
   if (!elements.spinnerOverlay) return;
   elements.spinnerOverlay.style.display = visible ? 'flex' : 'none';
 };
-
-// DOM element selections
