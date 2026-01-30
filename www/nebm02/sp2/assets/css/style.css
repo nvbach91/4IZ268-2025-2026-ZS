@@ -553,7 +553,7 @@ body {
     border-right: 1px solid #eee;
 }
 
-#modal-img {
+#modal-img, #modal-img-additional {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -571,8 +571,8 @@ body {
     font-weight: 600;
 }
 
-.game-platforms {
-    margin-bottom: 20px;
+.game-platforms, .game-genres {
+    margin-bottom: 5px;
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -584,6 +584,14 @@ body {
     border-radius: 4px;
     font-size: 0.75rem;
     color: #495057;
+}
+
+.genre-badge{
+    background: #007bff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #ffffff;
 }
 
 .game-description-box h3 {
@@ -617,6 +625,58 @@ body {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 1.2rem;
+}
+
+.modal-gallery {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 200px;
+    margin-bottom: 20px;
+}
+
+#modal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+}
+
+#modal-img.fade-out {
+    opacity: 0.5; 
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    color: black;
+}
+
+.arrow:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.arrow-left {
+    left: 10px;
+}   
+.arrow-right {
+    right: 10px;
 }
 
 /* =========================================

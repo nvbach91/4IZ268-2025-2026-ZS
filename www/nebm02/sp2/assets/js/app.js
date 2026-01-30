@@ -39,6 +39,7 @@ const modalTitle = $('#modal-title');
 const modalImg = $('#modal-img');
 const modalDescription = $('#modal-description');
 const modalPlatforms = $('#modal-platforms');
+const modalGenres = $('#modal-genres');
 const modalReleased = $('#modal-released');
 const modalMetacritic = $('#modal-metacritic');
 const modalStatus = $('#modal-status');
@@ -47,11 +48,14 @@ const modalDate = $('#modal-date');
 const modalNote = $('#modal-note');
 const modalDeleteBtn = $('#btn-delete-modal');
 const modalGameId = $('#modal-game-id');
+const modalGameImgAdditional = $('#modal-img-additional');
 const modalGameName = $('#modal-game-name');
 const modalGameImg = $('#modal-game-img');
 const modalBtnDelete = $('#btn-delete-modal');
 const modalBtnCancel = $('#btn-cancel-modal');
 const modalCloseButton = $('#close-modal');
+const modalArrowLeft = $('#galleryArrowLeft');
+const modalArrowRight = $('#galleryArrowRight');
 
 
 App.searchState = {
@@ -67,6 +71,11 @@ App.searchState = {
 App.libraryState = {
     status: 'all',
     sortBy: 'rating-desc'
+};
+
+App.galleryState = {
+    images: [],
+    currentIndex: 0
 };
 
 App.currentView = 'search';
@@ -97,7 +106,7 @@ App.updateSearchState = (searchedGame, platform, genre, ordering, page, page_siz
  */
 App.fetchGames = async () => {
     let url = `${App.BASE_API_URL}?key=${App.API_KEY}&search=${encodeURIComponent(App.searchState.searchedGame)}&page_size=${App.searchState.page_size}&page=${App.searchState.page}`;
-
+    console.log(App.searchState.platform);
     if (App.searchState.platform) url += `&platforms=${App.searchState.platform}`;
     if (App.searchState.genre) url += `&genres=${App.searchState.genre}`;
     if (App.searchState.ordering) url += `&ordering=${App.searchState.ordering}`;
@@ -232,6 +241,29 @@ App.executeSearch = async () => {
     searchResults.empty();
     spinner.show();
     pagination.addClass('hidden');
+
+    const allowedPlatforms = $('#filter-platforms input').map((_, el) => $(el).val()).get();
+    if (App.searchState.platform) {
+        const selectedPlatforms = App.searchState.platform.split(',');
+        const invalidPlatforms = selectedPlatforms.filter(id => !allowedPlatforms.includes(id));
+        if (invalidPlatforms.length > 0) {
+            spinner.hide();
+            App.showToast('One or more selected platforms are invalid.', 'error');
+            return;
+        }
+    }
+
+    const allowedGenres = $('#filter-genres input').map((_, el) => $(el).val()).get();
+    if (App.searchState.genre) {
+        const selectedGenres = App.searchState.genre.split(',');
+        const invalidGenres = selectedGenres.filter(id => !allowedGenres.includes(id));
+        if (invalidGenres.length > 0) {
+            spinner.hide();
+            App.showToast('One or more selected genres are invalid.', 'error');
+            return;
+        }
+    }
+
 
     try {
         const data = await App.fetchGames();
@@ -424,7 +456,10 @@ App.removeFromLibrary = (id) => {
         App.renderLibrary();
     }
 
+    App.renderLibrary();
+
     App.showToast('Game removed from library.', 'success');
+
 };
 
 
@@ -433,7 +468,6 @@ App.removeFromLibrary = (id) => {
  * @param {*} gameData  game data (id, name, image)
  */
 App.openModal = async (gameData) => {
-
     modalTitle.text(gameData.name);
 
     modalImg.attr('src', gameData.image);
@@ -469,6 +503,8 @@ App.openModal = async (gameData) => {
     try {
         const details = await App.fetchGameDetails(gameData.id);
 
+        modalGameImgAdditional.attr('src', details.background_image_additional || '');
+
         modalDescription.html(details.description || 'Description is not available.');
 
         modalReleased.html(`<i class="fa-regular fa-calendar"></i> ${details.released || 'N/A'}`);
@@ -499,9 +535,69 @@ App.openModal = async (gameData) => {
             ).join('');
             modalPlatforms.html(badges);
         }
+
+        if (details.genres) {
+            const genreTags = details.genres.map(g => `<span class="genre-badge">${g.name}</span>`).join('');
+            modalGenres.html(genreTags);
+        }
+        App.initGallery([details.background_image, details.background_image_additional]);
+
     } catch (err) {
         console.error("Loading description was not succesfull", err);
         modalDescription.text("Description is not available.");
+    }
+};
+
+/**
+ * Initializes the modal gallery with given images from api
+ * @param {Array} imagesArray - all images from api
+ */
+App.initGallery = (imagesArray) => {
+    App.galleryState.images = imagesArray.filter(src => src);
+    App.galleryState.currentIndex = 0;
+
+    if (App.galleryState.images.length > 0) {
+        modalImg.attr('src', App.galleryState.images[0]);
+    }
+
+    App.updateGalleryArrows();
+};
+
+/**
+ * Main function for changin between images in modal
+ * @param {number} step - +1 forward, -1 backward
+ */
+App.operateModalGallery = (step) => {
+    const newIndex = App.galleryState.currentIndex + step;
+
+    if (newIndex >= 0 && newIndex < App.galleryState.images.length) {
+
+        modalImg.addClass('fade-out');
+
+        setTimeout(() => {
+            App.galleryState.currentIndex = newIndex;
+            modalImg.attr('src', App.galleryState.images[newIndex]);
+            modalImg.removeClass('fade-out');
+            App.updateGalleryArrows();
+        }, 300);
+    }
+};
+
+/**
+ * Helper function for updating arrows visibility in modal gallery
+ */
+App.updateGalleryArrows = () => {
+
+    if (App.galleryState.currentIndex === 0) {
+        modalArrowLeft.addClass('hidden');
+    } else {
+        modalArrowLeft.removeClass('hidden');
+    }
+
+    if (App.galleryState.currentIndex === App.galleryState.images.length - 1) {
+        modalArrowRight.addClass('hidden');
+    } else {
+        modalArrowRight.removeClass('hidden');
     }
 };
 
@@ -510,6 +606,11 @@ App.openModal = async (gameData) => {
  */
 App.closeModal = () => {
     modal.addClass('hidden');
+    App.galleryState = {
+        images: [],
+        currentIndex: 0
+    };
+    App.updateGalleryArrows();
 };
 
 /**
@@ -683,6 +784,7 @@ App.init = () => {
         let genres = genreInputs.filter(':checked').map(function () {
             return this.value;
         }).get();
+
         const searchedTerm = searchInput.val().trim();
         let ordering = searchOrdering.val();
         if (!searchedTerm && !ordering) {
@@ -849,6 +951,14 @@ App.init = () => {
             App.updateUrl();
             App.renderLibrary();
         }
+    });
+
+    modalArrowLeft.click(() => {
+        App.operateModalGallery(-1);
+    });
+
+    modalArrowRight.click(() => {
+        App.operateModalGallery(1);
     });
 
     // Load state from URL on app start
