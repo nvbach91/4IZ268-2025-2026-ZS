@@ -1,0 +1,78 @@
+#game-board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+#game-board .row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+#game-board .cell {
+    width: 55px;
+    height: 55px;
+    border: 2px solid #d3d6da;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: white;
+}
+
+.correct {
+    background-color: #6aaa64 !important;
+    color: white !important;
+    border-color: #6aaa64 !important;
+}
+
+.present {
+    background-color: #c9b458 !important;
+    color: white !important;
+    border-color: #c9b458 !important;
+}
+
+.absent {
+    background-color: #787c7e !important;
+    color: white !important;
+    border-color: #787c7e !important;
+}
+
+.cell {
+    transition: transform 0.5s, background-color 0.5s;
+}
+
+#keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.key-row {
+    display: flex;
+    gap: 5px;
+}
+
+.key {
+    min-width: 35px;
+    padding: 10px 6px;
+    border: none;
+    border-radius: 4px;
+    background-color: #d3d6da;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.key:hover {
+    background-color: #c0c4c7;
+}
+
+.key.wide {
+    min-width: 60px;
+}

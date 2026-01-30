@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="./assetes/css/styles.css">
+    <title>Wordle - CZ</title>
+</head>
+
+<body>
+
+    <header class="bg-dark text-white py-3 mb-4">
+        <div class="container text-center">
+            <h1 class="fw-bold mb-1">Wordle - CZ</h1>
+            <p class="mb-0 text-secondary">
+                Uhodni tajné slovo na 6 pokusů
+            </p>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <div class="row">
+
+            <div class="col-12 col-lg-3 mb-4">
+                <section id="new-word-input" class="card p-3 mb-3">
+                    <h2 class="h5">Přidej vlastní slovo!</h2>
+                    <input id="word-input" type="text" class="form-control mb-2" placeholder="např. mléko">
+                    <button id="add-button" class="btn btn-success w-100">Přidat</button>
+                    <div class="word-info mt-2"></div>
+                </section>
+
+                <section id="stats" class="card p-3">
+                    <h2 class="h5">Statistiky</h2>
+                    <p>Odehráno: <span id="played">0</span></p>
+                    <p>Výhry: <span id="wins">0</span></p>
+                    <p>Série: <span id="streak">0</span></p>
+                </section>
+            </div>
+
+            <div class="col-12 col-lg-6">
+
+                <div class="d-flex justify-content-center mb-3">
+                    <section class="card p-2 text-center w-50">
+                        <div id="timer" class="fs-4 fw-bold mb-2">00:00</div>
+                        <button id="reset-button" class="btn btn-danger btn-sm w-100">Nová hra</button>
+                    </section>
+                </div>
+
+                <div class="d-flex flex-column align-items-center gap-3">
+
+                    <section id="game-board"></section>
+
+                    <section id="keyboard">
+                        <div class="key-row">
+                            <button class="key" data-key="Ě">Ě</button>
+                            <button class="key" data-key="Š">Š</button>
+                            <button class="key" data-key="Č">Č</button>
+                            <button class="key" data-key="Ř">Ř</button>
+                            <button class="key" data-key="Ť">Ť</button>
+                            <button class="key" data-key="Ž">Ž</button>
+                            <button class="key" data-key="Ý">Ý</button>
+                            <button class="key" data-key="Á">Á</button>
+                            <button class="key" data-key="Í">Í</button>
+                            <button class="key" data-key="É">É</button>
+                            <button class="key" data-key="Ó">Ó</button>
+                            <button class="key" data-key="Ď">Ď</button>
+                        </div>
+                        <div class="key-row">
+                            <button class="key" data-key="Q">Q</button>
+                            <button class="key" data-key="W">W</button>
+                            <button class="key" data-key="E">E</button>
+                            <button class="key" data-key="R">R</button>
+                            <button class="key" data-key="T">T</button>
+                            <button class="key" data-key="Z">Z</button>
+                            <button class="key" data-key="U">U</button>
+                            <button class="key" data-key="I">I</button>
+                            <button class="key" data-key="O">O</button>
+                            <button class="key" data-key="P">P</button>
+                            <button class="key" data-key="Ú">Ú</button>
+                        </div>
+
+                        <div class="key-row">
+                            <button class="key" data-key="A">A</button>
+                            <button class="key" data-key="S">S</button>
+                            <button class="key" data-key="D">D</button>
+                            <button class="key" data-key="F">F</button>
+                            <button class="key" data-key="G">G</button>
+                            <button class="key" data-key="H">H</button>
+                            <button class="key" data-key="J">J</button>
+                            <button class="key" data-key="K">K</button>
+                            <button class="key" data-key="L">L</button>
+                            <button class="key" data-key="Ů">Ů</button>
+                            <button class="key" data-key="Ň">Ň</button>
+                        </div>
+
+                        <div class="key-row">
+                            <button class="key wide" data-key="ENTER">ENTER</button>
+                            <button class="key" data-key="Y">Y</button>
+                            <button class="key" data-key="X">X</button>
+                            <button class="key" data-key="C">C</button>
+                            <button class="key" data-key="V">V</button>
+                            <button class="key" data-key="B">B</button>
+                            <button class="key" data-key="N">N</button>
+                            <button class="key" data-key="M">M</button>
+                            <button class="key wide" data-key="BACKSPACE">⌫</button>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center border-top py-2 mt-4">
+        <p class="mb-0 text-muted small">© 2025 Wordle - cz</p>
+    </footer>
+
+    <script src="assetes/js/app.js"></script>
+</body>
+
+</html>
