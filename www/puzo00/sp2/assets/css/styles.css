@@ -1,66 +1,50 @@
-html,
 body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-body {
-    background: white;
+    background-color: #f8f9fa; 
     font-family: Arial, sans-serif;
 }
 
-.top-bar {
-    background: white;
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    gap: 16px;
-}
-
-.logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: black;
-    user-select: none;
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.nav a {
-    color: black;
-    text-decoration: none;
-    font-size: 15px;
-    line-height: 18px;
-    padding: 8px 12px;
-    border-radius: 10px;
-}
-
-.nav a:hover {
-    background: whitesmoke;
-}
-
 main {
-    max-width: 1100px;
+    max-width: 1140px;
     margin: 0 auto;
-    padding: 18px 20px 24px 20px;
+    padding: 20px 20px 40px 20px;
 }
 
 .map-wrap {
-    background: white;
-    border: 1px solid lightgray;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 22px rgba(0, 0, 0, 0.1);
 }
 
 #map {
     width: 100%;
-    height: 700px;
+    height: 650px;
+    z-index: 1; 
+}
+
+.card {
+    border-radius: 15px;
+    border: none;
+}
+
+#search-loader {
+    margin: 20px 0;
+}
+
+#search-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 10px;
+}
+
+.leaflet-popup-content {
+    font-size: 14px;
+    margin: 12px;
 }
