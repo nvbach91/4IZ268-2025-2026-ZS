@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Junk Journal</title>
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📔</text></svg>">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Indie+Flower&family=Shadows+Into+Light&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="snackbar">Uloženo!</div>
+
+    <div class="app-container">
+
+        <header class="top-nav">
+            <button id="addtextbtn" class="nav-btn">Add text ✎</button>
+            <button id="savebtn" class="nav-btn">Save 💾</button>
+            <button id="clearbtn" class="nav-btn">Clear page 🗑️</button>
+        </header>
+
+        <main class="main-content">
+
+            <div id="canvas" class="canvas">
+            </div>
+
+            <aside class="sidebar">
+                <div class="searchbox">
+                    <input type="text" id="searchinpt" placeholder="Search stickers...">
+                    <button id="searchbtn">🔍</button>
+                </div>
+
+                <div id="searchresults" class="searchresults"></div>
+
+                <hr class="separator">
+
+                <button id="qotdbtn" class="qotdbtn">Get Quote of the Day ✨</button>
+            </aside>
+
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.19/dist/interact.min.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

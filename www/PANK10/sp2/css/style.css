@@ -1,0 +1,259 @@
+/* Reset a základ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Indie Flower', cursive;
+    background-color: #e6dac8;
+    /* Béžové pozadí stolu */
+    height: 100vh;
+    overflow: hidden;
+    /* Zabrání scrollování celé stránky */
+    color: #2c2c2c;
+}
+
+/* Hlavní rozložení stránky */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Horní navigace */
+.top-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+    background: transparent;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #4a4a4a;
+    transition: transform 0.2s, color 0.2s;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
+    color: #000;
+}
+
+/* Hlavní obsah (Canvas + Sidebar) */
+.main-content {
+    display: flex;
+    flex: 1;
+    /* Roztáhne se na zbytek výšky */
+    padding: 0 20px 20px 20px;
+    gap: 20px;
+    overflow: hidden;
+}
+
+/* Canvas - Tečkovaný papír */
+.canvas {
+    flex: 1;
+    /* Zabere maximum místa */
+    background-color: #fcfaf2;
+    /* Krémový papír */
+    /* Vytvoření teček pomocí gradientu */
+    background-image: radial-gradient(#ccc 1.5px, transparent 1.5px);
+    background-size: 25px 25px;
+
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    /* Stín jako papír na stole */
+    position: relative;
+    overflow: hidden;
+    /* Elementy nemůžou utéct ven */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background-color: #fffbf0;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* Hledání */
+.searchbox {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.searchbox input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 18px;
+    outline: none;
+    background: #fff;
+}
+
+.searchbox button {
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 40px;
+    transition: background 0.3s;
+}
+
+.searchbox button:hover {
+    background: #555;
+}
+
+/* Výsledky Giphy */
+.searchresults {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding-right: 5px;
+}
+
+/* Scrollbar styling pro sidebar */
+.searchresults::-webkit-scrollbar {
+    width: 8px;
+}
+
+.searchresults::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.searchresults img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    /* Aby se nálepky nedeformovaly */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.searchresults img:hover {
+    transform: scale(1.05);
+}
+
+.separator {
+    border: 0;
+    border-top: 1px dashed #ccc;
+    margin: 15px 0;
+}
+
+/* Tlačítko citátu */
+.qotdbtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #556b2f;
+    /* Dark Olive Green */
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.qotdbtn:hover {
+    background-color: #3e4f22;
+    transform: translateY(-2px);
+}
+
+/* Elementy na ploše */
+.canvas-element {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+    /* Důležité pro Interact.js */
+}
+
+.text-element {
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 28px;
+    color: #333;
+    padding: 10px;
+    border: 1px dashed transparent;
+    /* Rámeček viditelný jen při editaci */
+    min-width: 50px;
+}
+
+.text-element:focus {
+    border-color: #999;
+    outline: none;
+}
+
+.sticker-element img {
+    max-width: 250px;
+    pointer-events: none;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+    /* Stín pod nálepkou */
+}
+
+/* Toast Notification (Snackbar) */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-family: 'Indie Flower', cursive;
+    font-size: 18px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
