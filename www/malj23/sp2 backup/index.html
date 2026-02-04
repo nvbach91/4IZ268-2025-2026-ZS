@@ -25,7 +25,7 @@
                 <form id='filtersForm'>
                     <div class='filter-group'>
                         <label for='artistInput' class='filter-label'>Interpret</label>
-                        <input type="text" id="artistInput" class="form-control filter-input" placeholder="Např. Puscifer" maxlength="80" pattern="[A-Za-zÀ-ž0-9 .,&'\-]{1,80}" title="Zadejte 1–80 znaků (písmena, čísla, mezera, tečka, čárka, apostrof, pomlčka).">
+                        <input type='text' id='artistInput' class='form-control filter-input' placeholder='Např. Puscifer' maxlength='80' pattern='[A-Za-zÀ-ž0-9 .,&\'\-]{1,80}' title='Zadejte 1–80 znaků (písmena, čísla, mezera, tečka, čárka, apostrof, pomlčka).'>
                         <div id='artistSuggestions' class='suggestions-list' hidden></div>
                     </div>
                     <div class='filter-group'>
@@ -46,7 +46,7 @@
                     </div>
                     <div class='filter-group'>
                         <label for='genreInput' class='filter-label'>Vlastní žánr</label>
-                        <input type="text" id="genreInput" class="form-control filter-input" placeholder="Žánr (vlastní)" maxlength="40" pattern="[A-Za-zÀ-ž0-9 .,&'\-]{1,40}" title="Zadejte 1–40 znaků (písmena, čísla, mezera, tečka, čárka, apostrof, pomlčka).">
+                        <input type='text' id='genreInput' class='form-control filter-input' placeholder='Žánr (vlastní)' maxlength='40' pattern='[A-Za-zÀ-ž0-9 .,&\'\-]{1,40}' title='Zadejte 1–40 znaků (písmena, čísla, mezera, tečka, čárka, apostrof, pomlčka).'>
                     </div>
                     <div class='filter-group'>
                         <label class='filter-label'>Datum vydání</label>
@@ -68,7 +68,6 @@
             </aside>
 
             <section class='content-panel' aria-live='polite'>
-                <h2 class='visually-hidden'>Výsledky vyhledávání</h2>
                 <div class='content-top'>
                     <div class='pill-switch' id='searchTypeSwitch'>
                         <button type='button' class='pill' data-type='track'>Skladby</button>
@@ -106,12 +105,12 @@
         <div class='modal-dialog modal-dialog-centered'>
             <div class='modal-content'>
                 <div class='modal-header'>
-                    <h2 class='modal-title h5'>Detail</h2>
+                    <h5 class='modal-title'>Detail</h5>
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                 </div>
                 <div class='modal-body'>
                     <div class='text-center mb-3' id='detailCoverWrap'>
-                        <img id='detailCover' class='modal-cover' alt='Obal alba' src='data:image/gif;base64,R0lGODlhAQABAAAAACw='>
+                        <img id='detailCover' class='modal-cover' alt='Obal alba' />
                     </div>
                     <p><strong>Název:</strong> <span id='detailName'></span></p>
                     <p><strong>Interpret:</strong> <span id='detailArtist'></span></p>

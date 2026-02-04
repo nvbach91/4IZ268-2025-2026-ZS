@@ -1,3 +1,4 @@
+// Hlavní logika aplikace
 const CLIENT_ID = '76cc8800f1e94cf8bd6a5e4527b96255';
 const CLIENT_SECRET = '33b87d6e09d6406084fdd0a345935ba2';
 const REDIRECT_URI = 'https://eso.vse.cz/~malj23/sp2/index.html';
@@ -716,6 +717,7 @@ function cacheSearchState(filters, results) {
                 results: payload.results
             }));
         } catch (innerError) {
+            // Ignorovat chyby úložiště
         }
     }
 }
