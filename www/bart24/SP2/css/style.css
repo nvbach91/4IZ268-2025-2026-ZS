@@ -1,77 +1,400 @@
-/* Základní reset */
+/* ===== ZÁKLADNÍ NASTAVENÍ ===== */
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif; /* Nebo jiný font, co máš rád */
 }
 
 body {
-    background-color: #f4f4f4;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
+    color: #333;
+
+    /* --- POZADÍ (Externí obrázek z Unsplash) --- */
+    background-image: url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    /* Tmavý filtr přes obrázek pro lepší čitelnost textu */
+    background-color: rgba(0, 0, 0, 0.75); 
+    background-blend-mode: overlay;
+    
+    min-height: 100vh;
 }
 
-header, footer {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Hlavní rozložení do 3 sloupců */
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Tři stejně široké sloupce */
-    gap: 20px; /* Mezera mezi sloupci */
     max-width: 1200px;
     margin: 0 auto;
-    height: 80vh; /* Aby to bylo přes většinu obrazovky */
 }
 
-/* Vzhled jednotlivých sloupců (podle nákresu rámečky) */
-.column {
-    background: white;
-    border: 2px solid #333; /* Tmavý rámeček jako na nákresu */
-    padding: 15px;
-    border-radius: 8px;
-    overflow-y: auto; /* Aby se dalo scrollovat uvnitř sloupce */
+.hidden {
+    display: none !important;
 }
 
-h2 {
-    border-bottom: 1px solid #ccc;
+/* ===== HLAVIČKA ===== */
+.app-header {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Stín pod hlavičkou */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* Styly pro loga */
+.logos {
+    display: flex;
+    gap: 15px;
+    padding-left: 20px;
+    border-left: 2px solid #ddd; /* Oddělovací čára */
+}
+
+.league-logo {
+    height: 38px; /* Fixní výška log */
+    width: auto;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.league-logo:hover {
+    transform: scale(1.15); /* Zvětšení po najetí */
+    opacity: 1;
+}
+
+/* Navigace */
+.top-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #555;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+.nav-link.nav-link--active {
+    color: #000;
+    border-bottom: 3px solid #000;
+}
+
+/* ===== LAYOUT (GRID) ===== */
+.grid-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Poměr sloupců 1:2 */
+    gap: 20px;
+    align-items: start;
+}
+
+/* Karta (bílý box) */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+    margin: 0 0 15px;
+    font-size: 24px;
+    border-bottom: 2px solid #f4f4f4;
     padding-bottom: 10px;
-    margin-bottom: 15px;
-    text-align: center;
 }
 
-/* Styl pro položky v seznamu zápasů */
-.match-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
+/* ===== FORMULÁŘOVÉ PRVKY ===== */
+.label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 16px;
     cursor: pointer;
-    background-color: #f9f9f9;
+    transition: border-color 0.2s;
+}
+
+.select:hover, .select:focus {
+    border-color: #aaa;
+    outline: none;
+}
+
+.mt { margin-top: 20px; }
+.mt-large { margin-top: 40px; }
+.muted { color: #888; font-style: italic; }
+
+/* ===== SEZNAM ZÁPASŮ ===== */
+.matches-list {
+    margin-top: 10px;
+    max-height: 600px; /* Aby se dalo scrollovat při hodně zápasech */
+    overflow-y: auto;
+}
+
+.match-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+    padding: 12px 15px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.2s;
 }
 
 .match-item:hover {
-    background-color: #e0e0e0;
+    background: #eef;
+    border-color: #ccf;
+    transform: translateX(5px);
 }
 
-/* Tlačítka pro tipování */
-.buttons {
+.match-item--active {
+    background: #222 !important;
+    color: #fff !important;
+    border-color: #222 !important;
+}
+
+.match-item--active .match-date {
+    color: #ccc;
+}
+
+.match-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.match-teams {
+    font-size: 15px;
+}
+
+/* ===== DETAIL ZÁPASU ===== */
+.detail-head {
+    margin-bottom: 20px;
+}
+
+.detail-title {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.detail-sub {
+    color: #666;
+    margin-top: 5px;
+}
+
+.detail-block {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.detail-block h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #444;
+}
+
+/* Tabulky v detailu */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.detail-table th {
+    text-align: left;
+    background: #e9ecef;
+    padding: 8px;
+    font-size: 12px;
+}
+
+.detail-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Predikce */
+.pred-row {
     display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.btn-tip {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-/* Graf */
-.chart-container {
-    margin-top: 20px;
-    border: 1px solid #ccc; /* Rámeček pro graf jako na obrázku */
+.pred-box {
+    flex: 1;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     padding: 10px;
+}
+
+.pred-label { font-weight: bold; color: #555; }
+.pred-val { font-size: 18px; font-weight: bold; color: #000; margin-top: 5px; }
+
+.pred-comment {
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* ===== TIPOVÁNÍ ===== */
+.sep {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+
+.tip-panel h3 { margin-top: 0; }
+
+.tip-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0 20px;
+}
+
+.tip-btn {
+    flex: 1;
+    padding: 15px 0;
+    font-size: 20px;
+    font-weight: bold;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tip-btn:hover:not(:disabled) {
+    border-color: #999;
+    background: #f4f4f4;
+}
+
+/* Aktivní tlačítko tipu */
+.tip-btn--active {
+    background: #222 !important;
+    color: #fff !important;
+    border-color: #222 !important;
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: #28a745; /* Zelená pro uložení */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #218838;
+}
+
+.btn-primary:disabled, .tip-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #eee;
+}
+
+.tip-status {
+    margin-top: 15px;
+    text-align: center;
+    color: #28a745;
+    font-weight: bold;
+    padding: 10px;
+    background: #e8f5e9;
+    border-radius: 6px;
+}
+
+/* ===== STATISTIKY ===== */
+.grid-stats {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+.stats-lines {
+    font-size: 16px;
+    line-height: 2;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+
+.history-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ok { color: #28a745; }
+.bad { color: #dc3545; }
+
+/* ===== FOOTER ===== */
+.app-footer {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7); /* Světlejší text na tmavém pozadí */
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .grid-main, .grid-stats {
+        grid-template-columns: 1fr; /* Na mobilu pod sebe */
+    }
+    
+    .app-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .matches-list {
+        max-height: 300px;
+    }
 }

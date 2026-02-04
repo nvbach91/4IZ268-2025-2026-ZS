@@ -1,88 +1,191 @@
-const API_KEY = "577981c2af63735c607c23a2c1db4370"; // API-Football klíč
+// js/api.js
+// API vrstva: Premier League (API-Football), NHL (přes nhl.php proxy)
+// minimum requestů + cache, aby jsme nedosáhli rate-limit.
 
-const USE_RAPIDAPI = true;
 
-// PI-Football / API-Sports 
-const FOOTBALL_URL = "https://v3.football.api-sports.io/fixtures";
-const FOOTBALL_HOST = "v3.football.api-sports.io";
+const AppAPI = (() => {
+  // === API-Fotbal  ===
+  const FOOTBALL_BASE = "https://v3.football.api-sports.io";
+  const API_KEY = "30dae4a968b229d5af48d35f96975d9a"; // můj klíč
+  const PL_LEAGUE_ID = 39;
 
-// Premier League ID v API-Football:
-const PREMIER_LEAGUE_ID = 39;
+  // 2023 a 2022 kvůli historii
+  const PL_SEASONS = [2023, 2022];
 
-// Sezóna pro free plán 
-const PL_SEASON = 2023;
+  // === NHL přes PHP proxy ===
+  const NHL_PROXY = "nhl.php";
 
-// NHL
-const NHL_SCHEDULE_URL = "https://statsapi.web.nhl.com/api/v1/schedule";
+  // Cache pro PL fixtures (abychom nedosáhli limit 10 req/min)
+  const CACHE_KEY = "tipmaster_pl_fixtures_cache_v1";
+  const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hodin
 
-window.AppAPI = {
- 
-  // Premier League (API-Football)
-  
-  getPremierLeague: function (successCallback, errorCallback) {
-    $.ajax({
-      url: FOOTBALL_URL,
-      method: "GET",
-      data: {
-        league: PREMIER_LEAGUE_ID,
-        season: PL_SEASON
-
-       
-      },
-      headers: USE_RAPIDAPI
-        ? {
-            "x-rapidapi-key": API_KEY,
-            "x-rapidapi-host": FOOTBALL_HOST
-          }
-        : {
-            "x-apisports-key": API_KEY
-          },
-      success: function (raw) {
-        // API-Football vrací data v raw.response (pole)
-        console.log("PL OK raw:", raw);
-
-        if (raw && Array.isArray(raw.response)) {
-          // max 10 prvních, aby UI nebylo přeplněné
-          successCallback(raw.response.slice(0, 10));
-        } else {
-          errorCallback({
-            message: "Neočekávaný formát odpovědi API-Football",
-            raw: raw
-          });
-        }
-      },
-      error: function (xhr) {
-        console.log("PL ERROR", xhr.status, xhr.responseText);
-        errorCallback(xhr);
-      }
+  function ajaxJson(opts) {
+    return $.ajax({
+      url: opts.url,
+      method: opts.method || "GET",
+      data: opts.data || undefined,
+      headers: opts.headers || undefined,
+      dataType: "json",
     });
-  },
+  }
 
- 
-  // NHL
-  getNHL: function(successCallback, errorCallback) {
- 
-  const today = new Date();
-  const y = today.getFullYear()-3;
-  const m = String(today.getMonth() + 1).padStart(2, "0");
-  const d = String(today.getDate()).padStart(2, "0");
-  const dateStr = `${y}-${m}-${d}`;
+  function plFixturesRequest(season) {
+    return ajaxJson({
+      url: `${FOOTBALL_BASE}/fixtures`,
+      headers: { "x-apisports-key": API_KEY },
+      data: {
+        league: PL_LEAGUE_ID,
+        season: season,
+      },
+    });
+  }
 
-  $.ajax({
-    url: `https://api-web.nhle.com/v1/schedule/${dateStr}`,
-    method: "GET",
-    success: function(resp) {
-      
-      const games = (resp && resp.gameWeek)
-        ? resp.gameWeek.flatMap(w => w.games || [])
-        : [];
+  function readCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (!obj || !obj.ts || !Array.isArray(obj.response)) return null;
+      if (Date.now() - obj.ts > CACHE_TTL_MS) return null;
 
-      successCallback(games);
-    },
-    error: function(xhr) {
-      console.log("NHL ERROR", xhr.status, xhr.responseText);
-      errorCallback(xhr);
+      if (obj.response.length === 0) return null;
+
+      return obj;
+    } catch {
+      return null;
     }
-  });
+  }
+
+  function writeCache(payload) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(payload));
+    } catch {}
+  }
+
+  // Premier League: pro sezóny 2023 a 2022 (kvůli historii)
+  
+  function getPremierLeague(success, error) {
+    const cached = readCache();
+    if (cached) {
+      success(cached);
+      return;
+    }
+
+    const reqs = PL_SEASONS.map((s) => plFixturesRequest(s));
+
+    $.when(...reqs)
+      .done(function () {
+        const allResponses = [];
+        for (let i = 0; i < arguments.length; i++) {
+          const res = arguments[i][0];
+          const arr = res?.response || [];
+          allResponses.push(...arr);
+        }
+
+        const seen = new Set();
+        const merged = [];
+        for (const f of allResponses) {
+          const id = f?.fixture?.id;
+          if (!id) continue;
+          if (seen.has(id)) continue;
+          seen.add(id);
+          merged.push(f);
+        }
+
+        merged.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
+
+        const payload = {
+          response: merged,
+          seasons: [...PL_SEASONS],
+          results: merged.length,
+          errors: [],
+          ts: Date.now(),
+        };
+
+        writeCache(payload);
+        success(payload);
+      })
+      .fail(function (xhr) {
+        error(xhr);
+      });
+  }
+
+
+  // NHL: week schedule by date (přes nhl.php) - levý seznam
+  // nhl.php očekává: ?date=YYYY-MM-DD  
+ 
+
+const NHL_WEEK_CACHE_KEY = "tipmaster_nhl_week_cache_v1";
+const NHL_WEEK_TTL_MS = 12 * 60 * 60 * 1000; // 12 hodin
+
+function readNhlWeekCache() {
+  try {
+    const raw = localStorage.getItem(NHL_WEEK_CACHE_KEY);
+    if (!raw) return {};
+    const obj = JSON.parse(raw);
+    if (!obj || typeof obj !== "object") return {};
+    return obj;
+  } catch {
+    return {};
+  }
 }
-};
+
+function writeNhlWeekCache(cacheObj) {
+  try {
+    localStorage.setItem(NHL_WEEK_CACHE_KEY, JSON.stringify(cacheObj));
+  } catch {}
+}
+
+
+
+
+
+
+
+  function getNHL(date, success, error) {
+  const all = readNhlWeekCache();
+  const hit = all[date];
+
+  if (hit && hit.ts && (Date.now() - hit.ts) < NHL_WEEK_TTL_MS && hit.data) {
+    success(hit.data);
+    return;
+  }
+
+  ajaxJson({
+    url: NHL_PROXY,
+    data: { date },
+  })
+    .done((res) => {
+      all[date] = { ts: Date.now(), data: res };
+      writeNhlWeekCache(all);
+      success(res);
+    })
+    .fail((xhr) => error(xhr));
+}
+
+
+  // NHL: range schedule history (přes nhl.php) - detail/historie
+  // nhl.php očekává: ?start=YYYY-MM-DD&end=YYYY-MM-DD
+ 
+  function getNHLRange(start, end, success, error) {
+    ajaxJson({
+      url: NHL_PROXY,
+      data: { start, end },
+    })
+      .done((res) => success(res))
+      .fail((xhr) => error(xhr));
+  }
+
+  function getNHLTeamSchedule(teamId, startDate, endDate, success, error) {
+    // teamId se ignoruje – historie se stáhne jako range a vyfiltruje se v main.js
+    getNHLRange(startDate, endDate, success, error);
+  }
+
+  return {
+    getPremierLeague, 
+    getNHL,          
+    getNHLRange,      
+    getNHLTeamSchedule,
+    PL_SEASONS,
+  };
+})();

@@ -1,94 +1,131 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TipMaster</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TipMaster 2026</title>
+  
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/3/3a/05_NHL_Shield.svg" type="image/svg+xml">
 
+  <link rel="stylesheet" href="css/style.css" />
 
-<script src="js/api.js"></script>
-<script src="js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
 
-    <header>
-        <h1>TipMaster 2026</h1>
+<body>
+  <div class="container">
+    
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand">TipMaster</div>
+        
+        <div class="logos">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg" 
+            alt="Premier League" 
+            class="league-logo" 
+            title="Premier League"
+          />
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/en/3/3a/05_NHL_Shield.svg" 
+            alt="NHL" 
+            class="league-logo" 
+            title="NHL"
+          />
+        </div>
+      </div>
+
+      <nav class="top-nav">
+        <a href="#" id="nav-matches" class="nav-link nav-link--active">Zápasy</a>
+        <a href="#" id="nav-stats" class="nav-link">Moje statistiky</a>
+      </nav>
     </header>
 
-    <main class="container">
+    <main id="view-main" class="view">
+      <div class="grid-main">
         
-        <section class="column" id="matches-column">
-            <h2>Zápasy</h2>
-            <div class="controls">
-                <label>Soutěž:</label>
-                <select id="league-select">
-                    <option value="pl">Premier League</option>
-                    <option value="nhl">NHL</option>
-                </select>
+        <section class="card">
+          <h2>Zápasy</h2>
+
+          <label class="label" for="league-select">Vyber soutěž:</label>
+          <select id="league-select" class="select">
+            <option value="pl" selected>Premier League ⚽</option>
+            <option value="nhl">NHL 🏒</option>
+          </select>
+
+          <div class="mt">
+            <h3>Seznam zápasů</h3>
+            <div id="matches-list" class="matches-list">
+              <div class="muted">Načítám zápasy...</div>
             </div>
-            
-            <div id="matches-list">
-                <div class="match-item">
-                    <span class="date">10.12. 17:00</span>
-                    <span class="teams">Man Utd vs Liverpool</span>
-                </div>
-                <div class="match-item">
-                    <span class="date">10.12. 19:00</span>
-                    <span class="teams">Arsenal vs West Ham</span>
-                </div>
-            </div>
+          </div>
         </section>
 
-        <section class="column" id="detail-column">
-            <h2>Detail zápasu</h2>
-            <div id="match-detail-content">
-                <p>Nebyl vybrán žádný zápas.</p>
-                </div>
+        <section class="card">
+          <h2>Detail zápasu</h2>
 
-            <div class="betting-area">
-                <h3>Můj tip</h3>
-                <div class="buttons">
-                    <button class="btn-tip" data-value="1">1</button>
-                    <button class="btn-tip" data-value="0">0</button>
-                    <button class="btn-tip" data-value="2">2</button>
-                </div>
-                <button id="save-tip">Uložit tip</button>
+          <div id="match-detail" class="match-detail">
+            <div class="muted">Klikni na zápas vlevo pro zobrazení detailů.</div>
+          </div>
+
+          <hr class="sep" />
+
+          <div class="tip-panel">
+            <h3>Můj tip</h3>
+
+            <div class="tip-buttons">
+              <button class="tip-btn" data-tip="1" disabled>1</button>
+              <button class="tip-btn" data-tip="X" disabled>X</button>
+              <button class="tip-btn" data-tip="2" disabled>2</button>
             </div>
+
+            <button id="save-tip" class="btn-primary" disabled>Uložit tip</button>
+
+            <div id="tip-status" class="tip-status hidden">Tip úspěšně uložen ✓</div>
+          </div>
         </section>
-
-        <section class="column" id="stats-column">
-            <h2>Statistiky</h2>
-            <div class="stats-info">
-                <h3>Moje statistiky</h3>
-                <p>Celková úspěšnost: <span id="total-success">62 %</span></p>
-                <p>Premier League: <span>70 %</span></p>
-                <p>NHL: <span>59 %</span></p>
-            </div>
-            
-            <div class="chart-container">
-                <h3>Graf vývoje</h3>
-                <canvas id="statsChart"></canvas> </div>
-
-            <div class="history-list">
-                <h3>Historie tipování</h3>
-                <ul>
-                    <li>Man City - Arsenal: Tip 1 (Výsledek 5:2)</li>
-                    <li>West Ham - Tottenham: Tip 2 (Výsledek 2:3)</li>
-                </ul>
-            </div>
-        </section>
-
+      </div>
     </main>
 
-    <footer>
-        <p>TipMaster &copy; 2026</p>
-    </footer>
+    <main id="view-stats" class="view hidden">
+      <section class="card">
+        <h2>Statistiky</h2>
 
-   
+        <div class="grid-stats">
+            <div class="stats-block">
+            <h3>Moje úspěšnost</h3>
+            <div id="stats-lines" class="stats-lines">
+                <div>Celkový počet tipů: —</div>
+                <div>Premier League: —</div>
+                <div>NHL: —</div>
+            </div>
+            </div>
+
+            <div class="stats-block">
+            <h3>Vývoj v čase</h3>
+            <div class="chart-wrapper">
+                <canvas id="stats-chart"></canvas>
+            </div>
+            </div>
+        </div>
+
+        <div class="stats-block mt-large">
+          <h3>Historie mých tipů</h3>
+          <ul id="history-list" class="history-list">
+            <li class="muted">Zatím nemáš uložený žádný tip.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      TipMaster © 2026 - Školní projekt (Data z API-Football & NHL API)
+    </footer>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
