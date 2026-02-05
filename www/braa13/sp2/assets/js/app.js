@@ -45,13 +45,11 @@ const App = {
 
         $.ajax({
             url: url,
-            method: 'GET',
-            success: function (response) {
-                App.renderResults(response, query, mediaType);
-            },
-            error: function () {
-                App.$dynamicContent.html('<h2>Error</h2><p>Connection to TMDB API failed.</p>');
-            }
+            method: 'GET'
+        }).done(function (response) {
+            App.renderResults(response, query, mediaType);
+        }).fail(function () {
+            App.$dynamicContent.html('<h2>Error</h2><p>Connection to TMDB API failed.</p>');
         });
     },
 
@@ -70,8 +68,9 @@ const App = {
             <div class="pagination" style="margin-top: 20px;"></div>`;
 
         const $container = $(resultsHtml);
+        const $grid = $container.filter('.results-grid');
 
-        results.forEach(item => {
+        const movieCards = results.map(item => {
             const title = item.title || item.name;
             const date = item.release_date || item.first_air_date;
             const year = (date && date.length >= 4) ? ` (${date.substring(0, 4)})` : '';
@@ -79,7 +78,6 @@ const App = {
                 ? `https://image.tmdb.org/t/p/w200${item.poster_path}`
                 : 'https://placehold.co/200x300?text=No+Poster';
 
-            // Movie/TV card
             const $card = $(`
                 <div class="movie-card">
                     <img src="${poster}" alt="${title}">
@@ -87,8 +85,10 @@ const App = {
                 </div>`);
 
             $card.on('click', () => App.fetchDetails(item.id, mediaType, true));
-            $container.filter('.results-grid').append($card);
+            return $card;
         });
+
+        $grid.append(movieCards);
 
         // Pagination controls
         if (response.total_pages > 1) {
@@ -116,7 +116,7 @@ const App = {
         App.$dynamicContent.html('<div class="loader">Loading details...</div>');
         const url = `${App.BASE_URL}${type}/${id}?api_key=${App.API_KEY}&language=en-US`;
 
-        $.get(url, function (data) {
+        $.get(url).done(function (data) {
             const title = data.title || data.name;
             const date = data.release_date || data.first_air_date;
             const year = (date && date.length >= 4) ? ` (${date.substring(0, 4)})` : '';
@@ -214,7 +214,6 @@ const App = {
         if (index > -1) {
             favorites[index].note = note;
             localStorage.setItem('4iz268_favs', JSON.stringify(favorites));
-            alert('Note saved to local storage!');
             const type = favorites[index].type;
             App.fetchDetails(id, type, false);
         }
@@ -225,8 +224,7 @@ const App = {
         App.$favoritesContent.empty();
 
         if (favorites.length > 0) {
-            favorites.forEach(f => {
-                // Image added to favorites list + direct remove button
+            const favoriteItems = favorites.map(f => {
                 const $favItem = $(`
                    <div class="fav-item-row">
                        <div class="fav-clickable">
@@ -241,9 +239,9 @@ const App = {
                     e.stopPropagation();
                     App.updateFavorites({ id: f.id, title: f.title, name: f.title }, f.poster, true);
                 });
-
-                App.$favoritesContent.append($favItem);
+                return $favItem;
             });
+            App.$favoritesContent.append(favoriteItems);
         } else {
             App.$favoritesContent.html('<p>No favorites added yet.</p>');
         }
