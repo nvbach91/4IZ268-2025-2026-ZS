@@ -20,6 +20,11 @@ const state = {
     searchCacheKey: 'sp2_search_cache'
 };
 
+// Omezíme počet alb, pro která taháme tracklist, aby se nesesypaly requesty (429).
+const MAX_ALBUMS_PER_TRACK_FETCH = 8;
+
+const ENTER_DELAY_MS = 350;
+
 app.state.accessToken = state.accessToken;
 
 $(document).ready(function() {
@@ -27,6 +32,7 @@ $(document).ready(function() {
     setupLoginHandler();
     setupSearchHandler();
     setupArtistSuggestions();
+    setupViewSwitch();
     localStorage.removeItem(state.searchCacheKey);
 
     const code = new URLSearchParams(window.location.search).get('code');
@@ -35,6 +41,37 @@ $(document).ready(function() {
         handleTokenExchange(code);
     }
 });
+
+function setupViewSwitch() {
+    const $navSearch = $get(el.navSearch, '#navSearch');
+    const $navWishlist = $get(el.navWishlist, '#navWishlist');
+    const $viewSearch = $get(el.viewSearch, '#viewSearch');
+    const $viewWishlist = $get(el.viewWishlist, '#viewWishlist');
+
+    if (!$navSearch.length || !$navWishlist.length || !$viewSearch.length || !$viewWishlist.length) {
+        return;
+    }
+
+    const activateView = (view) => {
+        const isSearch = view === 'search';
+        $viewSearch.prop('hidden', !isSearch);
+        $viewWishlist.prop('hidden', isSearch);
+        $navSearch.toggleClass('pill-active', isSearch).attr('aria-current', isSearch ? 'page' : null);
+        $navWishlist.toggleClass('pill-active', !isSearch).attr('aria-current', !isSearch ? 'page' : null);
+
+        if (!isSearch) {
+            if (typeof app.wishlist?.refreshLastSaved === 'function') {
+                app.wishlist.refreshLastSaved();
+            }
+            if (typeof app.wishlist?.renderWishlistView === 'function') {
+                app.wishlist.renderWishlistView();
+            }
+        }
+    };
+
+    $navSearch.on('click', () => activateView('search'));
+    $navWishlist.on('click', () => activateView('wishlist'));
+}
 
 function restoreAccessToken() {
     const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -61,13 +98,15 @@ function setupLoginHandler() {
         }
 
         const scope = 'user-read-private user-read-email';
-        const url = `https://accounts.spotify.com/authorize?` +
-            `client_id=${CLIENT_ID}&` +
-            `response_type=code&` +
-            `redirect_uri=${encodeURIComponent(REDIRECT_URI)}&` +
-            `scope=${encodeURIComponent(scope)}`;
+        const url = new URL('https://accounts.spotify.com/authorize');
+        url.search = new URLSearchParams({
+            client_id: CLIENT_ID,
+            response_type: 'code',
+            redirect_uri: REDIRECT_URI,
+            scope
+        }).toString();
 
-        window.location = url;
+        window.location = url.toString();
     });
 }
 
@@ -141,7 +180,7 @@ function setupSearchHandler() {
     if ($filtersForm.length) {
         $filtersForm.on('submit', runSearch);
     }
-
+/*
     $artistInput
         .add($genreInput)
         .add($genreSelect)
@@ -151,8 +190,25 @@ function setupSearchHandler() {
         .on('keypress', function(event) {
             if (event.which === 13) {
                 $searchBtn.click();
+                
             }
         });
+*/
+
+
+   $artistInput
+        .add($genreInput)
+        .add($genreSelect)
+        .add($releaseFromInput)
+        .add($releaseToInput)
+        .add($searchTypeSelect)
+        .on('keypress', function(event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                setTimeout(() => $searchBtn.click(), ENTER_DELAY_MS);
+            }
+        });
+
 }
 
 function setupArtistSuggestions() {
@@ -163,6 +219,7 @@ function setupArtistSuggestions() {
     }
 
     let timer = null;
+    let requestId = 0;
 
     const hideList = () => {
         $list.prop('hidden', true).empty();
@@ -192,8 +249,12 @@ function setupArtistSuggestions() {
 
         clearTimeout(timer);
         timer = setTimeout(async () => {
+            const currentReq = ++requestId;
             try {
                 const items = await app.api.fetchArtistSuggestions(value, 6);
+                if (currentReq !== requestId) {
+                    return;
+                }
                 showList(items);
             } catch (error) {
                 hideList();
@@ -203,6 +264,12 @@ function setupArtistSuggestions() {
 
     $artistInput.on('keydown', function(event) {
         if (event.key === 'Escape') {
+            hideList();
+        }
+        if (event.key === 'Enter') {
+            clearTimeout(timer);
+            timer = null;
+            requestId++;
             hideList();
         }
     });
@@ -342,7 +409,10 @@ async function ensureArtistAlbumsCache(filters, cacheKey) {
 }
 
 async function buildTracksFromAlbums(filters) {
-    const albums = filters.albumsCache || [];
+    const albums = (filters.albumsCache || [])
+        .slice()
+        .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
+        .slice(0, MAX_ALBUMS_PER_TRACK_FETCH);
     let tracks = [];
 
     if (!filters.tracksByAlbumCache || !(filters.tracksByAlbumCache instanceof Map)) {
@@ -437,9 +507,14 @@ async function handleTokenExchange(code) {
             showLogoutButton();
         } else {
             app.renderTokenError(data);
+            clearStoredAccessToken();
         }
     } catch (error) {
         app.renderTokenError(error.message);
+        clearStoredAccessToken();
+    } finally {
+        // Remove the one-time code from the URL to avoid reusing it on refresh (invalid_grant)
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
 
@@ -615,7 +690,15 @@ async function handleSearch(filters, append = false) {
 
         updateLoadMoreButton(filters.offset || 0, filters.total || 0);
     } catch (error) {
-        app.renderSearchError(error.message);
+        if (error && (String(error.message).toLowerCase().includes('token') || String(error.message).toLowerCase().includes('grant') || error.status === 401)) {
+            clearStoredAccessToken();
+            state.accessToken = '';
+            app.state.accessToken = '';
+            app.renderSearchWarning('Relace skončila, přihlaste se znovu.');
+            setupLoginHandler();
+        } else {
+            app.renderSearchError(error.message);
+        }
         updateLoadMoreButton(0, 0);
     }
 }
@@ -661,8 +744,8 @@ function dedupeTracks(items) {
 }
 
 function updateLoadMoreButton(offset, total) {
-    const $loadMoreBtn = $('#loadMoreBtn');
-    const $loadMoreControls = $('#loadMoreControls');
+    const $loadMoreBtn = $get(el.loadMoreBtn, '#loadMoreBtn');
+    const $loadMoreControls = $get(el.loadMoreControls, '#loadMoreControls');
     if (!$loadMoreBtn.length) {
         return;
     }

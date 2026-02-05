@@ -6,6 +6,15 @@
 
     const WISHLIST_KEY = 'sp2_wishlist';
 
+    const dom = {
+        wishlistResult: $('#wishlistResult'),
+        detailAlbumTracks: $('#detailAlbumTracks'),
+        detailsModal: $('#detailsModal'),
+        searchResult: $('#searchResult'),
+        lastSavedList: $('#lastSavedList'),
+        lastSavedSwitch: $('#lastSavedSwitch')
+    };
+
     const storage = (() => {
         try {
             const testKey = '__sp2_wishlist_test__';
@@ -111,7 +120,7 @@
             const value = index + 1;
             const starChar = value <= rating ? '&starf;' : '&star;';
             return `
-            <button type='button' class='btn btn-sm btn-link p-0 ${className}' data-track-id='${item.id}' data-item-type='${itemType}' data-rating='${value}' aria-label='Ohodnotit ${value} hvězdičkami'>
+            <button type="button" class="btn btn-sm btn-link p-0 ${className}" data-track-id="${item.id}" data-item-type="${itemType}" data-rating="${value}" aria-label="Ohodnotit ${value} hvězdičkami">
                 ${starChar}
             </button>
         `;
@@ -124,8 +133,8 @@
     const renderModalRatingStars = (item) => renderStars(item, normalizeType(item), 'modal-rating-star', false);
 
     function renderWishlist(items, viewType) {
-        const wishlistResult = $('#wishlistResult');
-        if (!wishlistResult.length) {
+        const wishlistResult = dom.wishlistResult;
+        if (!wishlistResult || !wishlistResult.length) {
             return;
         }
 
@@ -134,7 +143,7 @@
             .sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
 
         if (!filtered.length) {
-            wishlistResult.html('<div class=\'alert alert-info\'>Seznam přání je prázdný.</div>');
+            wishlistResult.html("<div class=\"alert alert-info\">Seznam přání je prázdný.</div>");
             return;
         }
 
@@ -145,35 +154,35 @@
 
             if (itemType === 'album') {
                 return `
-                <div class='card mb-2'>
-                    <div class='card-body'>
-                        ${track.coverUrl ? `<img src='${track.coverUrl}' alt='${track.name}' class='card-cover' />` : ''}
-                        <h6 class='card-title'>${index + 1}. ${track.name}</h6>
-                        <p class='card-text mb-2'>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        ${track.coverUrl ? `<img src="${track.coverUrl}" alt="${track.name}" class="card-cover" />` : ''}
+                        <h6 class="card-title">${index + 1}. ${track.name}</h6>
+                        <p class="card-text mb-2">
                             <strong>Interpret:</strong> ${track.artistName || 'Neznámý interpret'}<br>
                             <strong>Datum vydání:</strong> ${releaseDateStr}<br>
                             <strong>Počet skladeb:</strong> ${track.totalTracks || 0}
                         </p>
-                        <div class='mb-2'>
+                        <div class="mb-2">
                             <strong>Hodnocení:</strong>
                             ${renderRatingStars(track, 'album')}
                         </div>
-                        <div class='d-flex gap-2 flex-wrap'>
-                            <button type='button' class='btn btn-sm btn-outline-secondary open-details'
-                                data-item-type='album'
-                                data-id='${track.id}'
-                                data-name='${track.name}'
-                                data-artist='${track.artistName}'
-                                data-album='${track.name}'
-                                data-genre='${track.genre || ''}'
-                                data-release='${track.releaseDate || ''}'
-                                data-duration=''
-                                data-track-number=''
-                                data-total-tracks='${track.totalTracks || 0}'
-                                data-cover-url='${track.coverUrl || ''}'>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-sm btn-outline-secondary open-details"
+                                data-item-type="album"
+                                data-id="${track.id}"
+                                data-name="${track.name}"
+                                data-artist="${track.artistName}"
+                                data-album="${track.name}"
+                                data-genre="${track.genre || ''}"
+                                data-release="${track.releaseDate || ''}"
+                                data-duration=""
+                                data-track-number=""
+                                data-total-tracks="${track.totalTracks || 0}"
+                                data-cover-url="${track.coverUrl || ''}">
                                 Detail
                             </button>
-                            <button class='btn btn-sm btn-outline-danger remove-from-wishlist' data-track-id='${track.id}' data-item-type='album'>Odebrat</button>
+                            <button class="btn btn-sm btn-outline-danger remove-from-wishlist" data-track-id="${track.id}" data-item-type="album">Odebrat</button>
                         </div>
                     </div>
                 </div>
@@ -181,36 +190,36 @@
             }
 
             return `
-            <div class='card mb-2'>
-                <div class='card-body'>
-                    ${track.coverUrl ? `<img src='${track.coverUrl}' alt='${track.name}' class='card-cover' />` : ''}
-                    <h6 class='card-title'>${index + 1}. ${track.name}</h6>
-                    <p class='card-text mb-2'>
+            <div class="card mb-2">
+                <div class="card-body">
+                    ${track.coverUrl ? `<img src="${track.coverUrl}" alt="${track.name}" class="card-cover" />` : ''}
+                    <h6 class="card-title">${index + 1}. ${track.name}</h6>
+                    <p class="card-text mb-2">
                         <strong>Interpret:</strong> ${track.artistName || 'Neznámý interpret'}<br>
                         <strong>Album:</strong> ${track.albumName}<br>
                         <strong>Datum vydání:</strong> ${releaseDateStr}<br>
                     </p>
-                    <div class='mb-2'>
+                    <div class="mb-2">
                         <strong>Hodnocení:</strong>
                         ${renderRatingStars(track, 'track')}
                     </div>
-                    <div class='d-flex gap-2 flex-wrap'>
-                        <button type='button' class='btn btn-sm btn-outline-secondary open-details'
-                            data-item-type='track'
-                            data-id='${track.id}'
-                            data-name='${track.name}'
-                            data-artist='${track.artistName}'
-                            data-album='${track.albumName}'
-                            data-genre='${track.genre || ''}'
-                            data-release='${track.releaseDate || ''}'
-                            data-duration='${track.durationMs || 0}'
-                            data-track-number='${track.trackNumber || ''}'
-                            data-album-id='${track.albumId || ''}'
-                            data-total-tracks=''
-                            data-cover-url='${track.coverUrl || ''}'>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="btn btn-sm btn-outline-secondary open-details"
+                            data-item-type="track"
+                            data-id="${track.id}"
+                            data-name="${track.name}"
+                            data-artist="${track.artistName}"
+                            data-album="${track.albumName}"
+                            data-genre="${track.genre || ''}"
+                            data-release="${track.releaseDate || ''}"
+                            data-duration="${track.durationMs || 0}"
+                            data-track-number="${track.trackNumber || ''}"
+                            data-album-id="${track.albumId || ''}"
+                            data-total-tracks=""
+                            data-cover-url="${track.coverUrl || ''}">
                             Detail
                         </button>
-                        <button class='btn btn-sm btn-outline-danger remove-from-wishlist' data-track-id='${track.id}' data-item-type='track'>Odebrat</button>
+                        <button class="btn btn-sm btn-outline-danger remove-from-wishlist" data-track-id="${track.id}" data-item-type="track">Odebrat</button>
                     </div>
                 </div>
             </div>
@@ -221,22 +230,22 @@
     }
 
     async function loadAlbumTracks(albumId, albumInfo) {
-        const container = $('#detailAlbumTracks');
-        if (!container.length) {
+        const container = dom.detailAlbumTracks;
+        if (!container || !container.length) {
             return;
         }
 
-        container.html('<div class=\'d-flex justify-content-center\'><div class=\'spinner-border text-light\' role=\'status\' aria-label=\'Načítání\'></div></div>');
+        container.html("<div class=\"d-flex justify-content-center\"><div class=\"spinner-border text-light\" role=\"status\" aria-label=\"Načítání\"></div></div>");
 
         try {
             const data = await app.api.fetchTracksByAlbum(albumId);
             if (data && data.error) {
                 const message = data.error.message || 'Nepodařilo se načíst skladby.';
-                container.html(`<div class='small text-danger'>${message}</div>`);
+                container.html(`<div class="small text-danger">${message}</div>`);
                 return;
             }
             if (!data.items || !data.items.length) {
-                container.html('<div class=\'small text-muted\'>Nebyly nalezeny žádné skladby.</div>');
+                container.html('<div class="small text-muted">Nebyly nalezeny žádné skladby.</div>');
                 return;
             }
 
@@ -248,12 +257,12 @@
 
             container.html(renderAlbumTracksList(albumInfo, data.items));
         } catch (error) {
-            container.html('<div class=\'small text-danger\'>Nepodařilo se načíst skladby.</div>');
+            container.html('<div class="small text-danger">Nepodařilo se načíst skladby.</div>');
         }
     }
 
     function renderAlbumTracksList(albumInfo, tracks) {
-        let html = '<h6 class=\'mt-3\'>Skladby</h6><ul class=\'list-group\'>';
+        let html = '<h6 class="mt-3">Skladby</h6><ul class="list-group">';
         tracks.forEach((track) => {
             const duration = formatDuration(track.duration_ms);
             const trackNumber = track.track_number;
@@ -264,26 +273,26 @@
             const removeDisabled = inWishlist ? '' : 'disabled';
 
             html += `
-            <li class='list-group-item d-flex justify-content-between align-items-center'>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div>
                     <strong>${track.name}</strong>
-                    <div class='small text-muted'>#${trackNumber} - ${duration}</div>
+                    <div class="small text-muted">#${trackNumber} - ${duration}</div>
                 </div>
-                <div class='d-flex gap-2'>
-                    <button type='button' class='btn btn-sm ${addClass} album-track-add'
-                        data-id='${track.id}'
-                        data-name='${track.name}'
-                        data-artist='${albumInfo.artistName}'
-                        data-album='${albumInfo.albumName}'
-                        data-genre='${albumInfo.genre || ''}'
-                        data-release='${albumInfo.releaseDate || ''}'
-                        data-duration='${track.duration_ms}'
-                        data-track-number='${trackNumber}'
-                        data-cover-url='${albumInfo.coverUrl || ''}'
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-sm ${addClass} album-track-add"
+                        data-id="${track.id}"
+                        data-name="${track.name}"
+                        data-artist="${albumInfo.artistName}"
+                        data-album="${albumInfo.albumName}"
+                        data-genre="${albumInfo.genre || ''}"
+                        data-release="${albumInfo.releaseDate || ''}"
+                        data-duration="${track.duration_ms}"
+                        data-track-number="${trackNumber}"
+                        data-cover-url="${albumInfo.coverUrl || ''}"
                         ${addDisabled}>
                         ${addLabel}
                     </button>
-                    <button type='button' class='btn btn-sm btn-outline-danger album-track-remove' data-id='${track.id}' ${removeDisabled}>
+                    <button type="button" class="btn btn-sm btn-outline-danger album-track-remove" data-id="${track.id}" ${removeDisabled}>
                         Odebrat
                     </button>
                 </div>
@@ -295,7 +304,7 @@
     }
 
     function updateModalWishlistButtons() {
-        const modal = $('#detailsModal');
+        const modal = dom.detailsModal;
         const item = modal.data('item');
         if (!item) {
             return;
@@ -312,8 +321,8 @@
     }
 
     function updateAlbumTrackButtons() {
-        const container = $('#detailAlbumTracks');
-        if (!container.length || !app.state || !app.state.albumTracks) {
+        const container = dom.detailAlbumTracks;
+        if (!container || !container.length || !app.state || !app.state.albumTracks) {
             return;
         }
         const { albumInfo, tracks } = app.state.albumTracks;
@@ -321,7 +330,10 @@
     }
 
     function refreshSearchButtons() {
-        $('#searchResult .add-to-wishlist').each(function() {
+        if (!dom.searchResult || !dom.searchResult.length) {
+            return;
+        }
+        dom.searchResult.find('.add-to-wishlist').each(function() {
             const $btn = $(this);
             const itemId = $btn.attr('data-track-id');
             const itemType = $btn.attr('data-item-type') || 'track';
@@ -338,8 +350,8 @@
     }
 
     function renderLastSaved(viewType) {
-        const list = $('#lastSavedList');
-        if (!list.length) {
+        const list = dom.lastSavedList;
+        if (!list || !list.length) {
             return;
         }
 
@@ -349,17 +361,17 @@
 
         const lastItems = items.slice(0, 5);
         if (!lastItems.length) {
-            list.html('<div class=\'text-light small\'>Zatím nic.</div>');
+            list.html('<div class="text-light small">Zatím nic.</div>');
             return;
         }
 
         const html = lastItems.map((item) => `
-            <div class='wishlist-item-row' data-id='${item.id}' data-item-type='${normalizeType(item)}'>
-                <div class='wishlist-item-text'>
-                    <div class='wishlist-item-title'>${item.name}</div>
-                    <div class='wishlist-item-artist'>${item.artistName || 'Neznámý interpret'}</div>
+            <div class="wishlist-item-row" data-id="${item.id}" data-item-type="${normalizeType(item)}">
+                <div class="wishlist-item-text">
+                    <div class="wishlist-item-title">${item.name}</div>
+                    <div class="wishlist-item-artist">${item.artistName || 'Neznámý interpret'}</div>
                 </div>
-                <button class='wishlist-item-delete' type='button' aria-label='Odebrat'>
+                <button class="wishlist-item-delete" type="button" aria-label="Odebrat">
                     Smazat
                 </button>
             </div>
@@ -374,8 +386,8 @@
     };
 
     function focusLastSavedType(viewType) {
-        const switchEl = $('#lastSavedSwitch');
-        if (!switchEl.length) {
+        const switchEl = dom.lastSavedSwitch;
+        if (!switchEl || !switchEl.length) {
             return;
         }
 
@@ -393,8 +405,8 @@
     }
 
     function syncModalRatingDisplay(itemId, itemType, rating) {
-        const modal = $('#detailsModal');
-        if (!modal.length) {
+        const modal = dom.detailsModal;
+        if (!modal || !modal.length) {
             return;
         }
 
@@ -409,8 +421,8 @@
     }
 
     $(document).ready(function() {
-        const lastSavedSwitch = $('#lastSavedSwitch');
-        if (lastSavedSwitch.length) {
+        const lastSavedSwitch = dom.lastSavedSwitch;
+        if (lastSavedSwitch && lastSavedSwitch.length) {
             let lastSavedType = 'track';
 
             const setActiveLastSaved = () => {
@@ -431,7 +443,7 @@
                 renderLastSaved(lastSavedType);
             });
 
-            $('#lastSavedList').on('click', '.wishlist-item-delete', function() {
+            dom.lastSavedList.on('click', '.wishlist-item-delete', function() {
                 const row = $(this).closest('.wishlist-item-row');
                 const itemId = row.data('id');
                 const itemType = row.data('itemType') || 'track';
@@ -440,18 +452,18 @@
                 }
                 removeFromWishlist(itemId, itemType);
                 renderLastSaved(lastSavedType);
-                if ($('#searchResult').length) {
+                if (dom.searchResult && dom.searchResult.length) {
                     refreshSearchButtons();
                 }
             });
         }
 
-        const searchResult = $('#searchResult');
-        const wishlistResult = $('#wishlistResult');
+        const searchResult = dom.searchResult;
+        const wishlistResult = dom.wishlistResult;
 
         const handleOpenDetails = (btn) => {
-            const modal = $('#detailsModal');
-            if (!modal.length) {
+            const modal = dom.detailsModal;
+            if (!modal || !modal.length) {
                 return;
             }
 
@@ -492,7 +504,7 @@
             $('#detailTrackNumberRow').toggle(itemType === 'track');
             $('#detailTotalTracksRow').toggle(itemType === 'album');
 
-            const albumTracksContainer = $('#detailAlbumTracks');
+            const albumTracksContainer = dom.detailAlbumTracks;
             albumTracksContainer.empty();
             albumTracksContainer.toggle(itemType === 'album');
 
@@ -555,7 +567,7 @@
         }
 
         $(document).on('click', '.modal-add-item', function() {
-            const modal = $('#detailsModal');
+            const modal = dom.detailsModal;
             const item = modal.data('item');
             if (!item) {
                 return;
@@ -591,14 +603,14 @@
             updateModalWishlistButtons();
             refreshLastSaved();
             focusLastSavedType(payload.type || 'track');
-            if ($('#wishlistResult').length) {
+            if (dom.wishlistResult && dom.wishlistResult.length) {
                 const activeType = $('.wishlist-type-btn.active').data('type') || 'track';
                 renderWishlist(getWishlist(), activeType);
             }
         });
 
         $(document).on('click', '.modal-remove-item', function() {
-            const modal = $('#detailsModal');
+            const modal = dom.detailsModal;
             const item = modal.data('item');
             if (!item) {
                 return;
@@ -607,7 +619,7 @@
             removeFromWishlist(item.id, item.type);
             updateModalWishlistButtons();
             refreshLastSaved();
-            if ($('#wishlistResult').length) {
+            if (dom.wishlistResult && dom.wishlistResult.length) {
                 const activeType = $('.wishlist-type-btn.active').data('type') || 'track';
                 renderWishlist(getWishlist(), activeType);
             }
@@ -782,6 +794,17 @@
             });
         }
     });
+
+    // Allow other modules to refresh wishlist rendering on demand (e.g., when switching SPA views)
+    app.wishlist.renderWishlistView = (viewType) => {
+        const buttons = $('.wishlist-type-btn');
+        const type = viewType || buttons.filter('.active, .pill-active').data('type') || 'track';
+        if (buttons.length) {
+            buttons.removeClass('active pill-active');
+            buttons.filter(`[data-type='${type}']`).addClass('active pill-active');
+        }
+        renderWishlist(getWishlist(), type);
+    };
 
     app.wishlist.getWishlist = getWishlist;
     app.wishlist.findWishlistItem = findWishlistItem;

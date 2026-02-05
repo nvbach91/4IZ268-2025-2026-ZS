@@ -16,8 +16,15 @@
 		searchResult: $('#searchResult'),
 		artistSuggestions: $('#artistSuggestions'),
 		loadMoreBtn: $('#loadMoreBtn'),
+		loadMoreControls: $('#loadMoreControls'),
 		loadingOverlay: $('#loadingOverlay'),
-		loadingMessage: $('#loadingMessage')
+		loadingMessage: $('#loadingMessage'),
+		navSearch: $('#navSearch'),
+		navWishlist: $('#navWishlist'),
+		viewSearch: $('#viewSearch'),
+		viewWishlist: $('#viewWishlist'),
+		wishlistTypeSwitch: $('#wishlistTypeSwitch'),
+		wishlistResult: $('#wishlistResult')
 	};
 })();
 

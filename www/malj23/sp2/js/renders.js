@@ -14,10 +14,9 @@
 
         $('.content-panel').toggleClass('is-loading', isLoading);
 
-        const loadMoreControls = $('#loadMoreControls');
-        if (loadMoreControls.length) {
-            loadMoreControls.prop('hidden', isLoading);
-            loadMoreControls.css('display', isLoading ? 'none' : '');
+        if (el.loadMoreControls && el.loadMoreControls.length) {
+            el.loadMoreControls.prop('hidden', isLoading);
+            el.loadMoreControls.css('display', isLoading ? 'none' : '');
         }
 
         if (el.loadingMessage && el.loadingMessage.length) {
@@ -86,43 +85,43 @@
             const btnDisabled = inWishlist ? 'disabled' : '';
 
             return `
-            <div class='card mb-2'>
-                <div class='card-body'>
-                    ${coverUrl ? `<img src='${coverUrl}' alt='${track.album.name}' class='card-cover' />` : ''}
-                    <h6 class='card-title'>${index + 1}. ${track.name}</h6>
-                    <p class='card-text'>
+            <div class="card mb-2">
+                <div class="card-body">
+                    ${coverUrl ? `<img src="${coverUrl}" alt="${track.album.name}" class="card-cover" />` : ''}
+                    <h6 class="card-title">${index + 1}. ${track.name}</h6>
+                    <p class="card-text">
                         <strong>Interpret:</strong> ${track.artists[0].name}<br>
                         <strong>Album:</strong> ${track.album.name}<br>
                         <strong>Datum vydání:</strong> ${releaseDateStr}
                     </p>
-                    <div class='d-flex gap-2 flex-wrap'>
-                        <button type='button' class='btn btn-sm btn-outline-secondary open-details'
-                            data-item-type='track'
-                            data-id='${track.id}'
-                            data-name='${track.name}'
-                            data-artist='${track.artists[0].name}'
-                            data-album='${track.album.name}'
-                            data-genre='${genreLabel || ''}'
-                            data-release='${track.album.release_date}'
-                            data-duration='${track.duration_ms}'
-                            data-track-number='${track.track_number}'
-                            data-album-id='${track.album.id}'
-                            data-total-tracks=''
-                            data-cover-url='${coverUrl}'>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="btn btn-sm btn-outline-secondary open-details"
+                            data-item-type="track"
+                            data-id="${track.id}"
+                            data-name="${track.name}"
+                            data-artist="${track.artists[0].name}"
+                            data-album="${track.album.name}"
+                            data-genre="${genreLabel || ''}"
+                            data-release="${track.album.release_date}"
+                            data-duration="${track.duration_ms}"
+                            data-track-number="${track.track_number}"
+                            data-album-id="${track.album.id}"
+                            data-total-tracks=""
+                            data-cover-url="${coverUrl}">
                             Detail
                         </button>
-                        <button type='button' class='btn btn-sm ${btnClass} add-to-wishlist'
-                            data-track='${payload}'
-                            data-track-id='${track.id}'
-                            data-track-name='${track.name}'
-                            data-track-artist='${track.artists[0].name}'
-                            data-track-album='${track.album.name}'
-                            data-track-genre='${genreLabel || ''}'
-                            data-track-release='${track.album.release_date}'
-                            data-track-duration='${track.duration_ms}'
-                            data-track-number='${track.track_number}'
-                            data-track-cover='${coverUrl}'
-                            data-item-type='track'
+                        <button type="button" class="btn btn-sm ${btnClass} add-to-wishlist"
+                            data-track="${payload}"
+                            data-track-id="${track.id}"
+                            data-track-name="${track.name}"
+                            data-track-artist="${track.artists[0].name}"
+                            data-track-album="${track.album.name}"
+                            data-track-genre="${genreLabel || ''}"
+                            data-track-release="${track.album.release_date}"
+                            data-track-duration="${track.duration_ms}"
+                            data-track-number="${track.track_number}"
+                            data-track-cover="${coverUrl}"
+                            data-item-type="track"
                             ${btnDisabled}>
                             ${btnLabel}
                         </button>
@@ -170,40 +169,40 @@
             const btnDisabled = inWishlist ? 'disabled' : '';
 
             return `
-            <div class='card mb-2'>
-                <div class='card-body'>
-                    ${coverUrl ? `<img src='${coverUrl}' alt='${album.name}' class='card-cover' />` : ''}
-                    <h6 class='card-title'>${index + 1}. ${album.name}</h6>
-                    <p class='card-text'>
+            <div class="card mb-2">
+                <div class="card-body">
+                    ${coverUrl ? `<img src="${coverUrl}" alt="${album.name}" class="card-cover" />` : ''}
+                    <h6 class="card-title">${index + 1}. ${album.name}</h6>
+                    <p class="card-text">
                         <strong>Interpret:</strong> ${artistName}<br>
                         <strong>Datum vydání:</strong> ${releaseDateStr}<br>
                         <strong>Počet skladeb:</strong> ${album.total_tracks}
                     </p>
-                    <div class='d-flex gap-2 flex-wrap'>
-                        <button type='button' class='btn btn-sm btn-outline-secondary open-details'
-                            data-item-type='album'
-                            data-id='${album.id}'
-                            data-name='${album.name}'
-                            data-artist='${artistName}'
-                            data-album='${album.name}'
-                            data-genre='${genreLabel || ''}'
-                            data-release='${album.release_date}'
-                            data-duration=''
-                            data-track-number=''
-                            data-total-tracks='${album.total_tracks}'
-                            data-cover-url='${coverUrl}'>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="button" class="btn btn-sm btn-outline-secondary open-details"
+                            data-item-type="album"
+                            data-id="${album.id}"
+                            data-name="${album.name}"
+                            data-artist="${artistName}"
+                            data-album="${album.name}"
+                            data-genre="${genreLabel || ''}"
+                            data-release="${album.release_date}"
+                            data-duration=""
+                            data-track-number=""
+                            data-total-tracks="${album.total_tracks}"
+                            data-cover-url="${coverUrl}">
                             Detail
                         </button>
-                        <button type='button' class='btn btn-sm ${btnClass} add-to-wishlist'
-                            data-track='${payload}'
-                            data-track-id='${album.id}'
-                            data-track-name='${album.name}'
-                            data-track-artist='${artistName}'
-                            data-track-genre='${genreLabel || ''}'
-                            data-track-release='${album.release_date}'
-                            data-track-total='${album.total_tracks}'
-                            data-track-cover='${coverUrl}'
-                            data-item-type='album'
+                        <button type="button" class="btn btn-sm ${btnClass} add-to-wishlist"
+                            data-track="${payload}"
+                            data-track-id="${album.id}"
+                            data-track-name="${album.name}"
+                            data-track-artist="${artistName}"
+                            data-track-genre="${genreLabel || ''}"
+                            data-track-release="${album.release_date}"
+                            data-track-total="${album.total_tracks}"
+                            data-track-cover="${coverUrl}"
+                            data-item-type="album"
                             ${btnDisabled}>
                             ${btnLabel}
                         </button>
@@ -240,12 +239,12 @@
 
     function renderSearchError(message) {
         setLoading(false);
-        el.searchResult && el.searchResult.html(`<div class='alert alert-danger text-center'>Chyba: ${message}</div>`);
+        el.searchResult && el.searchResult.html(`<div class="alert alert-danger text-center">Chyba: ${message}</div>`);
     }
 
     function renderSearchWarning(message) {
         setLoading(false);
-        el.searchResult && el.searchResult.html(`<div class='alert alert-warning text-center'>${message}</div>`);
+        el.searchResult && el.searchResult.html(`<div class="alert alert-warning text-center">${message}</div>`);
     }
 
     app.setLoading = setLoading;
