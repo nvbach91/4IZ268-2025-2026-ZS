@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmový Prehliadač (4IZ268 SP2)</title>
+    <title>Movie Browser | 4IZ268 Project</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/icons8-film-reel-48.png">
 </head>
+
 <body>
 
     <header>
-        <div id="logo">Filmový Prehliadač</div>
+        <div id="logo">MovieBrowser</div>
         <form id="search-form">
-            <input type="text" id="search-input" placeholder="Zadajte názov filmu/seriálu..." required>
-            <button type="submit">HĽADAŤ</button>
+            <input type="text" id="search-input" placeholder="Search movie or series..." required>
+            <button type="submit" id="search-button">SEARCH</button>
         </form>
     </header>
 
     <main id="app-container">
-        <section id="favorites-list">
-            <h2>⭐ Moje obľúbené tituly</h2>
-            <div id="favorites-content" class="results-grid">
-                <p>Zatiaľ nemáte žiadne obľúbené tituly.</p>
+        <section id="favorites-section">
+            <h2>⭐ My Favorites</h2>
+            <div id="favorites-content">
+                <p>No favorites added yet.</p>
             </div>
         </section>
 
-        <section id="dynamic-content">
-            <h2>Dynamické hľadanie</h2>
-            <p>Použite vyhľadávací formulár vyššie.</p>
+        <section id="main-display">
+            <div id="dynamic-content">
+                <h2>Welcome</h2>
+                <p>Use the search bar above to explore movies and series.</p>
+            </div>
         </section>
     </main>
 
@@ -34,4 +39,9 @@
     <script src="assets/js/app.js"></script>
 
 </body>
+
+<footer>
+    <p>&copy; Andrej Braun 2024</p>
+</footer>
+
 </html>

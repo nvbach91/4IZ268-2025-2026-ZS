@@ -1,94 +1,165 @@
 const App = {
-    API_KEY: '3d27426e467b2acfdfc56f7b4ac47300', 
+    API_KEY: '3d27426e467b2acfdfc56f7b4ac47300',
     BASE_URL: 'https://api.themoviedb.org/3/',
-    
-    $searchForm: $('#search-form'),
+
+    // DOM elements
     $searchInput: $('#search-input'),
     $dynamicContent: $('#dynamic-content'),
     $favoritesContent: $('#favorites-content'),
 
-    init: function() {
-        console.log('Aplikácia beží (4IZ268).');
-        App.$searchForm.on('submit', App.handleSearch);
-        App.loadFavorites();
+    init: function () {
+        $('#search-form').on('submit', App.handleSearch);
+        $('#logo').on('click', App.renderHome);
+
+        // History API to handle browser back/forward buttons
+        $(window).on('popstate', function (e) {
+            const state = e.originalEvent.state;
+            if (state) {
+                if (state.view === 'search') App.fetchMovies(state.query, false);
+                else if (state.view === 'detail') App.fetchDetails(state.id, state.type, false);
+                else App.renderHome();
+            }
+        });
+
+        App.renderFavorites();
     },
 
-    handleSearch: function(e) {
+    handleSearch: function (e) {
         e.preventDefault();
         const query = App.$searchInput.val().trim();
-        
-        if (query) {
-            App.searchMovies(query);
-            App.$searchInput.val('');
-        } else {
-            alert('Prosím, zadajte hľadaný výraz.');
+        if (query.length > 0) {
+            App.fetchMovies(query, true);
         }
     },
 
-    searchMovies: function(query) {
-        App.$dynamicContent.html('<h2>Dynamické hľadanie</h2><p>Načítavam výsledky...</p>'); 
-        
-        const url = `${App.BASE_URL}search/multi?api_key=${App.API_KEY}&query=${encodeURIComponent(query)}&language=sk-SK`;
+    fetchMovies: function (query, pushState) {
+        // Update URL without page refresh
+        if (pushState) window.history.pushState({ view: 'search', query: query }, '', `?search=${encodeURIComponent(query)}`);
+
+        App.$dynamicContent.html('<div class="loader">Searching for movies...</div>');
+
+        const url = `${App.BASE_URL}search/multi?api_key=${App.API_KEY}&query=${encodeURIComponent(query)}&language=en-US`;
 
         $.ajax({
             url: url,
             method: 'GET',
-            success: function(response) {
-                App.renderSearchResults(response.results);
+            success: function (response) {
+                App.renderResults(response.results, query);
             },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error:", error);
-                App.$dynamicContent.html('<h2>Chyba hľadania</h2><p>Nastala chyba pri načítavaní dát z TMDB API. Skontrolujte kľúč a sieťové pripojenie.</p>');
+            error: function () {
+                App.$dynamicContent.html('<h2>Error</h2><p>Connection to TMDB API failed.</p>');
             }
         });
     },
 
-    renderSearchResults: function(results) {
-        let html = '<h2>Výsledky hľadania:</h2><div class="results-grid">';
+    renderResults: function (results, query) {
+        // Build HTML string first to minimize DOM manipulations
+        let resultsHtml = `<h2>Results for: "${query}"</h2><div class="results-grid">`;
+        let count = 0;
 
-        if (results && results.length > 0) {
-            results.forEach(item => {
-                if (item.media_type === 'movie' || item.media_type === 'tv') {
-                    const title = item.title || item.name;
-                    const year = (item.release_date || item.first_air_date) ? (item.release_date || item.first_air_date).substring(0, 4) : 'N/A';
-                    const poster = item.poster_path ? `https://image.tmdb.org/t/p/w200${item.poster_path}` : 'https://via.placeholder.com/200x300?text=Bez+plagátu';
+        results.forEach(item => {
+            if (item.media_type === 'movie' || item.media_type === 'tv') {
+                const title = item.title || item.name;
+                const date = item.release_date || item.first_air_date;
+                const year = (date && date.length >= 4) ? ` (${date.substring(0, 4)})` : '';
 
-                    html += `
-                        <div class="movie-card" data-id="${item.id}" data-type="${item.media_type}">
-                            <img src="${poster}" alt="${title} plagát">
-                            <p><strong>${title}</strong> (${year})</p>
-                        </div>
-                    `;
-                }
-            });
-            html += '</div>';
+                const poster = item.poster_path
+                    ? `https://image.tmdb.org/t/p/w200${item.poster_path}`
+                    : 'https://placehold.co/200x300?text=No+Poster';
 
-            App.$dynamicContent.html(html);
-            App.$dynamicContent.find('.movie-card').on('click', App.handleCardClick);
-            
+                resultsHtml += `
+                    <div class="movie-card" data-id="${item.id}" data-type="${item.media_type}">
+                        <img src="${poster}" alt="${title}">
+                        <strong>${title}${year}</strong>
+                    </div>`;
+                count++;
+            }
+        });
+
+        resultsHtml += '</div>';
+
+        if (count === 0) {
+            App.$dynamicContent.html('<h2>No results found.</h2>');
         } else {
-            App.$dynamicContent.html('<h2>Výsledky hľadania</h2><p>Pre Váš dopyt neboli nájdené žiadne výsledky.</p>');
+            App.$dynamicContent.html(resultsHtml);
+            $('.movie-card').on('click', function () {
+                const $el = $(this);
+                App.fetchDetails($el.data('id'), $el.data('type'), true);
+            });
         }
     },
 
-    handleCardClick: function() {
-        const id = $(this).data('id');
-        const type = $(this).data('type');
-        console.log(`Kliknuté na titul: ID ${id}, Typ ${type}.`);
+    fetchDetails: function (id, type, pushState) {
+        if (pushState) window.history.pushState({ view: 'detail', id: id, type: type }, '', `?id=${id}`);
+
+        App.$dynamicContent.html('<div class="loader">Loading details...</div>');
+        const url = `${App.BASE_URL}${type}/${id}?api_key=${App.API_KEY}&language=en-US`;
+
+        $.get(url, function (data) {
+            const title = data.title || data.name;
+            const date = data.release_date || data.first_air_date;
+            const year = (date && date.length >= 4) ? ` (${date.substring(0, 4)})` : '';
+            const fullDate = date ? date : 'Unknown';
+
+            const poster = data.poster_path
+                ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+                : 'https://placehold.co/500x750?text=No+Poster';
+
+            const detailHtml = `
+                <button class="back-btn" onclick="window.history.back()">← BACK</button>
+                <div class="detail-view">
+                    <div class="detail-poster"><img src="${poster}" alt="${title}"></div>
+                    <div class="detail-info">
+                        <h2>${title}${year}</h2>
+                        <p>${data.overview || 'No description available.'}</p>
+                        <p><strong>Rating:</strong> ${data.vote_average}/10</p>
+                        <p><strong>Release Date:</strong> ${fullDate}</p>
+                        <button id="fav-toggle" class="fav-btn">ADD / REMOVE FAVORITE</button>
+                    </div>
+                </div>`;
+
+            App.$dynamicContent.html(detailHtml);
+            $('#fav-toggle').on('click', () => App.updateFavorites(data.id, title));
+        });
     },
 
-    loadFavorites: function() {
-        const favorites = JSON.parse(localStorage.getItem('4iz268_favorites')) || [];
-        App.$favoritesContent.empty(); 
+    updateFavorites: function (id, title) {
+        // LocalStorage API to manage favorites
+        let favorites = JSON.parse(localStorage.getItem('4iz268_favs')) || [];
+        const index = favorites.findIndex(f => f.id === id);
+
+        if (index > -1) {
+            favorites.splice(index, 1);
+        } else {
+            favorites.push({ id: id, title: title });
+        }
+
+        localStorage.setItem('4iz268_favs', JSON.stringify(favorites));
+        App.renderFavorites();
+    },
+
+    renderFavorites: function () {
+        const favorites = JSON.parse(localStorage.getItem('4iz268_favs')) || [];
+        App.$favoritesContent.empty();
 
         if (favorites.length > 0) {
-            App.$favoritesContent.append('<p>Načítané obľúbené ID: ' + favorites.join(', ') + '</p>');
+            let favHtml = '';
+            favorites.forEach(f => {
+                favHtml += `<div class="fav-item" data-id="${f.id}">${f.title}</div>`;
+            });
+            App.$favoritesContent.html(favHtml);
+
+            $('.fav-item').on('click', function () {
+                App.fetchDetails($(this).data('id'), 'movie', true);
+            });
         } else {
-            App.$favoritesContent.append('<p>Zatiaľ nemáte žiadne obľúbené tituly.</p>');
+            App.$favoritesContent.html('<p>No favorites added yet.</p>');
         }
+    },
+
+    renderHome: function () {
+        App.$dynamicContent.html('<h2>Welcome</h2><p>Use the search bar above to explore movies and series.</p>');
     }
 };
 
-$(document).ready(function() {
-    App.init();
-});
+$(document).ready(App.init);
