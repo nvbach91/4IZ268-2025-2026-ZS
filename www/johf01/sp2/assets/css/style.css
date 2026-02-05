@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
+
+.google-alert-success {
+    display: none;
+}
+
+
+.tasklist {
+    min-height: 150px;
+    min-width: 150px;
+    border: 2px black ;
+    border-style: dashed;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.task {
+    text-align: center;
+    width: fit-content;
+    margin: 7px;
+    border: black 1px solid;
+}
+ 
+.task p {
+    margin-bottom: 0;
+    border-top: grey 1px solid;
+}
+
+.task-popis {
+    max-width: 250px;
+}
+
+
+#add-form {
+    display: none;
+}
+
+
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 20px solid cadetblue;
+    border-top-color: transparent;
+    animation: spinning 1s linear infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
