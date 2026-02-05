@@ -4,8 +4,30 @@
 }
 
 
+.google-buttons {
+    border: solid black 2px;
+    padding: 4px;
+    max-width: 600px;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-buttons-container {
+    width: fit-content;
+}
+
 .google-alert-success {
     display: none;
+    text-align: center;
+    margin-top: 4px;
+    max-height: 55px;
+}
+
+.google-alert-fail {
+    text-align: center;
+    margin-top: 4px;
+    max-height: 55px;
 }
 
 
@@ -24,7 +46,7 @@
     text-align: center;
     width: fit-content;
     margin: 7px;
-    border: black 1px solid;
+    border: black 2px solid;
 }
  
 .task p {

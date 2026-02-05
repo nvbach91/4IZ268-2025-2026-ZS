@@ -20,7 +20,7 @@ function loadGapi() {
             discoveryDocs: App.DISCOVERY_DOCS,
         });
         console.log("GAPI loaded");
-        
+
     });
 }
 
@@ -52,7 +52,7 @@ window.addEventListener("load", async () => {
         return;
     }
     initGis();
-    
+
 
 });
 
@@ -200,12 +200,14 @@ App.listData = () => {
 
             range.values.forEach(row => {
                 const [nazev, cas, misto, kategorie, popis] = row;
+                const left = timeLeftUntil(cas);
 
                 // Create task element as jQuery object
                 const $task = $(`
-                <div class="task mb-3 p-3 border rounded">
+                <div class="task mb-3 p-3 rounded">
                     <h5>${nazev || ''}</h5>
                     <p>${cas || ''}</p>
+                    <p>${left}</p>
                     <p>${misto || ''}</p>
                     <p>${kategorie || ''}</p>
                     <p class="task-popis">${popis || ''}</p>
@@ -257,8 +259,9 @@ App.listData = () => {
 
 function formatDateTime(value) {
     if (!value) return "";
-    
+
     const date = new Date(value);
+    if (isNaN(date.getTime())) return "";
 
     const day = date.getDate();
     const month = date.getMonth() + 1;
@@ -270,12 +273,38 @@ function formatDateTime(value) {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 
+
 function toInputDateTime(value) {
     if (!value) return "";
-    
-    const d = new Date(value);
-    if (isNaN(d.getTime())) return "";
-    return d.toISOString().slice(0, 16); // yyyy-mm-ddThh:mm
+
+    const [datePart, timePart] = value.split(" "); 
+    if (!datePart || !timePart) 
+        return null; 
+    const [d, m, y] = datePart.split(".").map(Number); 
+    const [hours, minutes] = timePart.split(":").map(Number); 
+    return new Date(y, m - 1, d, hours, minutes).toISOString().slice(0, 16);
+}
+
+function timeLeftUntil(dateString) {
+    const iso = toInputDateTime(dateString);
+    if (!iso) return "";
+
+    const target = new Date(iso);
+    if (isNaN(target.getTime())) return "";
+
+    const now = new Date();
+    const diffMs = target - now;
+
+    if (diffMs <= 0) return "Po termínu";
+
+    const diffMinutes = Math.floor(diffMs / 60000);
+    const days = Math.floor(diffMinutes / (60 * 24));
+    const hours = Math.round((diffMinutes % (60 * 24)) / 60);
+    const minutes = diffMinutes % 60;
+
+    if (days > 0) return `zbylý čas: ${days} dní ${hours} hodin`;
+    if (hours > 0) return `zbylý čas: ${hours} hodin ${minutes} minut`;
+    return `zbylý čas: ${minutes} minut`;
 }
 
 

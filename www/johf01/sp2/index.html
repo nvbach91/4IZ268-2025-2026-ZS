@@ -21,16 +21,17 @@
         <h1 id="h1" class="text-center mb-4">Úkolníček</h1>
 
         <div class="google-buttons m-3">
-            <h3>Tady se můžete přihlásit nebo odhlásit přes google</h3>
-            <button id="authorize_button">Přihlásit</button>
-            <button id="signout_button">Odhlásit</button>
-            <button id="refresh-button">Načíst úkoly znovu</button>
-            <!-- <button id="test-button">Test button</button> -->
-            <div class="google-alert-success bg-success">
+            <h4>Tady se můžete přihlásit nebo odhlásit přes google</h4>
+            <div class="container google-buttons-container">
+                <button class="btn btn-primary" id="authorize_button">Přihlásit</button>
+                <button class="btn btn-primary" id="signout_button">Odhlásit</button>
+                <button class="btn btn-secondary" id="refresh-button">Načíst úkoly znovu</button>
+            </div>
+            <div class="google-alert-success alert alert-success bg-success">
                 <p>Jste přihlášený!</p>
             </div>
-            <div class="google-alert-fail bg-danger container-fluid">
-                <p>Nste přihlášený!</p>
+            <div class="google-alert-fail alert alert-danger bg-danger">
+                <p>Nejste přihlášený!</p>
             </div>
         </div>
 
