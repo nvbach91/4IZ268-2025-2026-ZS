@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stop Wasting Food</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/styles.css">
-    <script src="./assets/main.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
-<body>
-    <div id="mainPage">
+<body class="homepage-bg">
+    <div class="container-fluid">
+        <!-- top buttons -->
+        <div class="top-buttons">
+            <button class="top-btn" onclick="showShoppingList()">Shopping List</button>
+            <button class="top-btn" onclick="showFavorites()">Favorites</button>
+        </div>
+
         <h1 class="main-title">Stop wasting food.</h1>
+        
         <div class="search-container">
             <input type="text" 
                    id="ingredientInput" 
@@ -19,22 +26,55 @@
                    autocomplete="off">
             <button class="add-btn" onclick="addIngredient()">+</button>
         </div>
+        
         <div class="info-text">Click to remove</div>
+        
         <div id="ingredientsContainer" class="ingredients-container"></div>
-        <button class="lookup-btn" id="lookupBtn" onclick="findRecipes()" disabled>Lookup Recipes</button>
+        
+        <button class="lookup-btn" id="lookupBtn" onclick="findRecipes()" disabled>
+            Show Recipes
+        </button>
     </div>
+
+    <!-- shopping list -->
+    <div id="shoppingListModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeShoppingList()">&times;</span>
+            <h2>Shopping List</h2>
+            <div id="shoppingListContent" class="shopping-list-content"></div>
+            <div class="modal-buttons">
+                <button class="btn-clear" onclick="clearShoppingList()">Clear</button>
+                <button class="btn-print" onclick="printShoppingList()">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- fav -->
+    <div id="favoritesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeFavorites()">&times;</span>
+            <h2>Favorites</h2>
+            <div id="favoritesContent" class="favorites-content"></div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-left">
-                <div class="logo">logo</div>
-                <div>TBD</div>
+                <div class="logo">
+                    <img src="assets/logo.png" alt="Logo">
+                </div>
             </div>
             <div class="footer-right">
-                <a href="./about/" class="footer-link">How to use</a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="footer-link">Youtube</a>
                 <span class="footer-divider">|</span>
-                <a href="./about/" class="footer-link">About</a>
+                <a href="https://www.instagram.com/?hl=en" class="footer-link">Instagram</a>
+                <span class="footer-divider">|</span>
+                <a href="https://x.com" class="footer-link">X (Twitter)</a>
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="assets/main.js"></script>
 </body>
 </html>
