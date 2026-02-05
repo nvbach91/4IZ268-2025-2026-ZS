@@ -1,4 +1,4 @@
-/* Reset a základ */
+/* --- ZÁKLADNÍ NASTAVENÍ --- */
 * {
     box-sizing: border-box;
 }
@@ -11,18 +11,16 @@ body {
     /* Béžové pozadí stolu */
     height: 100vh;
     overflow: hidden;
-    /* Zabrání scrollování celé stránky */
     color: #2c2c2c;
 }
 
-/* Hlavní rozložení stránky */
 .app-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-/* Horní navigace */
+/* --- HORNÍ NAVIGACE --- */
 .top-nav {
     display: flex;
     justify-content: center;
@@ -48,47 +46,96 @@ body {
     color: #000;
 }
 
-/* Hlavní obsah (Canvas + Sidebar) */
+/* --- HLAVNÍ OBSAH (Canvas + Sidebar) --- */
 .main-content {
     display: flex;
     flex: 1;
-    /* Roztáhne se na zbytek výšky */
     padding: 0 20px 20px 20px;
     gap: 20px;
     overflow: hidden;
 }
 
-/* Canvas - Tečkovaný papír */
-.canvas {
+/* PLÁTNO - Papír */
+.canvas-viewport {
     flex: 1;
-    /* Zabere maximum místa */
-    background-color: #fcfaf2;
-    /* Krémový papír */
-    /* Vytvoření teček pomocí gradientu */
-    background-image: radial-gradient(#ccc 1.5px, transparent 1.5px);
-    background-size: 25px 25px;
-
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    /* Stín jako papír na stole */
-    position: relative;
     overflow: hidden;
-    /* Elementy nemůžou utéct ven */
+    position: relative;
+    background: #555;
+    /* Tmavé okolí stolu */
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Sidebar */
+.canvas {
+    width: 2000px;
+    /* Obří plocha pro posouvání */
+    height: 2000px;
+    background-color: #fcfaf2;
+    /* Krémový papír */
+    background-image: radial-gradient(#ccc 1.5px, transparent 1.5px);
+    background-size: 25px 25px;
+    position: relative;
+    transform-origin: 0 0;
+}
+
+/* --- SIDEBAR --- */
 .sidebar {
-    width: 320px;
+    width: 280px;
     background-color: #fffbf0;
     border-radius: 15px;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
 }
 
-/* Hledání */
+/* Správa stránek */
+.page-manager {
+    margin-bottom:8px;
+}
+
+#pagelist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 90px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.page-item {
+    padding: 4px 9px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+}
+
+.page-item.active {
+    background: #a52a2a !important;
+    color: white !important;
+    border-left: 2px solid #5d1a1a;
+    font-weight: bold;
+}
+
+#newpagebtn {
+    width: 100%;
+    margin-top: 4px;
+    padding: 3px;
+    border: 1px dashed #a52a2a;
+    background: transparent;
+    color: #a52a2a;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Indie Flower', cursive;
+}
+
+/* Hledání Giphy */
 .searchbox {
     display: flex;
     gap: 5px;
@@ -101,117 +148,125 @@ body {
     border: 2px solid #ccc;
     border-radius: 8px;
     font-family: 'Indie Flower', cursive;
-    font-size: 18px;
-    outline: none;
-    background: #fff;
 }
 
-.searchbox button {
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 40px;
-    transition: background 0.3s;
-}
-
-.searchbox button:hover {
-    background: #555;
-}
-
-/* Výsledky Giphy */
 .searchresults {
     flex: 1;
     overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    padding-right: 5px;
-}
-
-/* Scrollbar styling pro sidebar */
-.searchresults::-webkit-scrollbar {
-    width: 8px;
-}
-
-.searchresults::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
 }
 
 .searchresults img {
     width: 100%;
     height: 100px;
     object-fit: contain;
-    /* Aby se nálepky nedeformovaly */
     cursor: pointer;
     transition: transform 0.2s;
 }
 
 .searchresults img:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-.separator {
-    border: 0;
-    border-top: 1px dashed #ccc;
-    margin: 15px 0;
-}
-
-/* Tlačítko citátu */
-.qotdbtn {
-    width: 100%;
-    padding: 12px;
-    background-color: #556b2f;
-    /* Dark Olive Green */
-    color: #fff;
-    border: none;
-    border-radius: 25px;
-    font-family: 'Caveat', cursive;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.qotdbtn:hover {
-    background-color: #3e4f22;
-    transform: translateY(-2px);
-}
-
-/* Elementy na ploše */
+/* --- ELEMENTY NA PLÁTNĚ --- */
 .canvas-element {
     position: absolute;
+    min-width: 50px;
+    min-height: 30px;
+    background: white;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     cursor: move;
-    user-select: none;
     touch-action: none;
-    /* Důležité pro Interact.js */
 }
 
+/* Text */
 .text-element {
     font-family: 'Shadows Into Light', cursive;
     font-size: 28px;
-    color: #333;
     padding: 10px;
-    border: 1px dashed transparent;
-    /* Rámeček viditelný jen při editaci */
-    min-width: 50px;
+    background: transparent;
+    /* Aby nepřebíjel papír pokud nechceš */
+    box-shadow: none;
 }
 
-.text-element:focus {
-    border-color: #999;
+.text-element .content {
+    width: 100%;
+    height: 100%;
     outline: none;
 }
 
-.sticker-element img {
-    max-width: 250px;
-    pointer-events: none;
-    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
-    /* Stín pod nálepkou */
+/* Nálepky */
+.sticker-element {
+    background: transparent;
+    box-shadow: none;
 }
 
-/* Toast Notification (Snackbar) */
+.sticker-element img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Ovládací prvky elementů */
+.delete-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 18px;
+    font-size: 14px;
+    display: none;
+    z-index: 10;
+}
+
+.canvas-element:hover .delete-btn {
+    display: block;
+}
+
+.resizer {
+    width: 12px;
+    height: 12px;
+    background: #333;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: nwse-resize;
+    border-radius: 2px;
+}
+
+/* --- OSTATNÍ (Citáty, Loader, Toast) --- */
+.qotdbtn {
+    width: 100%;
+    padding: 6px;
+    background-color: #556b2f;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Indie Flower', cursive;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
 #snackbar {
     visibility: hidden;
     min-width: 250px;
@@ -221,12 +276,10 @@ body {
     border-radius: 50px;
     padding: 16px;
     position: fixed;
-    z-index: 1000;
     left: 50%;
     bottom: 30px;
     transform: translateX(-50%);
-    font-family: 'Indie Flower', cursive;
-    font-size: 18px;
+    z-index: 1000;
 }
 
 #snackbar.show {

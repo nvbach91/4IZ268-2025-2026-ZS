@@ -4,56 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Junk Journal</title>
-
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📔</text></svg>">
-
+    <title>Digital Junk Journal PRO</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Indie+Flower&family=Shadows+Into+Light&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Indie+Flower&family=Shadows+Into+Light&display=swap"
         rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 
 <body>
-
+    <div id="loader" class="loader-overlay" style="display:none;">Načítám... ⏳</div>
     <div id="snackbar">Uloženo!</div>
 
     <div class="app-container">
-
         <header class="top-nav">
-            <button id="addtextbtn" class="nav-btn">Add text ✎</button>
-            <button id="savebtn" class="nav-btn">Save 💾</button>
-            <button id="clearbtn" class="nav-btn">Clear page 🗑️</button>
+            <button id="addtextbtn" class="nav-btn">Přidat text ✎</button>
+            <button id="savebtn" class="nav-btn">Uložit 💾</button>
+            <button id="clearbtn" class="nav-btn">Smazat plátno 🗑️</button>
+            <div class="zoom-controls">
+                <span>Zoom: </span><span id="zoomVal">100%</span>
+            </div>
         </header>
 
         <main class="main-content">
-
-            <div id="canvas" class="canvas">
+            <div id="canvas-viewport" class="canvas-viewport">
+                <div id="canvas" class="canvas"></div>
             </div>
 
             <aside class="sidebar">
-                <div class="searchbox">
-                    <input type="text" id="searchinpt" placeholder="Search stickers...">
-                    <button id="searchbtn">🔍</button>
+                <div class="page-manager">
+                    <h3>Moje Stránky</h3>
+                    <ul id="pagelist"></ul>
+                    <button id="newpagebtn">+ Nová stránka</button>
                 </div>
-
-                <div id="searchresults" class="searchresults"></div>
 
                 <hr class="separator">
 
-                <button id="qotdbtn" class="qotdbtn">Get Quote of the Day ✨</button>
-            </aside>
+                <form id="search-form" class="searchbox">
+                    <input type="text" id="searchinpt" placeholder="Hledat nálepky...">
+                    <button type="submit">🔍</button>
+                </form>
 
+                <div id="searchresults" class="searchresults"></div>
+                <button id="qotdbtn" class="qotdbtn">Citát dne ✨</button>
+            </aside>
         </main>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.19/dist/interact.min.js"></script>
     <script src="js/app.js"></script>
-
 </body>
 
 </html>
