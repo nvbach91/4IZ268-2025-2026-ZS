@@ -398,3 +398,159 @@ body {
         max-height: 300px;
     }
 }
+
+
+/* DOPLŇKY – filtry, tabulka, reset */
+
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.filters-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+  white-space: nowrap;
+}
+
+.select--small {
+  width: auto;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #f7f7f7;
+}
+
+.match-item--tipped {
+  border-color: #cfe7d6;
+  background: #00ff55;
+}
+
+.match-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  background: #eaf7ee;
+  color: #1b7b34;
+}
+
+.history-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 10px 0 14px 0;
+  flex-wrap: wrap;
+}
+
+.history-table-wrap {
+  overflow: auto;
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  background: #fff;
+}
+
+.history-table th,
+.history-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+}
+
+.history-table thead th {
+  background: #fafafa;
+  font-size: 13px;
+  color: #444;
+}
+
+.mt-small {
+  margin-top: 10px;
+}
+
+/*  ikony trefa/netrefa dle zadání */
+.hit-icon {
+  color: #1b7b34;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.hit-text {
+  font-weight: 800;
+  color: #111;
+}
+
+.miss-icon {
+  color: #c62828;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.miss-text {
+  font-weight: 800;
+  color: #c62828;
+}
+
+/* ===== JEDNODUCHÝ DIALOG ===== */
+
+/* Samotné okno */
+dialog {
+  border: 1px solid #ccc;   /* Tenký rámeček */
+  border-radius: 8px;       /* Mírně kulaté rohy */
+  padding: 20px;            /* Místo uvnitř */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Stín */
+}
+
+/* Ztmavnutí pozadí stránky */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Odsazení tlačítek */
+.tlacitka {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; /* Tlačítka doprava */
+  gap: 10px;                 /* Mezera mezi nimi */
+}
+
+/* Jednoduchý vzhled tlačítek v dialogu */
+.btn-zrusit { cursor: pointer; padding: 8px 12px; }
+.btn-smazat { cursor: pointer; padding: 8px 12px; background: red; color: white; border: none; border-radius: 4px; }

@@ -5,7 +5,6 @@
 // přehledný výpis zápasů v detailu (soupeř, skóre, datum)
 // moje statistiky: skutečný výsledek, trefa/netrefa a úspěšnost
 
-
 let state = {
   league: "pl",          // "pl" | "nhl"
   matches: [],           // zápasy do levého seznamu
@@ -17,14 +16,18 @@ let state = {
   // cache pro vyhodnocení tipů v "Moje statistiky"
   plAllFixturesNormalized: null,
 
-  // NHL: cache týdnů 
+  // NHL: cache týdnů
   nhlWeekCache: {},      // { "YYYY-MM-DD": normalizedGames[] }
   nhlDetailReqToken: 0,  // ochrana proti doběhnutí starých requestů
+
+  // UI filtry 
+  matchFilterText: "",
+  onlyUntipped: false,
+  historyLeagueFilter: "all",
 };
 
 // ------------------------------
 // pomocné funkce
-
 
 function fmtDateTime(dateStr) {
   const d = new Date(dateStr);
@@ -82,7 +85,6 @@ function loadNhlWeekCacheFromStorage() {
     const all = JSON.parse(raw);
     if (!all || typeof all !== "object") return;
 
-    // převedeme uložené week-responses na normalized a nacpeme do state.nhlWeekCache
     for (const dateStr of Object.keys(all)) {
       const item = all[dateStr];
       const res = item?.data;
@@ -97,10 +99,8 @@ function loadNhlWeekCacheFromStorage() {
   } catch {}
 }
 
-
 // ------------------------------
 // Normalizace dat
-
 
 function normalizePL(fixt) {
   return {
@@ -149,7 +149,6 @@ function normalizeNHL(game) {
 // ------------------------------
 // storage tipů
 
-
 function getTipsStore() {
   try {
     const raw = localStorage.getItem("tipmaster_tips");
@@ -172,6 +171,11 @@ function getSavedTip(match) {
   return tips.find((t) => t.key === tipKey(match)) || null;
 }
 
+function buildTippedKeySet() {
+  const tips = getTipsStore();
+  return new Set(tips.map((t) => t.key));
+}
+
 // výstup
 function getOutcomeFromScore(h, a) {
   if (typeof h !== "number" || typeof a !== "number") return null;
@@ -185,25 +189,15 @@ function getOutcomeFromMatch(match) {
   const a = match.goals?.away;
   if (typeof h !== "number" || typeof a !== "number") return null;
 
-  // PL: normálně podle finálního skóre
-  if (match.league === "pl") {
-    return getOutcomeFromScore(h, a);
-  }
+  if (match.league === "pl") return getOutcomeFromScore(h, a);
 
-  // NHL: 60 minut (sázkovkově)
   const lastPeriodType = match.raw?.gameOutcome?.lastPeriodType || ""; // "REG" | "OT" | "SO" ...
-  if (lastPeriodType && lastPeriodType !== "REG") {
-    // šlo se do OT/SO => po 60 minutách to byla remíza
-    return "X";
-  }
-
-  // REG => po 60 min = finální skóre
+  if (lastPeriodType && lastPeriodType !== "REG") return "X";
   return getOutcomeFromScore(h, a);
 }
 
 // ------------------------------
 // pohledy
-
 
 function showMainView() {
   $("#view-main").removeClass("hidden");
@@ -223,7 +217,6 @@ function showStatsView() {
 // ------------------------------
 // upload zápasů (levý seznam)
 
-
 function loadMatches() {
   const $list = $("#matches-list");
   $list.html(`<div class="muted">Načítám…</div>`);
@@ -235,15 +228,11 @@ function loadMatches() {
 
   const league = String(state.league || "").toLowerCase();
 
-  // ---------------- PL ----------------
-
   if (league === "pl") {
     AppAPI.getPremierLeague(
       (res) => {
         const fixtures = res?.response || [];
 
-        // Když API vrátí 200, ale response je prázdná (typicky limit/plan/error),
-        // zobraz aspoň info z payloadu:
         if (!fixtures.length) {
           const msg =
             (res?.errors && Object.keys(res.errors).length
@@ -269,19 +258,16 @@ function loadMatches() {
         renderMatchesList();
         restoreFromUrl();
       },
-      (xhr) => {
+      () => {
         state.matches = [];
         state.allMatches = [];
         $list.html(`<div class="muted">Zápasy se nepodařilo načíst.</div>`);
       }
     );
-
-    return; 
+    return;
   }
 
-  // ---------------- NHL ----------------
   // NHL – levý seznam: týden kolem konkrétního data
-
   const NHL_LIST_DATE = "2024-12-13";
 
   AppAPI.getNHL(
@@ -307,8 +293,6 @@ function loadMatches() {
   );
 }
 
-
-
 function renderMatchesList() {
   const $list = $("#matches-list");
   if (!state.matches.length) {
@@ -316,14 +300,39 @@ function renderMatchesList() {
     return;
   }
 
-  const html = state.matches
+  const tippedKeys = buildTippedKeySet();
+  const q = String(state.matchFilterText || "").trim().toLowerCase();
+
+  const filtered = state.matches.filter((m) => {
+    const key = tipKey(m);
+    const isTipped = tippedKeys.has(key);
+
+    if (state.onlyUntipped && isTipped) return false; // 2. oprava checkbox 
+
+    if (q) {
+      const hay = `${m.home.name} ${m.away.name}`.toLowerCase(); // 1. oprava
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (!filtered.length) {
+    $list.html(`<div class="muted">Žádné zápasy neodpovídají filtru.</div>`);
+    return;
+  }
+
+  const html = filtered
     .map((m) => {
       const when = fmtDateTime(m.date);
       const active = state.selectedMatch && state.selectedMatch.id === m.id ? " match-item--active" : "";
+      const isTipped = tippedKeys.has(tipKey(m));
+      const tippedClass = isTipped ? " match-item--tipped" : "";
+      const badge = isTipped ? `<span class="match-badge">tip ✓</span>` : ""; // 2. oprava
+
       return `
-        <div class="match-item${active}" data-id="${m.id}">
+        <div class="match-item${active}${tippedClass}" data-id="${m.id}">
           <div class="match-date">${when}</div>
-          <div class="match-teams"><strong>${safeText(m.home.name)}</strong> vs <strong>${safeText(m.away.name)}</strong></div>
+          <div class="match-teams"><strong>${safeText(m.home.name)}</strong> vs <strong>${safeText(m.away.name)}</strong>${badge}</div>
         </div>
       `;
     })
@@ -332,9 +341,7 @@ function renderMatchesList() {
   $list.html(html);
 }
 
-
 // Detail, stats (z allMatches = historie)
-
 
 function renderDetailEmpty() {
   $("#match-detail").html(`<div class="muted">Vyber zápas ze seznamu.</div>`);
@@ -347,7 +354,10 @@ function setTipControlsEnabled(enabled) {
 }
 
 function selectMatchById(id) {
-  const match = state.matches.find((m) => String(m.id) === String(id));
+  //  nevybírat opakovaně ten samý prvek
+  if (state.selectedMatch && String(state.selectedMatch.id) === String(id)) return; // 6. oprava - nevybírat opakovaně ten samý prvek
+
+  const match = state.matches.find((m) => String(m.id) === String(id)); // 7. oprava hledat pomocí ID
   if (!match) return;
 
   state.selectedMatch = match;
@@ -359,7 +369,7 @@ function selectMatchById(id) {
   window.history.pushState({}, "", url.toString());
 
   renderMatchesList();
-  renderMatchDetail(match);     // tady se u NHL případně ještě dotáhne historie
+  renderMatchDetail(match);
   setTipControlsEnabled(true);
   loadSavedTipToUI(match);
 }
@@ -380,11 +390,8 @@ function loadSavedTipToUI(match) {
 // ------------------------------
 // Společné pomocné funkce pro PL i NHL výpočty
 
-
 function isSameTeam(match, team, side) {
-  if (match.league === "pl") {
-    return String(match[side].id) === String(team.id);
-  }
+  if (match.league === "pl") return String(match[side].id) === String(team.id);
   return (match[side].abbrev || "") === (team.abbrev || "");
 }
 
@@ -427,10 +434,10 @@ function computeLast5Team(match, teamSide) {
     })
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5)
-    .reverse(); // chronologicky
+    .reverse();
 
   let gf = 0, ga = 0, pts = 0;
-  let w = 0, dr = 0, l = 0; 
+  let w = 0, dr = 0, l = 0;
 
   const rows = played.map((m) => {
     const dte = fmtDateTime(m.date);
@@ -440,29 +447,22 @@ function computeLast5Team(match, teamSide) {
     gf += line.tg;
     ga += line.og;
 
-    // NHL dovětek OT/SO do skóre (PL bez dovětku)
     let decSuffix = "";
     if (match.league === "nhl") {
-      const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase(); // "REG" | "OT" | "SO" ...
+      const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase();
       if (lastPeriodType && lastPeriodType !== "REG") decSuffix = ` ${lastPeriodType}`;
     }
 
-    // výsledek pro řádek (V/R/P)
-    
     let resLetter = "R";
     if (line.tg > line.og) resLetter = "V";
     else if (line.tg < line.og) resLetter = "P";
-    else resLetter = "R";
 
-    // body podle ligy
     if (match.league === "pl") {
-      // 3 / 1 / 0
       if (line.tg > line.og) { w++; pts += 3; }
       else if (line.tg < line.og) { l++; pts += 0; }
       else { dr++; pts += 1; }
     } else {
-      // NHL: 2 za výhru, 1 za prohru v OT/SO, 0 za prohru v REG
-      const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase(); // "REG" | "OT" | "SO" ...
+      const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase();
       const isOTorSO = lastPeriodType && lastPeriodType !== "REG";
 
       if (line.tg > line.og) {
@@ -470,30 +470,23 @@ function computeLast5Team(match, teamSide) {
       } else if (line.tg < line.og) {
         l++; pts += isOTorSO ? 1 : 0;
       } else {
-        // fallback (kdyby API vrátilo nerozhodně)
         dr++; pts += 1;
       }
     }
 
-    const ha = line.teamIsHome ? "D" : "V"; // D=domácí, V=venku
+    const ha = line.teamIsHome ? "D" : "V";
 
     return {
       date: dte,
       opponent: opp,
       ha,
-      score: `${line.tg}:${line.og}${decSuffix}`, // OT/SO dovětek
+      score: `${line.tg}:${line.og}${decSuffix}`,
       res: resLetter,
     };
   });
 
-  return {
-    playedCount: played.length,
-    gf, ga, pts,
-    w, d: dr, l,
-    rows,
-  };
+  return { playedCount: played.length, gf, ga, pts, w, d: dr, l, rows };
 }
-
 
 function computeLast5H2H(match) {
   const matchDate = new Date(match.date);
@@ -516,57 +509,28 @@ function computeLast5H2H(match) {
     .reverse();
 
   return h2h.map((m) => {
-    const base = {
-      date: fmtDateTime(m.date),
-      home: m.home.name,
-      away: m.away.name,
-    };
+    const base = { date: fmtDateTime(m.date), home: m.home.name, away: m.away.name };
 
     const h = m.goals?.home;
     const a = m.goals?.away;
 
-    // fallback (nemělo by nastat, protože isPlayed)
-    if (typeof h !== "number" || typeof a !== "number") {
-      return { ...base, score: "—", outcome: null };
-    }
+    if (typeof h !== "number" || typeof a !== "number") return { ...base, score: "—", outcome: null };
 
-    // PL = beze změny (outcome je finální 1/X/2)
     if (match.league === "pl") {
-      return {
-        ...base,
-        score: `${h}:${a}`,
-        outcome: getOutcomeFromScore(h, a),
-      };
+      return { ...base, score: `${h}:${a}`, outcome: getOutcomeFromScore(h, a) };
     }
 
-    // NHL:
-    const finalOutcome = getOutcomeFromScore(h, a); // 1/X/2 podle finálního skóre 
-    const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "REG").toUpperCase(); // REG | OT | SO
+    const finalOutcome = getOutcomeFromScore(h, a);
+    const lastPeriodType = String(m.raw?.gameOutcome?.lastPeriodType || "REG").toUpperCase();
     const isExtraTime = lastPeriodType !== "REG";
-
-    // sázkovkově 60 minut:
     const outcome60 = isExtraTime ? "X" : finalOutcome;
 
-    // výpis skóre:
-    // 3:4 OT (2, základní hrací doba X)
     let scoreText = `${h}:${a}`;
-    if (isExtraTime) {
-      scoreText = `${h}:${a} ${lastPeriodType} (${finalOutcome}, základní hrací doba X)`;
-    }
+    if (isExtraTime) scoreText = `${h}:${a} ${lastPeriodType} (${finalOutcome}, základní hrací doba X)`;
 
-    // outcome vracíme jako 60min (aby seděl s tipy 1/X/2 u NHL = 60 minut)
-    return {
-      ...base,
-      score: scoreText,
-      outcome: outcome60,
-      finalOutcome,              
-      decision: lastPeriodType,  // OT/SO/REG
-    };
+    return { ...base, score: scoreText, outcome: outcome60, finalOutcome, decision: lastPeriodType };
   });
 }
-
-
-
 
 // pravděpodobnosti (žádná záporná / >100 %)
 function clamp01(x) {
@@ -583,11 +547,9 @@ function computePrediction(homeStats, awayStats) {
 
   const diff = homeStrength - awayStrength;
 
-  // sigmoid => vždy 0..1
   const k = 0.55;
   const homeWin = 1 / (1 + Math.exp(-k * diff));
 
-  // draw vyšší když jsou si blízko
   let draw = 0.22;
   const ad = Math.abs(diff);
   if (ad < 0.8) draw = 0.30;
@@ -622,7 +584,6 @@ function computePrediction(homeStats, awayStats) {
 
 // ------------------------------
 // NHL: historie z více týdnů (mode=week) pro detail
-
 
 function extractNormalizedFromWeekResponse(res) {
   const week = res?.gameWeek || [];
@@ -678,8 +639,8 @@ function ensureNHLHistoryForDetail(match, done) {
 
   let collected = [...(state.allMatches || [])];
 
-  const MAX_WEEKS_BACK_BASE = 14;  // rychlý cíl: 5+5
-  const MAX_WEEKS_BACK_H2H  = 20;  // extra týdny jen kvůli H2H (aspoň 2)
+  const MAX_WEEKS_BACK_BASE = 14;  // 5+5
+  const MAX_WEEKS_BACK_H2H  = 20;  // aspoň 2 H2H
 
   function finish() {
     state.allMatches = mergeUniqueMatches(collected)
@@ -689,32 +650,21 @@ function ensureNHLHistoryForDetail(match, done) {
 
   function wantStop(step) {
     const c = countNeededBeforeMatch(collected, match);
-
     const haveTeams = (c.homePlayed >= 5 && c.awayPlayed >= 5);
     const haveH2H = (c.h2hPlayed >= 2);
-
-    // do 14 týdnů: jen 5+5 
     if (step <= MAX_WEEKS_BACK_BASE) return haveTeams && haveH2H;
-
-    // po 14 týdnech: už 5+5 typicky máme, tak jen “H2H”,
-    // ale pořád bezpečně limitované
     return haveTeams && haveH2H;
   }
 
   function canContinue(step) {
-    // do base limitu vždy, potom už jen do H2H limitu
     return step <= MAX_WEEKS_BACK_H2H;
   }
 
   function fetchWeek(dateStr, step) {
     if (state.nhlDetailReqToken !== myToken) return;
 
-    if (!canContinue(step)) {
-      finish();
-      return;
-    }
+    if (!canContinue(step)) { finish(); return; }
 
-    // cache hit
     if (state.nhlWeekCache[dateStr]) {
       collected = mergeUniqueMatches(collected.concat(state.nhlWeekCache[dateStr]));
       if (wantStop(step)) { finish(); return; }
@@ -745,10 +695,8 @@ function ensureNHLHistoryForDetail(match, done) {
   fetchWeek(startDate, 0);
 }
 
-
 // ------------------------------
 // Render detail
-
 
 function renderLastMatchesTable(title, stats) {
   if (!stats.playedCount) {
@@ -889,12 +837,11 @@ function renderMatchDetail(match) {
 // ------------------------------
 // Tipování
 
-
 function bindTipEvents() {
   $(".tip-btn").on("click", function () {
     if (!state.selectedMatch) return;
 
-    const t = $(this).data("tip"); // "1" | "X" | "2"
+    const t = $(this).data("tip");
     state.selectedTip = t;
 
     $(".tip-btn").removeClass("tip-btn--active");
@@ -927,7 +874,7 @@ function bindTipEvents() {
           ? `${match.goals.home}:${match.goals.away}`
           : null,
 
-      savedAt: new Date().toISOString(),
+      savedAt: new Date().toISOString(), // čas uložení
     };
 
     if (existingIndex >= 0) tips[existingIndex] = record;
@@ -939,12 +886,14 @@ function bindTipEvents() {
     $(`.tip-btn[data-tip="${state.selectedTip}"]`).addClass("tip-btn--active");
 
     $("#tip-status").removeClass("hidden").text(`Tip uložen: ${state.selectedTip} ✓`);
+
+    // po uložení tipů hned aktualizuj seznam (badge + filtr netipovaných)
+    renderMatchesList();
   });
 }
 
 // ------------------------------
 // Moje statistiky, PL výsledky dohledat z cache
-
 
 function ensurePLFixturesForStats(cb) {
   if (state.plAllFixturesNormalized) { cb(); return; }
@@ -987,18 +936,13 @@ function resolveRealResultForTip(tip) {
     const finalOutcome = getOutcomeFromScore(h, a);
     if (!finalOutcome) return null;
 
-    // OT / SO / REG z NHL dat
-    const lastPeriodType = (m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase(); // "REG" | "OT" | "SO"...
+    const lastPeriodType = (m.raw?.gameOutcome?.lastPeriodType || "").toUpperCase();
     const isExtraTime = lastPeriodType && lastPeriodType !== "REG";
 
-    // 60 minut (sázkovkově):
-    // pokud se šlo do OT/SO, po 60 min to bylo vždy "X"
     const outcome60 = isExtraTime ? "X" : finalOutcome;
 
-    // Výpis skóre do historie tipů
     let scoreText = `${h}:${a}`;
     if (isExtraTime) {
-      // 3:4 OT (2, základní hrací doba X)
       scoreText = `${h}:${a} ${lastPeriodType} (${finalOutcome}, základní hrací doba X)`;
     }
 
@@ -1008,84 +952,95 @@ function resolveRealResultForTip(tip) {
   return null;
 }
 
-
-
 // ------------------------------
 // Statistiky pohled
-
 
 function renderStats() {
   ensurePLFixturesForStats(() => {
     let tips = getTipsStore();
 
     let changed = false;
- tips = tips.map((t) => {
-  const isNhl = t.league === "nhl";
-  const hasScore = !!t.score;
-  const hasOutcome = !!t.outcome;
+    tips = tips.map((t) => {
+      const isNhl = t.league === "nhl";
+      const hasScore = !!t.score;
+      const hasOutcome = !!t.outcome;
 
-  // u NHL chceme "upgrade" starých záznamů:
-  
-  const needsNhlUpgrade =
-    isNhl &&
-    hasScore &&
-    !String(t.score).includes("základní hrací doba");
+      const needsNhlUpgrade =
+        isNhl &&
+        hasScore &&
+        !String(t.score).includes("základní hrací doba");
 
-  if (hasOutcome && hasScore && !needsNhlUpgrade) return t;
+      if (hasOutcome && hasScore && !needsNhlUpgrade) return t;
 
-  const real = resolveRealResultForTip(t);
-  if (!real) return t;
+      const real = resolveRealResultForTip(t);
+      if (!real) return t;
 
-  changed = true;
-  return { ...t, outcome: real.outcome, score: real.score };
-});
-
+      changed = true;
+      return { ...t, outcome: real.outcome, score: real.score };
+    });
 
     if (changed) saveTipsStore(tips);
 
+    //  filtr historie ligy 
+    const leagueFilter = String(state.historyLeagueFilter || "all");
+    const filteredTips = tips.filter((t) => leagueFilter === "all" ? true : t.league === leagueFilter); //4. oprava filtr lig 
+
+    //  tabulka historie
     const $hist = $("#history-list");
-    if (!tips.length) {
-      $hist.html(`<li class="muted">Zatím nemáš uložený žádný tip.</li>`);
+    if (!filteredTips.length) {
+      $hist.html(`<tr><td class="muted" colspan="6">Zatím nemáš uložený žádný tip.</td></tr>`);
     } else {
-      const sorted = [...tips].sort((a, b) => new Date(a.date) - new Date(b.date));
+      // NOVÉ (řadí podle času uložení tipu - nejnovější nahoře):
+const sorted = [...filteredTips].sort((a, b) => { //2.3 oprava
+    // Použijeme savedAt (čas uložení), pokud neexistuje (stará data), dáme 0
+    const timeA = new Date(a.savedAt || 0); 
+    const timeB = new Date(b.savedAt || 0);
+    return timeB - timeA; // B - A znamená sestupně (nejnovější první)
+});
+
       $hist.html(
-        sorted
-          .map((t) => {
-            const when = fmtDateTime(t.date);
-            let scoreTxt = ` • výsledek: <span class="muted">neznámý</span>`;
+        sorted.map((t) => {
+          const when = fmtDateTime(t.date);
+          const matchTxt = `${safeText(t.home)} vs ${safeText(t.away)}`;
 
-if (t.score && t.outcome) {
-  if (t.league === "nhl" && String(t.score).includes("základní hrací doba")) {
-    scoreTxt = ` • výsledek: <strong>${t.score}</strong>`;
-  } else {
-    scoreTxt = ` • výsledek: <strong>${t.score}</strong> (${t.outcome})`;
-  }
-}
+          let resultTxt = `<span class="muted">neznámý</span>`;
+          if (t.score && t.outcome) {
+            if (t.league === "nhl" && String(t.score).includes("základní hrací doba")) {
+              resultTxt = `<strong>${t.score}</strong>`;
+            } else {
+              resultTxt = `<strong>${t.score}</strong> (${t.outcome})`;
+            }
+          }
 
+          const savedAtTxt = t.savedAt ? fmtDateTime(t.savedAt) : "—"; // 3. oprava
 
+          let stateTxt = "—";
+          if (t.outcome) {
+            if (isTipHit(t.tip, t.outcome)) {
+              //  zelená fajfka bez čtverečku + trefa černě
+              stateTxt = `<span class="hit-icon">✔</span> <span class="hit-text">trefa</span>`;
+            } else {
+              stateTxt = `<span class="miss-icon">✖</span> <span class="miss-text">netrefa</span>`;
+            }
+          }
 
-
-            
-            const hitTxt =
-              t.outcome
-                ? (isTipHit(t.tip, t.outcome) ? ` <strong class="ok">✅ trefa</strong>` : ` <strong class="bad">❌ netrefa</strong>`)
-                : "";
-
-            return `<li>
-              ${when} • ${safeText(t.home)} vs ${safeText(t.away)} • tip: <strong>${safeText(t.tip)}</strong>
-              ${scoreTxt}
-              ${hitTxt}
-            </li>`;
-          })
-          .join("")
+          return `
+            <tr>
+              <td class="muted">${when}</td>
+              <td>${matchTxt}</td>
+              <td><strong>${safeText(t.tip)}</strong></td>
+              <td>${resultTxt}</td>
+              <td class="muted">${savedAtTxt}</td>
+              <td>${stateTxt}</td>
+            </tr>
+          `;
+        }).join("")
       );
     }
 
     function calcFor(league) {
       const items = tips.filter((t) => (league ? t.league === league : true));
       const finished = items.filter((t) => !!t.outcome);
-
-      
       const correct = finished.filter((t) => isTipHit(t.tip, t.outcome));
 
       return {
@@ -1117,10 +1072,7 @@ if (t.score && t.outcome) {
 
     finishedSorted.forEach((t, i) => {
       labels.push(new Date(t.date).toLocaleDateString("cs-CZ"));
-
-      
       if (isTipHit(t.tip, t.outcome)) ok++;
-
       data.push(Math.round((ok / (i + 1)) * 1000) / 10);
     });
 
@@ -1149,7 +1101,6 @@ if (t.score && t.outcome) {
 // ------------------------------
 // URL
 
-
 function restoreFromUrl() {
   const url = new URL(window.location.href);
   const league = url.searchParams.get("league");
@@ -1166,9 +1117,90 @@ function restoreFromUrl() {
 // ------------------------------
 // Initializace
 
+function bindUiExtras() { // 2.1 oprava
+let filterTimeout; // Proměnná pro časovač
+$("#match-filter").on("input", function () {
+  const val = $(this).val();
+  
+  // Pokud uživatel píše dál, zrušíme předchozí čekání
+  clearTimeout(filterTimeout);
+  
+  // Nastavíme nové čekání na 300ms
+  filterTimeout = setTimeout(() => {
+    state.matchFilterText = val;
+    renderMatchesList();
+  }, 300);
+});
+
+ // --- SEM VLOŽIT NOVÝ KÓD ---
+
+// 1. Hned při startu načteme stav z paměti
+const savedUntipped = localStorage.getItem("tipmaster_only_untipped"); // 2.2 oprava
+if (savedUntipped === "true") {
+  state.onlyUntipped = true;
+  $("#only-untipped").prop("checked", true);
+  // Pokud chcete hned filtrovat, zavoláme i renderMatchesList(), 
+  // ale obvykle stačí nastavit state, protože loadMatches() se volá až na konci.
+}
+
+// 2. Při změně checkboxu stav uložíme
+$("#only-untipped").on("change", function () {
+  state.onlyUntipped = $(this).is(":checked");
+  localStorage.setItem("tipmaster_only_untipped", state.onlyUntipped);
+  renderMatchesList();
+});
+
+  $("#history-league").on("change", function () {
+    state.historyLeagueFilter = $(this).val();
+    renderStats();
+  });
+
+/* --- VLOŽIT NOVÉ (Logika pro <dialog>) --- */
+  
+  const deleteDialog = document.getElementById("delete-dialog");
+  const confirmBtn = document.getElementById("btn-confirm-delete");
+
+  // A) Kliknutí na tlačítko "Reset dat" jen OTEVŘE okno
+  $("#reset-data").on("click", function () {
+    if (deleteDialog) {
+      deleteDialog.showModal();
+    }
+  });
+
+  // B) Kliknutí na "Ano, smazat" uvnitř okna PROVEDE výmaz
+  if (confirmBtn) {
+    // Používáme .onclick místo addEventListener, aby se událost nepřidávala 
+    // vícekrát, pokud by se funkce bindUiExtras volala opakovaně.
+    confirmBtn.onclick = function() {
+      // 1. Reset úložiště
+      localStorage.removeItem("tipmaster_tips");
+      localStorage.removeItem("tipmaster_pl_fixtures_cache_v1");
+      localStorage.removeItem("tipmaster_nhl_week_cache_v1");
+      localStorage.removeItem("tipmaster_only_untipped");
+
+      // 2. Reset paměti
+      state.plAllFixturesNormalized = null;
+      state.nhlWeekCache = {};
+      
+      // 3. Reset UI
+      state.matchFilterText = "";
+      state.onlyUntipped = false;
+      $("#match-filter").val("");
+      $("#only-untipped").prop("checked", false);
+
+      // 4. Aktualizace aplikace
+      loadMatches();
+      renderStats();
+      
+      // 5. Zavření okna (formulář ho zavře sám, ale pro jistotu)
+      if (deleteDialog) deleteDialog.close();
+    };
+  }
+}
 
 function main() {
   loadNhlWeekCacheFromStorage();
+
   $("#nav-matches").on("click", (e) => {
     e.preventDefault();
     showMainView();
@@ -1196,6 +1228,8 @@ function main() {
   });
 
   bindTipEvents();
+  bindUiExtras();
+
   showMainView();
   loadMatches();
 

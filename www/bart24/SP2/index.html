@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="cs">
 <head>
   <meta charset="UTF-8" />
@@ -6,11 +6,9 @@
   <title>TipMaster 2026</title>
   
   <link rel="icon" href="https://upload.wikimedia.org/wikipedia/en/3/3a/05_NHL_Shield.svg" type="image/svg+xml">
-
   <link rel="stylesheet" href="css/style.css" />
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -57,6 +55,15 @@
 
           <div class="mt">
             <h3>Seznam zápasů</h3>
+
+            <div class="filters-row">
+              <input id="match-filter" class="input" type="text" placeholder="Filtrovat podle názvu týmu…" />
+              <label class="checkbox">
+                <input type="checkbox" id="only-untipped" />
+                Zobrazit jen netipované
+              </label>
+            </div>
+
             <div id="matches-list" class="matches-list">
               <div class="muted">Načítám zápasy...</div>
             </div>
@@ -113,9 +120,41 @@
 
         <div class="stats-block mt-large">
           <h3>Historie mých tipů</h3>
-          <ul id="history-list" class="history-list">
-            <li class="muted">Zatím nemáš uložený žádný tip.</li>
-          </ul>
+
+          <div class="history-controls">
+            <label class="label" for="history-league">Filtr ligy:</label>
+            <select id="history-league" class="select select--small">
+              <option value="all">Vše</option>
+              <option value="pl">Premier League</option>
+              <option value="nhl">NHL</option>
+            </select>
+
+            <button id="reset-data" class="btn-secondary" type="button">Reset dat</button>
+          </div>
+
+          <div class="history-table-wrap">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Datum zápasu</th>
+                  <th>Zápas</th>
+                  <th>Tip</th>
+                  <th>Výsledek</th>
+                  <th>Uloženo</th>
+                  <th>Stav</th>
+                </tr>
+              </thead>
+              <tbody id="history-list">
+                <tr>
+                  <td class="muted" colspan="6">Zatím nemáš uložený žádný tip.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="muted mt-small">
+            Pozn.: Zápasy sezóny 2022 se stahují hlavně jako historie pro statistiky (vzájemné zápasy a forma), zatímco seznam k tipování zobrazuje primárně zápasy okolo roku 2024 dle možností free API.
+          </div>
         </div>
       </section>
     </main>
@@ -124,6 +163,19 @@
       TipMaster © 2026 - Školní projekt (Data z API-Football & NHL API)
     </footer>
   </div>
+
+  <dialog id="delete-dialog">
+    <form method="dialog">
+      <h3>Opravdu smazat historii?</h3>
+      <p>Tato akce je nevratná. Všechny vaše tipy budou smazány.</p>
+      
+      <div class="tlacitka">
+        <button value="cancel" class="btn-zrusit">Zrušit</button>
+        
+        <button id="btn-confirm-delete" value="default" class="btn-smazat">Ano, smazat</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="js/api.js"></script>
   <script src="js/main.js"></script>
