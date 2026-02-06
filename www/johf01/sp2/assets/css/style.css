@@ -17,6 +17,14 @@
     width: fit-content;
 }
 
+#signout_button {
+    display: none;
+}
+
+#refresh-button {
+    display: none;
+}
+
 .google-alert-success {
     display: none;
     text-align: center;
@@ -32,6 +40,10 @@
 
 
 
+#load-from-local-storage-btn {
+    display: none;
+}
+
 
 .pridatUkolDiv {
     display: flex;
@@ -44,7 +56,7 @@
 .tasklist {
     min-height: 150px;
     min-width: 150px;
-    border: 2px black ;
+    border: 2px black;
     border-style: dashed;
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +70,7 @@
     margin: 7px;
     border: black 2px solid;
 }
- 
+
 .task p {
     margin-bottom: 0;
     border-top: grey 1px solid;
@@ -68,12 +80,36 @@
     max-width: 250px;
 }
 
-
-#add-form {
+#backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
     display: none;
+    z-index: 9998;
 }
 
 
+.form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-form {
+    display: none;
+    background-color: blanchedalmond;
+    padding: 5%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+#form-heading {
+    display: flex;
+    justify-content: center;
+}
 
 .spinner {
     width: 200px;
@@ -88,6 +124,7 @@
     from {
         transform: rotate(0deg)
     }
+
     to {
         transform: rotate(360deg);
     }

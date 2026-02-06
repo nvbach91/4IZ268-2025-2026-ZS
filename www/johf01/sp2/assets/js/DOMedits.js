@@ -1,5 +1,5 @@
 import { App } from "./main.js"
-import { listData } from "./sheetFunctions.js"
+import { listData, formatDateTime } from "./sheetFunctions.js"
 import { tokenClient, checkAuthentication, Google } from "./google.js"
 
 
@@ -12,11 +12,11 @@ export const $h1 = $('#h1');
 export function authBtnClick() {
     if (gapi.client.getToken()) {
         console.warn("Already authenticated");
-        alert("You are already authenticated!");
+        alert("Už jste přihlášený!");
         return;
     }
 
-    console.log("Authorize clicked"); // Console log if it worked
+    console.log("Authorize clicked");
     tokenClient.requestAccessToken();
 }
 
@@ -33,6 +33,9 @@ export function signoutBtnClick() {
 
     gapi.client.setToken(null);
 
+    App.authorizeButton.show();
+    App.signoutButton.hide();
+    App.refreshButton.hide();
     $googleAlertSuccess.hide();
     $googleAlertFail.show();
 }
@@ -44,17 +47,20 @@ export function refreshBtnClick() {
 
 export function showFormBtnClick() {
     $form.show();
-    $('html, body').animate({ scrollTop: $form.offset().top }, 400);
+    App.backdrop.show();
+    App.formheading.html("<h2>Přidání úkolu</h2>");
 }
 
 export function hideFormBtnClick() {
+    $form[0].reset();
     $form.hide();
-    $('html, body').animate({ scrollTop: $h1.offset().top }, 400);
+    App.backdrop.hide();
 }
 
-// 2) Render tasks into the DOM (no DOM lookups inside loops)
+// 2) Render tasks into the DOM
 export function renderTasks(taskRows) {
     $tasklist.empty(); // clear previous content
+
 
     if (taskRows.length === 0) {
         $tasklist.append("<p>Error - nenalezena žádná data.</p>");
@@ -63,14 +69,16 @@ export function renderTasks(taskRows) {
 
     const fragment = $(document.createDocumentFragment());
 
-    taskRows.forEach((row, index) => {
-        const [nazev, cas, misto, kategorie, popis] = row;
-        const left = timeLeftUntil(cas);
+    taskRows.forEach(task => {
+        const { sheetRow, data } = task;
+        const [nazev, cas, misto, kategorie, popis] = data;
+
+        const left = timeLeftUntil(formatDateTime(cas));
 
         const $task = $(`
             <div class="task mb-3 p-3 rounded">
                 <h5>${nazev || ''}</h5>
-                <p>${cas || ''}</p>
+                <p>${formatDateTime(cas) || ''}</p>
                 <p>${left}</p>
                 <p>${misto || ''}</p>
                 <p>${kategorie || ''}</p>
@@ -83,31 +91,124 @@ export function renderTasks(taskRows) {
             </div>
         `);
 
-        // DELETE handler
-        $task.find('.delete-btn').on('click', () => {
-            if (!checkAuthentication()) return;
-            deleteTask(index);
-        });
+        $task.attr("data-sheet-row", sheetRow);
+        $task.attr("data-cas", cas);
+        $task.attr("data-kategorie", kategorie);
 
-        // EDIT handler
-        $task.find('.edit-btn').on('click', () => {
-            if (!checkAuthentication()) return;
 
-            App.editIndex = index;
-
-            $('#taskTitle').val(nazev);
-            $('#taskTime').val(cas ? formatDateTimeToISO(cas) : "");
-            $('#taskPlace').val(misto);
-            $('#taskCategory').val(kategorie);
-            $('#taskDesc').val(popis);
-
-            $form.show();
-            $('html, body').animate({ scrollTop: $form.offset().top }, 400);
-        });
 
         fragment.append($task);
     });
-    $tasklist.append(fragment);
+
+    let tempContainer = document.createElement("div");
+    tempContainer.appendChild(fragment[0].cloneNode(true));
+    let fragmentForStorage = tempContainer.innerHTML;
+
+    localStorage.setItem("myFragment", fragmentForStorage);
+
+
+    let stored = localStorage.getItem("myFragment");
+
+    if (stored) {
+        let temp = document.createElement("div");
+        temp.innerHTML = stored;
+
+        let restoredFragment = document.createDocumentFragment();
+
+        while (temp.firstChild) {
+            restoredFragment.appendChild(temp.firstChild);
+        }
+
+        $tasklist.append(restoredFragment);
+    }
+
+    $tasklist.off("click", ".delete-btn");
+    $tasklist.off("click", ".edit-btn");
+
+    //New delete handler
+    $tasklist.on("click", ".delete-btn", function () {
+        if (!checkAuthentication()) return;
+
+        const sheetRow = $(this).closest(".task").data("sheet-row");
+        deleteTask(sheetRow);
+    });
+
+
+    // New edit handler
+    $tasklist.on("click", ".edit-btn", function () {
+        if (!checkAuthentication()) return;
+        App.formheading.html("<h2>Editování úkolu</h2>");
+
+        const $task = $(this).closest(".task");
+        const sheetRow = $task.data("sheet-row");
+        App.editIndex = sheetRow;
+
+
+        $('#taskTitle').val($task.find("h5").text());
+        $('#taskTime').val(isoToDatetimeLocal($task.data("cas")));
+        $('#taskPlace').val($task.find("p").eq(2).text());
+        $('#taskCategory').val($task.data("kategorie"));
+        $('#taskDesc').val($task.find(".task-popis").text());
+
+        $form.show();
+        App.backdrop.show();
+    });
+}
+
+function isoToDatetimeLocal(iso) {
+    if (!iso) return "";
+    return iso.slice(0, 16); // "YYYY-MM-DDTHH:MM"
+}
+
+
+export function loadJustFromLocalStorage() {
+    $tasklist.empty();
+
+    if (localStorage.getItem("myFragment") == undefined) {
+        $tasklist.append("Nemáte v prohlížeči uložené žádné úkoly. Nejdřív se prosím přihlašte.")
+    }
+
+    let stored = localStorage.getItem("myFragment");
+
+    if (stored) {
+        let temp = document.createElement("div");
+        temp.innerHTML = stored;
+
+        let restoredFragment = document.createDocumentFragment();
+
+        while (temp.firstChild) {
+            restoredFragment.appendChild(temp.firstChild);
+        }
+
+        $tasklist.append(restoredFragment);
+    }
+
+    $tasklist.off("click", ".delete-btn");
+    $tasklist.off("click", ".edit-btn");
+
+    //New delete handler
+    $tasklist.on("click", ".delete-btn", function () {
+        if (!checkAuthentication()) return;
+    });
+
+    // New edit handler
+    $tasklist.on("click", ".edit-btn", function () {
+        if (!checkAuthentication()) return;
+
+        const $task = $(this).closest(".task");
+        const index = $task.data("index");
+
+        App.editIndex = index;
+
+        $('#taskTitle').val($task.find("h5").text());
+        $('#taskTime').val(isoToDatetimeLocal($task.data("cas")));
+        $('#taskPlace').val($task.find("p").eq(2).text());
+        $('#taskCategory').val($task.data("kategorie"));
+        $('#taskDesc').val($task.find(".task-popis").text());
+
+        $form.show();
+        App.backdrop.show();
+    });
 }
 
 function formatDateTimeToISO(value) {
@@ -143,6 +244,32 @@ function timeLeftUntil(dateString) {
     return `zbylý čas: ${minutes} minut`;
 }
 
+async function deleteTask(sheetRow) {
+    const start = sheetRow + 1; // A2 = rowIndex 0 → sheet row 1
+
+    await gapi.client.sheets.spreadsheets.batchUpdate({
+        spreadsheetId: Google.spreadsheetId,
+        resource: {
+            requests: [
+                {
+                    deleteDimension: {
+                        range: {
+                            sheetId: Google.databaseSheetId,
+                            dimension: "ROWS",
+                            startIndex: start,
+                            endIndex: start + 1
+                        }
+                    }
+                }
+            ]
+        }
+    });
+
+    listData();
+}
+
+
+/*
 async function deleteTask(index) {
     if (!checkAuthentication()) return;
 
@@ -174,6 +301,18 @@ async function deleteTask(index) {
     // 5. Refresh UI
     listData();
 }
+*/
+
+export function populateCategories(categories) {
+    const $select = $("#taskCategory");
+    $select.empty();
+    $select.append(`<option value="">Vyberte kategorii</option>`);
+
+    categories.forEach(cat => {
+        $select.append(`<option value="${cat}">${cat}</option>`);
+    });
+}
+
 
 export const spinner = document.createElement('div');
 spinner.classList.add('spinner');

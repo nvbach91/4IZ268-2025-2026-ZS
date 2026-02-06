@@ -1,6 +1,6 @@
 import { App } from "./main.js"
 import { Google, checkAuthentication } from "./google.js"
-import { renderTasks, $tasklist, $form, $h1, spinner } from "./DOMedits.js"
+import { renderTasks, $tasklist, $form, $h1, spinner, populateCategories } from "./DOMedits.js"
 
 
 
@@ -11,7 +11,7 @@ export function listData() {
     $tasklist.empty();
     $tasklist.append(spinner);
 
-    loadTasksFromSheet().then(tasks => { spinner.remove(); renderTasks(tasks); });
+    loadTasksFromSheet().then(tasks => { spinner.remove(); const sorted = sortTasksByDate(tasks); renderTasks(sorted); })
 };
 
 // 1) Fetch data from Google Sheets (pure function)
@@ -20,12 +20,18 @@ function loadTasksFromSheet() {
         spreadsheetId: Google.spreadsheetId,
         range: 'Database!A2:E256',
     }).then(response => {
-        const range = response.result;
-        return range.values || [];
+        const rows = response.result.values || [];
+
+        // Wrap each row with its original sheet index
+        return rows.map((row, i) => ({
+            sheetRow: i,   // original row index (A2 = 0)
+            data: row      // the actual row data
+        }));
     });
 }
 
-function formatDateTime(value) {
+
+export function formatDateTime(value) {
     if (!value) return "";
 
     const date = new Date(value);
@@ -46,6 +52,7 @@ export async function taskEditFormSubmitClick() {
 
     const data = {};
     App.taskEditForm.serializeArray().forEach(({ name, value }) => data[name] = value);
+    data.time = new Date(data.time).toISOString();
 
     // If NOT editing → append new row
     if (App.editIndex === null) {
@@ -56,7 +63,7 @@ export async function taskEditFormSubmitClick() {
             insertDataOption: 'INSERT_ROWS',
             resource: {
                 values: [
-                    [data.name, formatDateTime(data.time), data.place, data.category, data.description]
+                    [data.name, data.time, data.place, data.category, data.description]
                 ]
             }
 
@@ -70,36 +77,50 @@ export async function taskEditFormSubmitClick() {
         $tasklist.append(spinner);
         $('html, body').animate({ scrollTop: $h1.offset().top }, 400);
 
-        const response = await gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: Google.spreadsheetId,
-            range: 'Database!A2:E256',
-        });
-
-        let rows = response.result.values || [];
-
-        rows[App.editIndex] = [
-            data.name,
-            formatDateTime(data.time),
-            data.place,
-            data.category,
-            data.description
-        ];
-        await gapi.client.sheets.spreadsheets.values.clear({
-            spreadsheetId: Google.spreadsheetId,
-            range: 'Database!A2:E256',
-        });
+        // app.data ma data z formu
         await gapi.client.sheets.spreadsheets.values.update({
             spreadsheetId: Google.spreadsheetId,
-            range: 'Database!A2',
+            range: `Database!A${App.editIndex + 2}:E${App.editIndex + 2}`,
             valueInputOption: 'RAW',
             resource: {
-                values: rows
+                values: [
+                    [data.name, data.time, data.place, data.category, data.description]
+                ]
             }
         });
         App.editIndex = null; // exit edit mode 
     }
 
     $form.hide();
+    App.backdrop.hide();
     $('html, body').animate({ scrollTop: $h1.offset().top }, 400);
     listData();
 }
+
+export let googleCategories = ["Práce", "Škola", "Osobní", "Jiné"];
+
+export function loadCategoriesFromSheet() {
+    if (!checkAuthentication()) return;
+
+    return gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: Google.spreadsheetId,
+        range: 'Kategorie!A2:A256',
+    }).then(response => {
+
+        const rows = response.result.values || [];
+
+        googleCategories = rows.map(r => r[0]).filter(Boolean);
+
+        populateCategories(googleCategories);
+        return;
+    });
+}
+
+function sortTasksByDate(tasks) {
+    return tasks.sort((a, b) => {
+        return new Date(a.data[1]) - new Date(b.data[1]);
+    });
+}
+
+
+

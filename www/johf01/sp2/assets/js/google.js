@@ -1,5 +1,5 @@
 import { App } from "./main.js"
-import { listData } from "./sheetFunctions.js"
+import { listData, loadCategoriesFromSheet } from "./sheetFunctions.js"
 
 export const Google = {};
 
@@ -9,6 +9,7 @@ Google.API_KEY = 'AIzaSyBX3BtMytvjmuRdusFhsrT6IepA9kGwuu0';
 Google.spreadsheetId = '1rqhRW4010xlcKE4b9_IFxCCHt3mSBPbDYkF1BmaqBrs';
 Google.DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
 Google.SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+Google.databaseSheetId = 7304795;
 
 // Load GAPI function (Sheets API client)
 export function loadGapi() {
@@ -18,7 +19,6 @@ export function loadGapi() {
             discoveryDocs: Google.DISCOVERY_DOCS,
         });
         console.log("GAPI loaded");
-
     });
 }
 
@@ -32,9 +32,13 @@ export function initGis() {
             if (response.error) throw response;
 
             console.log("OAuth token received");
+            loadCategoriesFromSheet();
             $('.google-alert-success').show();
             $('.google-alert-fail').hide();
             gapi.client.setToken({ access_token: response.access_token });
+            App.authorizeButton.hide();
+            App.signoutButton.show();
+            App.refreshButton.show();
 
             listData();
         },
