@@ -13,6 +13,28 @@
 
     <header>
         <div id="logo">MovieBrowser</div>
+        <select id="genre-select">
+            <option value="">Select Genre</option>
+            <option value="28">Action</option>
+            <option value="12">Adventure</option>
+            <option value="16">Animation</option>
+            <option value="35">Comedy</option>
+            <option value="80">Crime</option>
+            <option value="99">Documentary</option>
+            <option value="18">Drama</option>
+            <option value="10751">Family</option>
+            <option value="14">Fantasy</option>
+            <option value="36">History</option>
+            <option value="27">Horror</option>
+            <option value="10402">Music</option>
+            <option value="9648">Mystery</option>
+            <option value="10749">Romance</option>
+            <option value="878">Science Fiction</option>
+            <option value="10770">TV Movie</option>
+            <option value="53">Thriller</option>
+            <option value="10752">War</option>
+            <option value="37">Western</option>
+        </select>
         <form id="search-form">
             <input type="text" id="search-input" placeholder="Search movie or series..." required>
             <button type="submit" id="search-button">SEARCH</button>
@@ -22,11 +44,15 @@
     <main id="app-container">
         <section id="favorites-section">
             <h2>⭐ My Favorites</h2>
+            <div class="fav-filters">
+                <button class="fav-filter-btn active" data-type="all">All</button>
+                <button class="fav-filter-btn" data-type="movie">Movies</button>
+                <button class="fav-filter-btn" data-type="tv">TV</button>
+            </div>
             <div id="favorites-content">
                 <p>No favorites added yet.</p>
             </div>
         </section>
-
         <section id="main-display">
             <div id="dynamic-content">
                 <h2>Welcome</h2>

@@ -7,10 +7,20 @@ const App = {
     $dynamicContent: $('#dynamic-content'),
     $favoritesContent: $('#favorites-content'),
     $searchForm: $('#search-form'),
+    $genreSelect: $('#genre-select'),
 
     init: function () {
         App.$searchForm.on('submit', App.handleSearch);
         $('#logo').on('click', App.renderHome);
+
+        $('.fav-filters button').on('click', function () {
+            $('.fav-filters button').removeClass('active');
+            $(this).addClass('active');
+            const filterType = $(this).text().toLowerCase();
+            
+            let type = filterType === 'movies' ? 'movie' : (filterType === 'tv' ? 'tv' : 'all');
+            App.renderFavorites(type);
+        });
 
         // History API to handle browser back/forward buttons
         $(window).on('popstate', function (e) {
@@ -28,16 +38,16 @@ const App = {
     handleSearch: function (e) {
         e.preventDefault();
         const query = App.$searchInput.val().trim();
+        const genreId = App.$genreSelect.val();
         if (query.length > 0) {
             // Server-side search defaults to movies
-            App.fetchMovies(query, 1, 'movie', true);
+            App.fetchMovies(query, 1, 'movie', true, genreId);
         }
     },
 
-    fetchMovies: function (query, page, mediaType, pushState) {
+    fetchMovies: function (query, page, mediaType, pushState, genreId = '') {
         // Update URL without page refresh
-        if (pushState) window.history.pushState({ view: 'search', query: query, page: page, mediaType: mediaType }, '', `?search=${encodeURIComponent(query)}&type=${mediaType}&page=${page}`);
-
+        if (pushState) window.history.pushState({ view: 'search', query: query, page: page, mediaType: mediaType, genreId: genreId }, '', `?search=${encodeURIComponent(query)}&type=${mediaType}&page=${page}${genreId ? '&genre=' + genreId : ''}`);
         App.$dynamicContent.html('<div class="loader">Searching for movies...</div>');
 
         // Server-side filtering: using specific /search/{type} endpoint instead of multi
@@ -47,7 +57,17 @@ const App = {
             url: url,
             method: 'GET'
         }).done(function (response) {
-            App.renderResults(response, query, mediaType);
+            if (genreId) {
+            const id = parseInt(genreId);
+            const filteredResults = response.results.filter(item => 
+                item.genre_ids && item.genre_ids.includes(id)
+            );
+            
+            response.results = filteredResults;
+            response.total_results = filteredResults.length;
+            if (response.total_pages > 1) response.total_pages = 1;
+        }
+            App.renderResults(response, query, mediaType, genreId);
         }).fail(function () {
             App.$dynamicContent.html('<h2>Error</h2><p>Connection to TMDB API failed.</p>');
         });
@@ -93,13 +113,16 @@ const App = {
         // Pagination controls
         if (response.total_pages > 1) {
             const $pag = $container.filter('.pagination');
+            $pag.empty();
             if (response.page > 1) {
                 $('<button>Prev</button>').on('click', () => App.fetchMovies(query, response.page - 1, mediaType, true)).appendTo($pag);
             }
             $(`<span> Page ${response.page} / ${response.total_pages} </span>`).appendTo($pag);
-            if (response.page < response.total_pages) {
-                $('<button>Next</button>').on('click', () => App.fetchMovies(query, response.page + 1, mediaType, true)).appendTo($pag);
-            }
+            if (response.results.length > 0) {
+             $('<button>Next</button>').on('click', () => 
+                App.fetchMovies(query, response.page + 1, mediaType, true)
+            ).appendTo($pag);
+        }
         }
 
         App.$dynamicContent.html($container);
@@ -194,7 +217,9 @@ const App = {
         }
 
         localStorage.setItem('4iz268_favs', JSON.stringify(favorites));
-        App.renderFavorites();
+        const activeFilterText = $('.fav-filters button.active').text().toLowerCase();
+        let type = activeFilterText === 'movies' ? 'movie' : (activeFilterText === 'tv' ? 'tv' : 'all');
+        App.renderFavorites(type);
 
         const $favActions = $('.fav-actions').empty();
         if (isRemoving) {
@@ -219,8 +244,13 @@ const App = {
         }
     },
 
-    renderFavorites: function () {
-        const favorites = JSON.parse(localStorage.getItem('4iz268_favs')) || [];
+    renderFavorites: function (filterType = 'all') {
+        let favorites = JSON.parse(localStorage.getItem('4iz268_favs')) || [];
+        
+        if (filterType !== 'all') {
+            favorites = favorites.filter(f => f.type === filterType);
+        }
+
         App.$favoritesContent.empty();
 
         if (favorites.length > 0) {

@@ -222,6 +222,33 @@ section {
     margin-right: 10px;
 }
 
+.fav-filter-btn {
+    background-color: #f57c00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    display: inline-block;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.fav-filter-btn.active {
+    background-color: #e64a19;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#genre-select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-left: 10px;
+    display: inline-block;
+}
+
 .remove-direct {
     color: red;
     background: none;
