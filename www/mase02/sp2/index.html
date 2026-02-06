@@ -1,47 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discover new artist</title>
+    <title>Discover Artists</title>
+    <link rel="icon" type="image" href="assets/images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-    <main>
-        <h1>DISCOVER NEW ARTIST</h1>
-        <div>
-            <button id="btnConnect">Connect Spotify</button>
-        </div>
-        <div>
-            <button>I go for it!</button>
-        </div>
 
-        <section>
-            <div class="artist-name"></div>
-            <div class="artist-genre"></div>
-            <div class="artist-popularity"></div>
 
-            <div>
-                <h2>Top songs</h2>
-                <ul class="song-list"></ul>
+    <div class="bg-gradient"></div>
+
+
+
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">
+                <span class="logo-icon">♪</span>
+                DISCOVER
+            </h1>
+            <button class="findings-toggle" id="findingsToggle">
+                <span class="findings-count" id="findingsCount">0</span>
+                MY FINDINGS
+            </button>
+        </header>
+
+
+        <main class="main-content" id="mainContent">
+            <div class="discovery-prompt" id="discoveryPrompt">
+                <div class="prompt-content">
+                    <h2 class="prompt-title">Ready to discover<br>your next favorite artist?</h2>
+                    <p class="prompt-subtitle">Let the algorithm surprise you with something new</p>
+                    <button class="discover-btn" id="discoverBtn">
+                        <span class="btn-text">I GO FOR IT!</span>
+                        <span class="btn-pulse"></span>
+                    </button>
+                </div>
+                <div class="prompt-visual">
+                    <div class="vinyl-disc"></div>
+                </div>
             </div>
 
-            <div>
-                <h2>Similar Artists</h2>
-                <div class="similar"></div>
+
+            <div class="artist-display hidden" id="artistDisplay">
+                <div class="artist-card">
+                    <div class="artist-image-container">
+                        <img src="" alt="" class="artist-image" id="artistImage">
+                        <div class="artist-overlay"></div>
+                    </div>
+
+                    <div class="artist-info">
+                        <div class="artist-header">
+                            <h2 class="artist-name" id="artistName">Artist Name</h2>
+                            <div class="artist-meta">
+                                <span class="popularity-badge" id="popularityBadge">
+                                    <span class="popularity-bar"></span>
+                                    <span class="popularity-text">0% Popular</span>
+                                </span>
+                                <div class="genres" id="genres"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="section">
+                            <h3 class="section-title">Top Tracks</h3>
+                            <div class="tracks-list" id="tracksList"></div>
+                        </div>
+
+
+                        <div class="section">
+                            <h3 class="section-title">Similar Artists</h3>
+                            <div class="related-artists" id="relatedArtists"></div>
+                        </div>
+
+
+                        <div class="artist-actions">
+                            <button class="save-btn" id="saveBtn">
+                                SAVE TO MY FINDINGS
+                            </button>
+                            <button class="discover-another-btn" id="discoverAnotherBtn">
+                                DISCOVER ANOTHER
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <button>Save between my findings</button>
 
+            <div class="loading-state hidden" id="loadingState">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Discovering your next artist...</p>
             </div>
-        </section>
+        </main>
 
 
-    </main>
-    
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script type="module" src="assets/js/main.js"></script>
+        <aside class="findings-panel" id="findingsPanel">
+            <div class="findings-header">
+                <h2 class="findings-title">MY FINDINGS</h2>
+                <button class="close-findings" id="closeFindings">
+                    ✖
+                </button>
+            </div>
+            <div class="findings-list" id="findingsList">
+                <div class="empty-findings">
+                    <p>No artists saved yet. Start discovering!</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
+
 </html>
