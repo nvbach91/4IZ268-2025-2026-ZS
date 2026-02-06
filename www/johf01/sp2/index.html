@@ -20,7 +20,7 @@
     <div class="container py-5">
         <h1 id="h1" class="text-center mb-4">Úkolníček</h1>
 
-        <div class="google-buttons m-3">
+        <div class="google-buttons m-2">
             <h4>Tady se můžete přihlásit nebo odhlásit přes google</h4>
             <div class="container google-buttons-container">
                 <button class="btn btn-primary" id="authorize_button">Přihlásit</button>
@@ -35,14 +35,18 @@
             </div>
         </div>
 
+        <div class="pridatUkolDiv m-2">
+            <button id="show-form-button-top" class="pridat-task-btn m-1 btn btn-primary">Přidat úkol</button>
+        </div>
+
         <main class="tasklist">
             <article>
                 <p>Tady se zobrazí vaše úkoly.</p>
             </article>
         </main>
 
-        <div>
-            <button id="show-form-button" class="pridat-task-btn m-1 btn btn-primary">Přidat úkol</button>
+        <div class="pridatUkolDiv m-2">
+            <button id="show-form-button-bottom" class="pridat-task-btn m-1 btn btn-primary">Přidat úkol</button>
         </div>
 
         <form id="add-form" class="mb-4">
@@ -89,7 +93,7 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
 </body>
 
 </html>

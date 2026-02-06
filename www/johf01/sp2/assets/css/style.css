@@ -31,6 +31,16 @@
 }
 
 
+
+
+.pridatUkolDiv {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
 .tasklist {
     min-height: 150px;
     min-width: 150px;
