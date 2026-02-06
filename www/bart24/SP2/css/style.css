@@ -1,0 +1,556 @@
+/* ===== ZÁKLADNÍ NASTAVENÍ ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    color: #333;
+
+    /* --- POZADÍ (Externí obrázek z Unsplash) --- */
+    background-image: url('https://images.unsplash.com/photo-1517466787929-bc90951d0974?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    /* Tmavý filtr přes obrázek pro lepší čitelnost textu */
+    background-color: rgba(0, 0, 0, 0.75); 
+    background-blend-mode: overlay;
+    
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== HLAVIČKA ===== */
+.app-header {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Stín pod hlavičkou */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    font-size: 32px;
+    font-weight: 800;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* Styly pro loga */
+.logos {
+    display: flex;
+    gap: 15px;
+    padding-left: 20px;
+    border-left: 2px solid #ddd; /* Oddělovací čára */
+}
+
+.league-logo {
+    height: 38px; /* Fixní výška log */
+    width: auto;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.league-logo:hover {
+    transform: scale(1.15); /* Zvětšení po najetí */
+    opacity: 1;
+}
+
+/* Navigace */
+.top-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: #555;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 5px 10px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #000;
+}
+
+.nav-link.nav-link--active {
+    color: #000;
+    border-bottom: 3px solid #000;
+}
+
+/* ===== LAYOUT (GRID) ===== */
+.grid-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Poměr sloupců 1:2 */
+    gap: 20px;
+    align-items: start;
+}
+
+/* Karta (bílý box) */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+    margin: 0 0 15px;
+    font-size: 24px;
+    border-bottom: 2px solid #f4f4f4;
+    padding-bottom: 10px;
+}
+
+/* ===== FORMULÁŘOVÉ PRVKY ===== */
+.label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.select:hover, .select:focus {
+    border-color: #aaa;
+    outline: none;
+}
+
+.mt { margin-top: 20px; }
+.mt-large { margin-top: 40px; }
+.muted { color: #888; font-style: italic; }
+
+/* ===== SEZNAM ZÁPASŮ ===== */
+.matches-list {
+    margin-top: 10px;
+    max-height: 600px; /* Aby se dalo scrollovat při hodně zápasech */
+    overflow-y: auto;
+}
+
+.match-item {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #f9f9f9;
+    padding: 12px 15px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.match-item:hover {
+    background: #eef;
+    border-color: #ccf;
+    transform: translateX(5px);
+}
+
+.match-item--active {
+    background: #222 !important;
+    color: #fff !important;
+    border-color: #222 !important;
+}
+
+.match-item--active .match-date {
+    color: #ccc;
+}
+
+.match-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.match-teams {
+    font-size: 15px;
+}
+
+/* ===== DETAIL ZÁPASU ===== */
+.detail-head {
+    margin-bottom: 20px;
+}
+
+.detail-title {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.detail-sub {
+    color: #666;
+    margin-top: 5px;
+}
+
+.detail-block {
+    margin-top: 25px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.detail-block h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #444;
+}
+
+/* Tabulky v detailu */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.detail-table th {
+    text-align: left;
+    background: #e9ecef;
+    padding: 8px;
+    font-size: 12px;
+}
+
+.detail-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Predikce */
+.pred-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.pred-box {
+    flex: 1;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.pred-label { font-weight: bold; color: #555; }
+.pred-val { font-size: 18px; font-weight: bold; color: #000; margin-top: 5px; }
+
+.pred-comment {
+    font-style: italic;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* ===== TIPOVÁNÍ ===== */
+.sep {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 25px 0;
+}
+
+.tip-panel h3 { margin-top: 0; }
+
+.tip-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0 20px;
+}
+
+.tip-btn {
+    flex: 1;
+    padding: 15px 0;
+    font-size: 20px;
+    font-weight: bold;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tip-btn:hover:not(:disabled) {
+    border-color: #999;
+    background: #f4f4f4;
+}
+
+/* Aktivní tlačítko tipu */
+.tip-btn--active {
+    background: #222 !important;
+    color: #fff !important;
+    border-color: #222 !important;
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: #28a745; /* Zelená pro uložení */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #218838;
+}
+
+.btn-primary:disabled, .tip-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #eee;
+}
+
+.tip-status {
+    margin-top: 15px;
+    text-align: center;
+    color: #28a745;
+    font-weight: bold;
+    padding: 10px;
+    background: #e8f5e9;
+    border-radius: 6px;
+}
+
+/* ===== STATISTIKY ===== */
+.grid-stats {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+.stats-lines {
+    font-size: 16px;
+    line-height: 2;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+}
+
+.history-list li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.ok { color: #28a745; }
+.bad { color: #dc3545; }
+
+/* ===== FOOTER ===== */
+.app-footer {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7); /* Světlejší text na tmavém pozadí */
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .grid-main, .grid-stats {
+        grid-template-columns: 1fr; /* Na mobilu pod sebe */
+    }
+    
+    .app-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .matches-list {
+        max-height: 300px;
+    }
+}
+
+
+/* DOPLŇKY – filtry, tabulka, reset */
+
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.filters-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+  white-space: nowrap;
+}
+
+.select--small {
+  width: auto;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #f7f7f7;
+}
+
+.match-item--tipped {
+  border-color: #cfe7d6;
+  background: #00ff55;
+}
+
+.match-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  background: #eaf7ee;
+  color: #1b7b34;
+}
+
+.history-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 10px 0 14px 0;
+  flex-wrap: wrap;
+}
+
+.history-table-wrap {
+  overflow: auto;
+  border: 1px solid #eee;
+  border-radius: 12px;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  background: #fff;
+}
+
+.history-table th,
+.history-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+}
+
+.history-table thead th {
+  background: #fafafa;
+  font-size: 13px;
+  color: #444;
+}
+
+.mt-small {
+  margin-top: 10px;
+}
+
+/*  ikony trefa/netrefa dle zadání */
+.hit-icon {
+  color: #1b7b34;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.hit-text {
+  font-weight: 800;
+  color: #111;
+}
+
+.miss-icon {
+  color: #c62828;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.miss-text {
+  font-weight: 800;
+  color: #c62828;
+}
+
+/* ===== JEDNODUCHÝ DIALOG ===== */
+
+/* Samotné okno */
+dialog {
+  border: 1px solid #ccc;   /* Tenký rámeček */
+  border-radius: 8px;       /* Mírně kulaté rohy */
+  padding: 20px;            /* Místo uvnitř */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Stín */
+}
+
+/* Ztmavnutí pozadí stránky */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Odsazení tlačítek */
+.tlacitka {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; /* Tlačítka doprava */
+  gap: 10px;                 /* Mezera mezi nimi */
+}
+
+/* Jednoduchý vzhled tlačítek v dialogu */
+.btn-zrusit { cursor: pointer; padding: 8px 12px; }
+.btn-smazat { cursor: pointer; padding: 8px 12px; background: red; color: white; border: none; border-radius: 4px; }
