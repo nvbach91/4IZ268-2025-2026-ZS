@@ -23,6 +23,7 @@
 		navWishlist: $('#navWishlist'),
 		viewSearch: $('#viewSearch'),
 		viewWishlist: $('#viewWishlist'),
+		contentPanels: $('.content-panel'),
 		wishlistTypeSwitch: $('#wishlistTypeSwitch'),
 		wishlistResult: $('#wishlistResult')
 	};

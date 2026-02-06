@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Vyhledávání alb a skladeb přes Spotify API.">
-    <title>Spotify - Hledání</title>
+    <meta name="description" content="Vyhledávání alb a skladeb přes Deezer API.">
+    <meta name="author" content="Jakub M.">
+    <meta name="keywords" content="Deezer, hudba, alba, skladby, vyhledávání, playlist, wishlist">
+    <title>Deezer - Hledání</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -12,7 +14,7 @@
 <body>
     <div class="app-shell">
         <header class="app-header">
-            <h1 class="app-title">Spotify vyhledávání</h1>
+            <h1 class="app-title">Deezer vyhledávání</h1>
             <nav class="app-nav" aria-label="Hlavní navigace">
                 <button class="pill pill-active" type="button" id="navSearch" aria-current="page">Hledání</button>
                 <button class="pill" type="button" id="navWishlist">Seznam přání</button>
@@ -63,21 +65,18 @@
                             </div>
                         </div>
                         <button id="searchBtn" class="btn btn-primary filter-action" type="submit">Hledat</button>
-                        <button id="loginBtn" class="btn btn-outline-light filter-action" type="button">Přihlásit</button>
-                        <div id="result" class="mt-2 text-light small" aria-live="polite"></div>
                     </form>
                 </aside>
 
                 <section class="content-panel" aria-live="polite">
                     <h2 class="visually-hidden">Výsledky vyhledávání</h2>
                     <div class="content-top">
-                        <div class="pill-switch" id="searchTypeSwitch">
-                            <button type="button" class="pill" data-type="track">Skladby</button>
-                            <button type="button" class="pill pill-active" data-type="album">Alba</button>
+                        <div class="pill-switch" id="searchTypeSwitch" aria-label="Vyhledávání alb">
+                            <div class="pill pill-active">Alba</div>
                         </div>
                         <select id="searchTypeSelect" class="form-select visually-hidden">
-                            <option value="track" selected>Hledat: Skladby</option>
-                            <option value="album">Hledat: Alba</option>
+                            <option value="track">Hledat: Skladby</option>
+                            <option value="album" selected>Hledat: Alba</option>
                         </select>
                     </div>
                     <div id="searchResult" class="card-grid"></div>

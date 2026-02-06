@@ -4,7 +4,13 @@
     app.state = app.state || {};
     app.wishlist = app.wishlist || {};
 
-    const WISHLIST_KEY = 'sp2_wishlist';
+    const WISHLIST_TRACKS_KEY = 'sp2_wishlist_tracks';
+    const WISHLIST_ALBUMS_KEY = 'sp2_wishlist_albums';
+
+    const normalizeId = (value) => value != null ? String(value) : '';
+    const ratingKey = (id, type) => `${normalizeId(id)}|${type || 'track'}`;
+    app.state.pendingRatings = app.state.pendingRatings instanceof Map ? app.state.pendingRatings : new Map();
+    const pendingRatings = app.state.pendingRatings;
 
     const dom = {
         wishlistResult: $('#wishlistResult'),
@@ -12,7 +18,23 @@
         detailsModal: $('#detailsModal'),
         searchResult: $('#searchResult'),
         lastSavedList: $('#lastSavedList'),
-        lastSavedSwitch: $('#lastSavedSwitch')
+        lastSavedSwitch: $('#lastSavedSwitch'),
+        detailName: $('#detailName'),
+        detailArtist: $('#detailArtist'),
+        detailAlbum: $('#detailAlbum'),
+        detailGenre: $('#detailGenre'),
+        detailRelease: $('#detailRelease'),
+        detailDuration: $('#detailDuration'),
+        detailTrackNumber: $('#detailTrackNumber'),
+        detailTotalTracks: $('#detailTotalTracks'),
+        detailAlbumRow: $('#detailAlbumRow'),
+        detailDurationRow: $('#detailDurationRow'),
+        detailTrackNumberRow: $('#detailTrackNumberRow'),
+        detailTotalTracksRow: $('#detailTotalTracksRow'),
+        detailCover: $('#detailCover'),
+        detailCoverWrap: $('#detailCoverWrap'),
+        detailRating: $('#detailRating'),
+        wishlistTypeButtons: $('.wishlist-type-btn')
     };
 
     const storage = (() => {
@@ -33,76 +55,156 @@
         }
     })();
 
-    const memoryStore = [];
+    const memoryStore = { track: [], album: [] };
 
     const normalizeType = (item) => item.type || 'track';
 
-    const getWishlist = () => {
+    const normalizeWishlistItem = (item) => {
+        if (!item || typeof item !== 'object') {
+            return item;
+        }
+
+        const pickArtist = () => {
+            return item.artistName
+                || item.artist
+                || (item.artists && item.artists[0] ? item.artists[0].name : '')
+                || (item.album && item.album.artists && item.album.artists[0] ? item.album.artists[0].name : '')
+                || (item.album && item.album.artistName)
+                || (item.album && item.album.artist)
+                || '';
+        };
+
+        const pickAlbumName = () => {
+            return item.albumName
+                || (item.album && item.album.name)
+                || (item.album && item.album.title)
+                || '';
+        };
+
+        const next = { ...item };
+        next.artistName = pickArtist();
+        if (normalizeType(item) === 'track') {
+            next.albumName = pickAlbumName();
+        }
+        return next;
+    };
+
+    const normalizeWishlistItems = (items, type) => {
+        let changed = false;
+        const normalized = items.map((item) => {
+            const next = normalizeWishlistItem(item);
+            if (next !== item
+                || next.artistName !== item.artistName
+                || (normalizeType(item) === 'track' && next.albumName !== item.albumName)) {
+                changed = true;
+            }
+            return next;
+        });
+
+        if (changed) {
+            writeListByType(type || 'track', normalized);
+        }
+
+        return normalized;
+    };
+
+    const readListByType = (type) => {
+        const key = type === 'album' ? WISHLIST_ALBUMS_KEY : WISHLIST_TRACKS_KEY;
         if (!storage) {
-            return [...memoryStore];
+            return [...(memoryStore[type] || [])];
         }
         try {
-            const raw = storage.getItem(WISHLIST_KEY);
+            const raw = storage.getItem(key);
             if (!raw) {
                 return [];
             }
             const items = JSON.parse(raw);
             return Array.isArray(items) ? items : [];
         } catch (error) {
-            return [...memoryStore];
+            return [...(memoryStore[type] || [])];
         }
     };
 
-    const saveWishlist = (items) => {
+    const writeListByType = (type, items) => {
+        const key = type === 'album' ? WISHLIST_ALBUMS_KEY : WISHLIST_TRACKS_KEY;
         if (!storage) {
-            memoryStore.length = 0;
-            memoryStore.push(...items);
+            memoryStore[type] = [...items];
             return;
         }
         try {
-            storage.setItem(WISHLIST_KEY, JSON.stringify(items));
+            storage.setItem(key, JSON.stringify(items));
         } catch (error) {
-            memoryStore.length = 0;
-            memoryStore.push(...items);
+            memoryStore[type] = [...items];
         }
     };
 
+    const getWishlistByType = (type = 'track') => normalizeWishlistItems(readListByType(type), type);
+
+    const getWishlist = () => {
+        const tracks = getWishlistByType('track');
+        const albums = getWishlistByType('album');
+        return [...tracks, ...albums];
+    };
+
+    const saveWishlist = (items) => {
+        const tracks = items.filter((item) => normalizeType(item) === 'track');
+        const albums = items.filter((item) => normalizeType(item) === 'album');
+        writeListByType('track', tracks);
+        writeListByType('album', albums);
+    };
+
     const findWishlistItem = (itemId, itemType) => {
-        return getWishlist().find((item) => {
-            if (item.id !== itemId) {
-                return false;
-            }
-            if (!itemType) {
-                return true;
-            }
-            return normalizeType(item) === itemType;
-        }) || null;
+        const targetId = normalizeId(itemId);
+        if (itemType) {
+            return getWishlistByType(itemType).find((item) => normalizeId(item.id) === targetId) || null;
+        }
+
+        const trackMatch = getWishlistByType('track').find((item) => normalizeId(item.id) === targetId);
+        if (trackMatch) {
+            return trackMatch;
+        }
+        return getWishlistByType('album').find((item) => normalizeId(item.id) === targetId) || null;
     };
 
     const isInWishlist = (itemId, itemType = 'track') => {
-        return getWishlist().some((item) => item.id === itemId && normalizeType(item) === itemType);
+        const targetId = normalizeId(itemId);
+        if (!itemType) {
+            return getWishlistByType('track').some((item) => normalizeId(item.id) === targetId)
+                || getWishlistByType('album').some((item) => normalizeId(item.id) === targetId);
+        }
+
+        return getWishlistByType(itemType).some((item) => normalizeId(item.id) === targetId);
     };
 
     const addToWishlist = (item) => {
         if (!item || !item.id) {
             return false;
         }
-        const items = getWishlist();
+        item.id = normalizeId(item.id);
         const type = item.type || 'track';
-        if (items.some((entry) => entry.id === item.id && normalizeType(entry) === type)) {
+        const items = getWishlistByType(type);
+        // Ensure artist/album names are populated at insert time
+        const normalized = normalizeWishlistItem({ ...item, type });
+        if (items.some((entry) => normalizeId(entry.id) === item.id && normalizeType(entry) === type)) {
             return false;
         }
-        item.type = type;
-        item.addedAt = item.addedAt || Date.now();
-        items.push(item);
-        saveWishlist(items);
+        const pending = pendingRatings.get(ratingKey(item.id, type));
+        if (pending != null) {
+            normalized.rating = pending;
+            pendingRatings.delete(ratingKey(item.id, type));
+        }
+        normalized.type = type;
+        normalized.addedAt = normalized.addedAt || Date.now();
+        items.push(normalized);
+        writeListByType(type, items);
         return true;
     };
 
     const removeFromWishlist = (itemId, itemType = 'track') => {
-        const items = getWishlist();
-        const next = items.filter((item) => !(item.id === itemId && normalizeType(item) === itemType));
-        saveWishlist(next);
+        const items = getWishlistByType(itemType);
+        const targetId = normalizeId(itemId);
+        const next = items.filter((item) => !(normalizeId(item.id) === targetId && normalizeType(item) === itemType));
+        writeListByType(itemType, next);
         return next;
     };
 
@@ -126,7 +228,7 @@
         `;
         }).join('');
 
-        return wrap ? `<div class='d-flex align-items-center gap-1'>${buttons}</div>` : buttons;
+        return wrap ? `<div class="d-flex align-items-center gap-1">${buttons}</div>` : buttons;
     };
 
     const renderRatingStars = (item, itemType) => renderStars(item, itemType, 'rating-star', true);
@@ -152,24 +254,16 @@
             const releaseDateStr = releaseDate ? releaseDate.toLocaleDateString() : 'Neznámé';
             const itemType = normalizeType(track);
 
+            // Normalize artist names to avoid "Neznámý interpret" when data was missing
             if (itemType === 'album') {
-                return `
-                <div class="card mb-2">
-                    <div class="card-body">
-                        ${track.coverUrl ? `<img src="${track.coverUrl}" alt="${track.name}" class="card-cover" />` : ''}
-                        <h6 class="card-title">${index + 1}. ${track.name}</h6>
-                        <p class="card-text mb-2">
-                            <strong>Interpret:</strong> ${track.artistName || 'Neznámý interpret'}<br>
-                            <strong>Datum vydání:</strong> ${releaseDateStr}<br>
-                            <strong>Počet skladeb:</strong> ${track.totalTracks || 0}
-                        </p>
-                        <div class="mb-2">
-                            <strong>Hodnocení:</strong>
-                            ${renderRatingStars(track, 'album')}
-                        </div>
-                        <div class="d-flex gap-2 flex-wrap">
-                            <button type="button" class="btn btn-sm btn-outline-secondary open-details"
-                                data-item-type="album"
+                track.artistName = track.artistName || (track.artists && track.artists[0] ? track.artists[0].name : '') || 'Neznámý interpret';
+            } else {
+                track.artistName = track.artistName || (track.artists && track.artists[0] ? track.artists[0].name : '') || 'Neznámý interpret';
+            }
+
+            if (itemType === 'album') {
+                const totalTracksDisplay = track.totalTracks || '?';
+                const detailAttrs = `data-item-type="album"
                                 data-id="${track.id}"
                                 data-name="${track.name}"
                                 data-artist="${track.artistName}"
@@ -178,8 +272,25 @@
                                 data-release="${track.releaseDate || ''}"
                                 data-duration=""
                                 data-track-number=""
-                                data-total-tracks="${track.totalTracks || 0}"
-                                data-cover-url="${track.coverUrl || ''}">
+                                data-total-tracks="${totalTracksDisplay}"
+                                data-cover-url="${track.coverUrl || ''}"`;
+                return `
+                <div class="card mb-2">
+                    <div class="card-body">
+                        ${track.coverUrl ? `<img src="${track.coverUrl}" alt="${track.name}" class="card-cover open-details" ${detailAttrs} />` : ''}
+                        <h6 class="card-title open-details" ${detailAttrs}>${index + 1}. ${track.name}</h6>
+                        <p class="card-text mb-2">
+                            <strong>Interpret:</strong> ${track.artistName || 'Neznámý interpret'}<br>
+                            <strong>Datum vydání:</strong> ${releaseDateStr}<br>
+                            <strong>Počet skladeb:</strong> <span class="album-total-tracks">${totalTracksDisplay}</span>
+                        </p>
+                        <div class="mb-2">
+                            <strong>Hodnocení:</strong>
+                            ${renderRatingStars(track, 'album')}
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button type="button" class="btn btn-sm btn-outline-secondary open-details"
+                                ${detailAttrs}>
                                 Detail
                             </button>
                             <button class="btn btn-sm btn-outline-danger remove-from-wishlist" data-track-id="${track.id}" data-item-type="album">Odebrat</button>
@@ -255,10 +366,22 @@
                 tracks: data.items
             };
 
+            dom.detailTotalTracks.text(data.items.length);
+            updateAlbumTrackCountDisplay(albumId, data.items.length);
+
             container.html(renderAlbumTracksList(albumInfo, data.items));
         } catch (error) {
             container.html('<div class="small text-danger">Nepodařilo se načíst skladby.</div>');
         }
+    }
+
+    function updateAlbumTrackCountDisplay(albumId, count) {
+        const value = count != null ? count : '?';
+        $('.open-details[data-item-type="album"][data-id="' + albumId + '"]').each(function() {
+            $(this).attr('data-total-tracks', value);
+            const card = $(this).closest('.card');
+            card.find('.album-total-tracks').text(value);
+        });
     }
 
     function renderAlbumTracksList(albumInfo, tracks) {
@@ -329,6 +452,39 @@
         container.html(renderAlbumTracksList(albumInfo, tracks));
     }
 
+    // star rating update
+    function updateWishlistCardRating(itemId, itemType, rating) {
+        if (!dom.wishlistResult || !dom.wishlistResult.length) {
+            return;
+        }
+        const selector = `.rating-star[data-track-id='${itemId}'][data-item-type='${itemType}']`;
+        const star = dom.wishlistResult.find(selector).first();
+        if (!star.length) {
+            return;
+        }
+        const wrap = star.closest('.d-flex');
+        if (!wrap.length) {
+            return;
+        }
+        wrap.replaceWith(renderRatingStars({ id: itemId, rating }, itemType));
+    }
+
+    //  card removal bez rerenderu
+    function removeWishlistCard(itemId, itemType) {
+        if (!dom.wishlistResult || !dom.wishlistResult.length) {
+            return;
+        }
+        const card = dom.wishlistResult
+            .find(`.remove-from-wishlist[data-track-id='${itemId}'][data-item-type='${itemType}']`)
+            .closest('.card');
+        if (card.length) {
+            card.remove();
+        }
+        if (!dom.wishlistResult.find('.card').length) {
+            dom.wishlistResult.html('<div class="alert alert-info">Seznam přání je prázdný.</div>');
+        }
+    }
+
     function refreshSearchButtons() {
         if (!dom.searchResult || !dom.searchResult.length) {
             return;
@@ -355,11 +511,13 @@
             return;
         }
 
-        const items = getWishlist()
-            .filter((item) => normalizeType(item) === viewType)
+        const items = getWishlistByType(viewType)
             .sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
 
-        const lastItems = items.slice(0, 5);
+        const lastItems = items.slice(0, 5).map((item) => {
+            const artistName = item.artistName || (item.artists && item.artists[0] ? item.artists[0].name : '') || 'Neznámý interpret';
+            return { ...item, artistName };
+        });
         if (!lastItems.length) {
             list.html('<div class="text-light small">Zatím nic.</div>');
             return;
@@ -417,7 +575,7 @@
 
         current.rating = rating;
         modal.data('item', current);
-        $('#detailRating').html(renderModalRatingStars(current));
+        dom.detailRating.html(renderModalRatingStars(current));
     }
 
     $(document).ready(function() {
@@ -477,32 +635,37 @@
             const release = $btn.attr('data-release') || 'Neznámé';
             const durationMs = Number($btn.attr('data-duration')) || 0;
             const trackNumber = $btn.attr('data-track-number') || '';
-            const totalTracks = $btn.attr('data-total-tracks') || '';
+            const totalTracksRaw = $btn.attr('data-total-tracks') || '';
+            const totalTracks = totalTracksRaw && totalTracksRaw !== '?' ? Number(totalTracksRaw) : null;
             const albumId = $btn.attr('data-album-id') || itemId;
             const coverUrl = $btn.attr('data-cover-url') || '';
 
-            $('#detailName').text(name);
-            $('#detailArtist').text(artist);
-            $('#detailAlbum').text(album);
-            $('#detailGenre').text(genre);
-            $('#detailRelease').text(release);
+            dom.detailName.text(name);
+            dom.detailArtist.text(artist);
+            dom.detailAlbum.text(album);
+            dom.detailGenre.text(genre);
+            dom.detailRelease.text(release);
 
             if (coverUrl) {
-                $('#detailCover').attr('src', coverUrl).show();
-                $('#detailCoverWrap').show();
+                dom.detailCover.attr('src', coverUrl).show();
+                dom.detailCoverWrap.show();
             } else {
-                $('#detailCover').attr('src', '').hide();
-                $('#detailCoverWrap').hide();
+                dom.detailCover.attr('src', '').hide();
+                dom.detailCoverWrap.hide();
             }
 
-            $('#detailDuration').text(durationMs ? formatDuration(durationMs) : '');
-            $('#detailTrackNumber').text(trackNumber);
-            $('#detailTotalTracks').text(totalTracks);
+            dom.detailDuration.text(durationMs ? formatDuration(durationMs) : '');
+            dom.detailTrackNumber.text(trackNumber);
 
-            $('#detailAlbumRow').toggle(itemType === 'track');
-            $('#detailDurationRow').toggle(itemType === 'track');
-            $('#detailTrackNumberRow').toggle(itemType === 'track');
-            $('#detailTotalTracksRow').toggle(itemType === 'album');
+            const displayTotalTracks = itemType === 'album'
+                ? (totalTracks != null ? totalTracks : '?')
+                : totalTracks;
+            dom.detailTotalTracks.text(displayTotalTracks != null && displayTotalTracks !== '' ? displayTotalTracks : '?');
+
+            dom.detailAlbumRow.toggle(itemType === 'track');
+            dom.detailDurationRow.toggle(itemType === 'track');
+            dom.detailTrackNumberRow.toggle(itemType === 'track');
+            dom.detailTotalTracksRow.toggle(itemType === 'album');
 
             const albumTracksContainer = dom.detailAlbumTracks;
             albumTracksContainer.empty();
@@ -518,20 +681,26 @@
                 releaseDate: release,
                 durationMs,
                 trackNumber,
-                totalTracks,
+                totalTracks: displayTotalTracks,
                 rating: 0,
                 coverUrl
             });
 
+            const key = ratingKey(itemId, itemType);
             const storedItem = findWishlistItem(itemId, itemType) || findWishlistItem(itemId);
+            const pendingRating = pendingRatings.get(key);
             if (storedItem) {
                 const current = modal.data('item');
                 current.rating = getRating(storedItem);
                 modal.data('item', current);
+            } else if (pendingRating != null) {
+                const current = modal.data('item');
+                current.rating = pendingRating;
+                modal.data('item', current);
             }
 
             updateModalWishlistButtons();
-            $('#detailRating').html(renderModalRatingStars(modal.data('item')));
+            dom.detailRating.html(renderModalRatingStars(modal.data('item')));
 
             if (itemType === 'album' && albumId) {
                 const storedToken = localStorage.getItem('sp2_access_token');
@@ -604,8 +773,8 @@
             refreshLastSaved();
             focusLastSavedType(payload.type || 'track');
             if (dom.wishlistResult && dom.wishlistResult.length) {
-                const activeType = $('.wishlist-type-btn.active').data('type') || 'track';
-                renderWishlist(getWishlist(), activeType);
+                const activeType = dom.wishlistTypeButtons.filter('.active').data('type') || 'track';
+                renderWishlist(getWishlistByType(activeType), activeType);
             }
         });
 
@@ -616,13 +785,12 @@
                 return;
             }
 
+            pendingRatings.delete(ratingKey(item.id, item.type));
             removeFromWishlist(item.id, item.type);
             updateModalWishlistButtons();
             refreshLastSaved();
-            if (dom.wishlistResult && dom.wishlistResult.length) {
-                const activeType = $('.wishlist-type-btn.active').data('type') || 'track';
-                renderWishlist(getWishlist(), activeType);
-            }
+            removeWishlistCard(item.id, item.type || 'track');
+            refreshSearchButtons();
         });
 
         $(document).on('click', '.modal-rating-star', function() {
@@ -634,9 +802,25 @@
                 return;
             }
 
-            const items = getWishlist();
+            const key = ratingKey(trackId, itemType);
+            const items = getWishlistByType(itemType);
+            const hasItem = items.some((item) => normalizeId(item.id) === normalizeId(trackId) && normalizeType(item) === itemType);
+
+            // Pokud položka není v seznamu, jen si rating zapamatuj (pending) a aktualizuj modal; do wishlistu nepíše
+            if (!hasItem) {
+                pendingRatings.set(key, rating);
+                const modal = dom.detailsModal;
+                if (modal && modal.length) {
+                    const current = modal.data('item') || {};
+                    current.rating = rating;
+                    modal.data('item', current);
+                    dom.detailRating.html(renderModalRatingStars(current));
+                }
+                return;
+            }
+
             const updated = items.map((item) => {
-                if (item.id === trackId && normalizeType(item) === itemType) {
+                if (normalizeId(item.id) === normalizeId(trackId) && normalizeType(item) === itemType) {
                     return {
                         ...item,
                         rating
@@ -645,11 +829,10 @@
                 return item;
             });
 
-            saveWishlist(updated);
+            writeListByType(itemType, updated);
+            pendingRatings.delete(key);
             syncModalRatingDisplay(trackId, itemType, rating);
-            if ($('#wishlistResult').length) {
-                renderWishlist(updated, $('.wishlist-type-btn.active').data('type') || 'track');
-            }
+            updateWishlistCardRating(trackId, itemType, rating);
         });
 
         searchResult.on('click', '.add-to-wishlist', function() {
@@ -735,7 +918,9 @@
         });
 
         if (wishlistResult.length) {
-            const buttons = $('.wishlist-type-btn');
+            const buttons = (dom.wishlistTypeButtons && dom.wishlistTypeButtons.length)
+                ? dom.wishlistTypeButtons
+                : $('.wishlist-type-btn');
             let viewType = 'track';
 
             const setActiveButton = () => {
@@ -744,7 +929,7 @@
             };
 
             const renderCurrent = () => {
-                renderWishlist(getWishlist(), viewType);
+                renderWishlist(getWishlistByType(viewType), viewType);
             };
 
             setActiveButton();
@@ -769,9 +954,9 @@
                     return;
                 }
 
-                const items = getWishlist();
+                const items = getWishlistByType(itemType);
                 const updated = items.map((item) => {
-                    if (item.id === trackId && normalizeType(item) === itemType) {
+                    if (normalizeId(item.id) === normalizeId(trackId) && normalizeType(item) === itemType) {
                         return {
                             ...item,
                             rating
@@ -780,8 +965,8 @@
                     return item;
                 });
 
-                saveWishlist(updated);
-                renderWishlist(updated, viewType);
+                writeListByType(itemType, updated);
+                updateWishlistCardRating(trackId, itemType, rating);
                 syncModalRatingDisplay(trackId, itemType, rating);
             });
 
@@ -789,21 +974,24 @@
                 const trackId = $(this).data('trackId');
                 const itemType = $(this).data('itemType') || 'track';
                 const updated = removeFromWishlist(trackId, itemType);
-                renderWishlist(updated, viewType);
+                removeWishlistCard(trackId, itemType);
                 refreshLastSaved();
+                refreshSearchButtons();
             });
         }
     });
 
     // Allow other modules to refresh wishlist rendering on demand (e.g., when switching SPA views)
     app.wishlist.renderWishlistView = (viewType) => {
-        const buttons = $('.wishlist-type-btn');
+        const buttons = (dom.wishlistTypeButtons && dom.wishlistTypeButtons.length)
+            ? dom.wishlistTypeButtons
+            : $('.wishlist-type-btn');
         const type = viewType || buttons.filter('.active, .pill-active').data('type') || 'track';
         if (buttons.length) {
             buttons.removeClass('active pill-active');
             buttons.filter(`[data-type='${type}']`).addClass('active pill-active');
         }
-        renderWishlist(getWishlist(), type);
+        renderWishlist(getWishlistByType(type), type);
     };
 
     app.wishlist.getWishlist = getWishlist;

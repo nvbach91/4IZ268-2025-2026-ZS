@@ -1,45 +1,25 @@
-const CLIENT_ID = '76cc8800f1e94cf8bd6a5e4527b96255';
-const CLIENT_SECRET = '33b87d6e09d6406084fdd0a345935ba2';
-const REDIRECT_URI = 'https://eso.vse.cz/~malj23/sp2/index.html';
-const ACCESS_TOKEN_KEY = 'sp2_access_token';
-const ACCESS_TOKEN_EXPIRY_KEY = 'sp2_access_token_expires_at';
-
 window.App = window.App || {};
 const app = window.App;
-app.config = app.config || { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI };
+app.config = app.config || {};
 app.state = app.state || {};
 
 const el = app.elements || {};
 const $get = (cached, selector) => (cached && cached.length) ? cached : $(selector);
 
 const state = {
-    accessToken: app.state.accessToken || '',
     currentSearch: null,
     currentResults: [],
     pageLimit: 20,
     searchCacheKey: 'sp2_search_cache'
 };
 
-// Omezíme počet alb, pro která taháme tracklist, aby se nesesypaly requesty (429).
-const MAX_ALBUMS_PER_TRACK_FETCH = 8;
-
-const ENTER_DELAY_MS = 350;
-
-app.state.accessToken = state.accessToken;
+const ENTER_DELAY_MS = 0;
 
 $(document).ready(function() {
-    restoreAccessToken();
-    setupLoginHandler();
     setupSearchHandler();
     setupArtistSuggestions();
     setupViewSwitch();
     localStorage.removeItem(state.searchCacheKey);
-
-    const code = new URLSearchParams(window.location.search).get('code');
-    if (code) {
-        app.renderLoginSuccess(code);
-        handleTokenExchange(code);
-    }
 });
 
 function setupViewSwitch() {
@@ -73,43 +53,6 @@ function setupViewSwitch() {
     $navWishlist.on('click', () => activateView('wishlist'));
 }
 
-function restoreAccessToken() {
-    const storedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
-    const storedExpiry = localStorage.getItem(ACCESS_TOKEN_EXPIRY_KEY);
-    const expiry = storedExpiry ? Number(storedExpiry) : 0;
-
-    if (storedToken && (!expiry || Date.now() < expiry)) {
-        state.accessToken = storedToken;
-        app.state.accessToken = storedToken;
-        app.renderTokenSuccess();
-        showLogoutButton();
-    }
-}
-
-function setupLoginHandler() {
-    const $loginBtn = $get(el.loginBtn, '#loginBtn');
-    if (!$loginBtn.length) {
-        return;
-    }
-
-    $loginBtn.off('click').on('click', function() {
-        if (app && typeof app.setLoading === 'function') {
-            app.setLoading(true, 'Přihlašuji...');
-        }
-
-        const scope = 'user-read-private user-read-email';
-        const url = new URL('https://accounts.spotify.com/authorize');
-        url.search = new URLSearchParams({
-            client_id: CLIENT_ID,
-            response_type: 'code',
-            redirect_uri: REDIRECT_URI,
-            scope
-        }).toString();
-
-        window.location = url.toString();
-    });
-}
-
 function setupSearchHandler() {
     setupGenreInputs();
     setupSearchTypeSwitch();
@@ -124,6 +67,11 @@ function setupSearchHandler() {
     const $searchTypeSelect = $get(el.searchTypeSelect, '#searchTypeSelect');
     const $filtersForm = $get(el.filtersForm, '#filtersForm');
 
+    // Force album-only flow
+    if ($searchTypeSelect.length) {
+        $searchTypeSelect.val('album').prop('disabled', true);
+    }
+
     if (!$searchBtn.length) {
         return;
     }
@@ -133,24 +81,13 @@ function setupSearchHandler() {
             event.preventDefault();
         }
 
-        if (!state.accessToken) {
-            app.renderSearchWarning('Nejprve se přihlaste.');
-            return;
-        }
-
         const artistName = $artistInput.val().trim();
         const genreText = $genreInput.val().trim();
         const genrePick = $genreSelect.val();
         const genre = genreText || genrePick;
         const releaseFrom = $releaseFromInput.val();
         const releaseTo = $releaseToInput.val();
-        const searchType = $searchTypeSelect.val() || 'track';
-
-        if (!artistName) {
-            app.renderSearchWarning('Vyberte interpreta.');
-            updateLoadMoreButton(0, 0);
-            return;
-        }
+        const searchType = 'album';
 
         if (releaseFrom && releaseTo && releaseFrom > releaseTo) {
             app.renderSearchWarning('Datum vydání Od musí být dříve než Do.');
@@ -165,11 +102,8 @@ function setupSearchHandler() {
             searchType,
             offset: 0,
             total: 0,
-            tracksCache: null,
-            cacheKey: null,
             albumsCache: null,
             cacheKeyAlbum: null,
-            tracksByAlbumCache: new Map(),
             artistId: null
         };
         state.currentResults = [];
@@ -232,7 +166,7 @@ function setupArtistSuggestions() {
         }
 
         const html = items.map((artist) => `
-            <div class='suggestion-item' data-name='${artist.name}'>
+            <div class="suggestion-item" data-name="${artist.name}">
                 ${artist.name}
             </div>
         `).join('');
@@ -242,7 +176,7 @@ function setupArtistSuggestions() {
 
     $artistInput.on('input', function() {
         const value = $(this).val().trim();
-        if (!value || value.length < 2 || !state.accessToken) {
+        if (!value || value.length < 2) {
             hideList();
             return;
         }
@@ -314,36 +248,10 @@ function setupSearchTypeSwitch() {
         return;
     }
 
-    setSearchTypeUI($searchTypeSelect.val() || 'track');
-
-    $switchEl.on('click', '.pill', function() {
-        const nextType = $(this).data('type');
-        if (!nextType) {
-            return;
-        }
-        setSearchTypeUI(nextType);
-
-        if (!state.currentSearch) {
-            return;
-        }
-
-        state.currentSearch.searchType = nextType;
-        state.currentSearch.offset = 0;
-        state.currentResults = [];
-
-        const cacheKey = buildCacheKey(state.currentSearch);
-        if (nextType === 'album' && state.currentSearch.albumsCache && state.currentSearch.cacheKeyAlbum === cacheKey) {
-            renderFromAlbumCache(state.currentSearch);
-            return;
-        }
-
-        if (nextType === 'track' && state.currentSearch.tracksCache && state.currentSearch.cacheKey === cacheKey) {
-            renderFromTrackCache(state.currentSearch);
-            return;
-        }
-
-        handleSearch(state.currentSearch);
-    });
+    // Lock UI to album search only
+    setSearchTypeUI('album');
+    $searchTypeSelect.val('album').prop('disabled', true);
+    $switchEl.addClass('pill-disabled');
 }
 
 function setSearchTypeUI(type) {
@@ -362,26 +270,6 @@ function setSearchTypeUI(type) {
 
 function buildCacheKey(filters) {
     return `${filters.artistName}|${filters.genre}|${filters.releaseFrom || ''}|${filters.releaseTo || ''}`;
-}
-
-function renderFromAlbumCache(filters) {
-    const filteredAlbums = filterAlbumsByReleaseDate(filters.albumsCache || [], filters.releaseFrom, filters.releaseTo);
-    const recentAlbums = filteredAlbums
-        .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
-        .slice(0, state.pageLimit);
-
-    filters.total = filteredAlbums.length;
-    state.currentResults = recentAlbums;
-    app.renderAlbumResults(state.currentResults, buildSearchLabel(filters), filters.genre);
-    updateLoadMoreButton(filters.offset || 0, filters.total || 0);
-}
-
-function renderFromTrackCache(filters) {
-    const pageItems = (filters.tracksCache || []).slice(0, state.pageLimit);
-    filters.total = (filters.tracksCache || []).length;
-    state.currentResults = pageItems;
-    app.renderSearchResults(state.currentResults, `Nejnovější skladby od ${filters.artistName}`, filters.genre || '');
-    updateLoadMoreButton(filters.offset || 0, filters.total || 0);
 }
 
 async function ensureArtistAlbumsCache(filters, cacheKey) {
@@ -408,70 +296,6 @@ async function ensureArtistAlbumsCache(filters, cacheKey) {
     return filters.albumsCache.length > 0;
 }
 
-async function buildTracksFromAlbums(filters) {
-    const albums = (filters.albumsCache || [])
-        .slice()
-        .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
-        .slice(0, MAX_ALBUMS_PER_TRACK_FETCH);
-    let tracks = [];
-
-    if (!filters.tracksByAlbumCache || !(filters.tracksByAlbumCache instanceof Map)) {
-        filters.tracksByAlbumCache = new Map();
-    }
-
-    for (const album of albums) {
-        if (filters.tracksByAlbumCache.has(album.id)) {
-            tracks = tracks.concat(filters.tracksByAlbumCache.get(album.id));
-            continue;
-        }
-
-        const tracksData = await app.api.fetchTracksByAlbum(album.id);
-        if (!tracksData.items) {
-            continue;
-        }
-
-        const albumTracks = tracksData.items.map((track) => ({
-            ...track,
-            album: {
-                name: album.name,
-                release_date: album.release_date,
-                id: album.id,
-                images: album.images
-            }
-        }));
-
-        filters.tracksByAlbumCache.set(album.id, albumTracks);
-        tracks = tracks.concat(albumTracks);
-    }
-
-    const filteredTracks = filterTracksByReleaseDate(tracks, filters.releaseFrom, filters.releaseTo);
-    return filteredTracks.sort((a, b) => parseSpotifyDate(b.album.release_date) - parseSpotifyDate(a.album.release_date));
-}
-
-async function buildTracksFromSearchQuery(query, releaseFrom, releaseTo, pages = 3, relaxIfEmpty = false) {
-    let tracks = [];
-
-    for (let page = 0; page < pages; page++) {
-        const offset = page * state.pageLimit;
-        const data = await app.api.fetchTracksByQuery(query, offset, state.pageLimit);
-        const items = data.tracks && data.tracks.items ? data.tracks.items : [];
-        tracks = tracks.concat(items);
-
-        if (!data.tracks || !data.tracks.next) {
-            break;
-        }
-    }
-
-    const filteredTracks = filterTracksByReleaseDate(tracks, releaseFrom, releaseTo);
-    if (!filteredTracks.length && relaxIfEmpty) {
-        const fallback = dedupeTracks(tracks);
-        return fallback.sort((a, b) => parseSpotifyDate(b.album.release_date) - parseSpotifyDate(a.album.release_date));
-    }
-
-    const deduped = dedupeTracks(filteredTracks);
-    return deduped.sort((a, b) => parseSpotifyDate(b.album.release_date) - parseSpotifyDate(a.album.release_date));
-}
-
 function setupGenreInputs() {
     const $genreSelect = $get(el.genreSelect, '#genreSelect');
     const $genreInput = $get(el.genreInput, '#genreInput');
@@ -496,66 +320,25 @@ function setupGenreInputs() {
     });
 }
 
-async function handleTokenExchange(code) {
-    try {
-        const data = await app.api.exchangeCodeForToken(code);
-        if (data.access_token) {
-            state.accessToken = data.access_token;
-            app.state.accessToken = state.accessToken;
-            persistAccessToken(data);
-            app.renderTokenSuccess();
-            showLogoutButton();
-        } else {
-            app.renderTokenError(data);
-            clearStoredAccessToken();
-        }
-    } catch (error) {
-        app.renderTokenError(error.message);
-        clearStoredAccessToken();
-    } finally {
-        // Remove the one-time code from the URL to avoid reusing it on refresh (invalid_grant)
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-}
-
-function showLogoutButton() {
-    app.renderLogoutButton();
-    $('#logoutBtn').on('click', function() {
-        logout();
-    });
-}
-
-function logout() {
-    state.accessToken = '';
-    app.state.accessToken = '';
-    clearStoredAccessToken();
-    $get(el.result, '#result').empty();
-    $get(el.searchResult, '#searchResult').empty();
-    $get(el.loginBtn, '#loginBtn').show();
-    setupLoginHandler();
-    window.history.replaceState({}, document.title, window.location.pathname);
-    app.renderLogoutSuccess();
-}
-
-function persistAccessToken(data) {
-    localStorage.setItem(ACCESS_TOKEN_KEY, data.access_token);
-    if (data.expires_in) {
-        const expiresAt = Date.now() + Number(data.expires_in) * 1000;
-        localStorage.setItem(ACCESS_TOKEN_EXPIRY_KEY, String(expiresAt));
-    } else {
-        localStorage.removeItem(ACCESS_TOKEN_EXPIRY_KEY);
-    }
-}
-
-function clearStoredAccessToken() {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-    localStorage.removeItem(ACCESS_TOKEN_EXPIRY_KEY);
-}
-
 async function handleSearch(filters, append = false) {
     const warn = (message) => {
         app.renderSearchWarning(message);
         updateLoadMoreButton(filters.offset || 0, filters.total || 0);
+    };
+
+    const ensureAlbumArtist = (albums, fallbackArtist) => {
+        const fallback = fallbackArtist || '';
+        return (albums || []).map((album) => {
+            const artistName = album.artistName
+                || (album.artists && album.artists[0] ? album.artists[0].name : '')
+                || fallback
+                || 'Neznámý interpret';
+            return {
+                ...album,
+                artistName,
+                artists: album.artists && album.artists.length ? album.artists : [{ name: artistName }]
+            };
+        });
     };
 
     const setResults = (items, renderer, label, genreLabel, dedupe = false) => {
@@ -574,7 +357,7 @@ async function handleSearch(filters, append = false) {
     const getPage = (items) => items.slice(filters.offset || 0, (filters.offset || 0) + state.pageLimit);
 
     try {
-        const { artistName, genre, releaseFrom, releaseTo, searchType } = filters;
+        const { artistName, genre, releaseFrom, releaseTo } = filters;
         const effectiveReleaseFrom = releaseFrom || '';
         const effectiveReleaseTo = releaseTo || '';
         const searchQuery = buildSearchQuery(artistName, genre);
@@ -583,122 +366,73 @@ async function handleSearch(filters, append = false) {
         const cacheKey = buildCacheKey(filters);
 
         if (!append) {
-            app.renderSearchLoading(searchLabel, searchType);
+            app.renderSearchLoading(searchLabel);
         }
+        // Album-only flow
+        if (artistName) {
+            const cacheReady = await ensureArtistAlbumsCache(filters, cacheKey);
+            if (!cacheReady) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
+                return;
+            }
 
-        if (searchType === 'album') {
-            if (artistName) {
-                const cacheReady = await ensureArtistAlbumsCache(filters, cacheKey);
-                if (!cacheReady) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                    return;
-                }
+            const filteredAlbums = ensureAlbumArtist(
+                filterAlbumsByReleaseDate(filters.albumsCache || [], effectiveReleaseFrom, effectiveReleaseTo),
+                artistName
+            );
+            const recentAlbums = filteredAlbums
+                .sort((a, b) => parseReleaseDateValue(b.release_date) - parseReleaseDateValue(a.release_date))
+                .slice(filters.offset || 0, (filters.offset || 0) + state.pageLimit);
+            filters.total = filteredAlbums.length;
 
-                const filteredAlbums = filterAlbumsByReleaseDate(filters.albumsCache || [], effectiveReleaseFrom, effectiveReleaseTo);
-                const recentAlbums = filteredAlbums
-                    .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
-                    .slice(filters.offset || 0, (filters.offset || 0) + state.pageLimit);
-                filters.total = filteredAlbums.length;
+            if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre, true)) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
+            }
+        } else if (!searchQuery) {
+            const albumData = await app.api.fetchNewReleases(filters.offset || 0, state.pageLimit);
+            const items = albumData.albums && albumData.albums.items ? albumData.albums.items : [];
+            if (!items.length) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
+                return;
+            }
 
-                if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre, true)) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                }
-            } else if (!searchQuery) {
-                const albumData = await app.api.fetchNewReleases(filters.offset || 0, state.pageLimit);
-                const items = albumData.albums && albumData.albums.items ? albumData.albums.items : [];
-                if (!items.length) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                    return;
-                }
+            filters.total = albumData.albums.total || 0;
+            const filteredAlbums = ensureAlbumArtist(
+                filterAlbumsByReleaseDate(items, effectiveReleaseFrom, effectiveReleaseTo),
+                artistName
+            );
+            const recentAlbums = filteredAlbums
+                .sort((a, b) => parseReleaseDateValue(b.release_date) - parseReleaseDateValue(a.release_date))
+                .slice(0, state.pageLimit);
 
-                filters.total = albumData.albums.total || 0;
-                const filteredAlbums = filterAlbumsByReleaseDate(items, effectiveReleaseFrom, effectiveReleaseTo);
-                const recentAlbums = filteredAlbums
-                    .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
-                    .slice(0, state.pageLimit);
-
-                if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre)) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                }
-            } else {
-                const albumData = await app.api.fetchAlbumsByQuery(searchQuery, filters.offset || 0, state.pageLimit);
-                const items = albumData.albums && albumData.albums.items ? albumData.albums.items : [];
-                if (!items.length) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                    return;
-                }
-
-                filters.total = albumData.albums.total || 0;
-                const filteredAlbums = filterAlbumsByReleaseDate(items, releaseFrom, releaseTo);
-                const recentAlbums = filteredAlbums
-                    .sort((a, b) => parseSpotifyDate(b.release_date) - parseSpotifyDate(a.release_date))
-                    .slice(0, state.pageLimit);
-
-                if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre)) {
-                    warn('Pro zadané filtry nebyla nalezena žádná alba.');
-                }
+            if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre)) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
             }
         } else {
-            if (artistName) {
-                const cacheReady = await ensureArtistAlbumsCache(filters, cacheKey);
-                if (!cacheReady) {
-                    warn('Pro zadané filtry nebyly nalezeny žádné skladby.');
-                    return;
-                }
+            const albumData = await app.api.fetchAlbumsByQuery(searchQuery, filters.offset || 0, state.pageLimit);
+            const items = albumData.albums && albumData.albums.items ? albumData.albums.items : [];
+            if (!items.length) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
+                return;
+            }
 
-                if (!filters.tracksCache || filters.cacheKey !== cacheKey) {
-                    filters.cacheKey = cacheKey;
-                    filters.tracksCache = await buildTracksFromAlbums(filters);
-                    filters.total = filters.tracksCache.length;
-                    filters.offset = 0;
-                }
+            filters.total = albumData.albums.total || 0;
+            const filteredAlbums = ensureAlbumArtist(
+                filterAlbumsByReleaseDate(items, releaseFrom, releaseTo),
+                artistName
+            );
+            const recentAlbums = filteredAlbums
+                .sort((a, b) => parseReleaseDateValue(b.release_date) - parseReleaseDateValue(a.release_date))
+                .slice(0, state.pageLimit);
 
-                const pageItems = getPage(filters.tracksCache);
-                if (!setResults(pageItems, app.renderSearchResults, '', genre || '', true)) {
-                    warn('Pro zadané filtry nebyly nalezeny žádné skladby.');
-                }
-            } else if (!searchQuery) {
-                if (!filters.tracksCache || filters.cacheKey !== cacheKey) {
-                    const albumData = await app.api.fetchNewReleases(0, state.pageLimit);
-                    const albums = albumData.albums ? albumData.albums.items || [] : [];
-                    filters.albumsCache = albums;
-                    filters.cacheKeyAlbum = cacheKey;
-                    filters.cacheKey = cacheKey;
-                    filters.tracksCache = await buildTracksFromAlbums(filters);
-                    filters.total = filters.tracksCache.length;
-                    filters.offset = 0;
-                }
-
-                const pageItems = getPage(filters.tracksCache);
-                if (!setResults(pageItems, app.renderSearchResults, '', genre || '', true)) {
-                    warn('Pro zadané filtry nebyly nalezeny žádné skladby.');
-                }
-            } else {
-                if (!filters.tracksCache || filters.cacheKey !== cacheKey) {
-                    filters.cacheKey = cacheKey;
-                    filters.tracksCache = await buildTracksFromSearchQuery(searchQuery, effectiveReleaseFrom, effectiveReleaseTo, 8, false);
-                    filters.total = filters.tracksCache.length;
-                    filters.offset = 0;
-                }
-
-                const pageItems = getPage(filters.tracksCache);
-                if (!setResults(pageItems, app.renderSearchResults, '', genre || '', true)) {
-                    warn('Pro zadané filtry nebyly nalezeny žádné skladby.');
-                }
+            if (!setResults(recentAlbums, app.renderAlbumResults, albumLabel, genre)) {
+                warn('Pro zadané filtry nebyla nalezena žádná alba.');
             }
         }
 
         updateLoadMoreButton(filters.offset || 0, filters.total || 0);
     } catch (error) {
-        if (error && (String(error.message).toLowerCase().includes('token') || String(error.message).toLowerCase().includes('grant') || error.status === 401)) {
-            clearStoredAccessToken();
-            state.accessToken = '';
-            app.state.accessToken = '';
-            app.renderSearchWarning('Relace skončila, přihlaste se znovu.');
-            setupLoginHandler();
-        } else {
-            app.renderSearchError(error.message);
-        }
+        app.renderSearchError(error.message);
         updateLoadMoreButton(0, 0);
     }
 }
@@ -707,7 +441,7 @@ async function fetchAllArtistAlbums(artistId) {
     const albums = [];
     const seen = new Set();
     let offset = 0;
-    const limit = 50;
+    const limit = 100;
 
     while (true) {
         const data = await app.api.fetchArtistAlbums(artistId, offset, limit);
@@ -778,14 +512,10 @@ function cacheSearchState(filters, results) {
             total: filters.total
         },
         results,
-        cacheKey: filters.cacheKey || null,
         cacheKeyAlbum: filters.cacheKeyAlbum || null
     };
 
     const maxCacheItems = 200;
-    if (Array.isArray(filters.tracksCache) && filters.tracksCache.length <= maxCacheItems) {
-        payload.tracksCache = filters.tracksCache;
-    }
     if (Array.isArray(filters.albumsCache) && filters.albumsCache.length <= maxCacheItems) {
         payload.albumsCache = filters.albumsCache;
     }
@@ -825,7 +555,7 @@ function buildSearchLabel({ artistName, genre, releaseFrom, releaseTo }) {
     if (releaseFrom || releaseTo) {
         parts.push(`Datum: ${releaseFrom || 'libovolné'} – ${releaseTo || 'libovolné'}`);
     }
-    return parts.length ? parts.join(' | ') : 'Všechny skladby';
+    return parts.length ? parts.join(' | ') : 'Všechna alba';
 }
 
 function filterByReleaseDate(items, releaseFrom, releaseTo, getDate) {
@@ -840,7 +570,7 @@ function filterByReleaseDate(items, releaseFrom, releaseTo, getDate) {
     }
 
     return items.filter((item) => {
-        const itemDate = parseSpotifyDate(getDate(item));
+        const itemDate = parseReleaseDateValue(getDate(item));
         if (!itemDate) {
             return false;
         }
@@ -858,11 +588,7 @@ function filterAlbumsByReleaseDate(albums, releaseFrom, releaseTo) {
     return filterByReleaseDate(albums, releaseFrom, releaseTo, (album) => album.release_date);
 }
 
-function filterTracksByReleaseDate(tracks, releaseFrom, releaseTo) {
-    return filterByReleaseDate(tracks, releaseFrom, releaseTo, (track) => track.album.release_date);
-}
-
-function parseSpotifyDate(dateStr) {
+function parseReleaseDateValue(dateStr) {
     if (!dateStr) {
         return null;
     }
