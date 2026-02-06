@@ -10,49 +10,55 @@
 </head>
 <body class="homepage-bg">
     <div class="container-fluid">
-        <!-- top buttons -->
-        <div class="top-buttons">
-            <button class="top-btn" onclick="showShoppingList()">Shopping List</button>
-            <button class="top-btn" onclick="showFavorites()">Favorites</button>
-        </div>
-
-        <h1 class="main-title">Stop wasting food.</h1>
-        
-        <div class="search-container">
-            <input type="text" 
-                   id="ingredientInput" 
-                   class="search-input" 
-                   placeholder="Start typing your item here..."
-                   autocomplete="off">
-            <button class="add-btn" onclick="addIngredient()">+</button>
-        </div>
-        
-        <div class="info-text">Click to remove</div>
-        
-        <div id="ingredientsContainer" class="ingredients-container"></div>
-        
-        <button class="lookup-btn" id="lookupBtn" onclick="findRecipes()" disabled>
-            Show Recipes
+    <div class="top-buttons">
+        <button class="top-btn" id="shoppingListBtn">
+            Shopping List
+            <span class="badge" id="shoppingBadge">0</span>
+        </button>
+        <button class="top-btn" id="favoritesBtn">
+            Favorites
+            <span class="badge" id="favoritesBadge">0</span>
         </button>
     </div>
-
-    <!-- shopping list -->
+        <div id="searchSection">
+            <h1 class="main-title">Stop wasting food.</h1>
+            
+            <div class="search-container">
+                <input type="text" 
+                       id="ingredientInput" 
+                       class="search-input" 
+                       placeholder="Start typing your item here..."
+                       autocomplete="off">
+                <button class="add-btn" id="addIngredientBtn">+</button>
+            </div>
+            
+            <div class="info-text">Click to remove</div>
+            
+            <div id="ingredientsContainer" class="ingredients-container"></div>
+            
+            <button class="lookup-btn" id="lookupBtn" disabled>Lookup Recipes</button>
+        </div>
+        <div id="resultsSection" class="results-section">
+            <button class="back-btn" id="backBtn">← Back</button>
+            <h2 class="recipes-title">Found recipes</h2>
+            <div id="recipesContainer"></div>
+        </div>
+    </div>
     <div id="shoppingListModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeShoppingList()">&times;</span>
+            <span class="close" id="closeShoppingList">&times;</span>
             <h2>Shopping List</h2>
             <div id="shoppingListContent" class="shopping-list-content"></div>
             <div class="modal-buttons">
-                <button class="btn-clear" onclick="clearShoppingList()">Clear</button>
-                <button class="btn-print" onclick="printShoppingList()">Print</button>
+                <button class="btn-clear" id="clearShoppingBtn">Clear</button>
+                <button class="btn-print" id="printShoppingBtn">Print</button>
             </div>
         </div>
     </div>
 
-    <!-- fav -->
     <div id="favoritesModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeFavorites()">&times;</span>
+            <span class="close" id="closeFavorites">&times;</span>
             <h2>Favorites</h2>
             <div id="favoritesContent" class="favorites-content"></div>
         </div>
@@ -66,14 +72,13 @@
                 </div>
             </div>
             <div class="footer-right">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="footer-link">Youtube</a>
+                <a href="#" class="footer-link">how to use</a>
                 <span class="footer-divider">|</span>
-                <a href="https://www.instagram.com/?hl=en" class="footer-link">Instagram</a>
-                <span class="footer-divider">|</span>
-                <a href="https://x.com" class="footer-link">X (Twitter)</a>
+                <a href="#" class="footer-link">about</a>
             </div>
         </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="assets/main.js"></script>
 </body>
