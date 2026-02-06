@@ -1,0 +1,832 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0118;
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 64px;
+}
+
+
+.logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 1.6px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #00f5ff, #ff006e);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo-icon {
+    font-size: 40px;
+    -webkit-text-fill-color: #ffbe0b;
+
+}
+
+
+.findings-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17.5px;
+}
+
+.findings-toggle:hover {
+    border-color: #00f5ff;
+}
+
+.findings-count {
+    background: #ff006e;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14.5px;
+    font-weight: 700;
+}
+
+
+.discovery-prompt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    min-height: 60vh;
+
+}
+
+.prompt-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 74px;
+    line-height: 1;
+    margin-bottom: 25px;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #ffffff, #00f5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.prompt-subtitle {
+    font-size: 20px;
+    color: #b4b4b4;
+    margin-bottom: 50px;
+    font-weight: 400;
+}
+
+.discover-btn {
+    position: relative;
+    background: linear-gradient(135deg, #ff006e, #ffbe0b);
+    border: none;
+    color: white;
+    padding: 25px 50px;
+    font-size: 29px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Bebas Neue', sans-serif;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.discover-btn:hover {
+    box-shadow: 0 10px 40px rgba(255, 0, 110, 0.5);
+}
+
+
+.prompt-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.vinyl-disc {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle at center, rgb(10, 1, 24) 25%, transparent 25%),
+        conic-gradient(from 0deg,
+            rgb(255, 0, 110) 0deg,
+            rgb(0, 245, 255) 120deg,
+            rgb(255, 190, 11) 240deg,
+            rgb(255, 0, 110) 360deg);
+
+    animation: vinylSpin 8s linear infinite;
+    position: relative;
+}
+
+
+@keyframes vinylSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.artist-display {
+    animation: fadeInScale 0.6s ease;
+    max-width: 100%;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.artist-card {
+    background: rgba(26, 9, 51, 0.7);
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.artist-image-container {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+
+.artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.artist-info {
+    padding: 32px 48px 48px;
+}
+
+.artist-header {
+    margin-bottom: 40px;
+}
+
+.artist-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.artist-meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.popularity-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.popularity-bar {
+    width: 60px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.popularity-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgb(255, 0, 110),
+            rgb(255, 190, 11));
+    border-radius: 3px;
+    width: var(--popularity, 0%);
+    transition: width 0.8s ease;
+}
+
+.genres {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.genre-tag {
+    background: rgba(0, 245, 255, 0.1);
+    color: rgb(0, 245, 255);
+    padding: 6px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    color: rgb(0, 245, 255);
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pagination-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(0, 245, 255, 0.2);
+    border-color: rgb(0, 245, 255);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: rgb(180, 180, 180);
+    font-weight: 600;
+    min-width: 50px;
+    text-align: center;
+}
+
+
+.tracks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.track-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 245, 255, 0.2);
+}
+
+.track-number {
+    font-weight: 700;
+    color: rgb(255, 0, 110);
+    font-size: 18px;
+    min-width: 30px;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.track-album {
+    font-size: 14px;
+    color: rgb(180, 180, 180);
+}
+
+.track-duration {
+    font-size: 14px;
+    color: rgb(180, 180, 180);
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.track-spotify-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(29, 185, 84, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.track-spotify-link:hover {
+    background: rgba(29, 185, 84, 0.2);
+    transform: scale(1.1);
+}
+
+.spotify-icon {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.related-artists {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+}
+
+.related-artist {
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.related-artist:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.related-artist-image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border: 3px solid rgba(0, 245, 255, 0.3);
+}
+
+.related-artist-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+
+.artist-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.save-btn,
+.discover-another-btn {
+    flex: 1;
+    padding: 20px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 19px;
+}
+
+.save-btn {
+    background: linear-gradient(135deg, rgb(255, 0, 110), rgb(255, 190, 11));
+    color: white;
+}
+
+.save-btn:hover {
+    box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+}
+
+.save-btn.saved {
+    background: #333;
+    color: rgb(180, 180, 180);
+}
+
+.discover-another-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.discover-another-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgb(0, 245, 255);
+
+}
+
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 32px;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top-color: rgb(255, 0, 110);
+    border-right-color: rgb(0, 245, 255);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 20px;
+    color: rgb(180, 180, 180);
+    animation: loadingPulse 1.5s ease infinite;
+}
+
+@keyframes loadingPulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+.findings-panel {
+    position: fixed;
+    top: 0;
+    right: -500px;
+    width: 500px;
+    height: 100vh;
+    background: rgba(10, 1, 24, 0.98);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 32px;
+    transition: right 0.4s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.findings-panel.active {
+    right: 0;
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+}
+
+.findings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.findings-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.1em;
+}
+
+.close-findings {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-findings:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.findings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty-findings {
+    text-align: center;
+    color: rgb(180, 180, 180);
+    padding: 64px 32px;
+}
+
+.finding-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    animation: slideInRight 0.4s ease;
+    cursor: pointer;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.finding-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 245, 255, 0.3);
+}
+
+.finding-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.finding-info {
+    flex: 1;
+}
+
+.finding-name {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.finding-genres {
+    font-size: 13px;
+    color: rgb(180, 180, 180);
+}
+
+.remove-finding {
+    background: rgba(255, 0, 110, 0.2);
+    border: none;
+    color: rgb(255, 0, 110);
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.remove-finding:hover {
+    background: rgb(255, 0, 110);
+    color: white;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: rgba(26, 9, 51, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    color: rgb(255, 0, 110);
+}
+
+.modal-message {
+    color: rgb(180, 180, 180);
+    margin-bottom: 32px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    min-width: 100px;
+}
+
+.modal-btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modal-btn-confirm {
+    background: linear-gradient(135deg, rgb(255, 0, 110), rgb(255, 190, 11));
+    color: white;
+}
+
+.modal-btn-confirm:hover {
+    box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+}
+
+
+
+@media (max-width: 1024px) {
+    .discovery-prompt {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .prompt-visual {
+        order: -1;
+    }
+
+    .vinyl-disc {
+        width: 250px;
+        height: 250px;
+    }
+
+    .findings-panel {
+        width: 100%;
+        right: -100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+
+    .header {
+        margin-bottom: 32px;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+
+    .findings-toggle {
+        font-size: 14.4px;
+        padding: 9.6px 16px;
+    }
+
+    .prompt-title {
+        font-size: 48px;
+    }
+
+    .artist-name {
+        font-size: 40px;
+    }
+
+    .artist-info {
+        padding: 24px;
+    }
+
+    .artist-actions {
+        flex-direction: column;
+    }
+
+    .related-artists {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
