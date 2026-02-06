@@ -67,4 +67,15 @@ export default class AnimeList {
     getAll() {
         return this.animes;
     }
+
+    getCounts() {
+        const counts = { watching: 0, completed: 0, plan_to_watch: 0, total: this.animes.length };
+        this.animes.forEach(a => {
+            const s = a.userStatus || 'plan_to_watch';
+            if (s === 'watching') counts.watching++;
+            else if (s === 'completed') counts.completed++;
+            else if (s === 'plan_to_watch') counts.plan_to_watch++;
+        });
+        return counts;
+    }
 }

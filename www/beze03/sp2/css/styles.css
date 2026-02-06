@@ -473,3 +473,117 @@ input[type="number"]:focus {
         transform: rotate(360deg);
     }
 }
+
+/* Helpers for inline style replacement */
+.detail-genres {
+    margin-bottom: 1rem;
+}
+
+.detail-trailer {
+    margin-top: 20px;
+}
+
+.detail-actions {
+    margin-top: 20px;
+}
+
+.detail-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.detail-link:hover {
+    text-decoration: underline;
+}
+
+.placeholder-text.error {
+    color: #ef4444;
+    border-color: #fecaca;
+    background-color: #fef2f2;
+}
+
+/* View Switching Navigation */
+.view-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.nav-btn {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    border-radius: 6px;
+}
+
+.nav-btn:hover {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.nav-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Status filter buttons */
+.anime-status-counts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.filter-button {
+  padding: 6px 12px;
+  border: 1px solid #e0e6ef;
+  background: #ffffff;
+  color: #0f1724;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease;
+}
+
+.filter-button strong {
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.filter-button:hover {
+  background: #f5f7fb;
+  border-color: #cfdaf1;
+}
+
+.filter-button.active {
+  background: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+
+.filter-button:focus {
+  outline: 3px solid rgba(37,99,235,0.18);
+  outline-offset: 2px;
+}
+
+/* Responsive: buttons stack / grow on very small screens */
+@media (max-width: 480px) {
+  .anime-status-counts { justify-content: center; }
+  .filter-button { flex: 1 1 auto; text-align: center; min-width: 0; }
+}

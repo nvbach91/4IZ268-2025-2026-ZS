@@ -10,7 +10,22 @@ const uiController = new UIController();
 // Load saved data on startup
 document.addEventListener('DOMContentLoaded', () => {
     animeList.load();
+    uiController.renderStatusCounts(animeList.getCounts());
+    uiController.onListViewSwitch = () => refreshMyList();
+});
+
+let currentFilter = 'all';
+
+const filterButtons = document.querySelectorAll('.filter-button');
+filterButtons.forEach(btn => {
+  // set initial active state based on currentFilter
+  if (btn.dataset.filter === currentFilter) btn.classList.add('active');
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
     refreshMyList();
+  });
 });
 
 // Search Form Handler
@@ -22,6 +37,7 @@ searchForm.addEventListener('submit', async (e) => {
     const query = searchInput.value.trim();
 
     if (!query) return;
+    uiController.switchView('search');
 
     uiController.showLoading();
 
@@ -34,6 +50,15 @@ searchForm.addEventListener('submit', async (e) => {
     }
 });
 
+uiController.onGenreClick = (genreId) => {
+    uiController.showLoading();
+    apiService.searchByGenre(genreId)
+        .then(results => {
+            uiController.renderSearchResults(results, handleAddToMyList, handleShowDetail);
+        })
+        .catch(err => uiController.showError(err.message));
+};
+
 // Handlers for List Interactions
 
 /**
@@ -42,7 +67,12 @@ searchForm.addEventListener('submit', async (e) => {
  */
 function handleAddToMyList(anime) {
     if (animeList.exists(anime.mal_id)) {
-        alert('Toto anime už máš v seznamu.');
+        Swal.fire({
+            title: 'Info',
+            text: 'Toto anime už máš v seznamu.',
+            icon: 'info',
+            confirmButtonText: 'OK'
+        });
         return;
     }
     animeList.add(anime);
@@ -59,7 +89,12 @@ async function handleShowDetail(id) {
         const data = await apiService.getAnimeDetail(id);
         uiController.openModal(data);
     } catch (error) {
-        alert('Nepodařilo se načíst detaily.');
+        Swal.fire({
+            title: 'Chyba',
+            text: 'Nepodařilo se načíst detaily.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
         uiController.closeModal(); // Close if error
     }
 }
@@ -80,6 +115,7 @@ function handleRemove(id) {
  */
 function handleUpdateStatus(id, newStatus) {
     animeList.update(id, { userStatus: newStatus });
+    uiController.renderStatusCounts(animeList.getCounts());
     const currentFilter = statusFilter.value;
     if (currentFilter !== 'all' && currentFilter !== newStatus) {
         refreshMyList();
@@ -93,28 +129,23 @@ function handleUpdateStatus(id, newStatus) {
  */
 function handleUpdateEpisodes(id, newCount) {
     animeList.update(id, { watchedEpisodes: newCount });
+    uiController.renderStatusCounts(animeList.getCounts());
 }
-
-// Filter Handler
-const statusFilter = document.getElementById('status-filter');
-statusFilter.addEventListener('change', () => {
-    refreshMyList();
-});
 
 /**
  * Refresh the My List UI
  */
 function refreshMyList() {
-    const filterValue = statusFilter.value;
+    const filterValue = currentFilter;
     let list = animeList.getAll();
 
     if (filterValue !== 'all') {
         list = list.filter(anime => anime.userStatus === filterValue);
     }
-
     uiController.renderMyList(list, {
         onRemove: handleRemove,
         onUpdateStatus: handleUpdateStatus,
         onUpdateEpisodes: handleUpdateEpisodes
     }, handleShowDetail);
+    uiController.renderStatusCounts(animeList.getCounts());
 }

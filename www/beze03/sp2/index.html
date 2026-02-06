@@ -18,34 +18,46 @@
                 <button type="submit">Hledat</button>
             </form>
         </div>
+        <div class="container">
+            <nav class="view-nav">
+                <button id="nav-search" class="nav-btn active">Vyhledávání</button>
+                <button id="nav-list" class="nav-btn">Můj Seznam</button>
+            </nav>
+        </div>
     </header>
 
-    <main class="container main-layout">
-        <!-- Left Panel: Search Results -->
-        <section class="panel left-panel">
-            <h2>Výsledky vyhledávání</h2>
-            <div id="search-results" class="anime-grid">
-                <!-- Search results will appear here -->
-                <p class="placeholder-text">Zadejte název anime pro vyhledávání.</p>
-            </div>
-        </section>
+    <main class="container">
+        <!-- View: Search Results -->
+        <div id="view-search">
+            <section class="panel">
+                <h2>Výsledky vyhledávání</h2>
+                <div id="search-results" class="anime-grid">
+                    <!-- Search results will appear here -->
+                    <p class="placeholder-text">Zadejte název anime pro vyhledávání.</p>
+                </div>
+            </section>
+        </div>
 
-        <!-- Right Panel: My Anime List -->
-        <section class="panel right-panel">
-            <h2>Můj seznam</h2>
-            <div class="filter-group">
-                <select id="status-filter">
-                    <option value="all">Vše</option>
-                    <option value="watching">Sleduji</option>
-                    <option value="completed">Dokončeno</option>
-                    <option value="plan_to_watch">Chci vidět</option>
-                </select>
-            </div>
-            <div id="my-anime-list" class="anime-list">
-                <!-- User's list will appear here -->
-                <p class="placeholder-text">Váš seznam je prázdný.</p>
-            </div>
-        </section>
+        <!-- View: My Anime List -->
+        <div id="view-list" class="hidden">
+            <section class="panel">
+                <h2>Můj seznam</h2>
+                <div class="anime-status-counts" id="anime-status-counts">
+                    <button class="filter-button" data-filter="watching">Sleduji: <strong
+                            id="count-watching">0</strong></button>
+                    <button class="filter-button" data-filter="completed">Dokončeno: <strong
+                            id="count-completed">0</strong></button>
+                    <button class="filter-button" data-filter="plan_to_watch">Chci vidět: <strong
+                            id="count-plan">0</strong></button>
+                    <button class="filter-button active" data-filter="all">Celkem: <strong
+                            id="count-total">0</strong></button>
+                </div>
+                <div id="my-anime-list" class="anime-list">
+                    <!-- User's list will appear here -->
+                    <p class="placeholder-text">Váš seznam je prázdný.</p>
+                </div>
+            </section>
+        </div>
     </main>
 
     <!-- Modal for Anime Details -->
@@ -70,7 +82,7 @@
                     </div>
                     <div class="anime-meta">
                         {{#genres}}
-                        <span>{{name}}</span>
+                        <button class="genre-tag" data-genre-id="{{id}}" data-genre-name="{{name}}">{{name}}</button>
                         {{/genres}}
                     </div>
                 </div>
@@ -116,7 +128,7 @@
                     <div><strong>Hodnocení:</strong> {{score}}</div>
                     <div><strong>Rok:</strong> {{year}}</div>
                 </div>
-                <div class="detail-genres" style="margin-bottom: 1rem;">
+                <div class="detail-genres">
                     {{#genres}}
                     <span>{{name}}</span>
                     {{/genres}}
@@ -125,17 +137,18 @@
                     <p>{{synopsis}}</p>
                 </div>
                 {{#trailer_url}}
-                <div style="margin-top:20px">
-                    <iframe src="{{trailer_url}}" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
+                <div class="detail-trailer">
+                    <iframe src="{{trailer_url}}" width="100%" height="315" frameborder="0" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
                 {{/trailer_url}}
-                <div style="margin-top: 20px;">
-                    <a href="{{url}}" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: bold;">Zobrazit na MyAnimeList &rarr;</a>
+                <div class="detail-actions">
+                    <a href="{{url}}" target="_blank" class="detail-link">Zobrazit na MyAnimeList &rarr;</a>
                 </div>
             </div>
         </div>
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="js/main.js"></script>
 </body>
 

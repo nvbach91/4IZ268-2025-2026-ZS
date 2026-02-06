@@ -10,7 +10,7 @@ export default class ApiService {
      */
     async searchAnime(query) {
         try {
-            const response = await fetch(`${this.baseUrl}/anime?q=${encodeURIComponent(query)}&limit=25`);
+            const response = await fetch(`${this.baseUrl}/anime?q=${encodeURIComponent(query)}`);
             if (!response.ok) {
                 throw new Error(`API Error: ${response.statusText}`);
             }
@@ -40,4 +40,25 @@ export default class ApiService {
             throw error;
         }
     }
+
+    /**
+    * Get all anime by genre
+    * @param {number} genreId - Genre ID
+    * @returns {Promise<Array>}
+    */
+    async searchByGenre(genreId) {
+        try {
+            const response = await fetch(`${this.baseUrl}/anime?genres=${genreId}`);
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.statusText}`);
+            }
+            const data = await response.json();
+            return data.data;
+        } catch (error) {
+            console.error('Failed to fetch by genre:', error);
+            throw error;
+        }
+    }
 }
+
+

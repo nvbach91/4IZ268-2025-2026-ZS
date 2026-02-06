@@ -7,7 +7,11 @@ export default class Anime {
         this.image_url = data.images?.jpg?.image_url || data.image_url || 'https://placehold.co/100x150?text=No+Image';
         this.episodes = data.episodes || '?';
         this.score = data.score || 'N/A';
-        this.genres = data.genres || [];
+        this.genres = (data.genres || []).map(g => ({
+            id: g.mal_id ?? g.id ?? null,
+            name: g.name ?? ''
+        }));
+
 
         // User specific data
         this.userStatus = userDefaults.userStatus || 'plan_to_watch'; // plan_to_watch, watching, completed

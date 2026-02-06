@@ -6,6 +6,16 @@ export default class UIController {
         this.searchResultsContainer = document.getElementById('search-results');
         this.myListContainer = document.getElementById('my-anime-list');
 
+        // View Elements
+        this.viewSearch = document.getElementById('view-search');
+        this.viewList = document.getElementById('view-list');
+        this.navSearch = document.getElementById('nav-search');
+        this.navList = document.getElementById('nav-list');
+
+        // Bind Nav Events
+        this.navSearch.addEventListener('click', () => this.switchView('search'));
+        this.navList.addEventListener('click', () => this.switchView('list'));
+
         // Modal Elements
         this.modal = document.getElementById('anime-modal');
         this.modalBody = document.getElementById('modal-body');
@@ -16,6 +26,14 @@ export default class UIController {
         this.myListCardTemplate = document.getElementById('my-list-card-template').innerHTML;
         this.modalDetailTemplate = document.getElementById('modal-detail-template').innerHTML;
 
+        // Pagination indices
+        this.itemsPerPage = 7;
+        this.currentSearchPage = 1;
+        this.currentListPage = 1;
+        this.totalSearchResults = 0;
+        this.totalListItems = 0;
+        this.onListViewSwitch = false;
+
         this.closeBtn.addEventListener('click', () => this.closeModal());
         window.addEventListener('click', (e) => {
             if (e.target === this.modal) this.closeModal();
@@ -25,6 +43,22 @@ export default class UIController {
                 this.closeModal();
             }
         });
+    }
+
+    switchView(viewName) {
+        if (viewName === 'search') {
+            this.viewSearch.classList.remove('hidden');
+            this.viewList.classList.add('hidden');
+            this.navSearch.classList.add('active');
+            this.navList.classList.remove('active');
+            this.myListContainer.innerHTML = '';
+        } else if (viewName === 'list') {
+            this.viewSearch.classList.add('hidden');
+            this.viewList.classList.remove('hidden');
+            this.navSearch.classList.remove('active');
+            this.navList.classList.add('active');
+            if (this.onListViewSwitch) this.onListViewSwitch();
+        }
     }
 
     /**
@@ -41,7 +75,24 @@ export default class UIController {
             return;
         }
 
-        apiDataList.forEach(data => {
+        this.totalSearchResults = apiDataList.length;
+        this.currentSearchPage = 1;
+        this.searchResultsData = apiDataList;
+        this.currentOnAdd = onAdd;
+        this.currentOnDetail = onDetail;
+
+        this.renderSearchPage(onAdd, onDetail);
+    }
+
+
+    renderSearchPage(onAdd, onDetail) {
+        const startIndex = (this.currentSearchPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        const pageData = this.searchResultsData.slice(startIndex, endIndex);
+
+        const fragment = document.createDocumentFragment();
+
+        pageData.forEach(data => {
             const anime = Anime.fromApi(data);
             const cardHtml = Mustache.render(this.animeCardTemplate, anime);
 
@@ -49,22 +100,41 @@ export default class UIController {
             tempDiv.innerHTML = cardHtml;
             const card = tempDiv.firstElementChild;
 
-            // Click on Image or Title -> Details (if onDetail is provided)
             if (onDetail) {
                 const triggerDetail = () => onDetail(anime.mal_id);
                 card.querySelector('.anime-img').addEventListener('click', triggerDetail);
                 card.querySelector('h3').addEventListener('click', triggerDetail);
             }
 
-            const btn = card.querySelector('button');
+            const btn = card.querySelector('button.action-btn');
             btn.addEventListener('click', () => {
                 onAdd(anime);
                 btn.textContent = 'Přidáno';
                 btn.disabled = true;
             });
 
-            this.searchResultsContainer.appendChild(card);
+            const genreTags = card.querySelectorAll('button.genre-tag');
+            genreTags.forEach(tag => {
+                tag.addEventListener('click', () => { 
+                    const genreId = tag.dataset.genreId;
+                    if (this.onGenreClick) this.onGenreClick(genreId);
+                });
+            });
+
+            fragment.appendChild(card);
         });
+
+        this.searchResultsContainer.innerHTML = '';
+        this.searchResultsContainer.appendChild(fragment);
+
+        this.appendPaginationControls(this.searchResultsContainer, 'search');
+    }
+
+    renderStatusCounts(counts) {
+        document.getElementById('count-watching').textContent = counts.watching;
+        document.getElementById('count-completed').textContent = counts.completed;
+        document.getElementById('count-plan').textContent = counts.plan_to_watch;
+        document.getElementById('count-total').textContent = counts.total;
     }
 
     /**
@@ -74,14 +144,31 @@ export default class UIController {
      * @param {Function} onDetailCallback
      */
     renderMyList(animeList, callbacks, onDetailCallback) {
+        // Ulož data a callbacky pro stránkování
+        this.myListData = animeList;
+        this.currentMyListCallbacks = callbacks;
+        this.currentMyListDetailCallback = onDetailCallback;
+        this.totalListItems = animeList.length;
+        this.currentListPage = 1;
+
+        this.renderMyListPage();
+    }
+
+    renderMyListPage() {
         this.myListContainer.innerHTML = '';
 
-        if (animeList.length === 0) {
+        if (this.myListData.length === 0) {
             this.myListContainer.innerHTML = '<p class="placeholder-text">Váš seznam je prázdný.</p>';
             return;
         }
 
-        animeList.forEach(anime => {
+        const startIndex = (this.currentListPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        const pageData = this.myListData.slice(startIndex, endIndex);
+
+        const fragment = document.createDocumentFragment();
+
+        pageData.forEach(anime => {
             // Prepare data for Mustache (handle logic outside template)
             const statusOptions = [
                 { value: 'watching', label: 'Sleduji', selected: anime.userStatus === 'watching' },
@@ -102,7 +189,7 @@ export default class UIController {
             const card = tempDiv.firstElementChild;
 
             // Click on Image or Title -> Details
-            const triggerDetail = () => onDetailCallback(anime.mal_id);
+            const triggerDetail = () => this.currentMyListDetailCallback(anime.mal_id);
             card.querySelector('.anime-img').addEventListener('click', triggerDetail);
             card.querySelector('h3').addEventListener('click', triggerDetail);
 
@@ -112,60 +199,116 @@ export default class UIController {
 
             statusSelect.addEventListener('change', (e) => {
                 const newStatus = e.target.value;
-                // Instant visual update
                 card.className = `anime-card status-${newStatus}`;
-
-                // Status -> Episodes
                 if (newStatus === 'completed' && anime.episodes !== '?') {
                     const maxEps = parseInt(anime.episodes);
                     if (!isNaN(maxEps)) {
                         episodesInput.value = maxEps;
-                        // Trigger update for episodes too
-                        callbacks.onUpdateEpisodes(anime.mal_id, maxEps);
+                        this.currentMyListCallbacks.onUpdateEpisodes(anime.mal_id, maxEps);
                     }
                 }
-
-                callbacks.onUpdateStatus(anime.mal_id, newStatus);
+                this.currentMyListCallbacks.onUpdateStatus(anime.mal_id, newStatus);
             });
 
             episodesInput.addEventListener('input', (e) => {
-                const newVal = parseInt(e.target.value);
-
-                callbacks.onUpdateEpisodes(anime.mal_id, newVal);
-
-                // Episodes -> Status
+                let newVal = parseInt(e.target.value);
+                if (isNaN(newVal) || newVal < 0) {
+                    newVal = 0;
+                }
                 if (anime.episodes !== '?') {
                     const maxEps = parseInt(anime.episodes);
-                    if (!isNaN(maxEps)) {
-                        if (newVal === maxEps && anime.userStatus !== 'completed') {
-                            // Completed logic
-                            statusSelect.value = 'completed';
-                            card.className = 'anime-card status-completed';
-                            callbacks.onUpdateStatus(anime.mal_id, 'completed');
-                        } else if (newVal === 0 && anime.userStatus !== 'plan_to_watch') {
-                            // 0 Episodes -> Plan to Watch
-                            statusSelect.value = 'plan_to_watch';
-                            card.className = 'anime-card status-plan_to_watch';
-                            callbacks.onUpdateStatus(anime.mal_id, 'plan_to_watch');
-                        } else if (newVal > 0 && newVal < maxEps && anime.userStatus !== 'watching') {
-                            // In-between -> Watching
-                            statusSelect.value = 'watching';
-                            card.className = 'anime-card status-watching';
-                            callbacks.onUpdateStatus(anime.mal_id, 'watching');
-                        }
+                    if (!isNaN(maxEps) && newVal > maxEps) {
+                        newVal = maxEps;
                     }
+                }
+                if (parseInt(e.target.value) !== newVal) {
+                    e.target.value = newVal;
+                }
+                this.currentMyListCallbacks.onUpdateEpisodes(anime.mal_id, newVal);
+
+                const maxEps = parseInt(anime.episodes);
+                if (newVal === maxEps && anime.userStatus !== 'completed') {
+                    statusSelect.value = 'completed';
+                    card.className = 'anime-card status-completed';
+                    this.currentMyListCallbacks.onUpdateStatus(anime.mal_id, 'completed');
+                } else if (newVal === 0 && anime.userStatus !== 'plan_to_watch') {
+                    statusSelect.value = 'plan_to_watch';
+                    card.className = 'anime-card status-plan_to_watch';
+                    this.currentMyListCallbacks.onUpdateStatus(anime.mal_id, 'plan_to_watch');
+                } else if (newVal > 0 && newVal < maxEps && anime.userStatus !== 'watching') {
+                    statusSelect.value = 'watching';
+                    card.className = 'anime-card status-watching';
+                    this.currentMyListCallbacks.onUpdateStatus(anime.mal_id, 'watching');
                 }
             });
 
             const removeBtn = card.querySelector('.remove-btn');
             removeBtn.addEventListener('click', () => {
-                if (confirm(`Opravdu chcete odstranit "${anime.title}" ze seznamu?`)) {
-                    callbacks.onRemove(anime.mal_id);
-                }
+                Swal.fire({
+                    title: 'Opravdu odstranit?',
+                    text: `Chcete odstranit "${anime.title}" ze seznamu?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ano, odstranit',
+                    cancelButtonText: 'Zrušit'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.currentMyListCallbacks.onRemove(anime.mal_id);
+                        Swal.fire(
+                            'Odstraněno!',
+                            'Anime bylo odebráno ze seznamu.',
+                            'success'
+                        );
+                    }
+                });
             });
 
-            this.myListContainer.appendChild(card);
+            fragment.appendChild(card);
         });
+
+        this.myListContainer.appendChild(fragment);
+        this.appendPaginationControls(this.myListContainer, 'list');
+    }
+
+    appendPaginationControls(container, type) {
+        const totalPages = type === 'search'
+            ? Math.ceil(this.totalSearchResults / this.itemsPerPage)
+            : Math.ceil(this.totalListItems / this.itemsPerPage);
+
+        const currentPage = type === 'search' ? this.currentSearchPage : this.currentListPage;
+
+        if (totalPages <= 1) return;
+
+        const paginationDiv = document.createElement('div');
+        paginationDiv.className = 'pagination-controls';
+
+        if (currentPage > 1) {
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = 'Předchozí';
+            prevBtn.addEventListener('click', () => this.goToPage(currentPage - 1, type));
+            paginationDiv.appendChild(prevBtn);
+        }
+
+        if (currentPage < totalPages) {
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Další';
+            nextBtn.addEventListener('click', () => this.goToPage(currentPage + 1, type));
+            paginationDiv.appendChild(nextBtn);
+        }
+
+        container.appendChild(paginationDiv);
+    }
+
+    goToPage(pageNum, viewType) {
+        if (viewType === 'search') {
+            this.currentSearchPage = pageNum;
+            this.renderSearchPage(this.currentOnAdd, this.currentOnDetail);
+        } else {
+            this.currentListPage = pageNum;
+            this.renderMyListPage(this.currentOnRemove, this.currentOnStatusUpdate, this.currentOnEpisodeUpdate, this.currentOnDetail);
+        }
     }
 
     showLoading() {
@@ -177,7 +320,7 @@ export default class UIController {
     }
 
     showError(message) {
-        this.searchResultsContainer.innerHTML = `<p class="placeholder-text" style="color: red;">${message}</p>`;
+        this.searchResultsContainer.innerHTML = `<p class="placeholder-text error">${message}</p>`;
     }
 
     // Modal Methods
