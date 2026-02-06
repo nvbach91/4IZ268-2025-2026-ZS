@@ -73,7 +73,14 @@
 
 
                         <div class="section">
-                            <h3 class="section-title">Similar Artists</h3>
+                            <div class="section-header">
+                                <h3 class="section-title">Similar Artists</h3>
+                                <div class="pagination-controls hidden" id="paginationControls">
+                                    <button class="pagination-btn" id="prevPage">‹</button>
+                                    <span class="pagination-info" id="paginationInfo">1 / 1</span>
+                                    <button class="pagination-btn" id="nextPage">›</button>
+                                </div>
+                            </div>
                             <div class="related-artists" id="relatedArtists"></div>
                         </div>
 
@@ -113,9 +120,21 @@
         </aside>
     </div>
 
+    <div class="modal-overlay hidden" id="confirmModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Remove Artist?</h3>
+            <p class="modal-message">Are you sure you want to remove this artist from your findings?</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="modalCancel">No</button>
+                <button class="modal-btn modal-btn-confirm" id="modalConfirm">Yes</button>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+
 </body>
 
 </html>

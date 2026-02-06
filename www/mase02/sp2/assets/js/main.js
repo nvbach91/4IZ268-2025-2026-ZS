@@ -1,4 +1,3 @@
-
 const SPOTIFY_CONFIG = {
     CLIENT_ID: '6c005113c81049858804d46cc4d92bc8',
     CLIENT_SECRET: '3cd2a5b71bf04551995371250af75915',
@@ -9,6 +8,9 @@ const SPOTIFY_CONFIG = {
 
 let accessToken = null;
 let currentArtist = null;
+let allRelatedArtists = [];
+let currentPage = 1;
+const artistsPerPage = 6;
 
 
 const discoverBtn = $('#discoverBtn');
@@ -22,6 +24,15 @@ const findingsList = $('#findingsList');
 const findingsCount = $('#findingsCount');
 const saveBtn = $('#saveBtn');
 const discoverAnotherBtn = $('#discoverAnotherBtn');
+const confirmModal = $('#confirmModal');
+const modalCancel = $('#modalCancel');
+const modalConfirm = $('#modalConfirm');
+const paginationControls = $('#paginationControls');
+const prevPageBtn = $('#prevPage');
+const nextPageBtn = $('#nextPage');
+const paginationInfo = $('#paginationInfo');
+
+let artistToRemove = null;
 
 
 $(document).ready(() => {
@@ -38,6 +49,10 @@ async function initializeApp() {
     findingsToggle.on('click', toggleFindingsPanel);
     closeFindings.on('click', toggleFindingsPanel);
     saveBtn.on('click', saveCurrentArtist);
+    modalCancel.on('click', closeModal);
+    modalConfirm.on('click', confirmRemove);
+    prevPageBtn.on('click', goToPrevPage);
+    nextPageBtn.on('click', goToNextPage);
 
     displayFindings();
 }
@@ -203,16 +218,17 @@ async function getTopTracks(artistId) {
 
 // getting similar artists (random artists in the same genre)
 async function getArtistsInSameGenres(artistGenres) {
-    // if no genre available, then some random artists
     if (!artistGenres || artistGenres.length === 0) {
-        const randomArtists = [];
-        for (let i = 0; i < 6; i++) {
+        
+        const artistPromises = Array.from({ length: 30 }, async () => {
             const artistId = await getRandomArtist();
-            const artistData = await getArtistData(artistId);
-            randomArtists.push(artistData);
-        }
-        return randomArtists;
+            return getArtistData(artistId);
+        });
+        return Promise.all(artistPromises);
     }
+    
+
+
 
     // using first genre and random offset
     const genre = artistGenres[0];
@@ -228,13 +244,13 @@ async function getArtistsInSameGenres(artistGenres) {
         }
     });
 
-    // filtering valid artists and taking 6 random
+    // filtering valid artists and taking 30 random
     const validArtists = response.data.artists.items.filter(a =>
         a.images && a.images.length > 0
     );
 
     const shuffled = validArtists.sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 6);
+    return shuffled.slice(0, 30);
 }
 
 
@@ -251,78 +267,46 @@ function displayArtist(artist) {
     const genresContainer = $('#genres');
     genresContainer.empty();
     if (artist.genres.length > 0) {
-        artist.genres.forEach(genre => {
-            genresContainer.append(`<span class="genre-tag">${genre}</span>`);
-        });
+        const genreTags = artist.genres.map(genre => 
+            `<span class="genre-tag">${genre}</span>`
+        ).join('');
+        genresContainer.html(genreTags);
     } else {
-        genresContainer.append('<span class="genre-tag">No genre data</span>');
+        genresContainer.html('<span class="genre-tag">No genre data</span>');
     }
 
     const tracksList = $('#tracksList');
     tracksList.empty();
-    artist.topTracks.forEach((track, index) => {
-        const trackItem = $(`
+    
+    const tracksHTML = artist.topTracks.map((track, index) => {
+        // converting duration of tracks from ms to mm:ss
+        const minutes = Math.floor(track.duration_ms / 60000);
+        const seconds = Math.floor((track.duration_ms % 60000) / 1000);
+        const duration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        return `
             <div class="track-item">
                 <span class="track-number">${index + 1}</span>
                 <div class="track-info">
                     <div class="track-name">${track.name}</div>
                     <div class="track-album">${track.album.name}</div>
-                </div> 
-            </div>
-        `);
-        tracksList.append(trackItem);
-    });
-
-
-    const relatedArtistsContainer = $('#relatedArtists');
-    relatedArtistsContainer.empty();
-
-    if (artist.relatedArtists.length === 0) {
-        relatedArtistsContainer.append('<p style="color: #b4b4b4; padding: 1rem;">No related artists available for this artist.</p>');
-    } else {
-        artist.relatedArtists.forEach(relatedArtist => {
-            const artistCard = $(`
-                <div class="related-artist" data-artist-id="${relatedArtist.id}">
-                    <img src="${relatedArtist.images[0].url}" alt="${relatedArtist.name}" class="related-artist-image">
-                    <div class="related-artist-name">${relatedArtist.name}</div>
                 </div>
-            `);
-            relatedArtistsContainer.append(artistCard);
-        });
-
-        // clicking on similar artists and going to their page
-        $('.related-artist').on('click', async function () {
-            const artistId = $(this).data('artist-id');
-            loadingState.removeClass('hidden');
-            artistDisplay.addClass('hidden');
-
-            try {
-                const [artistData, topTracks] = await Promise.all([
-                    getArtistData(artistId),
-                    getTopTracks(artistId)
-                ]);
+                <span class="track-duration">${duration}</span>
+                <a href="${track.external_urls.spotify}" target="_blank" class="track-spotify-link" title="Open in Spotify">
+                    <img src="assets/images/spotify_logo.webp" alt="Spotify" class="spotify-icon">
+                </a>
+            </div>
+        `;
+    }).join('');
+    
+    tracksList.html(tracksHTML);
 
 
-                const similarArtists = await getArtistsInSameGenres(artistData.genres);
+    // paginations
+    allRelatedArtists = artist.relatedArtists;
+    currentPage = 1;
 
-                currentArtist = {
-                    id: artistData.id,
-                    name: artistData.name,
-                    image: artistData.images[0]?.url || '',
-                    genres: artistData.genres,
-                    popularity: artistData.popularity,
-                    topTracks: topTracks,
-                    relatedArtists: similarArtists
-                };
-
-                displayArtist(currentArtist);
-            } catch (error) {
-                showError('Failed to load artist.');
-                loadingState.addClass('hidden');
-                artistDisplay.removeClass('hidden');
-            }
-        });
-    }
+    displayRelatedArtists();
 
 
     updateSaveButton();
@@ -343,7 +327,15 @@ function saveCurrentArtist() {
     // preventing duplicates
     if (findings.some(f => f.id === currentArtist.id)) return;
 
-    findings.push(currentArtist);
+    // limit data in local storage
+    const minimalArtist = {
+        id: currentArtist.id,
+        name: currentArtist.name,
+        image: currentArtist.image,
+        genres: currentArtist.genres
+    };
+
+    findings.push(minimalArtist);
     localStorage.setItem('artistFindings', JSON.stringify(findings));
 
     updateSaveButton();
@@ -390,25 +382,90 @@ function displayFindings() {
         return;
     }
 
-    findings.forEach(artist => {
-        const findingItem = $(`
-            <div class="finding-item">
-                <img src="${artist.image}" alt="${artist.name}" class="finding-image">
-                <div class="finding-info">
-                    <div class="finding-name">${artist.name}</div>
-                    <div class="finding-genres">${artist.genres.slice(0, 2).join(', ') || 'No genre'}</div>
-                </div>
-                <button class="remove-finding" data-artist-id="${artist.id}">Remove</button>
+    
+    const findingsHTML = findings.map(artist => `
+        <div class="finding-item" data-artist-id="${artist.id}">
+            <img src="${artist.image}" alt="${artist.name}" class="finding-image">
+            <div class="finding-info">
+                <div class="finding-name">${artist.name}</div>
+                <div class="finding-genres">${artist.genres.slice(0, 2).join(', ') || 'No genre'}</div>
             </div>
-        `);
-        container.append(findingItem);
+            <button class="remove-finding" data-artist-id="${artist.id}">Remove</button>
+        </div>
+    `).join('');
+
+    
+    container.html(findingsHTML);
+
+    
+    $('.finding-item').on('click', async function (e) {
+    
+        if ($(e.target).hasClass('remove-finding')) {
+            return;
+        }
+
+        const artistId = $(this).data('artist-id');
+        
+        
+        findingsPanel.removeClass('active');
+        
+        // loading 
+        discoveryPrompt.addClass('hidden');
+        artistDisplay.addClass('hidden');
+        loadingState.removeClass('hidden');
+
+        try {
+            const [artistData, topTracks] = await Promise.all([
+                getArtistData(artistId),
+                getTopTracks(artistId)
+            ]);
+
+            const similarArtists = await getArtistsInSameGenres(artistData.genres);
+
+            currentArtist = {
+                id: artistData.id,
+                name: artistData.name,
+                image: artistData.images[0]?.url || '',
+                genres: artistData.genres,
+                popularity: artistData.popularity,
+                topTracks: topTracks,
+                relatedArtists: similarArtists
+            };
+
+            displayArtist(currentArtist);
+        } catch (error) {
+            showError('Failed to load artist.');
+            loadingState.addClass('hidden');
+            discoveryPrompt.removeClass('hidden');
+        }
     });
 
-    // remove functionality
-    $('.remove-finding').on('click', function () {
+    // removing finding
+    $('.remove-finding').on('click', function (e) {
+        e.stopPropagation(); 
         const artistId = $(this).data('artist-id');
-        removeFromFindings(artistId);
+        showRemoveConfirmation(artistId);
     });
+}
+
+// showing remove confirmation
+function showRemoveConfirmation(artistId) {
+    artistToRemove = artistId;
+    confirmModal.removeClass('hidden');
+}
+
+// closing modal
+function closeModal() {
+    artistToRemove = null;
+    confirmModal.addClass('hidden');
+}
+
+// confirming remove
+function confirmRemove() {
+    if (artistToRemove) {
+        removeFromFindings(artistToRemove);
+        closeModal();
+    }
 }
 
 // removing from findings
@@ -422,4 +479,89 @@ function removeFromFindings(artistId) {
     updateSaveButton();
 }
 
+// displaying similar artists with pagination
+function displayRelatedArtists() {
+    const relatedArtistsContainer = $('#relatedArtists');
+    relatedArtistsContainer.empty();
 
+    if (allRelatedArtists.length === 0) {
+        relatedArtistsContainer.html('<p style="color: #b4b4b4; padding: 1rem;">No related artists available for this artist.</p>');
+        paginationControls.addClass('hidden');
+        return;
+    }
+
+  
+    const totalPages = Math.ceil(allRelatedArtists.length / artistsPerPage);
+    const startIndex = (currentPage - 1) * artistsPerPage;
+    const endIndex = startIndex + artistsPerPage;
+    const artistsToShow = allRelatedArtists.slice(startIndex, endIndex);
+
+    
+    const artistsHTML = artistsToShow.map(relatedArtist => `
+        <div class="related-artist" data-artist-id="${relatedArtist.id}">
+            <img src="${relatedArtist.images[0].url}" alt="${relatedArtist.name}" class="related-artist-image">
+            <div class="related-artist-name">${relatedArtist.name}</div>
+        </div>
+    `).join('');
+
+    
+    relatedArtistsContainer.html(artistsHTML);
+
+    // clicking on similar artists and going to their page
+    $('.related-artist').on('click', async function () {
+        const artistId = $(this).data('artist-id');
+        loadingState.removeClass('hidden');
+        artistDisplay.addClass('hidden');
+
+        try {
+            const [artistData, topTracks] = await Promise.all([
+                getArtistData(artistId),
+                getTopTracks(artistId)
+            ]);
+
+            const similarArtists = await getArtistsInSameGenres(artistData.genres);
+
+            currentArtist = {
+                id: artistData.id,
+                name: artistData.name,
+                image: artistData.images[0]?.url || '',
+                genres: artistData.genres,
+                popularity: artistData.popularity,
+                topTracks: topTracks,
+                relatedArtists: similarArtists
+            };
+
+            displayArtist(currentArtist);
+        } catch (error) {
+            showError('Failed to load artist.');
+            loadingState.addClass('hidden');
+            artistDisplay.removeClass('hidden');
+        }
+    });
+
+    // pagination
+    if (totalPages > 1) {
+        paginationControls.removeClass('hidden');
+        paginationInfo.text(`${currentPage} / ${totalPages}`);
+        prevPageBtn.prop('disabled', currentPage === 1);
+        nextPageBtn.prop('disabled', currentPage === totalPages);
+    } else {
+        paginationControls.addClass('hidden');
+    }
+}
+
+
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayRelatedArtists();
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(allRelatedArtists.length / artistsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayRelatedArtists();
+    }
+}
