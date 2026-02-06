@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Úkolníček</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="4IZ268, javascript, school project">
+    <meta name="author" content="Filip Johanis">
+    <meta name="description"
+        content="Úkolníček s cloudovým úložištěm. Aplikace umožňuje vytvářet, ukládat, upravovat a mazat úkoly. Úkoly se dají vytvářet a upravovat přes formulář. Data se ukládají v localStorage a google sheets přes REST API">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+        <h1 id="h1" class="text-center mb-4">Úkolníček</h1>
+
+        <div class="google-buttons m-2">
+            <h4>Tady se můžete přihlásit nebo odhlásit přes google</h4>
+            <div class="container google-buttons-container">
+                <button class="btn btn-primary" id="authorize_button">Přihlásit</button>
+                <button class="btn btn-primary" id="signout_button">Odhlásit</button>
+                <button class="btn btn-secondary" id="refresh-button">Načíst úkoly znovu</button>
+            </div>
+            <div class="google-alert-success alert alert-success bg-success">
+                <p>Jste přihlášený!</p>
+            </div>
+            <div class="google-alert-fail alert alert-danger bg-danger">
+                <p>Nejste přihlášený!</p>
+            </div>
+        </div>
+
+        <div class="pridatUkolDiv m-2">
+            <button id="show-form-button-top" class="pridat-task-btn m-1 btn btn-primary">Přidat úkol</button>
+            <button id="load-from-local-storage-btn" class="m-1 btn btn-secondary">Zkouknout úkoly uložené
+                minule</button>
+        </div>
+
+        <main class="tasklist">
+            <article>
+                <p>Tady se zobrazí vaše úkoly.</p>
+            </article>
+        </main>
+
+        <div class="pridatUkolDiv m-2">
+            <button id="show-form-button-bottom" class="pridat-task-btn m-1 btn btn-primary">Přidat úkol</button>
+        </div>
+
+        <div id="backdrop"></div>
+        <form id="add-form" class="mb-4">
+            <div id="form-heading" class="mb-3">
+                <h2>Přidání úkolu</h2>
+            </div>
+            
+            <div class="mb-3">
+                <label for="taskTitle" class="form-label">Název úkolu</label>
+                <input name="name" type="text" id="taskTitle" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="taskTime" class="form-label">Čas</label>
+                <input name="time" type="datetime-local" id="taskTime" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="taskPlace" class="form-label">Místo</label>
+                <input name="place" type="text" id="taskPlace" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="taskCategory" class="form-label">Kategorie</label>
+                <select name="category" id="taskCategory" class="form-select">
+                    <option value="">Vyberte kategorii</option>
+                    <option value="Práce">Práce</option>
+                    <option value="Škola">Škola</option>
+                    <option value="Osobní">Osobní</option>
+                    <option value="Jiné">Jiné</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="taskDesc" class="form-label">Popis úkolu</label>
+                <textarea name="description" id="taskDesc" class="form-control"></textarea>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary m-1">Uložit úkol</button>
+                <button id="hide-form-button" type="button" class="btn btn-danger m-1">Zavřít editování</button>
+                <button type="reset" class="btn btn-warning m-1">Vymazat hodnoty</button>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
+</body>
+
+</html>

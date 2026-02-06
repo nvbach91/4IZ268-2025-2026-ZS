@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
+
+.google-buttons {
+    border: solid black 2px;
+    padding: 4px;
+    max-width: 600px;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-buttons-container {
+    width: fit-content;
+}
+
+#signout_button {
+    display: none;
+}
+
+#refresh-button {
+    display: none;
+}
+
+.google-alert-success {
+    display: none;
+    text-align: center;
+    margin-top: 4px;
+    max-height: 55px;
+}
+
+.google-alert-fail {
+    text-align: center;
+    margin-top: 4px;
+    max-height: 55px;
+}
+
+
+
+#load-from-local-storage-btn {
+    display: none;
+}
+
+
+.pridatUkolDiv {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+.tasklist {
+    min-height: 150px;
+    min-width: 150px;
+    border: 2px black;
+    border-style: dashed;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.task {
+    text-align: center;
+    width: fit-content;
+    margin: 7px;
+    border: black 2px solid;
+}
+
+.task p {
+    margin-bottom: 0;
+    border-top: grey 1px solid;
+}
+
+.task-popis {
+    max-width: 250px;
+}
+
+#backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 9998;
+}
+
+
+.form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-form {
+    display: none;
+    background-color: blanchedalmond;
+    padding: 5%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+#form-heading {
+    display: flex;
+    justify-content: center;
+}
+
+.spinner {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 20px solid cadetblue;
+    border-top-color: transparent;
+    animation: spinning 1s linear infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
